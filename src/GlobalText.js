@@ -1,0 +1,53 @@
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo-hooks";
+
+const QUERY = gql`
+  {
+    language @client
+  }
+`;
+
+const COMPANY_NAME = "냥이특별시";
+
+export default () => {
+  const {
+    data: { language }
+  } = useQuery(QUERY);
+  if (language === "kr") {
+    return {
+      text_login: "로그인",
+      text_join: "회원가입",
+      text_mypage: "마이페이지",
+      text_id: "아이디",
+      text_pw: "비밀번호",
+      text_pw_confirm: "비밀번호 확인",
+      text_email: "이메일",
+      text_address: "주소",
+      text_phone_num: "휴대폰번호",
+      text_name: "이름",
+      text_username: "닉네임",
+      text_cancel: "취소",
+      text_join_title: `${COMPANY_NAME} 서비스 이용 동의`,
+      text_join_subTitle: "회원가입시 개인정보 수집 및 이용 동의가 필요합니다.",
+      text_join_all_agree: "전체 동의",
+      text_join_1_agree: `(주) ${COMPANY_NAME} 개인정보 수집 및 이용동의 (필수)`,
+      text_join_2_agree: `${COMPANY_NAME} 이용약관 (필수)`,
+      text_join_3_agree: "마케팅 활용 및 광고 정보 수신 동의 (선택)",
+      text_join_detail: "자세히 보기",
+      text_agree: "동의",
+      text_email_error: "이메일 주소를 다시 확인해주세요.",
+      text_id_error:
+        "5~20자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.",
+      text_pw_error: "8~15자의 영문 대 소문자, 숫자, 특수문자를 사용하세요. "
+    };
+  } else if (language === "en") {
+    return {
+      text_login: "LOGIN",
+      text_join: "JOIN",
+      text_mypage: "MYPAGE",
+      text_id: "ID",
+      text_pw: "PASSWORD",
+      text_join_all_agree: "전체 동의"
+    };
+  }
+};
