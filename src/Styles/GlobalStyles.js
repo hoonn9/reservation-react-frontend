@@ -8,5 +8,6 @@ export default createGlobalStyle`
     }
     body {
         background-color: ${props => props.theme.bgColor};
+        padding-top: 70px;
     }
 `;

@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import useInput from "../Hooks/useInput";
 import Input from "../Components/Input";
 import Button from "../Components/Button";
 import GlobalText from "../GlobalText";
 import { Logo } from "../Components/Icons";
-
+import { LOCAL_LOG_IN, LOGIN_USER } from "../SharedQueries";
+import { useMutation } from "react-apollo-hooks";
 const LoginContainer = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -50,11 +51,55 @@ const LoginLink = styled(Link)`
   color: ${props => props.theme.blackColor};
 `;
 
+const Text = styled.div`
+  font-size: 14px;
+  color: red;
+  margin-bottom: 8px;
+`;
+
 export default () => {
   const globalText = GlobalText();
-
+  const history = useHistory();
   const userId = useInput("");
   const userPw = useInput("");
+  const [msg, setMsg] = useState("");
+
+  const [loginUserMutation] = useMutation(LOGIN_USER, {
+    variables: {
+      userId: userId.value,
+      password: userPw.value
+    }
+  });
+  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
+
+  const onKeyPress = async event => {
+    const { which } = event;
+    if (which === 13) {
+      event.preventDefault();
+      handelLogin();
+    }
+  };
+
+  const handelLogin = async () => {
+    try {
+      const {
+        data: { loginUser: token }
+      } = await loginUserMutation();
+
+      if (token === "false") {
+        setMsg(globalText.text_login_pw_error);
+      } else if (token && token !== "false" && token !== undefined) {
+        setMsg("");
+        localLogInMutation({ variables: { token } });
+        window.location.reload(false);
+        history.history("/");
+      } else {
+        throw Error();
+      }
+    } catch (error) {
+      setMsg(globalText.text_login_error);
+    }
+  };
 
   return (
     <LoginContainer>
@@ -73,8 +118,10 @@ export default () => {
           value={userPw.value}
           placeholder={globalText.text_pw}
           type="password"
+          onKeyPress={onKeyPress}
         />
-        <LoginButton text={globalText.text_login} onClick={() => null} />
+        <Text>{msg}</Text>
+        <LoginButton text={globalText.text_login} onClick={handelLogin} />
         <JoinWrapper>
           <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
           <LoginLink to="/">{"아이디 찾기"}</LoginLink>

@@ -19,7 +19,8 @@ const Input = ({
   onChange,
   type,
   className,
-  onBlur
+  onBlur,
+  onKeyPress
 }) => {
   return (
     <Container
@@ -30,6 +31,7 @@ const Input = ({
       onChange={onChange}
       type={type}
       onBlur={onBlur}
+      onKeyPress={onKeyPress}
     />
   );
 };

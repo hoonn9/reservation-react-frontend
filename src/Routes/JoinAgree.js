@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useInput from "../Hooks/useInput";
 import useCheckbox from "../Hooks/useCheckbox";
@@ -64,6 +64,21 @@ const SubTitle = styled.div`
 const AgreeButton = styled.button`
   width: 100%;
   height: 45px;
+  outline: 0;
+  border: 0;
+  border-radius: ${props => props.theme.borderRadius};
+  color: white;
+  font-weight: 600;
+  margin-top: 48px;
+  background-color: ${props => props.theme.liteGreyColor};
+  text-align: center;
+  font-size: 14px;
+`;
+
+const AgreeActiveButton = styled.button`
+  width: 100%;
+  height: 45px;
+  outline: 0;
   border: 0;
   border-radius: ${props => props.theme.borderRadius};
   color: white;
@@ -73,6 +88,13 @@ const AgreeButton = styled.button`
   text-align: center;
   font-size: 14px;
   cursor: pointer;
+`;
+
+const Msg = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 27px;
+  color: red;
 `;
 
 export default () => {
@@ -87,7 +109,6 @@ export default () => {
     const {
       target: { name, checked }
     } = e;
-    console.log(name, checked);
     if (name === "allCheck") {
       if (checked) {
         allCheck.setChecked(true);
@@ -108,7 +129,6 @@ export default () => {
       checked ? check3.setChecked(true) : check3.setChecked(false);
     }
   };
-
   return (
     <Container>
       <Wrapper>
@@ -151,16 +171,20 @@ export default () => {
           />
           <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
         </CheckboxWrapper>
-        <Link
-          to={{
-            pathname: "/join",
-            state: {
-              isAgree: check3.checked
-            }
-          }}
-        >
+        {check1.checked && check2.checked ? (
+          <Link
+            to={{
+              pathname: "/join",
+              state: {
+                isAgree: check3.checked
+              }
+            }}
+          >
+            <AgreeActiveButton>{globalText.text_agree}</AgreeActiveButton>
+          </Link>
+        ) : (
           <AgreeButton>{globalText.text_agree}</AgreeButton>
-        </Link>
+        )}
       </Wrapper>
     </Container>
   );

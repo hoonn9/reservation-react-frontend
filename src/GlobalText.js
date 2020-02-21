@@ -1,21 +1,14 @@
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
 
-const QUERY = gql`
-  {
-    language @client
-  }
-`;
-
 const COMPANY_NAME = "냥이특별시";
 
 export default () => {
-  const {
-    data: { language }
-  } = useQuery(QUERY);
+  const language = "kr";
   if (language === "kr") {
     return {
       text_login: "로그인",
+      text_logout: "로그아웃",
       text_join: "회원가입",
       text_mypage: "마이페이지",
       text_id: "아이디",
@@ -38,7 +31,12 @@ export default () => {
       text_email_error: "이메일 주소를 다시 확인해주세요.",
       text_id_error:
         "5~20자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.",
-      text_pw_error: "8~15자의 영문 대 소문자, 숫자, 특수문자를 사용하세요. "
+      text_pw_error: "8~15자의 영문 대 소문자, 숫자, 특수문자를 사용하세요. ",
+      text_phone_error: "휴대폰 번호를 다시 입력하세요.",
+      text_pwcf_error: "비밀번호가 일치하지 않습니다.",
+      text_login_pw_error: "비밀번호가 일치하지 않습니다.",
+      text_login_error:
+        "계정이 존재하지 않거나 입력한 정보가 일치하지 않습니다."
     };
   } else if (language === "en") {
     return {
