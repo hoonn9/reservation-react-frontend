@@ -11,6 +11,7 @@ export default () => {
       text_logout: "로그아웃",
       text_join: "회원가입",
       text_mypage: "마이페이지",
+      text_free_board: "자유게시판",
       text_id: "아이디",
       text_pw: "비밀번호",
       text_pw_confirm: "비밀번호 확인",
@@ -36,7 +37,12 @@ export default () => {
       text_pwcf_error: "비밀번호가 일치하지 않습니다.",
       text_login_pw_error: "비밀번호가 일치하지 않습니다.",
       text_login_error:
-        "계정이 존재하지 않거나 입력한 정보가 일치하지 않습니다."
+        "계정이 존재하지 않거나 입력한 정보가 일치하지 않습니다.",
+      text_board_header_no: "번호",
+      text_board_header_title: "제목",
+      text_board_header_name: "작성자",
+      text_board_header_views: "조회수",
+      text_board_header_date: "작성일"
     };
   } else if (language === "en") {
     return {

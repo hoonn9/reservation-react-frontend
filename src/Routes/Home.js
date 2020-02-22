@@ -54,7 +54,7 @@ export default () => {
               <TopImg key={index} src={img} showing={index === currentItem} />
             ))}
         </TopImgWrapper>
-        <Link to="/upload">글쓰기</Link>
+
         <div>home</div>
       </Wrapper>
     </Container>

@@ -56,7 +56,9 @@ export default ({ isLoggedIn }) => {
             <Logo />
           </HeaderLink>
         </HeaderColumn>
-        <HeaderColumn></HeaderColumn>
+        <HeaderColumn>
+          <HeaderLink to="/board">{globalText.text_free_board}</HeaderLink>
+        </HeaderColumn>
         <HeaderColumn>
           {isLoggedIn ? (
             <>
