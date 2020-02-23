@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { Logo } from "../../Components/Icons";
 import Input from "../../Components/Input";
+import Popup from "reactjs-popup";
 
 const Container = styled.div`
   width: 100%;
@@ -79,6 +80,8 @@ const JoinActiveButton = styled.button`
   cursor: pointer;
 `;
 
+const PopupContent = styled.div``;
+
 export default ({
   globalText,
   userId,
@@ -100,7 +103,11 @@ export default ({
   msgPwcf,
   msgPhone,
   msgEmail,
-  isDone
+  isDone,
+  isSuccess,
+  popupTrigger,
+  popupInit,
+  handleSuccess
 }) => {
   return (
     <>
@@ -154,7 +161,7 @@ export default ({
             onChange={userPhone.onChange}
             value={userPhone.value}
             onBlur={phoneBlur}
-            placeholder="' - ' 를 제외하고 입력 해주세요."
+            placeholder={globalText.text_join_phone_placeholder}
           />
           <Msg>{msgPhone}</Msg>
           <Text>{globalText.text_address}</Text>
@@ -177,6 +184,18 @@ export default ({
               </JoinButton>
             )}
           </JoinWrapper>
+          <Popup
+            open={popupTrigger}
+            modal
+            closeOnDocumentClick
+            onClose={isSuccess ? handleSuccess : popupInit}
+          >
+            <PopupContent>
+              {isSuccess
+                ? globalText.text_join_success
+                : globalText.text_join_error}{" "}
+            </PopupContent>
+          </Popup>
         </Wrapper>
       </Container>
     </>

@@ -1,6 +1,3 @@
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo-hooks";
-
 const COMPANY_NAME = "냥이특별시";
 
 export default () => {
@@ -28,6 +25,9 @@ export default () => {
       text_join_2_agree: `${COMPANY_NAME} 이용약관 (필수)`,
       text_join_3_agree: "마케팅 활용 및 광고 정보 수신 동의 (선택)",
       text_join_detail: "자세히 보기",
+      text_join_error: "가입에 실패하였습니다. 다시 시도하세요.",
+      text_join_success: "가입에 성공하였습니다. 로그인 하세요.",
+      text_join_phone_placeholder: "' - ' 를 제외하고 입력 해주세요.",
       text_agree: "동의",
       text_email_error: "이메일 주소를 다시 확인해주세요.",
       text_id_error:

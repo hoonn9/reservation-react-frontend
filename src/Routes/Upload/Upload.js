@@ -5,20 +5,26 @@ import Editor from "../../Components/Editor";
 import { UPLOAD_BOARD } from "./UploadQueries";
 import { useMutation } from "react-apollo-hooks";
 
-const Wrapper = styled.div``;
-const EditorWrapper = styled.div`
-  display: block;
-  width: 100%;
-  height: 80%;
-  border: ${props => props.theme.boxBorder};
-`;
 const Button = styled.button``;
 
 export default () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [testState, setTestState] = useState(EditorState.createEmpty());
-  const [imageArray, setImageArray] = useState([]);
+  const [imageArray] = useState([]);
   const [uploadMutation] = useMutation(UPLOAD_BOARD);
+
+  const handleLeavePage = e => {
+    e.preventDefault();
+    console.log("벗어남");
+    e.returnValue("정말 벗어나시겠습니까?");
+    return "정말 벗어나시겠습니까?";
+  };
+  useEffect(() => {
+    console.log("체크");
+    window.addEventListener("beforeunload", handleLeavePage);
+    window.onbeforeunload = handleLeavePage;
+  }, []);
+
   const handlePost = async () => {
     const testJson = JSON.stringify(
       convertToRaw(editorState.getCurrentContent())

@@ -1,15 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import GlobalText from "../../GlobalText";
 import JoinPresenter from "./JoinPresenter";
 import { useMutation } from "react-apollo-hooks";
 import { CREATE_ACCOUNT } from "./JoinQueries";
-import { LOCAL_LOG_IN } from "../../SharedQueries";
 
 const idRegex = /^[a-z]{1}[a-z0-9]{4,19}$/;
 const pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=-_]).*$/;
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/;
 const phoneRegex2 = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 const phoneConvertRegex = /^[0-9]{11}$/;
@@ -17,22 +16,31 @@ const phoneConvertRegex = /^[0-9]{11}$/;
 export default ({ location: { state } }) => {
   const globalText = GlobalText();
   let history = useHistory();
-  let isAgree = null;
+  // let isAgree = null;
+
+  // try {
+  //   isAgree = state.isAgree;
+  // } catch (e) {
+  //   history.push("/");
+  // }
+
   const [isDone, setIsDone] = useState(false);
 
-  const userId = useInput("");
+  const userId = useInput("asdef");
   const [msgId, setMsgId] = useState("");
-  const userPw = useInput("");
+  const userPw = useInput("asdf_1234");
   const [msgPw, setMsgPw] = useState("");
-  const userPwConfirm = useInput("");
+  const userPwConfirm = useInput("asdf_1234");
   const [msgPwcf, setMsgPwcf] = useState("");
-  const userName = useInput("");
-  const userEmail = useInput("");
+  const userName = useInput("테스트");
+  const userEmail = useInput("asd@naver.com");
   const [msgEmail, setMsgEmail] = useState("");
-  const userPhone = useInput("");
+  const userPhone = useInput("010-0000-0000");
   const [msgPhone, setMsgPhone] = useState("");
   const userAddress = useInput("");
 
+  const [popupTrigger, setPopupTrigger] = useState(false);
+  const [isSuccess, setIsSuccess] = useState("");
   const idBlur = () =>
     !idRegex.test(userId.value)
       ? setMsgId(globalText.text_id_error)
@@ -79,7 +87,7 @@ export default ({ location: { state } }) => {
     const { value: name } = userName;
     const { value: email } = userEmail;
     const { value: phone } = userPhone;
-    const { value: address } = userAddress;
+    //const { value: address } = userAddress;
 
     if (
       id === "" ||
@@ -104,8 +112,19 @@ export default ({ location: { state } }) => {
       } else {
         setIsDone(true);
         try {
-          const isOk = await createAccountMutation();
+          const {
+            data: { createAccount }
+          } = await createAccountMutation();
+          console.log(createAccount);
+          if (createAccount) {
+            setIsSuccess(true);
+            setPopupTrigger(true);
+          } else {
+          }
         } catch (e) {
+          //가입 실패 팝업 set
+          setIsSuccess(false);
+          setPopupTrigger(true);
           console.log(e);
         } finally {
         }
@@ -117,27 +136,35 @@ export default ({ location: { state } }) => {
     history.push("/joinagree");
   };
 
-  const joinRef = useRef();
+  const handleSuccess = () => {
+    history.push("/login");
+  };
+
+  const popupInit = () => {
+    setPopupTrigger(false);
+  };
+
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
-    try {
-      isAgree = state.isAgree;
-    } catch (e) {
-      history.push("/");
+    if (isOnline) {
+      if (
+        !idRegex.test(userId.value) ||
+        !pwRegex.test(userPw.value) ||
+        !emailRegex.test(userEmail.value) ||
+        userPwConfirm.value !== userPw.value ||
+        (!phoneRegex.test(userPhone.value) &&
+          !phoneRegex2.test(userPhone.value))
+      ) {
+        setIsDone(false);
+      } else {
+        setIsDone(true);
+      }
     }
-
-    if (
-      !idRegex.test(userId.value) ||
-      !pwRegex.test(userPw.value) ||
-      !emailRegex.test(userEmail.value) ||
-      userPwConfirm.value !== userPw.value ||
-      (!phoneRegex.test(userPhone.value) && !phoneRegex2.test(userPhone.value))
-    ) {
-      setIsDone(false);
-    } else {
-      setIsDone(true);
-    }
-  });
+    return () => {
+      setIsOnline(false);
+    };
+  }, [userId, userPw, userEmail, userPwConfirm, userPhone]);
 
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
     variables: {
@@ -150,7 +177,6 @@ export default ({ location: { state } }) => {
     }
   });
 
-  const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
   return (
     <JoinPresenter
       globalText={globalText}
@@ -174,6 +200,10 @@ export default ({ location: { state } }) => {
       msgPhone={msgPhone}
       msgEmail={msgEmail}
       isDone={isDone}
+      isSuccess={isSuccess}
+      popupTrigger={popupTrigger}
+      popupInit={popupInit}
+      handleSuccess={handleSuccess}
     ></JoinPresenter>
   );
 };

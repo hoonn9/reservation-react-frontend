@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 200vh;
   vertical-align: top;
 `;
 const Wrapper = styled.div``;
 const TopImgWrapper = styled.div`
   width: 100%;
-  height: 400px;
-  position: relative;
+  height: 100%;
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -19,7 +18,7 @@ const TopImgWrapper = styled.div`
 const TopImg = styled.img`
   max-width: 100%;
   width: 100%;
-  height: 400px;
+  height: 100%;
   position: absolute;
   top: 0;
   background-image: url(${props => props.src});
@@ -28,21 +27,27 @@ const TopImg = styled.img`
   opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
+const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
 export default () => {
-  const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
   const [currentItem, setCurrentItem] = useState(0);
 
-  const slide = () => {
-    const totalFiles = topImageArray.length;
-    if (currentItem === totalFiles - 1) {
-      setTimeout(() => setCurrentItem(0), 5000);
-    } else {
-      setTimeout(() => setCurrentItem(currentItem + 1), 5000);
-    }
-  };
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
+    var to;
+    const slide = () => {
+      const totalFiles = topImageArray.length;
+      if (currentItem === totalFiles - 1) {
+        to = setTimeout(() => setCurrentItem(0), 5000);
+      } else {
+        to = setTimeout(() => setCurrentItem(currentItem + 1), 5000);
+      }
+    };
+
     slide();
+    return () => {
+      clearTimeout(to);
+    };
   }, [currentItem]);
 
   return (

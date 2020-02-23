@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import React, { useState } from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
+import React from "react";
+import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
 
 const ME = gql`

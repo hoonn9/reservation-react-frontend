@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import {
-  EditorState,
-  Modifier,
-  draftToHtml,
-  convertToRaw,
-  convertFromRaw
-} from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";

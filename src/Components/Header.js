@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import GlobalText from "../GlobalText";
 import { Logo } from "./Icons";
 import { useMutation } from "react-apollo-hooks";
@@ -8,17 +8,36 @@ import { LOG_OUT } from "../SharedQueries";
 const Header = styled.header`
   width: 100%;
   position: fixed;
-  display: flex;
   align-items: center;
   top: 0;
   left: 0;
-  padding: 25px 0px;
-  background-color: ${props => props.theme.superLiteGreyColor};
+  z-index: 1;
+  height: 120px;
+`;
+
+const AnimationWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 120px;
+  background-color: ${props =>
+    props.hide ? props.theme.transparentColor : props.theme.whiteColor};
+  opacity: ${props => (props.hide ? 1 : 0)};
+  transition: opacity 2s linear;
+  transition: background-color 0.5s linear;
 `;
 
 const HeaderWrapper = styled.div`
   width: 100%;
+  height: 85px;
+  position: absolute;
   display: flex;
+  margin: ${props => (props.hide ? "32px 0px" : "0px")};
+  background-color: ${props =>
+    props.hide ? props.theme.transparentColor : props.theme.whiteColor};
+  transition: ${props => (props.hide ? "" : "background-color 0.5s linear")};
+
   justify-content: center;
   div:first-child {
     text-align: left;
@@ -30,6 +49,9 @@ const HeaderWrapper = styled.div`
 
 const HeaderColumn = styled.div`
   width: 33%;
+  height: 100%;
+  line-height: 85px;
+
   &:first-child {
     margin-left: auto;
   }
@@ -40,41 +62,91 @@ const HeaderColumn = styled.div`
 
 const HeaderLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.blackColor};
   font-size: 13px;
   margin-left: 16px;
+  margin-right: 16px;
+`;
+
+const MainMenuText = styled.span`
+  font-size: 16px;
+  color: ${props =>
+    props.hide ? props.theme.whiteColor : props.theme.blackColor};
+  font-weight: bold;
+`;
+
+const SubMenuText = styled.span`
+  font-size: 13px;
+  color: ${props =>
+    props.hide ? props.theme.whiteColor : props.theme.blackColor};
 `;
 
 export default ({ isLoggedIn }) => {
+  let { pathname } = useLocation();
   const globalText = GlobalText();
   const [logoutMutation] = useMutation(LOG_OUT);
+  const [hide, setHide] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { pageYOffset } = window;
+      if (pathname === "/") {
+        if (pageYOffset === 0) {
+          setHide(true);
+        } else {
+          setHide(false);
+        }
+      } else {
+        setHide(false);
+      }
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+  }, [pathname]);
+
   return (
-    <Header>
-      <HeaderWrapper>
-        <HeaderColumn>
-          <HeaderLink to="/">
-            <Logo />
-          </HeaderLink>
-        </HeaderColumn>
-        <HeaderColumn>
-          <HeaderLink to="/board">{globalText.text_free_board}</HeaderLink>
-        </HeaderColumn>
-        <HeaderColumn>
-          {isLoggedIn ? (
-            <>
-              <HeaderLink to="/" onClick={logoutMutation}>
-                {globalText.text_logout}
-              </HeaderLink>
-              <HeaderLink to="/mypage">{globalText.text_mypage}</HeaderLink>
-            </>
-          ) : (
-            <>
-              <HeaderLink to="/login">{globalText.text_login}</HeaderLink>
-              <HeaderLink to="/joinagree">{globalText.text_join}</HeaderLink>
-            </>
-          )}
-        </HeaderColumn>
-      </HeaderWrapper>
-    </Header>
+    <>
+      <Header>
+        <AnimationWrapper hide={hide} />
+        <HeaderWrapper hide={hide}>
+          <HeaderColumn>
+            <HeaderLink to="/">
+              <Logo />
+            </HeaderLink>
+          </HeaderColumn>
+          <HeaderColumn>
+            <HeaderLink to="/board">
+              <MainMenuText hide={hide}>
+                {globalText.text_free_board}
+              </MainMenuText>
+            </HeaderLink>
+          </HeaderColumn>
+          <HeaderColumn>
+            {isLoggedIn ? (
+              <>
+                <HeaderLink to="/" onClick={logoutMutation}>
+                  <SubMenuText hide={hide}>
+                    {globalText.text_logout}
+                  </SubMenuText>
+                </HeaderLink>
+                <HeaderLink to="/mypage">
+                  <SubMenuText hide={hide}>
+                    {globalText.text_mypage}
+                  </SubMenuText>
+                </HeaderLink>
+              </>
+            ) : (
+              <>
+                <HeaderLink to="/login">
+                  <SubMenuText hide={hide}>{globalText.text_login}</SubMenuText>
+                </HeaderLink>
+                <HeaderLink to="/joinagree">
+                  <SubMenuText hide={hide}>{globalText.text_join}</SubMenuText>
+                </HeaderLink>
+              </>
+            )}
+          </HeaderColumn>
+        </HeaderWrapper>
+      </Header>
+    </>
   );
 };

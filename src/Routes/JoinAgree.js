@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import useInput from "../Hooks/useInput";
 import useCheckbox from "../Hooks/useCheckbox";
 import GlobalText from "../GlobalText";
 import { Logo } from "../Components/Icons";
@@ -88,13 +87,6 @@ const AgreeActiveButton = styled.button`
   text-align: center;
   font-size: 14px;
   cursor: pointer;
-`;
-
-const Msg = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 27px;
-  color: red;
 `;
 
 export default () => {
