@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import Banner from "../Components/Banner/Banner";
 const Container = styled.div`
+  position: relative;
   width: 100%;
-  min-height: 200vh;
-  vertical-align: top;
 `;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: block;
+`;
 const TopImgWrapper = styled.div`
+  position: relative;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 784px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -52,15 +53,15 @@ export default () => {
 
   return (
     <Container>
-      <Wrapper>
-        <TopImgWrapper>
-          {topImageArray &&
-            topImageArray.map((img, index) => (
-              <TopImg key={index} src={img} showing={index === currentItem} />
-            ))}
-        </TopImgWrapper>
+      <TopImgWrapper>
+        {topImageArray &&
+          topImageArray.map((img, index) => (
+            <TopImg key={index} src={img} showing={index === currentItem} />
+          ))}
+      </TopImgWrapper>
 
-        <div>home</div>
+      <Wrapper>
+        <Banner />
       </Wrapper>
     </Container>
   );
