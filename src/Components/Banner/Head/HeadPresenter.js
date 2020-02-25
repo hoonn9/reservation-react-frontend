@@ -3,8 +3,10 @@ import styled from "styled-components";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 
 const Wrapper = styled.div`
-  max-width: 66%;
+  max-width: 75%;
   margin: 0 auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
 `;
 const TopWrapper = styled.div`
   position: relative;
@@ -12,7 +14,7 @@ const TopWrapper = styled.div`
 const Title = styled.div`
   display: inline-block;
   vertical-align: middle;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: bold;
   margin-right: 16px;
 `;
@@ -31,18 +33,31 @@ const TabColumn = styled.div`
   border: 1px solid #000000;
   padding: 8px;
   margin-left: 8px;
+  cursor: pointer;
 `;
-export default () => {
+export default ({ eventArray, setCurrentItem }) => {
   return (
     <Wrapper>
       <TopWrapper>
         <Title>EVENT</Title>
         <SubButton>
-          <AddBoxOutlinedIcon style={{ width: "42px", height: "42px" }} />
+          <AddBoxOutlinedIcon
+            style={{ width: "42px", height: "42px", verticalAlign: "middle" }}
+          />
         </SubButton>
         <TabWrapper>
-          {[...Array(3)].map((e, i) => {
-            return <TabColumn>{i}</TabColumn>;
+          {eventArray.map((event, i) => {
+            return (
+              <TabColumn
+                key={i}
+                onClick={() => {
+                  setCurrentItem(i);
+                  console.log(i);
+                }}
+              >
+                {event.eventType}
+              </TabColumn>
+            );
           })}
         </TabWrapper>
       </TopWrapper>

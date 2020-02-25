@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import BoardPresenter from "./BoardPresenter";
 import { useQuery } from "react-apollo-hooks";
-import { SEE_BOARD, SEE_BOARD_COUNT } from "./BoardQueries";
+import { SEE_BOARD_COUNT } from "./BoardQueries";
 import Page from "../../Components/Page";
-
-const getPage = () => {
-  const { data, loading } = Page({ type: "free", first: 3, skip: 0 });
-};
+import Loader from "../../Components/Loader";
+import GlobalText from "../../GlobalText";
+import ErrorAlert from "../../Components/ErrorAlert";
 
 export default () => {
+  const globalText = GlobalText();
   const pageSize = 10;
   const rangeSize = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,11 +35,13 @@ export default () => {
     //   listCount = countQuery.data.seeBoardCount;
     // }
     // console.log(listCount);
-    console.log(currentPage);
+    //console.log(currentPage);
   });
 
-  return pageQuery.loading || countQuery.loading ? (
-    <div>loading</div>
+  return pageQuery.error || countQuery.error ? (
+    <ErrorAlert text={globalText.text_network_error} />
+  ) : pageQuery.loading || countQuery.loading ? (
+    <Loader />
   ) : (
     <>
       <BoardPresenter
@@ -53,6 +55,7 @@ export default () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         pageSize={pageSize}
+        globalText={globalText}
       />
     </>
   );

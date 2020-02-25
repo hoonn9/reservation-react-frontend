@@ -8,7 +8,7 @@ import JoinAgree from "../Routes/JoinAgree";
 import MyPage from "../Routes/MyPage";
 import Upload from "../Routes/Upload/Upload";
 import Board from "../Routes/Board";
-
+import Detail from "../Routes/Post/Detail/Detail";
 const LoggedOutRoutes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
@@ -17,6 +17,8 @@ const LoggedOutRoutes = () => (
     <Route path="/joinagree" component={JoinAgree} />
     <Route path="/join" component={Join} />
     <Route path="/board" component={Board} />
+    <Route path="/upload" component={Login} />
+    <Route path="/post/:id" component={Detail} />
     <Redirect from="*" to="/" />
   </Switch>
 );
@@ -27,6 +29,7 @@ const LoggedInRoutes = () => (
     <Route path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />
+    <Route path="/post/:id" component={Detail} />
     <Redirect from="*" to="/" />
   </Switch>
 );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Theme from "../Styles/Theme";
 import GlobalStyles from "../Styles/GlobalStyles";
 import Header from "./Header";
@@ -28,7 +28,7 @@ export default () => {
     <ThemeProvider theme={Theme}>
       <>
         <GlobalStyles />
-        <Router>
+        <Router basename="/">
           <>
             <Header isLoggedIn={isLoggedIn} />
             <Wrapper>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Components/Banner/Banner";
+import { getSize } from "../Utils";
+
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -11,7 +13,7 @@ const Wrapper = styled.div`
 const TopImgWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 784px;
+  height: 1080px;
   display: flex;
   flex-direction: column;
   align-items: stretch;

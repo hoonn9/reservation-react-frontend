@@ -1,6 +1,8 @@
 import React from "react";
 import HeadPresenter from "./HeadPresenter";
 
-export default () => {
-  return <HeadPresenter />;
+export default ({ eventArray, setCurrentItem }) => {
+  return (
+    <HeadPresenter eventArray={eventArray} setCurrentItem={setCurrentItem} />
+  );
 };

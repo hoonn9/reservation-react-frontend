@@ -4,12 +4,43 @@ import styled from "styled-components";
 import Editor from "../../Components/Editor";
 import { UPLOAD_BOARD } from "./UploadQueries";
 import { useMutation } from "react-apollo-hooks";
+import useInput from "../../Hooks/useInput";
+import Input from "../../Components/Input";
+import GlobalText from "../../GlobalText";
 
-const Button = styled.button``;
+const Wrapper = styled.div`
+  margin-top: 120px;
+  padding: 32px;
+`;
+const TitleWrapper = styled.div`
+  margin-bottom: 16px;
+`;
+
+const Title = styled(Input)`
+  display: inline-block;
+  width: 50%;
+`;
+
+const TitleLabel = styled.div`
+  display: inline-block;
+  margin-right: 32px;
+  font-size: 15px;
+  font-weight: 500;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+`;
+const Button = styled.button`
+  padding: 8px;
+`;
 
 export default () => {
+  const globalText = GlobalText();
+  const uploadTitle = useInput("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [testState, setTestState] = useState(EditorState.createEmpty());
   const [imageArray] = useState([]);
   const [uploadMutation] = useMutation(UPLOAD_BOARD);
 
@@ -26,16 +57,15 @@ export default () => {
   }, []);
 
   const handlePost = async () => {
-    const testJson = JSON.stringify(
+    const postJson = JSON.stringify(
       convertToRaw(editorState.getCurrentContent())
     );
-    console.log(imageArray);
     try {
       const data = await uploadMutation({
         variables: {
           type: "free",
-          title: "testTitle",
-          content: testJson,
+          title: uploadTitle.value,
+          content: postJson,
           files: [...imageArray]
         }
       });
@@ -43,25 +73,28 @@ export default () => {
     } catch (e) {
       console.log(e);
     }
-    console.log(editorState);
-    console.log(testJson);
-    const testRaw = convertFromRaw(JSON.parse(testJson));
-    console.log(testRaw);
-    setTestState(EditorState.createWithContent(testRaw));
-    //console.log(testState);
+    const testRaw = convertFromRaw(JSON.parse(postJson));
   };
 
   return (
-    <>
+    <Wrapper>
+      <TitleWrapper>
+        <TitleLabel>{globalText.text_board_header_title}</TitleLabel>
+        <Title
+          value={uploadTitle.value}
+          onChange={uploadTitle.onChange}
+          placeholder={globalText.text_write_title_placeholder}
+        />
+      </TitleWrapper>
       <Editor
         handlePost={handlePost}
         editorState={editorState}
         setEditorState={setEditorState}
-        testState={testState}
-        setTestState={setTestState}
         imageArray={imageArray}
       />
-      <Button onClick={handlePost}>등록</Button>
-    </>
+      <ButtonWrapper>
+        <Button onClick={handlePost}>{globalText.text_regist}</Button>
+      </ButtonWrapper>
+    </Wrapper>
   );
 };

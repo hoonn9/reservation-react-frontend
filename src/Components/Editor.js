@@ -12,13 +12,7 @@ const EditorWrapper = styled.div`
   border: ${props => props.theme.boxBorder};
 `;
 
-export default ({
-  editorState,
-  setEditorState,
-  testState,
-  setTestState,
-  imageArray
-}) => {
+export default ({ editorState, setEditorState, imageArray }) => {
   const uploadCallback = file => {
     const formData = new FormData();
     formData.append("file", file);
@@ -62,9 +56,6 @@ export default ({
             locale: "ko"
           }}
         />
-      </EditorWrapper>
-      <EditorWrapper>
-        <Editor toolbarHidden editorState={testState} readOnly={true} />
       </EditorWrapper>
     </Wrapper>
   );

@@ -5,7 +5,6 @@ const Warpper = styled.tr`
   display: flex;
   width: 100%;
   padding: 16px 0px 16px 0px;
-  margin-top: 32px;
   border: ${props => props.theme.boardHeaderBorder};
   background-color: ${props => props.theme.superLiteGreyColor};
 `;
