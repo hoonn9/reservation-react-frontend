@@ -37,7 +37,10 @@ const Button = styled.button`
   padding: 8px;
 `;
 
-export default () => {
+export default ({ location }) => {
+  const {
+    state: { id: boardId }
+  } = location;
   const globalText = GlobalText();
   const uploadTitle = useInput("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -63,6 +66,7 @@ export default () => {
     try {
       const data = await uploadMutation({
         variables: {
+          boardId,
           type: "free",
           title: uploadTitle.value,
           content: postJson,

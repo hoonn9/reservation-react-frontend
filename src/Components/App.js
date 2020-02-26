@@ -8,6 +8,7 @@ import Theme from "../Styles/Theme";
 import GlobalStyles from "../Styles/GlobalStyles";
 import Header from "./Header";
 import Routes from "./Routes";
+import Footer from "./Footer";
 
 const QUERY = gql`
   {
@@ -33,6 +34,7 @@ export default () => {
             <Header isLoggedIn={isLoggedIn} />
             <Wrapper>
               <Routes isLoggedIn={isLoggedIn} />
+              <Footer />
             </Wrapper>
           </>
         </Router>

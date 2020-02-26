@@ -85,7 +85,6 @@ export default ({ isLoggedIn }) => {
   const globalText = GlobalText();
   const [logoutMutation] = useMutation(LOG_OUT);
   const [hide, setHide] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       const { pageYOffset } = window;
@@ -114,7 +113,14 @@ export default ({ isLoggedIn }) => {
             </HeaderLink>
           </HeaderColumn>
           <HeaderColumn>
-            <HeaderLink to="/board">
+            <HeaderLink
+              to={{
+                pathname: "/board/ck73bia6s01bh0a68pax471bu",
+                state: {
+                  id: "ck73bia6s01bh0a68pax471bu"
+                }
+              }}
+            >
               <MainMenuText hide={hide}>
                 {globalText.text_free_board}
               </MainMenuText>

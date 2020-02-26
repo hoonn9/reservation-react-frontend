@@ -53,7 +53,8 @@ export default ({
   currentPage,
   pageSize,
   listCount,
-  globalText
+  globalText,
+  boardId
 }) => {
   return (
     <Warpper>
@@ -75,7 +76,14 @@ export default ({
         </Table>
       </TableWarpper>
       <TabWrapper>
-        <Link to="/upload">
+        <Link
+          to={{
+            pathname: "/upload",
+            state: {
+              id: boardId
+            }
+          }}
+        >
           <WriteButton>{globalText.text_write}</WriteButton>
         </Link>
         {[...Array(rangeSize)].map((e, i) => {

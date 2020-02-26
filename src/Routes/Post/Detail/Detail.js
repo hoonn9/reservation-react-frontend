@@ -17,7 +17,8 @@ export default ({ location, history }) => {
   const { data, error, loading } = useQuery(SEE_FULL_POST, {
     variables: {
       id
-    }
+    },
+    fetchPolicy: "network-only"
   });
   return error ? (
     <ErrorAlert />

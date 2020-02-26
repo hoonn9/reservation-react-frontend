@@ -16,7 +16,7 @@ const LoggedOutRoutes = () => (
     <Route path="/login" component={Login} />
     <Route path="/joinagree" component={JoinAgree} />
     <Route path="/join" component={Join} />
-    <Route path="/board" component={Board} />
+    <Route path="/board/:id" component={Board} />
     <Route path="/upload" component={Login} />
     <Route path="/post/:id" component={Detail} />
     <Redirect from="*" to="/" />

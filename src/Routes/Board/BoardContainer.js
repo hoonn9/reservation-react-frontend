@@ -7,7 +7,10 @@ import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 
-export default () => {
+export default ({ location }) => {
+  const {
+    state: { id: boardId }
+  } = location;
   const globalText = GlobalText();
   const pageSize = 10;
   const rangeSize = 10;
@@ -20,11 +23,13 @@ export default () => {
 
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
+      boardId,
       type: "free"
     }
   });
 
   const pageQuery = Page({
+    boardId,
     type: "free",
     first: pageSize,
     skip: currentPage * pageSize
@@ -56,6 +61,7 @@ export default () => {
         setCurrentPage={setCurrentPage}
         pageSize={pageSize}
         globalText={globalText}
+        boardId={boardId}
       />
     </>
   );

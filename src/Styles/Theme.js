@@ -19,5 +19,6 @@ export default {
   whiteBox: `border:${BOX_BORDER};
               border-radius:${BORDER_RADIUS};
               background-color: white;
-              `
+              `,
+  footerBgColor: "#2B2B2B"
 };

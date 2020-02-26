@@ -17,3 +17,11 @@ export const LOGIN_USER = gql`
     loginUser(userId: $userId, password: $password)
   }
 `;
+
+export const BOARD_LIST = gql`
+  query {
+    seeBoardList {
+      id
+    }
+  }
+`;
