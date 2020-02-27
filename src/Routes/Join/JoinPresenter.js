@@ -3,6 +3,7 @@ import React from "react";
 import { Logo } from "../../Components/Icons";
 import Input from "../../Components/Input";
 import Popup from "reactjs-popup";
+import ReactLoading from "react-loading";
 
 const Container = styled.div`
   width: 100%;
@@ -10,6 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 120px;
 `;
 const Wrapper = styled.div`
   width: 33%;
@@ -107,7 +109,8 @@ export default ({
   isSuccess,
   popupTrigger,
   popupInit,
-  handleSuccess
+  handleSuccess,
+  btnActive
 }) => {
   return (
     <>
@@ -175,15 +178,35 @@ export default ({
               {globalText.text_cancel}
             </JoinActiveButton>
             {isDone ? (
-              <JoinActiveButton onClick={handleSignUp}>
-                {globalText.text_join}
-              </JoinActiveButton>
+              btnActive ? (
+                <JoinActiveButton onClick={handleSignUp}>
+                  {globalText.text_join}
+                </JoinActiveButton>
+              ) : (
+                <JoinActiveButton disabled>
+                  {globalText.text_join}
+                </JoinActiveButton>
+              )
             ) : (
-              <JoinButton onClick={() => null}>
+              <JoinButton onClick={() => null} disabled>
                 {globalText.text_join}
               </JoinButton>
             )}
           </JoinWrapper>
+
+          {!btnActive ? (
+            <JoinWrapper>
+              <ReactLoading
+                type="bubbles"
+                color="#000000"
+                height={"30px"}
+                width={"50px"}
+              />
+            </JoinWrapper>
+          ) : (
+            <div></div>
+          )}
+
           <Popup
             open={popupTrigger}
             modal

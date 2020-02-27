@@ -41,6 +41,7 @@ export default ({ location: { state } }) => {
 
   const [popupTrigger, setPopupTrigger] = useState(false);
   const [isSuccess, setIsSuccess] = useState("");
+  const [btnActive, setBtnActive] = useState(true);
   const idBlur = () =>
     !idRegex.test(userId.value)
       ? setMsgId(globalText.text_id_error)
@@ -110,6 +111,7 @@ export default ({ location: { state } }) => {
         setIsDone(false);
         return false;
       } else {
+        setBtnActive(false);
         setIsDone(true);
         try {
           const {
@@ -124,6 +126,7 @@ export default ({ location: { state } }) => {
         } catch (e) {
           //가입 실패 팝업 set
           setIsSuccess(false);
+          setBtnActive(true);
           setPopupTrigger(true);
           console.log(e);
         } finally {
@@ -204,6 +207,7 @@ export default ({ location: { state } }) => {
       popupTrigger={popupTrigger}
       popupInit={popupInit}
       handleSuccess={handleSuccess}
+      btnActive={btnActive}
     ></JoinPresenter>
   );
 };
