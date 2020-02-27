@@ -108,9 +108,9 @@ export default () => {
           </FooterLogo>
           <InfoListWrapper>
             <InfoList>
-              {linkArray.map(link => {
+              {linkArray.map((link, i) => {
                 return (
-                  <InfoListItem>
+                  <InfoListItem key={i}>
                     <InfoLink to={link.to}>{link.name}</InfoLink>
                   </InfoListItem>
                 );

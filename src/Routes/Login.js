@@ -8,6 +8,8 @@ import GlobalText from "../GlobalText";
 import { Logo } from "../Components/Icons";
 import { LOCAL_LOG_IN, LOGIN_USER } from "../SharedQueries";
 import { useMutation } from "react-apollo-hooks";
+import ReactLoading from "react-loading";
+
 const LoginContainer = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -30,14 +32,7 @@ const LoginButton = styled(Button)`
   display: block;
 `;
 
-const LogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-`;
-
-const JoinWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +58,7 @@ export default () => {
   const userId = useInput("");
   const userPw = useInput("");
   const [msg, setMsg] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [loginUserMutation] = useMutation(LOGIN_USER, {
     variables: {
       userId: userId.value,
@@ -82,31 +77,35 @@ export default () => {
 
   const handelLogin = async () => {
     try {
+      setLoading(true);
       const {
         data: { loginUser: token }
       } = await loginUserMutation();
 
       if (token === "false") {
         setMsg(globalText.text_login_pw_error);
+        setLoading(false);
       } else if (token && token !== "false" && token !== undefined) {
         setMsg("");
         localLogInMutation({ variables: { token } });
         window.location.reload(false);
         history.history("/");
       } else {
+        setLoading(false);
         throw Error();
       }
     } catch (error) {
       setMsg(globalText.text_login_error);
+      setLoading(false);
     }
   };
 
   return (
     <LoginContainer>
       <LoginWrapper>
-        <LogoWrapper>
+        <Wrapper>
           <Logo size={50} />
-        </LogoWrapper>
+        </Wrapper>
 
         <LoginInput
           onChange={userId.onChange}
@@ -121,12 +120,29 @@ export default () => {
           onKeyPress={onKeyPress}
         />
         <Text>{msg}</Text>
-        <LoginButton text={globalText.text_login} onClick={handelLogin} />
-        <JoinWrapper>
+        {loading ? (
+          <LoginButton text={globalText.text_login} disabled />
+        ) : (
+          <LoginButton text={globalText.text_login} onClick={handelLogin} />
+        )}
+
+        <Wrapper>
+          {loading ? (
+            <ReactLoading
+              type="bubbles"
+              color="#000000"
+              height={"30px"}
+              width={"50px"}
+            />
+          ) : (
+            <div></div>
+          )}
+        </Wrapper>
+        <Wrapper>
           <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
           <LoginLink to="/">{"아이디 찾기"}</LoginLink>
           <LoginLink to="/">{"비밀번호 찾기"}</LoginLink>
-        </JoinWrapper>
+        </Wrapper>
       </LoginWrapper>
     </LoginContainer>
   );
