@@ -43,26 +43,30 @@ export default ({ location }) => {
     //console.log(currentPage);
   });
 
-  return pageQuery.error || countQuery.error ? (
-    <ErrorAlert text={globalText.text_network_error} />
-  ) : pageQuery.loading || countQuery.loading ? (
-    <Loader />
-  ) : (
-    <>
-      <BoardPresenter
-        data={pageQuery.data}
-        rangeSize={
-          countQuery.data.seeBoardCount % pageSize === 0
-            ? Math.floor(countQuery.data.seeBoardCount / pageSize)
-            : Math.floor(countQuery.data.seeBoardCount / pageSize + 1)
-        }
-        listCount={countQuery.data.seeBoardCount}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        globalText={globalText}
-        boardId={boardId}
-      />
-    </>
+  return (
+    <div className="body-content">
+      {pageQuery.error || countQuery.error ? (
+        <ErrorAlert text={globalText.text_network_error} />
+      ) : pageQuery.loading || countQuery.loading ? (
+        <Loader />
+      ) : (
+        <>
+          <BoardPresenter
+            data={pageQuery.data}
+            rangeSize={
+              countQuery.data.seeBoardCount % pageSize === 0
+                ? Math.floor(countQuery.data.seeBoardCount / pageSize)
+                : Math.floor(countQuery.data.seeBoardCount / pageSize + 1)
+            }
+            listCount={countQuery.data.seeBoardCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            globalText={globalText}
+            boardId={boardId}
+          />
+        </>
+      )}
+    </div>
   );
 };

@@ -115,9 +115,9 @@ export default ({ isLoggedIn }) => {
           <HeaderColumn>
             <HeaderLink
               to={{
-                pathname: "/board/ck73bia6s01bh0a68pax471bu",
+                pathname: "/board/ck74d5iiz001b0734kmyiwdb7",
                 state: {
-                  id: "ck73bia6s01bh0a68pax471bu"
+                  id: "ck74d5iiz001b0734kmyiwdb7"
                 }
               }}
             >

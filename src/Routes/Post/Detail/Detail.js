@@ -20,6 +20,7 @@ export default ({ location, history }) => {
     },
     fetchPolicy: "network-only"
   });
+  console.log(data, error, loading);
   return error ? (
     <ErrorAlert />
   ) : loading ? (

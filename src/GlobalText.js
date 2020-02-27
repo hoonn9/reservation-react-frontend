@@ -1,9 +1,25 @@
 const COMPANY_NAME = "냥이특별시";
-
+const COMPANY_ADDRESS = "서울 중구 소공로 포스트타워 B코어 12층";
+const COMPANY_CEO = "코젤";
+const COMPANY_TEL = "1599-9999";
+//사업자 번호
+const COMPANY_BN_NUMBER = "123-45-67890";
+//신고 번호
+const COMPANY_RG_NUMBER = "2020-서울중구-1234";
 export default () => {
   const language = "kr";
   if (language === "kr") {
     return {
+      text_company_name: COMPANY_NAME,
+      text_company_address: COMPANY_ADDRESS,
+      text_company_ceo: COMPANY_CEO,
+      text_company_tel: COMPANY_TEL,
+      text_company_bn_number: COMPANY_BN_NUMBER,
+      text_company_rg_number: COMPANY_RG_NUMBER,
+      text_ceo: "대표",
+      text_tel: "대표번호",
+      text_bn_number: "사업자등록번호",
+      text_rg_number: "통신판매신고번호",
       text_login: "로그인",
       text_logout: "로그아웃",
       text_join: "회원가입",

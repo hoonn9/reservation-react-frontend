@@ -75,7 +75,7 @@ export default ({
         </SubLeftWrapper>
         <SubRightWrapper>
           <ViewText>
-            {globalText.text_board_header_views} : {views}
+            {globalText.text_board_header_views} : {views + 1}
           </ViewText>
         </SubRightWrapper>
       </SubWrapper>
