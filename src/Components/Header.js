@@ -11,7 +11,7 @@ const Header = styled.header`
   align-items: center;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 10;
   height: 120px;
 `;
 
@@ -48,21 +48,41 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderColumn = styled.div`
-  width: 33%;
+  width: 60%;
   height: 100%;
   line-height: 85px;
 
   &:first-child {
-    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    width: 20%;
   }
   &:last-child {
     margin-right: auto;
+    width: 20%;
   }
 `;
 
-const HeaderLink = styled(Link)`
+const LogoWrapper = styled.div`
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding-top: 0;
+  max-width: 195px;
+  text-align: center;
+  height: 100%;
+`;
+
+const HeaderMainLink = styled(Link)`
   text-decoration: none;
-  font-size: 13px;
+  margin-left: 32px;
+  margin-right: 32px;
+`;
+
+const HeaderLink = styled(Link)`
+  display: inline-block;
+  text-decoration: none;
   margin-left: 16px;
   margin-right: 16px;
 `;
@@ -71,7 +91,6 @@ const MainMenuText = styled.span`
   font-size: 16px;
   color: ${props =>
     props.hide ? props.theme.whiteColor : props.theme.blackColor};
-  font-weight: bold;
 `;
 
 const SubMenuText = styled.span`
@@ -102,29 +121,92 @@ export default ({ isLoggedIn }) => {
     window.addEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  const categoryArray = [
+    {
+      text: globalText.text_reserve,
+      to: {
+        pathname: "/",
+        state: {
+          id: ""
+        }
+      }
+    },
+    {
+      text: globalText.text_infomation,
+      to: {
+        pathname: "/",
+        state: {
+          id: ""
+        }
+      }
+    },
+    {
+      text: globalText.text_event,
+      to: {
+        pathname: "/event",
+        state: {
+          id: ""
+        }
+      }
+    },
+    {
+      text: globalText.text_free_board,
+      to: {
+        pathname: "/board/ck74d5iiz001b0734kmyiwdb7",
+        state: {
+          id: "ck74d5iiz001b0734kmyiwdb7"
+        }
+      }
+    },
+    {
+      text: globalText.text_notice,
+      to: {
+        pathname: "/",
+        state: {
+          id: ""
+        }
+      }
+    },
+    {
+      text: globalText.text_center,
+      to: {
+        pathname: "/",
+        state: {
+          id: ""
+        }
+      }
+    },
+    {
+      text: globalText.text_roadmap,
+      to: {
+        pathname: "/",
+        state: {
+          id: ""
+        }
+      }
+    }
+  ];
+
   return (
     <>
       <Header>
         <AnimationWrapper hide={hide} />
         <HeaderWrapper hide={hide}>
           <HeaderColumn>
-            <HeaderLink to="/">
-              <Logo />
-            </HeaderLink>
+            <LogoWrapper>
+              <HeaderLink to="/">
+                <Logo />
+              </HeaderLink>
+            </LogoWrapper>
           </HeaderColumn>
           <HeaderColumn>
-            <HeaderLink
-              to={{
-                pathname: "/board/ck74d5iiz001b0734kmyiwdb7",
-                state: {
-                  id: "ck74d5iiz001b0734kmyiwdb7"
-                }
-              }}
-            >
-              <MainMenuText hide={hide}>
-                {globalText.text_free_board}
-              </MainMenuText>
-            </HeaderLink>
+            {categoryArray.map((category, i) => {
+              return (
+                <HeaderMainLink key={i} to={category.to}>
+                  <MainMenuText hide={hide}>{category.text}</MainMenuText>
+                </HeaderMainLink>
+              );
+            })}
           </HeaderColumn>
           <HeaderColumn>
             {isLoggedIn ? (

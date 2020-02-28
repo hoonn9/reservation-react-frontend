@@ -9,9 +9,10 @@ export default createGlobalStyle`
     }
     body {
         background-color: ${props => props.theme.bgColor};
-        font-family: 'Nanum Gothic', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
     }
     .body-content {
-        min-height: 720px
+        min-height: 720px;
+        margin-top: 120px;
     }
 `;
