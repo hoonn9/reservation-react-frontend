@@ -15,4 +15,12 @@ export default createGlobalStyle`
         min-height: 720px;
         margin-top: 120px;
     }
+    a {
+        text-decoration: none;
+    }
+    button {
+        text-transform: none;
+        border: 0;
+        outline: 0;
+    }
 `;

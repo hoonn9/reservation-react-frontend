@@ -34,9 +34,7 @@ export default () => {
       ]
     }
   ];
-  useEffect(() => {
-    console.log(currentItem);
-  }, [currentItem]);
+  useEffect(() => {}, [currentItem]);
 
   return (
     <Wrapper>

@@ -11,9 +11,9 @@ import Board from "../Routes/Board";
 import Detail from "../Routes/Post/Detail/Detail";
 import Event from "../Routes/Event";
 import FullEvent from "../Routes/FullEvent/FullEvent";
-const LoggedOutRoutes = () => (
+const LoggedOutRoutes = ({ platform }) => (
   <Switch>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/" render={props => <Home platform={platform} />} />
     <Route path="/mypage" component={Login} />
     <Route path="/login" component={Login} />
     <Route path="/joinagree" component={JoinAgree} />
@@ -27,9 +27,9 @@ const LoggedOutRoutes = () => (
   </Switch>
 );
 
-const LoggedInRoutes = () => (
+const LoggedInRoutes = ({ platform }) => (
   <Switch>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/" render={props => <Home platform={platform} />} />
     <Route path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />
@@ -40,8 +40,14 @@ const LoggedInRoutes = () => (
   </Switch>
 );
 
-const AppRouter = ({ isLoggedIn }) => (
-  <Switch>{isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}</Switch>
+const AppRouter = ({ isLoggedIn, platform }) => (
+  <Switch>
+    {isLoggedIn ? (
+      <LoggedInRoutes platform={platform} />
+    ) : (
+      <LoggedOutRoutes platform={platform} />
+    )}
+  </Switch>
 );
 
 AppRouter.propTypes = {

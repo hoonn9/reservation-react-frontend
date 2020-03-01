@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 const TopImgWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 1080px;
+  height: ${props => (props.platform === "desktop" ? "1080px" : "480px")};
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -31,9 +31,8 @@ const TopImg = styled.img`
   transition: opacity 0.5s linear;
 `;
 const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
-export default () => {
+export default ({ platform }) => {
   const [currentItem, setCurrentItem] = useState(0);
-
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
@@ -55,12 +54,23 @@ export default () => {
 
   return (
     <Container>
-      <TopImgWrapper>
-        {topImageArray &&
-          topImageArray.map((img, index) => (
-            <TopImg key={index} src={img} showing={index === currentItem} />
-          ))}
-      </TopImgWrapper>
+      {platform === "desktop" ? (
+        <TopImgWrapper>
+          {topImageArray &&
+            topImageArray.map((img, index) => (
+              <TopImg
+                key={index}
+                src={img}
+                showing={index === currentItem}
+                platform={platform}
+              />
+            ))}
+        </TopImgWrapper>
+      ) : (
+        <TopImgWrapper>
+          {<TopImg src={topImageArray[0]} showing={1} platform={platform} />}
+        </TopImgWrapper>
+      )}
 
       <Wrapper>
         <Banner />
