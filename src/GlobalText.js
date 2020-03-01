@@ -46,6 +46,7 @@ export default () => {
       text_reserve_do: "예악하기",
       text_welcome_logout: "환영합니다. 로그인 해주세요.",
       text_welcome_login: "님 반갑습니다.",
+      text_member: "회원",
       text_write_title_placeholder: "제목을 입력해주세요.",
       text_regist: "등록",
       text_network_error: "Network error. your connection has heen denied. ",

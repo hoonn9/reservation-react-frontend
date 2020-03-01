@@ -22,9 +22,11 @@ export default ({ isLoggedIn, platform }) => {
   const [logoutMutation] = useMutation(LOG_OUT);
   const [hide, setHide] = useState(false);
   const [moblieTrigger, setMoblieTrigger] = useState(false);
-  const { data, loading, error } = useQuery(ME);
+
   const [userName, setUserName] = useState("");
   const mobileOnClick = () => setMoblieTrigger(!moblieTrigger);
+
+  const { data, loading, error } = useQuery(ME);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,11 +46,13 @@ export default ({ isLoggedIn, platform }) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (!loading) {
-      setUserName(data.me.username);
-    }
-    if (error) {
-      setUserName(globalText.text_member);
+    if (!error) {
+      if (!loading) {
+        setUserName(data.me.username);
+      }
+      if (error) {
+        setUserName(globalText.text_member);
+      }
     }
   }, [loading, error]);
 
