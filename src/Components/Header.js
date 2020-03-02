@@ -69,7 +69,7 @@ export default ({ isLoggedIn, platform }) => {
     {
       text: globalText.text_infomation,
       to: {
-        pathname: "/",
+        pathname: "/about",
         state: {
           id: ""
         }

@@ -11,6 +11,7 @@ import Board from "../Routes/Board";
 import Detail from "../Routes/Post/Detail/Detail";
 import Event from "../Routes/Event";
 import FullEvent from "../Routes/FullEvent/FullEvent";
+import About from "../Routes/About";
 const LoggedOutRoutes = ({ platform }) => (
   <Switch>
     <Route exact path="/" render={props => <Home platform={platform} />} />
@@ -23,6 +24,7 @@ const LoggedOutRoutes = ({ platform }) => (
     <Route path="/post/:id" component={Detail} />
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
+    <Route path="/about" component={About} />
     <Redirect from="*" to="/" />
   </Switch>
 );

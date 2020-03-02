@@ -34,7 +34,7 @@ const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
 export default ({ platform }) => {
   const [currentItem, setCurrentItem] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
-
+  console.log(platform);
   useEffect(() => {
     var to;
     const slide = () => {
@@ -55,15 +55,10 @@ export default ({ platform }) => {
   return (
     <Container>
       {platform === "desktop" ? (
-        <TopImgWrapper>
+        <TopImgWrapper platform={platform}>
           {topImageArray &&
             topImageArray.map((img, index) => (
-              <TopImg
-                key={index}
-                src={img}
-                showing={index === currentItem}
-                platform={platform}
-              />
+              <TopImg key={index} src={img} showing={index === currentItem} />
             ))}
         </TopImgWrapper>
       ) : (

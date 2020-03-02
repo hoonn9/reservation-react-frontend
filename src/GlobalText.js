@@ -26,7 +26,7 @@ export default () => {
       text_mypage: "마이페이지",
       text_free_board: "자유게시판",
       text_reserve: "예약",
-      text_infomation: "낚시안내",
+      text_infomation: "안내",
       text_event: "이벤트",
       text_count: "건",
       text_notice: "공지사항",

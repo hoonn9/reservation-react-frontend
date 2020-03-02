@@ -21,11 +21,20 @@ const Title = styled.div`
   font-weight: normal;
 `;
 
-export default ({ location }) => {
+export default ({ location, history }) => {
+  console.log(location);
+  console.log(history);
   const globalText = GlobalText();
-  const {
-    state: { id }
-  } = location;
+  var id;
+  if (location.state !== undefined) {
+    // const {
+    //   state: { id }
+    // } = location;
+    id = location.state.id;
+  } else {
+    const { pathname } = location;
+    id = pathname.split("/event/")[1];
+  }
 
   const { data, loading, error } = useQuery(SEE_FULL_EVENT, {
     variables: { id }
