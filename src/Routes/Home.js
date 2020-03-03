@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Components/Banner/Banner";
-import { getSize } from "../Utils";
+import Widget from "../Components/Reservation/Widget";
 
 const Container = styled.div`
   position: relative;
@@ -60,6 +60,7 @@ export default ({ platform }) => {
             topImageArray.map((img, index) => (
               <TopImg key={index} src={img} showing={index === currentItem} />
             ))}
+          <Widget />
         </TopImgWrapper>
       ) : (
         <TopImgWrapper>

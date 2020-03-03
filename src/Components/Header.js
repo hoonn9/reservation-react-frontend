@@ -60,7 +60,7 @@ export default ({ isLoggedIn, platform }) => {
     {
       text: globalText.text_reserve,
       to: {
-        pathname: "/",
+        pathname: "/reservation",
         state: {
           id: ""
         }
