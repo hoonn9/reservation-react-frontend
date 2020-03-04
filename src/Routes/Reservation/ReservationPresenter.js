@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-
+import Result from "../../Components/Reservation/Result";
+import Search from "../../Components/Reservation/Search";
 const Container = styled.div``;
-
-export default ({ data: { searchType }, checkOut, checkIn }) => {
+const Title = styled.div`
+  display: inline-block;
+  font-size: 46px;
+  color: #333;
+  font-weight: normal;
+  padding: 32px 32px;
+`;
+export default ({ data, checkOut, checkIn }) => {
+  console.log(data);
   //   const reservationArray = searchType;
 
   //   const compareCheckIn = checkIn.split("T")[0];
@@ -25,12 +33,13 @@ export default ({ data: { searchType }, checkOut, checkIn }) => {
   //     }
   //   });
   //   console.log(typeArray);
-  console.log(searchType);
   return (
-    <Container>
-      {searchType.map(type => {
-        return type.id ? <div>{type.typeName} 가능</div> : null;
-      })}
-    </Container>
+    <>
+      <Title>예약</Title>
+      <Container>
+        <Search />
+        {data !== undefined ? <Result searchType={data.searchType} /> : <></>}
+      </Container>
+    </>
   );
 };

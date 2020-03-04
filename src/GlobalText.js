@@ -74,7 +74,15 @@ export default () => {
       text_board_header_title: "제목",
       text_board_header_name: "작성자",
       text_board_header_views: "조회수",
-      text_board_header_date: "작성일"
+      text_board_header_date: "작성일",
+      text_reservation_widget_title:
+        "지구 최강의 숙소와 즐길거리를 예약하세요!",
+      text_check_in: "체크인",
+      text_check_out: "체크아웃",
+      text_type: "객실",
+      text_adult: "성인",
+      text_child: "소아",
+      text_search: "검색"
     };
   } else if (language === "en") {
     return {

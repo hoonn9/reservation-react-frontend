@@ -5,6 +5,8 @@ export const SEARCH_TYPE = gql`
     searchType(checkIn: $checkIn, checkOut: $checkOut) {
       id
       typeName
+      price
+      typeCount
     }
   }
 `;

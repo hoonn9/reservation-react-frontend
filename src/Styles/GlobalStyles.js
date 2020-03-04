@@ -12,7 +12,7 @@ export default createGlobalStyle`
         font-family: 'Noto Sans KR', sans-serif;
     }
     .body-content {
-        min-height: 720px;
+        min-height: 1080px;
         margin-top: 120px;
     }
     a {

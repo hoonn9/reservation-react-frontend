@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Components/Banner/Banner";
-import Widget from "../Components/Reservation/Widget";
+import Search from "../Components/Reservation/Search";
 
 const Container = styled.div`
   position: relative;
@@ -60,7 +60,7 @@ export default ({ platform }) => {
             topImageArray.map((img, index) => (
               <TopImg key={index} src={img} showing={index === currentItem} />
             ))}
-          <Widget />
+          <Search type="widget" />
         </TopImgWrapper>
       ) : (
         <TopImgWrapper>

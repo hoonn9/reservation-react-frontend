@@ -3,14 +3,12 @@ import styled from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { Link } from "react-router-dom";
 import ko from "date-fns/locale/ko";
-import "./datePicker.css";
-
+import "../datePicker.css";
+import NumberPicker from "../../NumberPicker";
 const Container = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  z-index: 5;
-  top: 250px;
 `;
 
 const Wrapper = styled.div`
@@ -20,8 +18,8 @@ const Wrapper = styled.div`
 
 const WidgetWrpper = styled.div`
   background: ${props => props.theme.whiteColor};
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-  width: 440px;
+  border: solid 1px ${props => props.theme.superLiteGreyColor};
+  width: 100%;
   padding: 16px;
 `;
 
@@ -45,13 +43,27 @@ const PickerWrapper = styled.div`
   width: 50%;
 `;
 
+const CountWrapper = styled.div`
+  padding: 16px 0px;
+`;
+const CountPickerWrapper = styled.div`
+  display: inline-block;
+  width: 33.3333%;
+`;
+const CountSubTitle = styled.h1`
+  font-size: 16px;
+  color: ${props => props.theme.blackColor};
+  line-height: 1.25;
+  padding: 8px 0px;
+  text-align: center;
+`;
 const ButtonWrapper = styled.div`
-  text-align: right;
+  text-align: center;
   padding-top: 16px;
 `;
 const SearchButton = styled.button`
   position: relative;
-  padding: 12px 16px;
+  padding: 12px 24px;
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
 `;
@@ -71,18 +83,24 @@ export default ({
   endDate,
   endDay,
   setEndDate,
-  globalText
+  globalText,
+  userCount,
+  setUserCount,
+  typeCount,
+  setTypeCount,
+  subCount,
+  setSubCount
 }) => {
   registerLocale("ko", ko);
   return (
     <Container>
       <Wrapper>
         <WidgetWrpper>
-          <Title>지구 최강의 숙소와 즐길거리를 예약하세요!</Title>
-          <SubTitle>룸</SubTitle>
+          <Title></Title>
+
           <DateWrapper>
             <PickerWrapper>
-              <SubTitle>체크인</SubTitle>
+              <SubTitle>{globalText.text_check_in}</SubTitle>
               <CustomDatePicker
                 selected={startDate}
                 onChange={date => setStartDate(date)}
@@ -95,7 +113,7 @@ export default ({
               />
             </PickerWrapper>
             <PickerWrapper>
-              <SubTitle>체크아웃</SubTitle>
+              <SubTitle>{globalText.text_check_out}</SubTitle>
               <CustomDatePicker
                 selected={endDate}
                 onChange={date => setEndDate(date)}
@@ -109,17 +127,50 @@ export default ({
               />
             </PickerWrapper>
           </DateWrapper>
+          <CountWrapper>
+            <CountPickerWrapper>
+              <CountSubTitle>{globalText.text_type}</CountSubTitle>
+              <NumberPicker
+                value={typeCount}
+                setValue={setTypeCount}
+                min={1}
+                max={5}
+              />
+            </CountPickerWrapper>
+            <CountPickerWrapper>
+              <CountSubTitle>{globalText.text_adult}</CountSubTitle>
+              <NumberPicker
+                value={userCount}
+                setValue={setUserCount}
+                min={1}
+                max={4}
+              />
+            </CountPickerWrapper>
+            <CountPickerWrapper>
+              <CountSubTitle>{globalText.text_child}</CountSubTitle>
+              <NumberPicker
+                value={subCount}
+                setValue={setSubCount}
+                min={0}
+                max={3}
+              />
+            </CountPickerWrapper>
+          </CountWrapper>
+
           <ButtonWrapper>
             <Link
               to={{
                 pathname: "/reservation",
                 state: {
                   checkIn: startDate.toISOString(),
-                  checkOut: endDate.toISOString()
+                  checkOut: endDate.toISOString(),
+                  typeCount,
+                  userCount,
+                  subCount
                 }
               }}
             >
-              <SearchButton>검색</SearchButton>
+              <SearchButton>{globalText.text_search}</SearchButton>
             </Link>
           </ButtonWrapper>
         </WidgetWrpper>
