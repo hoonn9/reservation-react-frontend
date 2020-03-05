@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Search from "../../Components/Reservation/Search";
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+  padding-bottom: 364px;
+`;
 const Title = styled.div`
   display: inline-block;
   font-size: 46px;
@@ -17,12 +20,13 @@ export default ({
   typeCount,
   userCount,
   subCount,
-  globalText
+  globalText,
+  containerRef
 }) => {
   return (
     <>
       <Title>{globalText.text_reserve}</Title>
-      <Container>
+      <Container ref={containerRef}>
         <Search
           init={init}
           checkIn={checkIn}
@@ -30,6 +34,7 @@ export default ({
           typeCount={typeCount}
           userCount={userCount}
           subCount={subCount}
+          containerRef={containerRef}
         />
       </Container>
     </>

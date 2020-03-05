@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReservationPresenter from "./ReservationPresenter";
 import GlobalText from "../../GlobalText";
 
@@ -10,7 +10,7 @@ export default ({ location }) => {
   const [typeCount, setTypeCount] = useState(1);
   const [userCount, setUserCount] = useState(1);
   const [subCount, setSubCount] = useState(0);
-
+  const containerRef = useRef();
   useEffect(() => {
     if (location.state !== undefined) {
       setCheckIn(location.state.checkIn);
@@ -32,6 +32,7 @@ export default ({ location }) => {
         userCount={userCount}
         subCount={subCount}
         globalText={globalText}
+        containerRef={containerRef}
       />
     </div>
   );

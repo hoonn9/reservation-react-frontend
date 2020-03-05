@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import SearchPresenter from "./SearchPresenter";
 import WidgetPresenter from "./WidgetPresenter";
 import { useState, useEffect } from "react";
@@ -6,6 +6,7 @@ import GlobalText from "../../../GlobalText";
 import ko from "date-fns/locale/ko";
 import { format } from "date-fns";
 import Result from "../Result";
+import Summary from "../Summary";
 
 export default ({
   type,
@@ -14,7 +15,8 @@ export default ({
   checkOut,
   typeCount: parentTypeCount,
   userCount: parentUserCount,
-  subCount: parentSubCount
+  subCount: parentSubCount,
+  containerRef
 }) => {
   const globalText = GlobalText();
   const [startDate, setStartDate] = useState(new Date());
@@ -25,11 +27,14 @@ export default ({
   const [initState, setInitState] = useState(init);
   const [resultCheckIn, setResultCheckIn] = useState();
   const [resultCheckOut, setResultCheckOut] = useState();
+  const [selectType, setSelectType] = useState();
 
   const [startDay, setStartDay] = useState(
     format(startDate, "E", { locale: ko })
   );
   const [endDay, setEndDay] = useState(format(endDate, "E", { locale: ko }));
+
+  const [smToggle, setSmToggle] = useState(false);
 
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
@@ -60,6 +65,16 @@ export default ({
         setResultCheckIn(checkIn);
         setResultCheckOut(checkOut);
       }
+      const handleScroll = () => {
+        const { pageYOffset } = window;
+        if (pageYOffset + 670 > containerRef.current.offsetHeight - 110) {
+          setSmToggle(false);
+        } else {
+          setSmToggle(true);
+        }
+      };
+      handleScroll();
+      window.addEventListener("scroll", handleScroll);
     }
   }, [
     init,
@@ -106,12 +121,25 @@ export default ({
             subCount={subCount}
             setSubCount={setSubCount}
             searchOnClick={searchOnClick}
+            selectType={selectType}
+            containerRef={containerRef}
           />
           <Result
             checkIn={resultCheckIn}
             checkOut={resultCheckOut}
             initState={initState}
             setInitState={setInitState}
+            globalText={globalText}
+            setSelectType={setSelectType}
+          />
+          <Summary
+            smToggle={smToggle}
+            startDate={startDate}
+            endDate={endDate}
+            typeCount={typeCount}
+            subCount={subCount}
+            userCount={userCount}
+            selectType={selectType}
           />
         </>
       )}

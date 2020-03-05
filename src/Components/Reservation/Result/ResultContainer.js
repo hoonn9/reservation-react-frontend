@@ -4,7 +4,13 @@ import { useQuery } from "react-apollo-hooks";
 import { SEARCH_TYPE } from "../../../Routes/Reservation/ReservationQueries";
 import ErrorAlert from "../../ErrorAlert";
 import Loader from "../../Loader";
-export default ({ checkIn, checkOut, initState }) => {
+export default ({
+  checkIn,
+  checkOut,
+  initState,
+  globalText,
+  setSelectType
+}) => {
   const { data, loading, error } = useQuery(SEARCH_TYPE, {
     variables: {
       checkIn,
@@ -22,9 +28,16 @@ export default ({ checkIn, checkOut, initState }) => {
       ) : (
         <>
           {data ? (
-            <ResultPresenter searchType={data.searchType} />
+            <ResultPresenter
+              searchType={data.searchType}
+              globalText={globalText}
+              setSelectType={setSelectType}
+            />
           ) : (
-            <ResultPresenter />
+            <ResultPresenter
+              globalText={globalText}
+              setSelectType={setSelectType}
+            />
           )}
         </>
       )}

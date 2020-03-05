@@ -90,7 +90,9 @@ export default ({
   setTypeCount,
   subCount,
   setSubCount,
-  searchOnClick
+  searchOnClick,
+  selectType,
+  smToggle
 }) => {
   registerLocale("ko", ko);
   return (

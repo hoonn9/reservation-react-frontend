@@ -42,6 +42,7 @@ export default () => {
       text_username: "닉네임",
       text_cancel: "취소",
       text_write: "글쓰기",
+      text_more_info: "상품 보기",
       text_reserve_check: "예약조회",
       text_reserve_do: "예악하기",
       text_welcome_logout: "환영합니다. 로그인 해주세요.",
