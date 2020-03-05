@@ -61,21 +61,25 @@ export default ({ searchType }) => {
   return (
     <Container>
       <Wrapper>
-        {searchType.map(type => {
-          return type.id ? (
-            <ContentWrapper>
-              <ThumbnailWrapper>
-                <Thumbnail src={`./images/About/${type.id}/1.jpg`} />
-              </ThumbnailWrapper>
-              <InfoWrapper>
-                <InfoCenter>
-                  <NameText>{type.typeName}</NameText>
-                  <PriceText>￦ {type.price} ~</PriceText>
-                </InfoCenter>
-              </InfoWrapper>
-            </ContentWrapper>
-          ) : null;
-        })}
+        {searchType ? (
+          searchType.map((type, i) => {
+            return type.id ? (
+              <ContentWrapper key={i}>
+                <ThumbnailWrapper>
+                  <Thumbnail src={`./images/About/${type.id}/1.jpg`} />
+                </ThumbnailWrapper>
+                <InfoWrapper>
+                  <InfoCenter>
+                    <NameText>{type.typeName}</NameText>
+                    <PriceText>￦ {type.price} ~</PriceText>
+                  </InfoCenter>
+                </InfoWrapper>
+              </ContentWrapper>
+            ) : null;
+          })
+        ) : (
+          <div>검색결과 없음</div>
+        )}
       </Wrapper>
     </Container>
   );

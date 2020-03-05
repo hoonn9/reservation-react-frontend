@@ -35,14 +35,6 @@ export default ({ location }) => {
     skip: currentPage * pageSize
   });
 
-  useEffect(() => {
-    // if (!countQuery.loading) {
-    //   listCount = countQuery.data.seeBoardCount;
-    // }
-    // console.log(listCount);
-    //console.log(currentPage);
-  });
-
   return (
     <div className="body-content">
       {pageQuery.error || countQuery.error ? (

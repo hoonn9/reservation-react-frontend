@@ -89,7 +89,8 @@ export default ({
   typeCount,
   setTypeCount,
   subCount,
-  setSubCount
+  setSubCount,
+  searchOnClick
 }) => {
   registerLocale("ko", ko);
   return (
@@ -170,7 +171,9 @@ export default ({
                 }
               }}
             >
-              <SearchButton>{globalText.text_search}</SearchButton>
+              <SearchButton onClick={searchOnClick}>
+                {globalText.text_search}
+              </SearchButton>
             </Link>
           </ButtonWrapper>
         </WidgetWrpper>

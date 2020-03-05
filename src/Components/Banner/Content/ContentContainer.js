@@ -6,13 +6,12 @@ export default ({ currentItem, eventArray }) => {
 
   useEffect(() => {
     function handleResize() {
-      const { width, height } = getSize();
       setImageSize(getSize());
     }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  }, []);
   return (
     <ContentPresenter
       imageSize={imageSize}

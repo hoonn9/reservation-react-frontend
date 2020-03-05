@@ -33,8 +33,7 @@ const TopImg = styled.img`
 const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
 export default ({ platform }) => {
   const [currentItem, setCurrentItem] = useState(0);
-  const [isOnline, setIsOnline] = useState(true);
-  console.log(platform);
+
   useEffect(() => {
     var to;
     const slide = () => {

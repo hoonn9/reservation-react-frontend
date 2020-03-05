@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import TableView from "../../Components/TableView";
-import EventView from "../../Components/EventView";
 const Container = styled.div`
   position: relative;
   padding: 0;

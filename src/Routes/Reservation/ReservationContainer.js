@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReservationPresenter from "./ReservationPresenter";
-import { useQuery } from "react-apollo-hooks";
-import { SEARCH_TYPE } from "./ReservationQueries";
-import ErrorAlert from "../../Components/ErrorAlert";
-import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 
 export default ({ location }) => {
-  console.log(location);
   const globalText = GlobalText();
   const [init, setInit] = useState(true);
-  const [checkIn, setCheckIn] = useState(new Date().toISOString());
-  const [checkOut, setCheckOut] = useState(new Date().toISOString());
+  const [checkIn, setCheckIn] = useState();
+  const [checkOut, setCheckOut] = useState();
   const [typeCount, setTypeCount] = useState(1);
   const [userCount, setUserCount] = useState(1);
   const [subCount, setSubCount] = useState(0);
@@ -20,32 +15,24 @@ export default ({ location }) => {
     if (location.state !== undefined) {
       setCheckIn(location.state.checkIn);
       setCheckOut(location.state.checkOut);
+      setTypeCount(location.state.typeCount);
+      setUserCount(location.state.userCount);
+      setSubCount(location.state.subCount);
       setInit(false);
     }
-  }, []);
-
-  console.log(checkIn, checkOut);
-  const { data, loading, error } = useQuery(SEARCH_TYPE, {
-    variables: {
-      checkIn,
-      checkOut
-    },
-    skip: init
-  });
+  }, [location.state]);
 
   return (
     <div className="body-content">
-      {error ? (
-        <ErrorAlert text={globalText.text_network_error} />
-      ) : loading ? (
-        <Loader />
-      ) : (
-        <ReservationPresenter
-          data={data}
-          checkIn={checkIn}
-          checkOut={checkOut}
-        />
-      )}
+      <ReservationPresenter
+        init={init}
+        checkIn={checkIn}
+        checkOut={checkOut}
+        typeCount={typeCount}
+        userCount={userCount}
+        subCount={subCount}
+        globalText={globalText}
+      />
     </div>
   );
 };

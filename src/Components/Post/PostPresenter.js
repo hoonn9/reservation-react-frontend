@@ -20,7 +20,6 @@ const TitleRow = styled(Row)`
   width: 45%;
   font-size: 14px;
 `;
-const Title = styled.div``;
 const NameRow = styled(Row)`
   width: 20%;
 `;

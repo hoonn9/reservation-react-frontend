@@ -1,8 +1,6 @@
-import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import GlobalText from "../GlobalText";
-import { Logo } from "./Icons";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { LOG_OUT } from "../SharedQueries";
 import DesktopHeader from "./Header/DesktopHeader";
@@ -54,7 +52,7 @@ export default ({ isLoggedIn, platform }) => {
         setUserName(globalText.text_member);
       }
     }
-  }, [loading, error]);
+  }, [loading, error, data, globalText]);
 
   const categoryArray = [
     {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import styled from "styled-components";
 import Editor from "../../Components/Editor";
 import { UPLOAD_BOARD } from "./UploadQueries";
@@ -69,7 +69,7 @@ export default ({ location }) => {
     );
     setLoading(true);
     try {
-      const data = await uploadMutation({
+      await uploadMutation({
         variables: {
           boardId,
           type: "free",

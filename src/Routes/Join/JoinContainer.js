@@ -167,7 +167,7 @@ export default ({ location: { state } }) => {
     return () => {
       setIsOnline(false);
     };
-  }, [userId, userPw, userEmail, userPwConfirm, userPhone]);
+  }, [userId, userPw, userEmail, userPwConfirm, userPhone, isOnline]);
 
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
     variables: {

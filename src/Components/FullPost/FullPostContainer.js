@@ -10,12 +10,17 @@ export default ({ data: { seeFullPost } }) => {
     user: { username },
     views
   } = seeFullPost;
+  const [trigger, setTrigger] = useState(true);
   const globalText = GlobalText();
-  const contentRaw = convertFromRaw(JSON.parse(content));
+
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   useEffect(() => {
-    setEditorState(EditorState.createWithContent(contentRaw));
-  }, []);
+    if (trigger) {
+      const contentRaw = convertFromRaw(JSON.parse(content));
+      setEditorState(EditorState.createWithContent(contentRaw));
+      setTrigger(false);
+    }
+  }, [trigger, content]);
 
   return (
     <FullPostPresenter
