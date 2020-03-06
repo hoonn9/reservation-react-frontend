@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReservationPresenter from "./ReservationPresenter";
 import GlobalText from "../../GlobalText";
+import { useLocation } from "react-router-dom";
 
-export default ({ location }) => {
+export default ({ screenSize }) => {
+  const location = useLocation();
   const globalText = GlobalText();
   const [init, setInit] = useState(true);
   const [checkIn, setCheckIn] = useState();
@@ -26,6 +28,7 @@ export default ({ location }) => {
     <div className="body-content">
       <ReservationPresenter
         init={init}
+        screenSize={screenSize}
         checkIn={checkIn}
         checkOut={checkOut}
         typeCount={typeCount}

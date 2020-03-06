@@ -9,7 +9,9 @@ export default ({
   checkOut,
   initState,
   globalText,
-  setSelectType
+  setSelectType,
+  setSelectSubType,
+  resultToggle
 }) => {
   const { data, loading, error } = useQuery(SEARCH_TYPE, {
     variables: {
@@ -27,18 +29,22 @@ export default ({
         <Loader />
       ) : (
         <>
-          {data ? (
-            <ResultPresenter
-              searchType={data.searchType}
-              globalText={globalText}
-              setSelectType={setSelectType}
-            />
-          ) : (
-            <ResultPresenter
-              globalText={globalText}
-              setSelectType={setSelectType}
-            />
-          )}
+          {resultToggle ? (
+            data ? (
+              <ResultPresenter
+                searchType={data.searchType}
+                globalText={globalText}
+                setSelectType={setSelectType}
+                setSelectSubType={setSelectSubType}
+              />
+            ) : (
+              <ResultPresenter
+                globalText={globalText}
+                setSelectType={setSelectType}
+                setSelectSubType={setSelectSubType}
+              />
+            )
+          ) : null}
         </>
       )}
     </>

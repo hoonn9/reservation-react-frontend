@@ -13,8 +13,8 @@ import Event from "../Routes/Event";
 import FullEvent from "../Routes/FullEvent/FullEvent";
 import About from "../Routes/About";
 import Reservation from "../Routes/Reservation";
-
-const LoggedOutRoutes = ({ platform }) => (
+import Infomation from "../Routes/Infomation";
+const LoggedOutRoutes = ({ platform, screenSize }) => (
   <Switch>
     <Route exact path="/" render={props => <Home platform={platform} />} />
     <Route path="/mypage" component={Login} />
@@ -27,12 +27,16 @@ const LoggedOutRoutes = ({ platform }) => (
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
-    <Route path="/reservation" component={Reservation} />
+    <Route path="/infomation" component={Infomation} />
+    <Route
+      path="/reservation"
+      render={props => <Reservation screenSize={screenSize} />}
+    />
     <Redirect from="*" to="/" />
   </Switch>
 );
 
-const LoggedInRoutes = ({ platform }) => (
+const LoggedInRoutes = ({ platform, screenSize }) => (
   <Switch>
     <Route exact path="/" render={props => <Home platform={platform} />} />
     <Route path="/mypage" component={MyPage} />
@@ -42,17 +46,21 @@ const LoggedInRoutes = ({ platform }) => (
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
-    <Route path="/reservation" component={Reservation} />
+    <Route path="/infomation" component={Infomation} />
+    <Route
+      path="/reservation"
+      render={props => <Reservation screenSize={screenSize} />}
+    />
     <Redirect from="*" to="/" />
   </Switch>
 );
 
-const AppRouter = ({ isLoggedIn, platform }) => (
+const AppRouter = ({ isLoggedIn, platform, screenSize }) => (
   <Switch>
     {isLoggedIn ? (
-      <LoggedInRoutes platform={platform} />
+      <LoggedInRoutes platform={platform} screenSize={screenSize} />
     ) : (
-      <LoggedOutRoutes platform={platform} />
+      <LoggedOutRoutes platform={platform} screenSize={screenSize} />
     )}
   </Switch>
 );

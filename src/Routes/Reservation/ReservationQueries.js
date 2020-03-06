@@ -7,6 +7,12 @@ export const SEARCH_TYPE = gql`
       typeName
       price
       typeCount
+      subTypes {
+        id
+        price
+        subTypeName
+        description
+      }
     }
   }
 `;

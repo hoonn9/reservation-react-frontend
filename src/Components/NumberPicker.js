@@ -36,15 +36,21 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
-export default ({ value, setValue, min, max }) => {
+export default ({ value, setValue, min, max, callback = () => null }) => {
   const minusOnClick = () => {
     if (value > min) {
       setValue(value - 1);
+    }
+    if (typeof callback === "function") {
+      callback();
     }
   };
   const plusOnClick = () => {
     if (value < max) {
       setValue(value + 1);
+    }
+    if (typeof callback === "function") {
+      callback();
     }
   };
   return (

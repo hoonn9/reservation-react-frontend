@@ -110,7 +110,7 @@ export default ({ isLoggedIn, platform }) => {
     {
       text: globalText.text_roadmap,
       to: {
-        pathname: "/",
+        pathname: "/infomation",
         state: {
           id: ""
         }

@@ -2,7 +2,7 @@ import React from "react";
 import ResultViewPresenter from "./ResultViewPresenter";
 import { useState } from "react";
 
-export default ({ type, globalText, setSelectType }) => {
+export default ({ type, globalText, setSelectType, setSelectSubType }) => {
   const [toggle, setToggle] = useState(false);
   const moreOnClick = () => setToggle(!toggle);
   return (
@@ -12,6 +12,7 @@ export default ({ type, globalText, setSelectType }) => {
       toggle={toggle}
       moreOnClick={moreOnClick}
       setSelectType={setSelectType}
+      setSelectSubType={setSelectSubType}
     />
   );
 };

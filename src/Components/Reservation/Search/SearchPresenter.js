@@ -66,6 +66,7 @@ const SearchButton = styled.button`
   padding: 12px 24px;
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
+  cursor: pointer;
 `;
 
 const CustomDatePicker = styled(DatePicker)`
@@ -91,8 +92,7 @@ export default ({
   subCount,
   setSubCount,
   searchOnClick,
-  selectType,
-  smToggle
+  reset
 }) => {
   registerLocale("ko", ko);
   return (
@@ -106,7 +106,10 @@ export default ({
               <SubTitle>{globalText.text_check_in}</SubTitle>
               <CustomDatePicker
                 selected={startDate}
-                onChange={date => setStartDate(date)}
+                onChange={date => {
+                  setStartDate(date);
+                  reset();
+                }}
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
@@ -119,7 +122,10 @@ export default ({
               <SubTitle>{globalText.text_check_out}</SubTitle>
               <CustomDatePicker
                 selected={endDate}
-                onChange={date => setEndDate(date)}
+                onChange={date => {
+                  setEndDate(date);
+                  reset();
+                }}
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
@@ -138,6 +144,7 @@ export default ({
                 setValue={setTypeCount}
                 min={1}
                 max={5}
+                callback={reset}
               />
             </CountPickerWrapper>
             <CountPickerWrapper>

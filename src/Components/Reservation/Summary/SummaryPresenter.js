@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { format } from "date-fns";
+import ko from "date-fns/locale/ko";
 const SummaryWrapper = styled.div`
   position: ${props => (props.smToggle ? "fixed" : "absolute")};
   z-index: 20;
@@ -15,7 +17,12 @@ const SummaryInner = styled.div`
   padding: 16px 0px;
 `;
 
-const SummaryTitle = styled.h2``;
+const SummaryTitle = styled.h2`
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 0px;
+  color: ${props => props.theme.blackColor};
+`;
 
 const SummaryBody = styled.div`
   display: flex;
@@ -62,6 +69,7 @@ const SummaryType = styled.div`
 `;
 const SummaryCountWrapper = styled.div``;
 const SummaryUserCount = styled.div`
+  display: inline-block;
   font-size: 15px;
   font-weight: 500;
   padding: 8px 0px;
@@ -81,6 +89,14 @@ const SummaryPriceWrapper = styled.div`
   display: flex;
   cursor: pointer;
 `;
+const SummarySubTypeWrapper = styled.div``;
+const SummarySubType = styled.div`
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 0px;
+  color: ${props => props.theme.blackColor};
+`;
+
 const SummaryPrice = styled.div`
   display: block;
   padding: 16px 16px;
@@ -93,52 +109,67 @@ export default ({
   typeCount,
   subCount,
   userCount,
-  selectType
+  selectType,
+  selectSubType,
+  smDisplay
 }) => {
   return (
-    <SummaryWrapper smToggle={smToggle}>
-      <SummaryInner>
-        <SummaryTitle>총합</SummaryTitle>
-        <SummaryBody>
-          <SummaryTimeWrapper>
-            <SummaryItem>
-              <SummarySubTitle>체크인</SummarySubTitle>
-              <SummaryCheckIn>{startDate.toISOString()}</SummaryCheckIn>
-            </SummaryItem>
-            <SummaryItem>
-              <SummarySubTitle>체크아웃</SummarySubTitle>
-              <SummaryCheckOut>{endDate.toISOString()}</SummaryCheckOut>
-            </SummaryItem>
-          </SummaryTimeWrapper>
-          <SummaryTypeWrapper>
-            <SummaryItem>
-              <SummarySubTitle>객실 수</SummarySubTitle>
-              <SummaryTypeCount>{typeCount}</SummaryTypeCount>
-            </SummaryItem>
-            <SummaryItem>
-              <SummarySubTitle>객실</SummarySubTitle>
-              <SummaryType>{selectType}</SummaryType>
-            </SummaryItem>
-          </SummaryTypeWrapper>
-          <SummaryCountWrapper>
-            <SummaryItem>
-              <SummarySubTitle>총원</SummarySubTitle>
-              <SummaryUserCount>
-                {userCount} : {subCount}
-              </SummaryUserCount>
-            </SummaryItem>
-          </SummaryCountWrapper>
-          <SummaryEtcWrapper>
-            <SummaryItem>
-              <SummarySubTitle>조식</SummarySubTitle>
-              <SummaryBreakFirst>0</SummaryBreakFirst>
-            </SummaryItem>
-          </SummaryEtcWrapper>
-          <SummaryPriceWrapper>
-            <SummaryPrice>50,000원></SummaryPrice>
-          </SummaryPriceWrapper>
-        </SummaryBody>
-      </SummaryInner>
-    </SummaryWrapper>
+    <>
+      {smDisplay ? (
+        <SummaryWrapper smToggle={smToggle}>
+          <SummaryInner>
+            <SummaryTitle>총합</SummaryTitle>
+            <SummaryBody>
+              <SummaryTimeWrapper>
+                <SummaryItem>
+                  <SummarySubTitle>체크인</SummarySubTitle>
+                  <SummaryCheckIn>
+                    {format(startDate, "PPP", { locale: ko })}
+                  </SummaryCheckIn>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummarySubTitle>체크아웃</SummarySubTitle>
+                  <SummaryCheckOut>
+                    {format(endDate, "PPP", { locale: ko })}
+                  </SummaryCheckOut>
+                </SummaryItem>
+              </SummaryTimeWrapper>
+              <SummaryTypeWrapper>
+                <SummaryItem>
+                  <SummarySubTitle>객실 수</SummarySubTitle>
+                  <SummaryTypeCount>{typeCount}</SummaryTypeCount>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummarySubTitle>객실</SummarySubTitle>
+                  <SummaryType>{selectType.name}</SummaryType>
+                </SummaryItem>
+              </SummaryTypeWrapper>
+              <SummaryCountWrapper>
+                <SummaryItem>
+                  <SummarySubTitle>총원</SummarySubTitle>
+                  <SummaryUserCount>성인 {userCount}</SummaryUserCount>{" "}
+                  <SummaryUserCount>소아 {subCount}</SummaryUserCount>
+                </SummaryItem>
+              </SummaryCountWrapper>
+              <SummaryEtcWrapper>
+                <SummaryItem>
+                  <SummarySubTitle>기타</SummarySubTitle>
+                  <SummaryBreakFirst></SummaryBreakFirst>
+                </SummaryItem>
+              </SummaryEtcWrapper>
+              <SummarySubTypeWrapper>
+                <SummaryItem>
+                  <SummarySubTitle>패키지</SummarySubTitle>
+                  <SummarySubType>{selectSubType.name}</SummarySubType>
+                </SummaryItem>
+              </SummarySubTypeWrapper>
+              <SummaryPriceWrapper>
+                <SummaryPrice>50,000원></SummaryPrice>
+              </SummaryPriceWrapper>
+            </SummaryBody>
+          </SummaryInner>
+        </SummaryWrapper>
+      ) : null}
+    </>
   );
 };

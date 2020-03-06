@@ -13,7 +13,12 @@ const Wrapper = styled.div`
   width: 80%;
 `;
 
-export default ({ searchType, setSelectType, globalText }) => {
+export default ({
+  searchType,
+  setSelectType,
+  globalText,
+  setSelectSubType
+}) => {
   return (
     <Container>
       <Wrapper>
@@ -25,6 +30,7 @@ export default ({ searchType, setSelectType, globalText }) => {
                 globalText={globalText}
                 key={i}
                 setSelectType={setSelectType}
+                setSelectSubType={setSelectSubType}
               />
             ) : null;
           })

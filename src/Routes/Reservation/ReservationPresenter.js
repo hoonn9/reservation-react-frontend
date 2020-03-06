@@ -15,6 +15,7 @@ const Title = styled.div`
 `;
 export default ({
   init,
+  screenSize,
   checkOut,
   checkIn,
   typeCount,
@@ -29,6 +30,7 @@ export default ({
       <Container ref={containerRef}>
         <Search
           init={init}
+          screenSize={screenSize}
           checkIn={checkIn}
           checkOut={checkOut}
           typeCount={typeCount}

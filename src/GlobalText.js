@@ -6,6 +6,7 @@ const COMPANY_TEL = "1599-9999";
 const COMPANY_BN_NUMBER = "123-45-67890";
 //신고 번호
 const COMPANY_RG_NUMBER = "2020-서울중구-1234";
+const COMPANY_EMAIL = "google@gmail.com";
 export default () => {
   const language = "kr";
   if (language === "kr") {
@@ -16,6 +17,7 @@ export default () => {
       text_company_tel: COMPANY_TEL,
       text_company_bn_number: COMPANY_BN_NUMBER,
       text_company_rg_number: COMPANY_RG_NUMBER,
+      text_company_email: COMPANY_EMAIL,
       text_ceo: "대표",
       text_tel: "대표번호",
       text_bn_number: "사업자등록번호",
@@ -83,7 +85,8 @@ export default () => {
       text_type: "객실",
       text_adult: "성인",
       text_child: "소아",
-      text_search: "검색"
+      text_search: "검색",
+      text_position: "위치"
     };
   } else if (language === "en") {
     return {

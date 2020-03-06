@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { format } from "date-fns";
+import ko from "date-fns/locale/ko";
 import SearchPresenter from "./SearchPresenter";
 import WidgetPresenter from "./WidgetPresenter";
-import { useState, useEffect } from "react";
 import GlobalText from "../../../GlobalText";
-import ko from "date-fns/locale/ko";
-import { format } from "date-fns";
 import Result from "../Result";
 import Summary from "../Summary";
+import Option from "../Option";
 
 export default ({
   type,
@@ -16,7 +16,8 @@ export default ({
   typeCount: parentTypeCount,
   userCount: parentUserCount,
   subCount: parentSubCount,
-  containerRef
+  containerRef,
+  screenSize
 }) => {
   const globalText = GlobalText();
   const [startDate, setStartDate] = useState(new Date());
@@ -28,25 +29,33 @@ export default ({
   const [resultCheckIn, setResultCheckIn] = useState();
   const [resultCheckOut, setResultCheckOut] = useState();
   const [selectType, setSelectType] = useState();
-
+  const [selectSubType, setSelectSubType] = useState();
   const [startDay, setStartDay] = useState(
     format(startDate, "E", { locale: ko })
   );
   const [endDay, setEndDay] = useState(format(endDate, "E", { locale: ko }));
 
   const [smToggle, setSmToggle] = useState(false);
+  const [smDisplay, setSmDisplay] = useState(false);
+  const [resultToggle, setResultToggle] = useState(true);
+  const [optionToggle, setOptionToggle] = useState(false);
+  const optionRef = useRef();
 
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
     setEndDay(format(endDate, "E", { locale: ko }));
   }, [startDate, endDate]);
+  //Summary
+  useEffect(() => {
+    if (selectType !== undefined) {
+      setSmDisplay(true);
+      setSmToggle(true);
+      setOptionToggle(true);
+      optionRef.current.focus();
+    }
+  }, [selectType]);
 
-  const searchOnClick = () => {
-    setInitState(false);
-    setResultCheckIn(startDate.toISOString());
-    setResultCheckOut(endDate.toISOString());
-  };
-
+  //페이지 진입 초기화
   useEffect(() => {
     if (type !== "widget") {
       if (
@@ -67,14 +76,25 @@ export default ({
       }
       const handleScroll = () => {
         const { pageYOffset } = window;
-        if (pageYOffset + 670 > containerRef.current.offsetHeight - 110) {
-          setSmToggle(false);
-        } else {
-          setSmToggle(true);
+        // console.log(pageYOffset);
+        // console.log(containerRef.current.offsetHeight);
+        // console.log(screenSize.height);
+        if (containerRef.current.offsetHeight !== null) {
+          if (
+            containerRef.current.offsetHeight - pageYOffset >
+            screenSize.height - 200
+          ) {
+            setSmToggle(true);
+          } else {
+            setSmToggle(false);
+          }
         }
       };
       handleScroll();
       window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
     }
   }, [
     init,
@@ -85,6 +105,21 @@ export default ({
     parentSubCount,
     type
   ]);
+
+  const searchOnClick = () => {
+    setInitState(false);
+    setResultCheckIn(startDate.toISOString());
+    setResultCheckOut(endDate.toISOString());
+    setResultToggle(true);
+  };
+
+  const reset = () => {
+    setSelectType();
+    setSelectSubType();
+    setSmDisplay(false);
+    setResultToggle(false);
+    setOptionToggle(false);
+  };
 
   return (
     <>
@@ -123,6 +158,7 @@ export default ({
             searchOnClick={searchOnClick}
             selectType={selectType}
             containerRef={containerRef}
+            reset={reset}
           />
           <Result
             checkIn={resultCheckIn}
@@ -131,6 +167,8 @@ export default ({
             setInitState={setInitState}
             globalText={globalText}
             setSelectType={setSelectType}
+            setSelectSubType={setSelectSubType}
+            resultToggle={resultToggle}
           />
           <Summary
             smToggle={smToggle}
@@ -140,7 +178,10 @@ export default ({
             subCount={subCount}
             userCount={userCount}
             selectType={selectType}
+            selectSubType={selectSubType}
+            smDisplay={smDisplay}
           />
+          <Option optionRef={optionRef} optionToggle={optionToggle} />
         </>
       )}
     </>

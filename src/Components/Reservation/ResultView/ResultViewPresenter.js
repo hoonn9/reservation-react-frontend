@@ -121,7 +121,14 @@ const SelectButton = styled.button`
   cursor: pointer;
 `;
 
-export default ({ type, globalText, moreOnClick, toggle, setSelectType }) => {
+export default ({
+  type,
+  globalText,
+  moreOnClick,
+  toggle,
+  setSelectType,
+  setSelectSubType
+}) => {
   return (
     <Wrapper>
       <ContentWrapper>
@@ -141,20 +148,45 @@ export default ({ type, globalText, moreOnClick, toggle, setSelectType }) => {
       </ContentWrapper>
 
       {toggle ? (
-        <MoreWrapper>
-          <MoreInfoWrapper>
-            <MoreNameText>Room Only</MoreNameText>
-            <MoreDecText>물티슈, 코블이 그루밍 제공</MoreDecText>
-            <MorePriceText>￦ {type.price}</MorePriceText>
-            <SelectButtonWrapper
-              onClick={() => {
-                setSelectType(type.id);
-              }}
-            >
-              <SelectButton>선택</SelectButton>
-            </SelectButtonWrapper>
-          </MoreInfoWrapper>
-        </MoreWrapper>
+        <>
+          <MoreWrapper>
+            <MoreInfoWrapper>
+              <MoreNameText>Room Only</MoreNameText>
+              <MoreDecText>Basic</MoreDecText>
+              <MorePriceText>￦ {type.price}</MorePriceText>
+              <SelectButtonWrapper
+                onClick={() => {
+                  setSelectType({ id: type.id, name: type.typeName });
+                  setSelectSubType({});
+                }}
+              >
+                <SelectButton>선택</SelectButton>
+              </SelectButtonWrapper>
+            </MoreInfoWrapper>
+          </MoreWrapper>
+          {type.subTypes.map((subType, i) => {
+            return (
+              <MoreWrapper key={i}>
+                <MoreInfoWrapper>
+                  <MoreNameText>{subType.subTypeName}</MoreNameText>
+                  <MoreDecText>{subType.description}</MoreDecText>
+                  <MorePriceText>￦ {type.price + subType.price}</MorePriceText>
+                  <SelectButtonWrapper
+                    onClick={() => {
+                      setSelectType({ id: type.id, name: type.typeName });
+                      setSelectSubType({
+                        id: subType.id,
+                        name: subType.subTypeName
+                      });
+                    }}
+                  >
+                    <SelectButton>선택</SelectButton>
+                  </SelectButtonWrapper>
+                </MoreInfoWrapper>
+              </MoreWrapper>
+            );
+          })}
+        </>
       ) : null}
     </Wrapper>
   );

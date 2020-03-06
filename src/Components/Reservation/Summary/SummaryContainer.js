@@ -8,7 +8,9 @@ export default ({
   typeCount,
   subCount,
   userCount,
-  selectType
+  selectType,
+  selectSubType,
+  smDisplay
 }) => {
   return (
     <SummaryPresenter
@@ -19,6 +21,8 @@ export default ({
       subCount={subCount}
       userCount={userCount}
       selectType={selectType}
+      selectSubType={selectSubType}
+      smDisplay={smDisplay}
     />
   );
 };
