@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
@@ -53,6 +53,11 @@ export default ({ value, setValue, min, max, callback = () => null }) => {
       callback();
     }
   };
+  useEffect(() => {
+    if (value > max) {
+      setValue(max);
+    }
+  }, [value, max, setValue]);
   return (
     <Wrapper>
       <Button onClick={minusOnClick}>

@@ -7,7 +7,7 @@ import GlobalText from "../../../GlobalText";
 import Result from "../Result";
 import Summary from "../Summary";
 import Option from "../Option";
-
+import Info from "../Info";
 export default ({
   type,
   init,
@@ -26,6 +26,7 @@ export default ({
   const [typeCount, setTypeCount] = useState(1);
   const [subCount, setSubCount] = useState(0);
   const [initState, setInitState] = useState(init);
+  const [resultCount, setResultCount] = useState();
   const [resultCheckIn, setResultCheckIn] = useState();
   const [resultCheckOut, setResultCheckOut] = useState();
   const [selectType, setSelectType] = useState();
@@ -40,11 +41,14 @@ export default ({
   const [resultToggle, setResultToggle] = useState(true);
   const [optionToggle, setOptionToggle] = useState(false);
   const optionRef = useRef();
-
+  const [infoToggle, setInfoToggle] = useState(false);
+  const infoRef = useRef();
+  const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
     setEndDay(format(endDate, "E", { locale: ko }));
   }, [startDate, endDate]);
+
   //Summary
   useEffect(() => {
     if (selectType !== undefined) {
@@ -52,6 +56,7 @@ export default ({
       setSmToggle(true);
       setOptionToggle(true);
       optionRef.current.focus();
+      setTotalPrice(selectType.price + selectSubType.price);
     }
   }, [selectType]);
 
@@ -73,6 +78,7 @@ export default ({
         setInitState(false);
         setResultCheckIn(checkIn);
         setResultCheckOut(checkOut);
+        setResultCount(parentTypeCount);
       }
       const handleScroll = () => {
         const { pageYOffset } = window;
@@ -110,6 +116,7 @@ export default ({
     setInitState(false);
     setResultCheckIn(startDate.toISOString());
     setResultCheckOut(endDate.toISOString());
+    setResultCount(typeCount);
     setResultToggle(true);
   };
 
@@ -119,6 +126,11 @@ export default ({
     setSmDisplay(false);
     setResultToggle(false);
     setOptionToggle(false);
+    setInfoToggle(false);
+  };
+
+  const optionNextOnClick = () => {
+    setInfoToggle(true);
   };
 
   return (
@@ -161,6 +173,7 @@ export default ({
             reset={reset}
           />
           <Result
+            count={resultCount}
             checkIn={resultCheckIn}
             checkOut={resultCheckOut}
             initState={initState}
@@ -180,8 +193,14 @@ export default ({
             selectType={selectType}
             selectSubType={selectSubType}
             smDisplay={smDisplay}
+            totalPrice={totalPrice}
           />
-          <Option optionRef={optionRef} optionToggle={optionToggle} />
+          <Option
+            optionRef={optionRef}
+            optionToggle={optionToggle}
+            optionNextOnClick={optionNextOnClick}
+          />
+          <Info infoRef={infoRef} infoToggle={infoToggle} />
         </>
       )}
     </>

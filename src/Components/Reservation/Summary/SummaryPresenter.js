@@ -111,7 +111,8 @@ export default ({
   userCount,
   selectType,
   selectSubType,
-  smDisplay
+  smDisplay,
+  totalPrice
 }) => {
   return (
     <>
@@ -164,7 +165,7 @@ export default ({
                 </SummaryItem>
               </SummarySubTypeWrapper>
               <SummaryPriceWrapper>
-                <SummaryPrice>50,000원></SummaryPrice>
+                <SummaryPrice>{totalPrice}원</SummaryPrice>
               </SummaryPriceWrapper>
             </SummaryBody>
           </SummaryInner>

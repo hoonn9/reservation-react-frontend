@@ -1,11 +1,16 @@
 import React from "react";
 import OptionPresenter from "./OptionPresenter";
 
-export default ({ optionToggle, optionRef }) => {
+export default ({ optionToggle, optionRef, optionNextOnClick }) => {
   return (
     <>
-      <input ref={optionRef} />
-      {optionToggle ? <OptionPresenter /> : null}
+      <input
+        ref={optionRef}
+        style={{ width: "0px", height: "0px", border: "none" }}
+      />
+      {optionToggle ? (
+        <OptionPresenter optionNextOnClick={optionNextOnClick} />
+      ) : null}
     </>
   );
 };

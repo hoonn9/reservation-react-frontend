@@ -13,7 +13,6 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   background-color: transparent;
-  padding: 0px 32px 0px 32px;
 `;
 
 const WidgetWrpper = styled.div`
@@ -153,7 +152,7 @@ export default ({
                 value={userCount}
                 setValue={setUserCount}
                 min={1}
-                max={4}
+                max={typeCount * 2}
               />
             </CountPickerWrapper>
             <CountPickerWrapper>

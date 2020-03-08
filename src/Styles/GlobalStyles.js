@@ -23,4 +23,9 @@ export default createGlobalStyle`
         border: 0;
         outline: 0;
     }
+    option {
+        display: block;
+        white-space: pre;
+        min-height: 1.2em;
+    }
 `;

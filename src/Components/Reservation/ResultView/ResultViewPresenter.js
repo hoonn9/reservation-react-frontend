@@ -156,8 +156,12 @@ export default ({
               <MorePriceText>￦ {type.price}</MorePriceText>
               <SelectButtonWrapper
                 onClick={() => {
-                  setSelectType({ id: type.id, name: type.typeName });
-                  setSelectSubType({});
+                  setSelectType({
+                    id: type.id,
+                    name: type.typeName,
+                    price: type.price
+                  });
+                  setSelectSubType({ price: 0 });
                 }}
               >
                 <SelectButton>선택</SelectButton>
@@ -173,10 +177,15 @@ export default ({
                   <MorePriceText>￦ {type.price + subType.price}</MorePriceText>
                   <SelectButtonWrapper
                     onClick={() => {
-                      setSelectType({ id: type.id, name: type.typeName });
+                      setSelectType({
+                        id: type.id,
+                        name: type.typeName,
+                        price: type.price
+                      });
                       setSelectSubType({
                         id: subType.id,
-                        name: subType.subTypeName
+                        name: subType.subTypeName,
+                        price: subType.price
                       });
                     }}
                   >

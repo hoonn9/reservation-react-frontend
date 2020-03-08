@@ -79,7 +79,7 @@ export default () => {
                 platform={platform}
                 screenSize={screenSize}
               />
-              <Footer />
+              <Footer platform={platform} />
             </Wrapper>
           </>
         </Router>

@@ -5,6 +5,7 @@ import { SEARCH_TYPE } from "../../../Routes/Reservation/ReservationQueries";
 import ErrorAlert from "../../ErrorAlert";
 import Loader from "../../Loader";
 export default ({
+  count,
   checkIn,
   checkOut,
   initState,
@@ -15,6 +16,7 @@ export default ({
 }) => {
   const { data, loading, error } = useQuery(SEARCH_TYPE, {
     variables: {
+      count,
       checkIn,
       checkOut
     },

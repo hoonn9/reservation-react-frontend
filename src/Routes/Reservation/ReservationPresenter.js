@@ -4,7 +4,9 @@ import Search from "../../Components/Reservation/Search";
 
 const Container = styled.div`
   position: relative;
-  padding-bottom: 364px;
+  padding-bottom: 150px;
+  width: 1080px;
+  margin: 0 auto;
 `;
 const Title = styled.div`
   display: inline-block;

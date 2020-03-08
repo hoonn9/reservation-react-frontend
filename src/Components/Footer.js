@@ -82,6 +82,31 @@ const Address = styled.address`
   margin: 0;
   padding-left: 16px;
 `;
+//mobile
+
+const MobileFooterLogo = styled.div`
+  display: block;
+  padding: 0px 0px 0px 20px;
+  width: 120px;
+  margin: 0 auto;
+`;
+
+const MobileFooterInfo = styled.div`
+  width: 100%;
+  padding: 8px 0px 8px 0px;
+  position: relative;
+  margin: 0 auto;
+`;
+
+const MobileFooterElement = styled.div`
+  padding: 4px 0px;
+`;
+
+const MobileInfoListWrapper = styled.div`
+  display: block;
+  text-align: center;
+  overflow: hidden;
+`;
 
 const linkArray = [
   { name: "about us", to: "/" },
@@ -97,52 +122,100 @@ const linkArray = [
   { name: "language", to: "/" }
 ];
 
-export default () => {
+export default ({ platform }) => {
   const globalText = GlobalText();
   return (
-    <Footer>
-      <InnerTop>
-        <FooterInfo>
-          <FooterLogo>
-            <Logo />
-          </FooterLogo>
-          <InfoListWrapper>
-            <InfoList>
-              {linkArray.map((link, i) => {
-                return (
-                  <InfoListItem key={i}>
-                    <InfoLink to={link.to}>{link.name}</InfoLink>
-                  </InfoListItem>
-                );
-              })}
-            </InfoList>
-          </InfoListWrapper>
-        </FooterInfo>
-      </InnerTop>
-      <InnerBottom>
-        <FooterBottom>
-          <FooterAddress>
-            <FooterElement>
-              {globalText.text_company_name} {new Date().getFullYear()} &copy;
-            </FooterElement>
-            <Address>{globalText.text_company_address}</Address>
-            <FooterElement>
-              {globalText.text_ceo}: {globalText.text_company_ceo}
-            </FooterElement>
-            <FooterElement>
-              {globalText.text_tel}: {globalText.text_company_tel}
-            </FooterElement>
-          </FooterAddress>
-          <FooterNumber>
-            <FooterElement>
-              {globalText.text_bn_number}: {globalText.text_company_bn_number}
-            </FooterElement>
-            <FooterElement>
-              {globalText.text_rg_number}: {globalText.text_company_rg_number}
-            </FooterElement>
-          </FooterNumber>
-        </FooterBottom>
-      </InnerBottom>
-    </Footer>
+    <>
+      {platform === "desktop" ? (
+        <Footer>
+          <InnerTop>
+            <FooterInfo>
+              <FooterLogo>
+                <Logo />
+              </FooterLogo>
+              <InfoListWrapper>
+                <InfoList>
+                  {linkArray.map((link, i) => {
+                    return (
+                      <InfoListItem key={i}>
+                        <InfoLink to={link.to}>{link.name}</InfoLink>
+                      </InfoListItem>
+                    );
+                  })}
+                </InfoList>
+              </InfoListWrapper>
+            </FooterInfo>
+          </InnerTop>
+          <InnerBottom>
+            <FooterBottom>
+              <FooterAddress>
+                <FooterElement>
+                  {globalText.text_company_name} {new Date().getFullYear()}{" "}
+                  &copy;
+                </FooterElement>
+                <Address>{globalText.text_company_address}</Address>
+                <FooterElement>
+                  {globalText.text_ceo}: {globalText.text_company_ceo}
+                </FooterElement>
+                <FooterElement>
+                  {globalText.text_tel}: {globalText.text_company_tel}
+                </FooterElement>
+              </FooterAddress>
+              <FooterNumber>
+                <FooterElement>
+                  {globalText.text_bn_number}:{" "}
+                  {globalText.text_company_bn_number}
+                </FooterElement>
+                <FooterElement>
+                  {globalText.text_rg_number}:{" "}
+                  {globalText.text_company_rg_number}
+                </FooterElement>
+              </FooterNumber>
+            </FooterBottom>
+          </InnerBottom>
+        </Footer>
+      ) : (
+        <Footer>
+          <InnerTop>
+            <MobileFooterInfo>
+              <MobileFooterLogo>
+                <Logo />
+              </MobileFooterLogo>
+              <MobileInfoListWrapper>
+                <InfoList>
+                  {linkArray.map((link, i) => {
+                    return (
+                      <InfoListItem key={i}>
+                        <InfoLink to={link.to}>{link.name}</InfoLink>
+                      </InfoListItem>
+                    );
+                  })}
+                </InfoList>
+              </MobileInfoListWrapper>
+            </MobileFooterInfo>
+          </InnerTop>
+          <InnerBottom>
+            <FooterBottom>
+              <MobileFooterElement>
+                {globalText.text_company_name} {new Date().getFullYear()} &copy;
+              </MobileFooterElement>
+              <Address>{globalText.text_company_address}</Address>
+              <MobileFooterElement>
+                {globalText.text_ceo}: {globalText.text_company_ceo}
+              </MobileFooterElement>
+              <MobileFooterElement>
+                {globalText.text_tel}: {globalText.text_company_tel}
+              </MobileFooterElement>
+              <MobileFooterElement>
+                {globalText.text_bn_number}: {globalText.text_company_bn_number}
+              </MobileFooterElement>
+              <MobileFooterElement>
+                {globalText.text_rg_number}: {globalText.text_company_rg_number}
+              </MobileFooterElement>
+            </FooterBottom>
+          </InnerBottom>
+        </Footer>
+      )}
+    </>
   );
 };
