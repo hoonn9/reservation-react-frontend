@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Head from "./Head";
 import Content from "./Content";
+import { useQuery } from "react-apollo-hooks";
+import { SEE_EVENT } from "../../Routes/Event/EventQueries";
+import ErrorAlert from "../ErrorAlert";
+import Loader from "../Loader";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,6 +14,7 @@ const Wrapper = styled.div`
 
 export default () => {
   const [currentItem, setCurrentItem] = useState(0);
+  const { data, loading, error } = useQuery(SEE_EVENT, { variables: {} });
   const eventArray = [
     {
       eventType: "test",
@@ -37,9 +42,25 @@ export default () => {
   useEffect(() => {}, [currentItem]);
 
   return (
-    <Wrapper>
-      <Head eventArray={eventArray} setCurrentItem={setCurrentItem} />
-      <Content eventArray={eventArray} currentItem={currentItem} />
-    </Wrapper>
+    <>
+      {error ? (
+        <ErrorAlert />
+      ) : loading ? (
+        <Loader />
+      ) : (
+        <Wrapper>
+          <Head
+            eventArray={eventArray}
+            setCurrentItem={setCurrentItem}
+            data={data}
+          />
+          <Content
+            eventArray={eventArray}
+            currentItem={currentItem}
+            data={data}
+          />
+        </Wrapper>
+      )}
+    </>
   );
 };

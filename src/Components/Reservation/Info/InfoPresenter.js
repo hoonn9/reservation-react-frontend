@@ -61,134 +61,193 @@ const InfoSelect = styled.select`
   width: 72px;
 `;
 const InfoOption = styled.option``;
-
-export default ({ infoToggle }) => {
+const InfoAgree = styled.input``;
+const InvaildAlert = styled.div`
+  padding: 8px;
+  font-size: 14px;
+  color: ${props => props.theme.redColor};
+`;
+export default ({
+  infoToggle,
+  globalText,
+  agreeChecked,
+  setAgreeChecked,
+  setReserveUserName,
+  setReserveUserSex,
+  setReserveUserPhone,
+  setReserveUserEmail,
+  setGuestUserName,
+  setGuestUserSex,
+  setGuestUserPhone,
+  setGuestUserEmail,
+  reserveUserPhoneError,
+  reserveUserEmailError,
+  guestUserPhoneError,
+  guestUserEmailError,
+  setReserveUserPhoneError,
+  setReserveUserEmailError,
+  setGuestUserPhoneError,
+  setGuestUserEmailError,
+  validBlur,
+  emailRegex,
+  phoneRegex
+}) => {
   return (
     <Container>
       <Wrapper>
-        <Title>추가 정보</Title>
+        <Title>{globalText.text_add_info}</Title>
         <InfoFieldSet>
-          <InfoLegend>예약자 정보</InfoLegend>
+          <InfoLegend>{globalText.text_reserve_user_info}</InfoLegend>
           <InfoBlockWrapper>
             <InfoBlockBody>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>이름</InfoNameText>
+                  <InfoNameText>{globalText.text_name}</InfoNameText>
                 </InfoName>
                 <InfoContent>
-                  <InfoInput placeholder="성명" />
-                  <InfoSelect>
-                    <InfoOption>남</InfoOption>
-                    <InfoOption>여</InfoOption>
+                  <InfoInput
+                    placeholder={globalText.text_name}
+                    onChange={e => setReserveUserName(e.target.value)}
+                  />
+                  <InfoSelect
+                    defaultValue={globalText.text_man}
+                    onChange={e => setReserveUserSex(e.target.value)}
+                  >
+                    <InfoOption>{globalText.text_man}</InfoOption>
+                    <InfoOption>{globalText.text_woman}</InfoOption>
                   </InfoSelect>
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>휴대폰 번호</InfoNameText>
+                  <InfoNameText>{globalText.text_phone_num}</InfoNameText>
                 </InfoName>
                 <InfoContent>
                   <InfoInput
-                    placeholder="-를 제외하고 입력해주세요."
+                    placeholder={globalText.text_join_phone_placeholder}
                     style={{ width: "320px" }}
+                    onChange={e => setReserveUserPhone(e.target.value)}
+                    onBlur={e =>
+                      validBlur(
+                        phoneRegex,
+                        e.target.value,
+                        globalText.text_phone_error,
+                        setReserveUserPhoneError
+                      )
+                    }
                   />
+                  <InvaildAlert>{reserveUserPhoneError}</InvaildAlert>
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>이메일</InfoNameText>
+                  <InfoNameText>{globalText.text_email}</InfoNameText>
                 </InfoName>
                 <InfoContent>
                   <InfoInput
-                    placeholder="이메일 주소"
+                    placeholder={
+                      globalText.text_email + " " + globalText.text_address
+                    }
                     style={{ width: "320px" }}
+                    onChange={e => setReserveUserEmail(e.target.value)}
+                    onBlur={e =>
+                      validBlur(
+                        emailRegex,
+                        e.target.value,
+                        globalText.text_email_error,
+                        setReserveUserEmailError
+                      )
+                    }
                   />
+                  <InvaildAlert>{reserveUserEmailError}</InvaildAlert>
                 </InfoContent>
               </InfoBlock>
             </InfoBlockBody>
           </InfoBlockWrapper>
         </InfoFieldSet>
         <InfoFieldSet>
-          <InfoLegend>투숙자 정보</InfoLegend>
+          <InfoLegend>{globalText.text_guest_user_info}</InfoLegend>
           <InfoBlockWrapper>
             <InfoBlockBody>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>이름</InfoNameText>
+                  <InfoNameText>{globalText.text_name}</InfoNameText>
                 </InfoName>
                 <InfoContent>
-                  <InfoInput placeholder="성명" />
-                  <InfoSelect>
-                    <InfoOption>남</InfoOption>
-                    <InfoOption>여</InfoOption>
+                  <InfoInput
+                    placeholder={globalText.text_name}
+                    onChange={e => setGuestUserName(e.target.value)}
+                  />
+                  <InfoSelect
+                    defaultValue={globalText.text_man}
+                    onChange={e => setGuestUserSex(e.target.value)}
+                  >
+                    <InfoOption>{globalText.text_man}</InfoOption>
+                    <InfoOption>{globalText.text_woman}</InfoOption>
                   </InfoSelect>
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>휴대폰 번호</InfoNameText>
+                  <InfoNameText>{globalText.text_phone_num}</InfoNameText>
                 </InfoName>
                 <InfoContent>
                   <InfoInput
-                    placeholder="-를 제외하고 입력해주세요."
+                    placeholder={globalText.text_join_phone_placeholder}
                     style={{ width: "320px" }}
+                    onChange={e => setGuestUserPhone(e.target.value)}
+                    onBlur={e =>
+                      validBlur(
+                        phoneRegex,
+                        e.target.value,
+                        globalText.text_phone_error,
+                        setGuestUserPhoneError
+                      )
+                    }
                   />
+                  <InvaildAlert>{guestUserPhoneError}</InvaildAlert>
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>이메일</InfoNameText>
+                  <InfoNameText>{globalText.text_email}</InfoNameText>
                 </InfoName>
                 <InfoContent>
                   <InfoInput
-                    placeholder="이메일 주소"
+                    placeholder={
+                      globalText.text_email + " " + globalText.text_address
+                    }
                     style={{ width: "320px" }}
+                    onChange={e => setGuestUserEmail(e.target.value)}
+                    onBlur={e =>
+                      validBlur(
+                        emailRegex,
+                        e.target.value,
+                        globalText.text_email_error,
+                        setGuestUserEmailError
+                      )
+                    }
                   />
+                  <InvaildAlert>{guestUserEmailError}</InvaildAlert>
                 </InfoContent>
               </InfoBlock>
             </InfoBlockBody>
           </InfoBlockWrapper>
         </InfoFieldSet>
         <InfoFieldSet>
-          <InfoLegend>카드 정보</InfoLegend>
+          <InfoLegend>{globalText.text_agree}</InfoLegend>
           <InfoBlockWrapper>
             <InfoBlockBody>
               <InfoBlock>
                 <InfoName>
-                  <InfoNameText>카드 종류</InfoNameText>
+                  <InfoNameText>{globalText.text_use_agree}</InfoNameText>
                 </InfoName>
                 <InfoContent>
-                  <InfoSelect style={{ width: "120px" }}>
-                    <InfoOption>비씨카드</InfoOption>
-                    <InfoOption>국민카드</InfoOption>
-                    <InfoOption>신한카드</InfoOption>
-                    <InfoOption>하나카드</InfoOption>
-                    <InfoOption>농협카드</InfoOption>
-                  </InfoSelect>
+                  <InfoNameText>{globalText.text_use_agree_text}</InfoNameText>
+                  <InfoAgree type="checkbox" onChange={agreeChecked.onChange} />
                 </InfoContent>
               </InfoBlock>
-              <InfoBlock>
-                <InfoName>
-                  <InfoNameText>카드 번호</InfoNameText>
-                </InfoName>
-                <InfoContent>
-                  <InfoInput placeholder="" style={{ width: "120px" }} />
-                  <InfoInput placeholder="" style={{ width: "120px" }} />
-                  <InfoInput placeholder="" style={{ width: "120px" }} />
-                  <InfoInput placeholder="" style={{ width: "120px" }} />
-                </InfoContent>
-              </InfoBlock>
-              <InfoBlock>
-                <InfoName>
-                  <InfoNameText>이메일</InfoNameText>
-                </InfoName>
-                <InfoContent>
-                  <InfoInput
-                    placeholder="이메일 주소"
-                    style={{ width: "320px" }}
-                  />
-                </InfoContent>
-              </InfoBlock>
+              <InfoBlock></InfoBlock>
             </InfoBlockBody>
           </InfoBlockWrapper>
         </InfoFieldSet>

@@ -82,13 +82,7 @@ const SummaryBreakFirst = styled.div`
   padding: 8px 0px;
   color: ${props => props.theme.blackColor};
 `;
-const SummaryPriceWrapper = styled.div`
-  background-color: ${props => props.theme.redColor};
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  cursor: pointer;
-`;
+
 const SummarySubTypeWrapper = styled.div``;
 const SummarySubType = styled.div`
   font-size: 15px;
@@ -97,11 +91,28 @@ const SummarySubType = styled.div`
   color: ${props => props.theme.blackColor};
 `;
 
+const SummaryPriceWrapper = styled.div`
+  background-color: ${props => props.theme.darkGreyColor};
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+`;
+
+const SummaryPriceActiveWrapper = styled.div`
+  background-color: ${props => props.theme.redColor};
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+`;
+
 const SummaryPrice = styled.div`
   display: block;
   padding: 16px 16px;
   color: ${props => props.theme.whiteColor};
 `;
+
 export default ({
   smToggle,
   startDate,
@@ -112,7 +123,8 @@ export default ({
   selectType,
   selectSubType,
   smDisplay,
-  totalPrice
+  totalPrice,
+  successToggle
 }) => {
   return (
     <>
@@ -164,9 +176,15 @@ export default ({
                   <SummarySubType>{selectSubType.name}</SummarySubType>
                 </SummaryItem>
               </SummarySubTypeWrapper>
-              <SummaryPriceWrapper>
-                <SummaryPrice>{totalPrice}원</SummaryPrice>
-              </SummaryPriceWrapper>
+              {successToggle ? (
+                <SummaryPriceActiveWrapper>
+                  <SummaryPrice>{totalPrice}원</SummaryPrice>
+                </SummaryPriceActiveWrapper>
+              ) : (
+                <SummaryPriceWrapper>
+                  <SummaryPrice>{totalPrice}원</SummaryPrice>
+                </SummaryPriceWrapper>
+              )}
             </SummaryBody>
           </SummaryInner>
         </SummaryWrapper>

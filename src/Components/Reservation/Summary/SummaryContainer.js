@@ -11,7 +11,8 @@ export default ({
   selectType,
   selectSubType,
   smDisplay,
-  totalPrice
+  totalPrice,
+  successToggle
 }) => {
   return (
     <SummaryPresenter
@@ -25,6 +26,7 @@ export default ({
       selectSubType={selectSubType}
       smDisplay={smDisplay}
       totalPrice={totalPrice}
+      successToggle={successToggle}
     />
   );
 };

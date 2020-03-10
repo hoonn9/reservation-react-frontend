@@ -63,22 +63,24 @@ const ContentLink = styled(Link)`
   position: relative;
   z-index: 9;
 `;
-export default ({ imageSize, currentItem, eventArray }) => {
+export default ({ imageSize, currentItem, eventArray, seeEvent }) => {
   return (
     <Wrapper>
-      {eventArray[currentItem].events.map((event, i) => {
-        return (
-          <ContentWrapper imageSize={imageSize} key={i}>
-            <ContentLink to="/">
-              <ImgSpan>
-                <Img src={event.img} />
-              </ImgSpan>
-              <TextSpan>
-                <Text>{event.title}</Text>
-              </TextSpan>
-            </ContentLink>
-          </ContentWrapper>
-        );
+      {seeEvent.map((event, i) => {
+        if (event.eventType === currentItem) {
+          return (
+            <ContentWrapper imageSize={imageSize} key={i}>
+              <ContentLink to="/">
+                <ImgSpan>
+                  <Img src={event.thumbnail} />
+                </ImgSpan>
+                <TextSpan>
+                  <Text>{event.title}</Text>
+                </TextSpan>
+              </ContentLink>
+            </ContentWrapper>
+          );
+        }
       })}
     </Wrapper>
   );

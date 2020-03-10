@@ -86,7 +86,20 @@ export default () => {
       text_adult: "성인",
       text_child: "소아",
       text_search: "검색",
-      text_position: "위치"
+      text_position: "위치",
+      text_option: "옵션",
+      text_option_expect_check_in: "체크인 예정시간",
+      text_option_expect_check_out: "체크아웃 예정시간",
+      text_option_request: "특별요청",
+      text_option_request_placeholder: "ex) 높은 층 제외, 조용한 객실",
+      text_next: "다음",
+      text_add_info: "추가 정보",
+      text_reserve_user_info: "예약자 정보",
+      text_guest_user_info: "투숙자 정보",
+      text_man: "남",
+      text_woman: "여",
+      text_use_agree: "활용 동의",
+      text_use_agree_text: "[필수] 개인정보수집 및 활용에 동의"
     };
   } else if (language === "en") {
     return {

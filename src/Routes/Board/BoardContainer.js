@@ -15,7 +15,7 @@ export default ({ location }) => {
   const pageSize = 10;
   const rangeSize = 10;
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentRange, setCurrentRange] = useState(1);
+  const [currentRange, setCurrentRange] = useState(0);
   let listCount = 0;
   const rangeCount = 0;
   const startPage = 1;
@@ -45,20 +45,22 @@ export default ({ location }) => {
         <>
           <BoardPresenter
             data={pageQuery.data}
-            rangeSize={
-              countQuery.data.seeBoardCount % pageSize === 0
-                ? Math.floor(countQuery.data.seeBoardCount / pageSize)
-                : Math.floor(countQuery.data.seeBoardCount / pageSize + 1)
-            }
+            rangeSize={rangeSize}
             listCount={countQuery.data.seeBoardCount}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             pageSize={pageSize}
             globalText={globalText}
             boardId={boardId}
+            currentRange={currentRange}
+            setCurrentRange={setCurrentRange}
           />
         </>
       )}
     </div>
   );
 };
+
+// countQuery.data.seeBoardCount % pageSize === 0
+// ? Math.floor(countQuery.data.seeBoardCount / pageSize)
+// : Math.floor(countQuery.data.seeBoardCount / pageSize + 1)

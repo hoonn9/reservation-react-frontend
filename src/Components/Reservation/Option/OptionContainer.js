@@ -1,7 +1,15 @@
 import React from "react";
 import OptionPresenter from "./OptionPresenter";
 
-export default ({ optionToggle, optionRef, optionNextOnClick }) => {
+export default ({
+  optionToggle,
+  optionRef,
+  optionNextOnClick,
+  globalText,
+  setCheckInTime,
+  setCheckOutTime,
+  setOptionRequest
+}) => {
   return (
     <>
       <input
@@ -9,7 +17,13 @@ export default ({ optionToggle, optionRef, optionNextOnClick }) => {
         style={{ width: "0px", height: "0px", border: "none" }}
       />
       {optionToggle ? (
-        <OptionPresenter optionNextOnClick={optionNextOnClick} />
+        <OptionPresenter
+          globalText={globalText}
+          optionNextOnClick={optionNextOnClick}
+          setCheckInTime={setCheckInTime}
+          setCheckOutTime={setCheckOutTime}
+          setOptionRequest={setOptionRequest}
+        />
       ) : null}
     </>
   );

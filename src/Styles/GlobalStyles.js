@@ -28,4 +28,7 @@ export default createGlobalStyle`
         white-space: pre;
         min-height: 1.2em;
     }
+    button {
+        cursor: pointer;
+    }
 `;

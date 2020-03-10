@@ -35,7 +35,7 @@ const TabColumn = styled.div`
   margin-left: 8px;
   cursor: pointer;
 `;
-export default ({ eventArray, setCurrentItem }) => {
+export default ({ eventArray, setCurrentItem, eventSet }) => {
   return (
     <Wrapper>
       <TopWrapper>
@@ -46,16 +46,17 @@ export default ({ eventArray, setCurrentItem }) => {
           />
         </SubButton>
         <TabWrapper>
-          {eventArray.map((event, i) => {
+          {eventSet.map((event, i) => {
+            console.log(event);
             return (
               <TabColumn
                 key={i}
                 onClick={() => {
-                  setCurrentItem(i);
+                  setCurrentItem(event);
                   console.log(i);
                 }}
               >
-                {event.eventType}
+                {event}
               </TabColumn>
             );
           })}

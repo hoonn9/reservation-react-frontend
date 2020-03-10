@@ -55,51 +55,75 @@ const NextButton = styled.button`
   padding: 12px 24px;
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
+  cursor: pointer;
 `;
-export default ({ optionNextOnClick }) => {
+export default ({
+  globalText,
+  optionNextOnClick,
+  setCheckInTime,
+  setCheckOutTime,
+  setOptionRequest
+}) => {
   return (
     <Wrapper>
-      <Title>옵션</Title>
+      <Title>{globalText.text_option}</Title>
       <OptionBlockWrapper>
         <OptionBlockBody>
           <OptionBlock>
             <OptionName>
-              <OptionNameText>체크인 예정시간</OptionNameText>
+              <OptionNameText>
+                {globalText.text_option_expect_check_in}
+              </OptionNameText>
             </OptionName>
             <OptionContent>
-              <OptionSelect type="text">
+              <OptionSelect
+                type="text"
+                onChange={e => setCheckInTime(e.target.value)}
+              >
                 <OptionOption>15:00</OptionOption>
                 <OptionOption>16:00</OptionOption>
                 <OptionOption>17:00</OptionOption>
                 <OptionOption>18:00</OptionOption>
                 <OptionOption>19:00</OptionOption>
+                <OptionOption>20:00</OptionOption>
+                <OptionOption>21:00~</OptionOption>
               </OptionSelect>
             </OptionContent>
             <OptionName>
-              <OptionNameText>체크아웃 예정시간</OptionNameText>
+              <OptionNameText>
+                {globalText.text_option_expect_check_out}
+              </OptionNameText>
             </OptionName>
             <OptionContent>
-              <OptionSelect type="text">
-                <OptionOption>15:00</OptionOption>
-                <OptionOption>16:00</OptionOption>
-                <OptionOption>17:00</OptionOption>
-                <OptionOption>18:00</OptionOption>
-                <OptionOption>19:00</OptionOption>
+              <OptionSelect
+                type="text"
+                onChange={e => setCheckOutTime(e.target.value)}
+              >
+                <OptionOption>08:00</OptionOption>
+                <OptionOption>09:00</OptionOption>
+                <OptionOption>10:00</OptionOption>
+                <OptionOption>11:00</OptionOption>
+                <OptionOption>12:00</OptionOption>
               </OptionSelect>
             </OptionContent>
           </OptionBlock>
           <OptionBlock>
             <OptionName>
-              <OptionNameText>특별요청</OptionNameText>
+              <OptionNameText>{globalText.text_option_request}</OptionNameText>
             </OptionName>
             <OptionContent colSpan="3">
-              <OptionInput placeholder="ex) 높은 층 제외, 조용한 객실" />
+              <OptionInput
+                placeholder={globalText.text_option_request_placeholder}
+                onChange={e => setOptionRequest(e.target.value)}
+              />
             </OptionContent>
           </OptionBlock>
         </OptionBlockBody>
       </OptionBlockWrapper>
       <NextButtonWrapper>
-        <NextButton onClick={optionNextOnClick}>다음</NextButton>
+        <NextButton onClick={optionNextOnClick}>
+          {globalText.text_next}
+        </NextButton>
       </NextButtonWrapper>
     </Wrapper>
   );
