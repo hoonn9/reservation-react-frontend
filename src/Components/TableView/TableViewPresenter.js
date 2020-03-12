@@ -36,7 +36,7 @@ export default ({ rowWidth, viewState, dataState }) => {
                   subTitle={event.subTitle}
                   period={event.period}
                   content={event.content}
-                  thumbnail={event.files ? event.files[0] : ""}
+                  thumbnail={event.thumbnail}
                 />
               </TableColumn>
             );

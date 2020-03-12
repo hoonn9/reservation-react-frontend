@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Components/Banner/Banner";
 import Search from "../Components/Reservation/Search";
+import Popup from "../Components/Popup/Popup";
+import { useQuery } from "react-apollo-hooks";
+import { SEE_POPUP } from "../SharedQueries";
 
 const Container = styled.div`
   position: relative;
@@ -13,7 +16,8 @@ const Wrapper = styled.div`
 const TopImgWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: ${props => (props.platform === "desktop" ? "1080px" : "480px")};
+  height: ${props =>
+    props.platform === "desktop" ? `${props.screenSize.height}px` : "480px"};
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -30,41 +34,46 @@ const TopImg = styled.img`
   opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
+
+const PopupContent = styled.div``;
+
 const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
-export default ({ platform }) => {
-  const [currentItem, setCurrentItem] = useState(0);
 
-  useEffect(() => {
-    var to;
-    const slide = () => {
-      const totalFiles = topImageArray.length;
-      if (currentItem === totalFiles - 1) {
-        to = setTimeout(() => setCurrentItem(0), 5000);
-      } else {
-        to = setTimeout(() => setCurrentItem(currentItem + 1), 5000);
-      }
-    };
+export default ({ platform, screenSize }) => {
+  // const [currentItem, setCurrentItem] = useState(0);
 
-    slide();
-    return () => {
-      clearTimeout(to);
-    };
-  }, [currentItem]);
+  // useEffect(() => {
+  //   var to;
+  //   const slide = () => {
+  //     const totalFiles = topImageArray.length;
+  //     if (currentItem === totalFiles - 1) {
+  //       to = setTimeout(() => setCurrentItem(0), 5000);
+  //     } else {
+  //       to = setTimeout(() => setCurrentItem(currentItem + 1), 5000);
+  //     }
+  //   };
+
+  //   slide();
+  //   return () => {
+  //     clearTimeout(to);
+  //   };
+  // }, [currentItem]);
+  const popupData = useQuery(SEE_POPUP, {});
 
   return (
     <Container>
       {platform === "desktop" ? (
-        <TopImgWrapper platform={platform}>
-          {topImageArray &&
-            topImageArray.map((img, index) => (
-              <TopImg key={index} src={img} showing={index === currentItem} />
-            ))}
+        <TopImgWrapper platform={platform} screenSize={screenSize}>
+          <TopImg src={topImageArray[0]} showing={1} />
           <Search type="widget" />
         </TopImgWrapper>
       ) : (
-        <TopImgWrapper>
-          {<TopImg src={topImageArray[0]} showing={1} platform={platform} />}
+        <TopImgWrapper platform={platform} screenSize={screenSize}>
+          <TopImg src={topImageArray[0]} showing={1} />
         </TopImgWrapper>
+      )}
+      {popupData.error ? null : popupData.loading ? null : (
+        <Popup data={popupData.data} />
       )}
 
       <Wrapper>

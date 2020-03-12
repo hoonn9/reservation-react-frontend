@@ -25,3 +25,14 @@ export const BOARD_LIST = gql`
     }
   }
 `;
+
+export const SEE_POPUP = gql`
+  query {
+    seePopup {
+      id
+      title
+      content
+      url
+    }
+  }
+`;

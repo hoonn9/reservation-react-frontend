@@ -2,10 +2,19 @@ import React from "react";
 import FullEventPresenter from "./FullEventPresenter";
 
 export default ({ data }) => {
-  const { type, title, period, subTitle, content, files } = data.seeFullEvent;
+  const {
+    eventType,
+    thumbnail,
+    title,
+    period,
+    subTitle,
+    content,
+    files
+  } = data.seeFullEvent;
   return (
     <FullEventPresenter
-      type={type}
+      eventType={eventType}
+      thumbnail={thumbnail}
       title={title}
       period={period}
       subTitle={subTitle}

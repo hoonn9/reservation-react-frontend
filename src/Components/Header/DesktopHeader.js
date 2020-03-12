@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import AnimateHeight from "react-animate-height";
 import { Link } from "react-router-dom";
 import { Logo } from "../Icons";
 
 const Header = styled.header`
   width: 100%;
   position: fixed;
-  align-items: center;
   top: 0;
   left: 0;
   z-index: 10;
@@ -24,48 +24,53 @@ const AnimationWrapper = styled.div`
   opacity: ${props => (props.hide ? 1 : 0)};
   transition: opacity 2s linear;
   transition: background-color 0.5s linear;
+  z-index: -4;
+`;
+
+const HoverWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  background-color: ${props => props.theme.whiteColor};
+  opacity: ${props => (props.hoverState ? 1 : 0)};
+  transition: opacity 0.15s linear;
+  z-index: -5;
 `;
 
 const HeaderWrapper = styled.div`
   width: 100%;
+  max-width: ${props => (props.hide ? "1280px" : null)};
   height: 85px;
-  position: absolute;
-  display: flex;
-  margin: ${props => (props.hide ? "32px 0px" : "0px")};
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: ${props => (props.hide ? "32px" : "0px")};
+  margin-bottom: ${props => (props.hide ? "32px" : "0px")};
   background-color: ${props =>
     props.hide ? props.theme.transparentColor : props.theme.whiteColor};
   transition: ${props => (props.hide ? "" : "background-color 0.5s linear")};
-
-  justify-content: center;
-  div:first-child {
-    text-align: left;
-  }
-  div:last-child {
-    text-align: right;
-  }
 `;
 
-const HeaderColumn = styled.div`
-  width: 60%;
+const LogoColumn = styled.div`
+  display: inline-block;
+  width: 20%;
+  z-index: 200;
+`;
+const MainMenuColumn = styled.div`
+  display: inline-block;
+  width: 70%;
   height: 100%;
   line-height: 85px;
-
-  &:first-child {
-    display: flex;
-    justify-content: center;
-    width: 20%;
-  }
-  &:last-child {
-    margin-right: auto;
-    width: 20%;
-  }
+`;
+const SubMenuColumn = styled.div`
+  position: absolute;
+  visibility: ${props => (props.hide ? "visible" : "hidden")};
+  right: 0;
+  top: 0px;
+  width: 20%;
+  margin-top: 32px;
 `;
 
 const LogoWrapper = styled.div`
   display: block;
-  top: 0;
-  left: 0;
-  z-index: 10;
   padding-top: 0;
   max-width: 195px;
   text-align: center;
@@ -74,30 +79,51 @@ const LogoWrapper = styled.div`
 
 const HeaderMainLink = styled(Link)`
   text-decoration: none;
-  margin-left: 32px;
-  margin-right: 32px;
 `;
 
 const HeaderLink = styled(Link)`
-  display: inline-block;
   text-decoration: none;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin: 0px 8px;
 `;
 
 const MainMenuText = styled.span`
   font-size: 16px;
   color: ${props =>
-    props.hide ? props.theme.whiteColor : props.theme.blackColor};
+    props.hide
+      ? props.hoverState
+        ? props.theme.blackColor
+        : props.theme.whiteColor
+      : props.theme.blackColor};
+`;
+
+const MainMenuListWrapper = styled.ul`
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  float: right;
+`;
+const MainMenuListElement = styled.li`
+  display: table-cell;
+  position: relative;
+  vertical-align: top;
+  padding: 0;
+  max-width: 14.28%;
+  text-align: center;
 `;
 
 const SubMenuText = styled.span`
   font-size: 13px;
   color: ${props =>
-    props.hide ? props.theme.whiteColor : props.theme.blackColor};
+    props.hide
+      ? props.hoverState
+        ? props.theme.blackColor
+        : props.theme.whiteColor
+      : props.theme.blackColor};
 `;
 export default ({
   hide,
+  hoverState,
+  setHoverState,
   categoryArray,
   logoutMutation,
   globalText,
@@ -106,44 +132,69 @@ export default ({
   return (
     <Header>
       <AnimationWrapper hide={hide} />
+      <HoverWrapper hoverState={hoverState}>
+        {hide ? (
+          <AnimateHeight duration={150} height={hoverState ? 150 : 0}>
+            <span />
+          </AnimateHeight>
+        ) : null}
+      </HoverWrapper>
+      <SubMenuColumn hide={hide}>
+        {isLoggedIn ? (
+          <>
+            <HeaderLink to="/" onClick={logoutMutation}>
+              <SubMenuText hide={hide} hoverState={hoverState}>
+                {globalText.text_logout}
+              </SubMenuText>
+            </HeaderLink>
+            <HeaderLink to="/mypage">
+              <SubMenuText hide={hide} hoverState={hoverState}>
+                {globalText.text_mypage}
+              </SubMenuText>
+            </HeaderLink>
+          </>
+        ) : (
+          <>
+            <HeaderLink to="/login">
+              <SubMenuText hide={hide} hoverState={hoverState}>
+                {globalText.text_login}
+              </SubMenuText>
+            </HeaderLink>
+            <HeaderLink to="/joinagree">
+              <SubMenuText hide={hide} hoverState={hoverState}>
+                {globalText.text_join}
+              </SubMenuText>
+            </HeaderLink>
+          </>
+        )}
+      </SubMenuColumn>
       <HeaderWrapper hide={hide}>
-        <HeaderColumn>
+        <LogoColumn>
           <LogoWrapper>
             <HeaderLink to="/">
               <Logo />
             </HeaderLink>
           </LogoWrapper>
-        </HeaderColumn>
-        <HeaderColumn>
-          {categoryArray.map((category, i) => {
-            return (
-              <HeaderMainLink key={i} to={category.to}>
-                <MainMenuText hide={hide}>{category.text}</MainMenuText>
-              </HeaderMainLink>
-            );
-          })}
-        </HeaderColumn>
-        <HeaderColumn>
-          {isLoggedIn ? (
-            <>
-              <HeaderLink to="/" onClick={logoutMutation}>
-                <SubMenuText hide={hide}>{globalText.text_logout}</SubMenuText>
-              </HeaderLink>
-              <HeaderLink to="/mypage">
-                <SubMenuText hide={hide}>{globalText.text_mypage}</SubMenuText>
-              </HeaderLink>
-            </>
-          ) : (
-            <>
-              <HeaderLink to="/login">
-                <SubMenuText hide={hide}>{globalText.text_login}</SubMenuText>
-              </HeaderLink>
-              <HeaderLink to="/joinagree">
-                <SubMenuText hide={hide}>{globalText.text_join}</SubMenuText>
-              </HeaderLink>
-            </>
-          )}
-        </HeaderColumn>
+        </LogoColumn>
+        <MainMenuColumn>
+          <MainMenuListWrapper>
+            {categoryArray.map((category, i) => {
+              return (
+                <MainMenuListElement
+                  key={i}
+                  onMouseEnter={() => setHoverState(true)}
+                  onMouseLeave={() => setHoverState(false)}
+                >
+                  <HeaderMainLink key={i} to={category.to}>
+                    <MainMenuText hide={hide} hoverState={hoverState}>
+                      {category.text}
+                    </MainMenuText>
+                  </HeaderMainLink>
+                </MainMenuListElement>
+              );
+            })}
+          </MainMenuListWrapper>
+        </MainMenuColumn>
       </HeaderWrapper>
     </Header>
   );

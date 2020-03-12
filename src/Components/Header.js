@@ -19,6 +19,7 @@ export default ({ isLoggedIn, platform }) => {
   const globalText = GlobalText();
   const [logoutMutation] = useMutation(LOG_OUT);
   const [hide, setHide] = useState(false);
+  const [hoverState, setHoverState] = useState(false);
   const [moblieTrigger, setMoblieTrigger] = useState(false);
 
   const [userName, setUserName] = useState("");
@@ -127,6 +128,8 @@ export default ({ isLoggedIn, platform }) => {
           logoutMutation={logoutMutation}
           globalText={globalText}
           isLoggedIn={isLoggedIn}
+          hoverState={hoverState}
+          setHoverState={setHoverState}
         />
       ) : (
         <MobileHeader

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
-
+import AddIcon from "@material-ui/icons/Add";
+import { Link } from "react-router-dom";
 const Wrapper = styled.div`
   max-width: 75%;
   margin: 0 auto;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
 `;
 const TopWrapper = styled.div`
   position: relative;
@@ -14,9 +14,9 @@ const TopWrapper = styled.div`
 const Title = styled.div`
   display: inline-block;
   vertical-align: middle;
-  font-size: 38px;
-  font-weight: bold;
-  margin-right: 16px;
+  font-size: 42px;
+  font-weight: 500;
+  margin-right: 8px;
 `;
 const SubButton = styled.div`
   display: inline-block;
@@ -30,12 +30,23 @@ const TabWrapper = styled.div`
 `;
 const TabColumn = styled.div`
   display: inline-block;
-  border: 1px solid #000000;
   padding: 8px;
   margin-left: 8px;
+  font-size: 21px;
   cursor: pointer;
 `;
-export default ({ eventArray, setCurrentItem, seeEvent }) => {
+
+const TabActiveColumn = styled(TabColumn)`
+  color: ${props => props.theme.blackColor};
+  font-weight: 500;
+`;
+
+const TabInActiveColumn = styled(TabColumn)`
+  color: ${props => props.theme.darkGreyColor};
+  font-weight: 500;
+`;
+
+export default ({ globalText, currentItem, setCurrentItem, seeEvent }) => {
   var eventTypes = new Set([]);
   for (const event of seeEvent) {
     eventTypes.add(event.eventType);
@@ -43,23 +54,34 @@ export default ({ eventArray, setCurrentItem, seeEvent }) => {
   return (
     <Wrapper>
       <TopWrapper>
-        <Title>EVENT</Title>
-        <SubButton>
-          <AddBoxOutlinedIcon
-            style={{ width: "42px", height: "42px", verticalAlign: "middle" }}
-          />
-        </SubButton>
+        <Title>{globalText.text_event}</Title>
+        <Link to="/event">
+          <SubButton>
+            <AddIcon
+              style={{ width: "36px", height: "36px", verticalAlign: "middle" }}
+            />
+          </SubButton>
+        </Link>
         <TabWrapper>
           {Array.from(eventTypes).map((eventType, i) => {
-            return (
-              <TabColumn
+            return currentItem === eventType ? (
+              <TabActiveColumn
                 key={i}
                 onClick={() => {
                   setCurrentItem(eventType);
                 }}
               >
                 {eventType}
-              </TabColumn>
+              </TabActiveColumn>
+            ) : (
+              <TabInActiveColumn
+                key={i}
+                onClick={() => {
+                  setCurrentItem(eventType);
+                }}
+              >
+                {eventType}
+              </TabInActiveColumn>
             );
           })}
         </TabWrapper>

@@ -16,7 +16,11 @@ import Reservation from "../Routes/Reservation";
 import Infomation from "../Routes/Infomation";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
   <Switch>
-    <Route exact path="/" render={props => <Home platform={platform} />} />
+    <Route
+      exact
+      path="/"
+      render={props => <Home platform={platform} screenSize={screenSize} />}
+    />
     <Route path="/mypage" component={Login} />
     <Route path="/login" component={Login} />
     <Route path="/joinagree" component={JoinAgree} />
@@ -38,7 +42,11 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
 
 const LoggedInRoutes = ({ platform, screenSize }) => (
   <Switch>
-    <Route exact path="/" render={props => <Home platform={platform} />} />
+    <Route
+      exact
+      path="/"
+      render={props => <Home platform={platform} screenSize={screenSize} />}
+    />
     <Route path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />

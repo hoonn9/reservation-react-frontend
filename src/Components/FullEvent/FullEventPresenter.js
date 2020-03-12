@@ -10,8 +10,7 @@ const TopViewWrapper = styled.div`
   margin-top: 30px;
 `;
 
-const TopViewImage = styled.div`
-  background: url(${props => props.src}) center no-repeat;
+const TopViewImage = styled.img`
   background-size: cover;
   position: relative;
   display: block;
@@ -84,16 +83,25 @@ const TopViewPeriod = styled.p`
   line-height: 1.6em;
 `;
 
-export default ({ type, title, period, subTitle, content, files }) => {
+export default ({
+  eventType,
+  thumbnail,
+  title,
+  period,
+  subTitle,
+  content,
+  files
+}) => {
+  console.log(thumbnail);
   return (
     <Wrapper>
       <TopViewWrapper>
-        <TopViewImage src="https://www.lotteresort.com/static/upload/images/20200203/bc940f98-14ea-4536-838e-863b82291cbc.jpg" />
+        <TopViewImage src={"/images/Event/5.jpg"} />
         <TopViewDetailWrapper>
           <TopViewDescWrapper>
             <TopViewDescLeft>
               <TopViewDescLeftInner>
-                <TopViewType>{type}</TopViewType>
+                <TopViewType>{eventType}</TopViewType>
                 <TopViewTitle>{title}</TopViewTitle>
               </TopViewDescLeftInner>
             </TopViewDescLeft>

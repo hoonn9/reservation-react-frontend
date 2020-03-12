@@ -11,7 +11,7 @@ const Container = styled.div`
   display: block;
   width: 100%;
   z-index: 5;
-  top: 250px;
+  top: 670px;
 `;
 
 const Wrapper = styled.div`
@@ -20,9 +20,9 @@ const Wrapper = styled.div`
 `;
 
 const WidgetWrpper = styled.div`
-  background: ${props => props.theme.whiteColor};
+  background: ${props => props.theme.liteWhiteColor};
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-  width: 440px;
+  width: 480px;
   padding: 16px;
 `;
 
@@ -31,6 +31,7 @@ const Title = styled.h2`
   font-weight: 500;
   line-height: 1.25;
   padding: 8px 0px;
+  color: ${props => props.theme.blackColor};
 `;
 
 const SubTitle = styled.h1`
@@ -72,8 +73,11 @@ const SearchButton = styled.button`
 `;
 
 const CustomDatePicker = styled(DatePicker)`
+  color: ${props => props.theme.blackColor};
+  background-color: transparent;
+  border: 0;
   width: 90%;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.5;
   padding: 6px 6px;

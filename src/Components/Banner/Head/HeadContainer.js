@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
 import HeadPresenter from "./HeadPresenter";
 
-export default ({ eventArray, setCurrentItem, data: { seeEvent } }) => {
+export default ({
+  globalText,
+  currentItem,
+  setCurrentItem,
+  data: { seeEvent }
+}) => {
+  useEffect(() => {
+    setCurrentItem(seeEvent[0].eventType);
+  }, [seeEvent]);
   return (
     <HeadPresenter
-      eventArray={eventArray}
+      globalText={globalText}
+      currentItem={currentItem}
       setCurrentItem={setCurrentItem}
       seeEvent={seeEvent}
     />
