@@ -5,6 +5,7 @@ export default ({
   globalText,
   currentItem,
   setCurrentItem,
+  resetWrapper,
   data: { seeEvent }
 }) => {
   useEffect(() => {
@@ -14,6 +15,7 @@ export default ({
     <HeadPresenter
       globalText={globalText}
       currentItem={currentItem}
+      resetWrapper={resetWrapper}
       setCurrentItem={setCurrentItem}
       seeEvent={seeEvent}
     />

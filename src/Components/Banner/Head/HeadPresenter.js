@@ -39,6 +39,7 @@ const TabColumn = styled.div`
 const TabActiveColumn = styled(TabColumn)`
   color: ${props => props.theme.blackColor};
   font-weight: 500;
+  border-bottom: 2px ${props => props.theme.redColor} solid;
 `;
 
 const TabInActiveColumn = styled(TabColumn)`
@@ -46,7 +47,13 @@ const TabInActiveColumn = styled(TabColumn)`
   font-weight: 500;
 `;
 
-export default ({ globalText, currentItem, setCurrentItem, seeEvent }) => {
+export default ({
+  globalText,
+  currentItem,
+  setCurrentItem,
+  seeEvent,
+  resetWrapper
+}) => {
   var eventTypes = new Set([]);
   for (const event of seeEvent) {
     eventTypes.add(event.eventType);
@@ -69,6 +76,7 @@ export default ({ globalText, currentItem, setCurrentItem, seeEvent }) => {
                 key={i}
                 onClick={() => {
                   setCurrentItem(eventType);
+                  resetWrapper();
                 }}
               >
                 {eventType}
@@ -78,6 +86,7 @@ export default ({ globalText, currentItem, setCurrentItem, seeEvent }) => {
                 key={i}
                 onClick={() => {
                   setCurrentItem(eventType);
+                  resetWrapper();
                 }}
               >
                 {eventType}

@@ -17,6 +17,18 @@ export default ({ screenSize }) => {
   const [currentItem, setCurrentItem] = useState(0);
   const { data, loading, error } = useQuery(SEE_EVENT, { variables: {} });
 
+  //container
+  const divide = 3;
+  const [wrapperWidth, setWrapperWidth] = useState(75);
+  const [imgWidth, setImgWidth] = useState(
+    ((screenSize.width / 100) * wrapperWidth) / divide
+  );
+  const [transValue, setTransValue] = useState(0);
+
+  const resetWrapper = () => {
+    setTransValue(0);
+  };
+
   return (
     <>
       {error ? (
@@ -30,11 +42,18 @@ export default ({ screenSize }) => {
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
             data={data}
+            resetWrapper={resetWrapper}
           />
           <Content
             currentItem={currentItem}
             data={data}
             screenSize={screenSize}
+            wrapperWidth={wrapperWidth}
+            divide={divide}
+            imgWidth={imgWidth}
+            setImgWidth={setImgWidth}
+            transValue={transValue}
+            setTransValue={setTransValue}
           />
         </Wrapper>
       )}

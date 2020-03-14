@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ContentPresenter from "./ContentPresenter";
-import { getSize } from "../../../Utils";
-export default ({ screenSize, currentItem, data: { seeEvent } }) => {
-  const divide = 3;
-  const [wrapperWidth, setWrapperWidth] = useState(75);
-  const [imgWidth, setImgWidth] = useState(
-    ((screenSize.width / 100) * wrapperWidth) / divide
-  );
-
+export default ({
+  screenSize,
+  currentItem,
+  wrapperWidth,
+  imgWidth,
+  setImgWidth,
+  transValue,
+  setTransValue,
+  divide,
+  data: { seeEvent }
+}) => {
   useEffect(() => {
     setImgWidth(((screenSize.width / 100) * wrapperWidth) / divide);
   }, [screenSize, wrapperWidth]);
 
+  const currentArray = seeEvent.filter(e => {
+    return e.eventType === currentItem;
+  });
+
   return (
     <ContentPresenter
+      divide={divide}
       imgWidth={imgWidth}
-      currentItem={currentItem}
-      seeEvent={seeEvent}
+      currentArray={currentArray}
       wrapperWidth={wrapperWidth}
+      transValue={transValue}
+      setTransValue={setTransValue}
     />
   );
 };
