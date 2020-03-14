@@ -65,6 +65,8 @@ export default ({ id, type, title, subTitle, period, thumbnail }) => {
     <Wrapper>
       <ContentWrapper>
         <ImgWrapper>
+          <Img src={thumbnail} />
+
           <ContentLink
             to={{
               pathname: `/event/${id}`,
@@ -73,15 +75,14 @@ export default ({ id, type, title, subTitle, period, thumbnail }) => {
               }
             }}
           >
-            <Img src={thumbnail} />
+            <TextWrapper>
+              <dl>
+                <TextTitle>{title}</TextTitle>
+                <TextSubTitle>{subTitle}</TextSubTitle>
+                <TextPeriod>{period}</TextPeriod>
+              </dl>
+            </TextWrapper>
           </ContentLink>
-          <TextWrapper>
-            <dl>
-              <TextTitle>{title}</TextTitle>
-              <TextSubTitle>{subTitle}</TextSubTitle>
-              <TextPeriod>{period}</TextPeriod>
-            </dl>
-          </TextWrapper>
         </ImgWrapper>
       </ContentWrapper>
     </Wrapper>

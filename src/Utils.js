@@ -34,8 +34,8 @@ export const getCookie = name => {
   while (i <= document.cookie.length) {
     var y = x + cName.length;
 
-    if (document.cookie.substring(x, y) == cName) {
-      if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+    if (document.cookie.substring(x, y) === cName) {
+      if ((endOfCookie = document.cookie.indexOf(";", y)) === -1)
         endOfCookie = document.cookie.length;
 
       return unescape(document.cookie.substring(y, endOfCookie));
@@ -43,7 +43,7 @@ export const getCookie = name => {
 
     x = document.cookie.indexOf(" ", x) + 1;
 
-    if (x == 0) break;
+    if (x === 0) break;
     i++;
   }
 

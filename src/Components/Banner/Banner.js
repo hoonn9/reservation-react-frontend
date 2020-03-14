@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Head from "./Head";
 import Content from "./Content";
 import { useQuery } from "react-apollo-hooks";
 import { SEE_EVENT } from "../../Routes/Event/EventQueries";
 import ErrorAlert from "../ErrorAlert";
-import Loader from "../Loader";
 import GlobalText from "../../GlobalText";
 
 const Wrapper = styled.div`
@@ -13,7 +12,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export default () => {
+export default ({ screenSize }) => {
   const globalText = GlobalText();
   const [currentItem, setCurrentItem] = useState(0);
   const { data, loading, error } = useQuery(SEE_EVENT, { variables: {} });
@@ -23,7 +22,7 @@ export default () => {
       {error ? (
         <ErrorAlert />
       ) : loading ? (
-        <Loader />
+        <div />
       ) : (
         <Wrapper>
           <Head
@@ -32,7 +31,11 @@ export default () => {
             setCurrentItem={setCurrentItem}
             data={data}
           />
-          <Content currentItem={currentItem} data={data} />
+          <Content
+            currentItem={currentItem}
+            data={data}
+            screenSize={screenSize}
+          />
         </Wrapper>
       )}
     </>

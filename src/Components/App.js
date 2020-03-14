@@ -24,27 +24,30 @@ const Wrapper = styled.div`
 const useWindowSize = () => {
   const isClient = typeof window === "object";
 
-  function getSize() {
-    return {
-      width: isClient ? window.innerWidth : undefined,
-      height: isClient ? window.innerHeight : undefined
-    };
-  }
-
-  const [windowSize, setWindowSize] = useState(getSize);
+  const [windowSize, setWindowSize] = useState({
+    width: isClient ? window.innerWidth : undefined,
+    height: isClient ? window.innerHeight : undefined
+  });
 
   useEffect(() => {
+    const getSize = () => {
+      return {
+        width: isClient ? window.innerWidth : undefined,
+        height: isClient ? window.innerHeight : undefined
+      };
+    };
+
     if (!isClient) {
       return false;
     }
 
-    function handleResize() {
+    const handleResize = () => {
       setWindowSize(getSize());
-    }
+    };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isClient]);
 
   return windowSize;
 };

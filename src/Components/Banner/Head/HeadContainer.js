@@ -9,7 +9,7 @@ export default ({
 }) => {
   useEffect(() => {
     setCurrentItem(seeEvent[0].eventType);
-  }, [seeEvent]);
+  }, [seeEvent, setCurrentItem]);
   return (
     <HeadPresenter
       globalText={globalText}

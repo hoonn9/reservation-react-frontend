@@ -27,7 +27,7 @@ export default ({ data }) => {
         return getCookie("notToday_" + e.id) !== "Y";
       })
     );
-  }, []);
+  }, [data]);
 
   return (
     <Container>

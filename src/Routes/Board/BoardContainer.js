@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BoardPresenter from "./BoardPresenter";
 import { useQuery } from "react-apollo-hooks";
 import { SEE_BOARD_COUNT } from "./BoardQueries";
@@ -16,10 +16,6 @@ export default ({ location }) => {
   const rangeSize = 10;
   const [currentPage, setCurrentPage] = useState(0);
   const [currentRange, setCurrentRange] = useState(0);
-  let listCount = 0;
-  const rangeCount = 0;
-  const startPage = 1;
-  const endPage = 1;
 
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
@@ -60,7 +56,3 @@ export default ({ location }) => {
     </div>
   );
 };
-
-// countQuery.data.seeBoardCount % pageSize === 0
-// ? Math.floor(countQuery.data.seeBoardCount / pageSize)
-// : Math.floor(countQuery.data.seeBoardCount / pageSize + 1)

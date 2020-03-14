@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Banner from "../Components/Banner/Banner";
 import Search from "../Components/Reservation/Search";
@@ -34,8 +34,6 @@ const TopImg = styled.img`
   opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
-
-const PopupContent = styled.div``;
 
 const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
 
@@ -77,7 +75,7 @@ export default ({ platform, screenSize }) => {
       )}
 
       <Wrapper>
-        <Banner />
+        <Banner screenSize={screenSize} />
       </Wrapper>
     </Container>
   );

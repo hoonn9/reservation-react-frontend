@@ -92,7 +92,7 @@ export default ({
       optionRef.current.focus();
       setTotalPrice(selectType.price + selectSubType.price);
     }
-  }, [selectType]);
+  }, [selectType, selectSubType]);
 
   //페이지 진입 초기화
   useEffect(() => {
@@ -143,7 +143,9 @@ export default ({
     parentTypeCount,
     parentUserCount,
     parentSubCount,
-    type
+    type,
+    screenSize,
+    containerRef
   ]);
 
   useEffect(() => {
@@ -204,6 +206,9 @@ export default ({
 
   const optionNextOnClick = () => {
     setInfoToggle(true);
+    console.log(checkInTime);
+    console.log(checkOutTime);
+    console.log(optionRequest);
   };
 
   return (
