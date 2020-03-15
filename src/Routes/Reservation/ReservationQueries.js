@@ -5,6 +5,9 @@ export const SEARCH_TYPE = gql`
     searchType(count: $count, checkIn: $checkIn, checkOut: $checkOut) {
       id
       typeName
+      files {
+        url
+      }
       price
       typeCount
       subTypes {

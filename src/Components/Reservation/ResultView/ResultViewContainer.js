@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default ({ type, globalText, setSelectType, setSelectSubType }) => {
   const [toggle, setToggle] = useState(false);
+  const [galleryToggle, setGalleryToggle] = useState(false);
   const moreOnClick = () => setToggle(!toggle);
   return (
     <ResultViewPresenter
@@ -13,6 +14,8 @@ export default ({ type, globalText, setSelectType, setSelectSubType }) => {
       moreOnClick={moreOnClick}
       setSelectType={setSelectType}
       setSelectSubType={setSelectSubType}
+      galleryToggle={galleryToggle}
+      setGalleryToggle={setGalleryToggle}
     />
   );
 };

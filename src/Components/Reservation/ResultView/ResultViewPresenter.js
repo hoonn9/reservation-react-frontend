@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import ImageGallery from "react-image-gallery";
+import Popup from "reactjs-popup";
+import "../image-gallery.css";
+import CloseIcon from "@material-ui/icons/Close";
 const Wrapper = styled.div`
   width: 100%;
 `;
@@ -12,6 +15,27 @@ const ContentWrapper = styled.div`
   height: 350px;
   clear: both;
 `;
+const GalleryWrapper = styled.div`
+  width: auto;
+  height: 100%;
+  background-color: transparent;
+`;
+const GalleryButtonWrapper = styled.div`
+  text-align: end;
+`;
+const StyledPopup = styled(Popup)`
+  &-content {
+    background-color: transparent !important;
+    border: 0 !important;
+  }
+`;
+const GalleryButton = styled.button`
+  width: 32px;
+  height: 48px;
+  background-color: transparent;
+  z-index: 50;
+`;
+
 const ThumbnailWrapper = styled.div`
   position: relative;
   float: left;
@@ -19,6 +43,7 @@ const ThumbnailWrapper = styled.div`
   height: 100%;
   padding: 16px 0px;
   overflow: hidden;
+  cursor: pointer;
 `;
 const Thumbnail = styled.img`
   width: 100%;
@@ -127,76 +152,118 @@ export default ({
   moreOnClick,
   toggle,
   setSelectType,
-  setSelectSubType
+  setSelectSubType,
+  galleryToggle,
+  setGalleryToggle
 }) => {
-  return (
-    <Wrapper>
-      <ContentWrapper>
-        <ThumbnailWrapper>
-          <Thumbnail src={`./images/About/${type.id}/1.jpg`} />
-        </ThumbnailWrapper>
-        <InfoWrapper>
-          <InfoCenter>
-            <NameText>{type.typeName}</NameText>
-            <PriceText>￦ {type.price} ~</PriceText>
-          </InfoCenter>
-          <MoreButtonWrapper onClick={moreOnClick}>
-            <MoreButton disabled>{globalText.text_more_info}</MoreButton>
-            <ExpandMoreIcon style={{ width: "2rem", height: "2rem" }} />
-          </MoreButtonWrapper>
-        </InfoWrapper>
-      </ContentWrapper>
+  var images = [];
 
-      {toggle ? (
-        <>
-          <MoreWrapper>
-            <MoreInfoWrapper>
-              <MoreNameText>Room Only</MoreNameText>
-              <MoreDecText>Basic</MoreDecText>
-              <MorePriceText>￦ {type.price}</MorePriceText>
-              <SelectButtonWrapper
-                onClick={() => {
-                  setSelectType({
-                    id: type.id,
-                    name: type.typeName,
-                    price: type.price
-                  });
-                  setSelectSubType({ price: 0 });
-                }}
-              >
-                <SelectButton>선택</SelectButton>
-              </SelectButtonWrapper>
-            </MoreInfoWrapper>
-          </MoreWrapper>
-          {type.subTypes.map((subType, i) => {
-            return (
-              <MoreWrapper key={i}>
-                <MoreInfoWrapper>
-                  <MoreNameText>{subType.subTypeName}</MoreNameText>
-                  <MoreDecText>{subType.description}</MoreDecText>
-                  <MorePriceText>￦ {type.price + subType.price}</MorePriceText>
-                  <SelectButtonWrapper
-                    onClick={() => {
-                      setSelectType({
-                        id: type.id,
-                        name: type.typeName,
-                        price: type.price
-                      });
-                      setSelectSubType({
-                        id: subType.id,
-                        name: subType.subTypeName,
-                        price: subType.price
-                      });
-                    }}
-                  >
-                    <SelectButton>선택</SelectButton>
-                  </SelectButtonWrapper>
-                </MoreInfoWrapper>
-              </MoreWrapper>
-            );
-          })}
-        </>
-      ) : null}
-    </Wrapper>
+  type.files.forEach(e => {
+    images.push({ original: e.url });
+  });
+
+  return (
+    <>
+      <StyledPopup
+        open={galleryToggle}
+        modal
+        closeOnDocumentClick
+        onClose={() => setGalleryToggle(false)}
+      >
+        <GalleryWrapper>
+          <GalleryButtonWrapper>
+            <GalleryButton
+              onClick={() => {
+                setGalleryToggle(false);
+              }}
+            >
+              <CloseIcon
+                style={{ color: "#FDFDFD", width: "32px", height: "32px" }}
+              />
+            </GalleryButton>
+          </GalleryButtonWrapper>
+          <ImageGallery
+            items={images}
+            showThumbnails={false}
+            showBullets={true}
+            showPlayButton={false}
+          />
+        </GalleryWrapper>
+      </StyledPopup>
+      <Wrapper>
+        <ContentWrapper>
+          <ThumbnailWrapper
+            onClick={() => {
+              setGalleryToggle(true);
+            }}
+          >
+            <Thumbnail src={`./images/About/${type.id}/1.jpg`} />
+          </ThumbnailWrapper>
+          <InfoWrapper>
+            <InfoCenter>
+              <NameText>{type.typeName}</NameText>
+              <PriceText>￦ {type.price} ~</PriceText>
+            </InfoCenter>
+            <MoreButtonWrapper onClick={moreOnClick}>
+              <MoreButton disabled>{globalText.text_more_info}</MoreButton>
+              <ExpandMoreIcon style={{ width: "2rem", height: "2rem" }} />
+            </MoreButtonWrapper>
+          </InfoWrapper>
+        </ContentWrapper>
+
+        {toggle ? (
+          <>
+            <MoreWrapper>
+              <MoreInfoWrapper>
+                <MoreNameText>Room Only</MoreNameText>
+                <MoreDecText>Basic</MoreDecText>
+                <MorePriceText>￦ {type.price}</MorePriceText>
+                <SelectButtonWrapper
+                  onClick={() => {
+                    setSelectType({
+                      id: type.id,
+                      name: type.typeName,
+                      price: type.price
+                    });
+                    setSelectSubType({ price: 0 });
+                  }}
+                >
+                  <SelectButton>선택</SelectButton>
+                </SelectButtonWrapper>
+              </MoreInfoWrapper>
+            </MoreWrapper>
+            {type.subTypes.map((subType, i) => {
+              return (
+                <MoreWrapper key={i}>
+                  <MoreInfoWrapper>
+                    <MoreNameText>{subType.subTypeName}</MoreNameText>
+                    <MoreDecText>{subType.description}</MoreDecText>
+                    <MorePriceText>
+                      ￦ {type.price + subType.price}
+                    </MorePriceText>
+                    <SelectButtonWrapper
+                      onClick={() => {
+                        setSelectType({
+                          id: type.id,
+                          name: type.typeName,
+                          price: type.price
+                        });
+                        setSelectSubType({
+                          id: subType.id,
+                          name: subType.subTypeName,
+                          price: subType.price
+                        });
+                      }}
+                    >
+                      <SelectButton>선택</SelectButton>
+                    </SelectButtonWrapper>
+                  </MoreInfoWrapper>
+                </MoreWrapper>
+              );
+            })}
+          </>
+        ) : null}
+      </Wrapper>
+    </>
   );
 };

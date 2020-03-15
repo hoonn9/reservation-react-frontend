@@ -185,7 +185,11 @@ export default ({
                   onMouseEnter={() => setHoverState(true)}
                   onMouseLeave={() => setHoverState(false)}
                 >
-                  <HeaderMainLink key={i} to={category.to}>
+                  <HeaderMainLink
+                    key={i}
+                    to={category.to}
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
                     <MainMenuText hide={hide} hoverState={hoverState}>
                       {category.text}
                     </MainMenuText>

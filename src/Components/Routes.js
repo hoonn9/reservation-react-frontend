@@ -15,7 +15,7 @@ import About from "../Routes/About";
 import Reservation from "../Routes/Reservation";
 import Infomation from "../Routes/Infomation";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
-  <Switch>
+  <Switch onChange={() => toTop()}>
     <Route
       exact
       path="/"
@@ -41,7 +41,7 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
 );
 
 const LoggedInRoutes = ({ platform, screenSize }) => (
-  <Switch>
+  <Switch onChange={() => toTop()}>
     <Route
       exact
       path="/"
@@ -63,15 +63,22 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
   </Switch>
 );
 
-const AppRouter = ({ isLoggedIn, platform, screenSize }) => (
-  <Switch>
-    {isLoggedIn ? (
-      <LoggedInRoutes platform={platform} screenSize={screenSize} />
-    ) : (
-      <LoggedOutRoutes platform={platform} screenSize={screenSize} />
-    )}
-  </Switch>
-);
+const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
+  return (
+    <Switch>
+      {isLoggedIn ? (
+        <LoggedInRoutes platform={platform} screenSize={screenSize} />
+      ) : (
+        <LoggedOutRoutes platform={platform} screenSize={screenSize} />
+      )}
+    </Switch>
+  );
+};
+
+const toTop = () => {
+  console.log("check");
+  window.scrollTo(0, 0);
+};
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired

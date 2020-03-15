@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 export const getSize = () => {
   const isClient = typeof window === "object";
   return {

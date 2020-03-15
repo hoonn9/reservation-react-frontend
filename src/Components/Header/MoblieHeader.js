@@ -269,7 +269,13 @@ export default ({
                 {categoryArray.map((category, i) => {
                   return (
                     <GnbMenuLi key={i}>
-                      <GnbLink to={category.to} onClick={() => mobileOnClick()}>
+                      <GnbLink
+                        to={category.to}
+                        onClick={() => {
+                          mobileOnClick();
+                          window.scrollTo(0, 0);
+                        }}
+                      >
                         <GnbMenuText>{category.text}</GnbMenuText>
                       </GnbLink>
                     </GnbMenuLi>
