@@ -6,6 +6,7 @@ import { LOG_OUT } from "../SharedQueries";
 import DesktopHeader from "./Header/DesktopHeader";
 import MobileHeader from "./Header/MoblieHeader";
 import { gql } from "apollo-boost";
+import { getWithExpiry, setWithExpiry } from "../Utils";
 const ME = gql`
   query {
     me {
@@ -32,16 +33,28 @@ export default ({ isLoggedIn, platform }) => {
       const { pageYOffset } = window;
       if (pathname === "/") {
         if (pageYOffset === 0) {
+          setHoverState(false);
           setHide(true);
         } else {
           setHide(false);
         }
       } else {
-        setHide(false);
+        if (pageYOffset === 0) {
+          setHide(true);
+          setHoverState(true);
+        } else {
+          setHide(false);
+        }
       }
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll);
+
+    //Auto logged out
+    const log = getWithExpiry("log");
+    if (log) {
+      setWithExpiry("log", log, 1800000);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -93,9 +106,9 @@ export default ({ isLoggedIn, platform }) => {
     {
       text: globalText.text_notice,
       to: {
-        pathname: "/",
+        pathname: "/notice",
         state: {
-          id: ""
+          id: "ck7u4vv4t00bu0797n1hkw0mg"
         }
       }
     },
@@ -124,6 +137,7 @@ export default ({ isLoggedIn, platform }) => {
       {platform === "desktop" ? (
         <DesktopHeader
           hide={hide}
+          pathname={pathname}
           categoryArray={categoryArray}
           logoutMutation={logoutMutation}
           globalText={globalText}

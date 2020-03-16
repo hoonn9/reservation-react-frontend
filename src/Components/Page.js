@@ -1,4 +1,4 @@
-import { SEE_BOARD } from "../Routes/Board/BoardQueries";
+import { SEE_BOARD } from "./Board/BoardQueries";
 import { useQuery } from "react-apollo-hooks";
 
 export default ({ boardId, type, first, last, skip }) => {
@@ -11,7 +11,7 @@ export default ({ boardId, type, first, last, skip }) => {
         last: last,
         skip: skip
       },
-      fetchPolicy: "network-only"
+      fetchPolicy: "cache-and-network"
     });
     return page;
   } catch (e) {

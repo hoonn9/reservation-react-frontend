@@ -6,7 +6,7 @@ const Inner = styled.div`
   visibility: ${props => (props.state ? "visible" : "hidden")};
 `;
 const PopupWrapper = styled.div`
-  width: 420px;
+  width: 350px;
 
   background: ${props => props.theme.whiteColor};
 `;
@@ -82,7 +82,6 @@ export default ({ popup, cb, setCb, state, setState, closePopupNotToday }) => {
         <DelButton
           onClick={() => {
             setState(false);
-            console.log(cb);
             if (cb) {
               closePopupNotToday(popup.id);
             }

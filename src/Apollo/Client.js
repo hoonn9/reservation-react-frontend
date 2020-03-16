@@ -11,7 +11,11 @@ const client = new ApolloClient({
     resolvers
   },
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`
+    Authorization: `Bearer ${
+      localStorage.getItem("log")
+        ? JSON.parse(localStorage.getItem("log")).value
+        : ""
+    }`
   }
 });
 

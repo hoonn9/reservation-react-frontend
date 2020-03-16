@@ -22,7 +22,6 @@ const TableColumn = styled.li`
 `;
 
 export default ({ rowWidth, viewState, dataState }) => {
-  console.log(rowWidth);
   return (
     <Container>
       <TableWapper>

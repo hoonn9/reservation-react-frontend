@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import BoardPresenter from "./BoardPresenter";
 import { useQuery } from "react-apollo-hooks";
-import { SEE_BOARD_COUNT } from "./BoardQueries";
+import { SEE_BOARD_COUNT } from "../../Components/Board/BoardQueries";
 import Page from "../../Components/Page";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
+import { useEffect } from "react";
 
 export default ({ location }) => {
   const {
-    state: { id: boardId }
+    state: { id: boardId, currentPage: historyCp, currentRange: historyCr }
   } = location;
   const globalText = GlobalText();
   const pageSize = 10;
@@ -17,11 +18,19 @@ export default ({ location }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [currentRange, setCurrentRange] = useState(0);
 
+  useEffect(() => {
+    if (historyCp !== undefined && historyCr !== undefined) {
+      setCurrentPage(historyCp);
+      setCurrentRange(historyCr);
+    }
+  }, [historyCp, historyCr]);
+
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
       type: "free"
-    }
+    },
+    fetchPolicy: "cache-and-network"
   });
 
   const pageQuery = Page({

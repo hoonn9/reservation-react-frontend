@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import BannerEventView from "../../BannerEventView";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -157,16 +156,19 @@ export default ({
                   />
                 </DotsList>
               );
+            } else {
+              return (
+                <DotsList key={i}>
+                  <DotsButton
+                    onClick={() => {
+                      setTransValue(imgWidth * i);
+                    }}
+                  />
+                </DotsList>
+              );
             }
-            return (
-              <DotsList key={i}>
-                <DotsButton
-                  onClick={() => {
-                    setTransValue(imgWidth * i);
-                  }}
-                />
-              </DotsList>
-            );
+          } else {
+            return null;
           }
         })}
       </DotsWrapper>

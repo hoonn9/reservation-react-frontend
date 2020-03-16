@@ -33,7 +33,6 @@ const CountNumText = styled.div`
 `;
 
 export default ({ data, globalText }) => {
-  console.log(data);
   return (
     <Container>
       <Title>{globalText.text_event}</Title>

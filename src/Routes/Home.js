@@ -56,7 +56,7 @@ export default ({ platform, screenSize }) => {
   //     clearTimeout(to);
   //   };
   // }, [currentItem]);
-  const popupData = useQuery(SEE_POPUP, {});
+  const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
 
   return (
     <Container>

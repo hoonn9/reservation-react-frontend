@@ -12,8 +12,8 @@ export default createGlobalStyle`
         font-family: 'Noto Sans KR', sans-serif;
     }
     .body-content {
-        min-height: 1080px;
-        margin-top: 120px;
+        min-height: 780px;
+        margin-top: 180px;
     }
     a {
         text-decoration: none;

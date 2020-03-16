@@ -35,18 +35,25 @@ const HoverWrapper = styled.div`
   transition: opacity 0.15s linear;
   z-index: -5;
 `;
-
 const HeaderWrapper = styled.div`
   width: 100%;
-  max-width: ${props => (props.hide ? "1280px" : null)};
+  background-color: ${props =>
+    props.hide ? props.theme.transparentColor : props.theme.whiteColor};
+  transition: ${props =>
+    props.pathname === "/"
+      ? props.hide
+        ? ""
+        : "background-color 0.5s linear"
+      : null};
+`;
+const HeaderInner = styled.div`
+  width: 100%;
+  max-width: 1280px;
   height: 85px;
   margin-left: auto;
   margin-right: auto;
   margin-top: ${props => (props.hide ? "32px" : "0px")};
   margin-bottom: ${props => (props.hide ? "32px" : "0px")};
-  background-color: ${props =>
-    props.hide ? props.theme.transparentColor : props.theme.whiteColor};
-  transition: ${props => (props.hide ? "" : "background-color 0.5s linear")};
 `;
 
 const LogoColumn = styled.div`
@@ -122,6 +129,7 @@ const SubMenuText = styled.span`
 `;
 export default ({
   hide,
+  pathname,
   hoverState,
   setHoverState,
   categoryArray,
@@ -134,7 +142,7 @@ export default ({
       <AnimationWrapper hide={hide} />
       <HoverWrapper hoverState={hoverState}>
         {hide ? (
-          <AnimateHeight duration={150} height={hoverState ? 150 : 0}>
+          <AnimateHeight duration={150} height={hoverState ? 120 : 0}>
             <span />
           </AnimateHeight>
         ) : null}
@@ -168,37 +176,43 @@ export default ({
           </>
         )}
       </SubMenuColumn>
-      <HeaderWrapper hide={hide}>
-        <LogoColumn>
-          <LogoWrapper>
-            <HeaderLink to="/">
-              <Logo />
-            </HeaderLink>
-          </LogoWrapper>
-        </LogoColumn>
-        <MainMenuColumn>
-          <MainMenuListWrapper>
-            {categoryArray.map((category, i) => {
-              return (
-                <MainMenuListElement
-                  key={i}
-                  onMouseEnter={() => setHoverState(true)}
-                  onMouseLeave={() => setHoverState(false)}
-                >
-                  <HeaderMainLink
+      <HeaderWrapper hide={hide} pathname={pathname}>
+        <HeaderInner hide={hide} pathname={pathname}>
+          <LogoColumn>
+            <LogoWrapper>
+              <HeaderLink to="/">
+                <Logo />
+              </HeaderLink>
+            </LogoWrapper>
+          </LogoColumn>
+          <MainMenuColumn>
+            <MainMenuListWrapper>
+              {categoryArray.map((category, i) => {
+                return (
+                  <MainMenuListElement
                     key={i}
-                    to={category.to}
-                    onClick={() => window.scrollTo(0, 0)}
+                    onMouseEnter={() => {
+                      if (pathname === "/") setHoverState(true);
+                    }}
+                    onMouseLeave={() => {
+                      if (pathname === "/") setHoverState(false);
+                    }}
                   >
-                    <MainMenuText hide={hide} hoverState={hoverState}>
-                      {category.text}
-                    </MainMenuText>
-                  </HeaderMainLink>
-                </MainMenuListElement>
-              );
-            })}
-          </MainMenuListWrapper>
-        </MainMenuColumn>
+                    <HeaderMainLink
+                      key={i}
+                      to={category.to}
+                      onClick={() => window.scrollTo(0, 0)}
+                    >
+                      <MainMenuText hide={hide} hoverState={hoverState}>
+                        {category.text}
+                      </MainMenuText>
+                    </HeaderMainLink>
+                  </MainMenuListElement>
+                );
+              })}
+            </MainMenuListWrapper>
+          </MainMenuColumn>
+        </HeaderInner>
       </HeaderWrapper>
     </Header>
   );

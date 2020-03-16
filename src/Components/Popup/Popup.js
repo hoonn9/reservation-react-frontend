@@ -7,7 +7,7 @@ import { setCookie, getCookie } from "../../Utils";
 const Container = styled.div`
   position: fixed;
   left: 25%;
-  top: 25%;
+  top: 15%;
   z-index: 3000;
 `;
 const Wrapper = styled.div`
@@ -22,11 +22,13 @@ export default ({ data }) => {
   const [popups, setPopups] = useState([]);
 
   useEffect(() => {
-    setPopups(
-      data.seePopup.filter(e => {
-        return getCookie("notToday_" + e.id) !== "Y";
-      })
-    );
+    if (data) {
+      setPopups(
+        data.seePopup.filter(e => {
+          return getCookie("notToday_" + e.id) !== "Y";
+        })
+      );
+    }
   }, [data]);
 
   return (

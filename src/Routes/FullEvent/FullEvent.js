@@ -22,14 +22,9 @@ const Title = styled.div`
 `;
 
 export default ({ location, history }) => {
-  console.log(location);
-  console.log(history);
   const globalText = GlobalText();
   var id;
   if (location.state !== undefined) {
-    // const {
-    //   state: { id }
-    // } = location;
     id = location.state.id;
   } else {
     const { pathname } = location;
@@ -39,7 +34,6 @@ export default ({ location, history }) => {
   const { data, loading, error } = useQuery(SEE_FULL_EVENT, {
     variables: { id }
   });
-  console.log(location);
   return (
     <div className="body-content">
       <Container>

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Board from "../../Components/Board";
-
 const Container = styled.div`
   width: 75%;
   margin: 0 auto;
@@ -9,34 +8,33 @@ const Container = styled.div`
 const Title = styled.h2`
   font-size: 42px;
 `;
-
 export default ({
+  globalText,
   data,
   rangeSize,
-  setCurrentPage,
-  currentPage,
-  pageSize,
   listCount,
-  globalText,
+  currentPage,
+  setCurrentPage,
+  pageSize,
   boardId,
-  setCurrentRange,
-  currentRange
+  currentRange,
+  setCurrentRange
 }) => {
   return (
     <Container>
-      <Title>{globalText.text_free_board}</Title>
+      <Title>{globalText.text_notice}</Title>
       <Board
-        type="free"
+        type="notice"
+        globalText={globalText}
         data={data}
         rangeSize={rangeSize}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        pageSize={pageSize}
         listCount={listCount}
-        globalText={globalText}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        pageSize={pageSize}
         boardId={boardId}
-        setCurrentRange={setCurrentRange}
         currentRange={currentRange}
+        setCurrentRange={setCurrentRange}
       />
     </Container>
   );

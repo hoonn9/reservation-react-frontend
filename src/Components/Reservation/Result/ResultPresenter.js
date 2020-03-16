@@ -12,7 +12,17 @@ const Wrapper = styled.div`
   display: block;
   width: 100%;
 `;
-
+const NotResultWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+const NotResultText = styled.div`
+  display: inline-block;
+  font-size: 18px;
+  padding: 16px;
+`;
 export default ({
   searchType,
   setSelectType,
@@ -35,7 +45,9 @@ export default ({
             ) : null;
           })
         ) : (
-          <div>검색결과 없음</div>
+          <NotResultWrapper>
+            <NotResultText>검색 결과 없음</NotResultText>
+          </NotResultWrapper>
         )}
       </Wrapper>
     </Container>

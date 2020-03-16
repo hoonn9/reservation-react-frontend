@@ -13,7 +13,7 @@ export default ({
 }) => {
   useEffect(() => {
     setImgWidth(((screenSize.width / 100) * wrapperWidth) / divide);
-  }, [screenSize, wrapperWidth]);
+  }, [screenSize, wrapperWidth, divide, setImgWidth]);
 
   const currentArray = seeEvent.filter(e => {
     return e.eventType === currentItem;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import FullPostPresenter from "./FullPostPresenter";
+import FreePostPresenter from "./FreePostPresenter";
+import NoticePostPresenter from "./NoticePostPresenter";
 import GlobalText from "../../GlobalText";
 import { EditorState, convertFromRaw } from "draft-js";
-export default ({ data: { seeFullPost } }) => {
+export default ({ data: { seeFullPost }, type }) => {
   const {
     title,
     content,
@@ -23,14 +24,26 @@ export default ({ data: { seeFullPost } }) => {
   }, [trigger, content]);
 
   return (
-    <FullPostPresenter
-      title={title}
-      content={content}
-      createdAt={createdAt}
-      username={username}
-      views={views}
-      globalText={globalText}
-      editorState={editorState}
-    />
+    <>
+      {type === "free" ? (
+        <FreePostPresenter
+          title={title}
+          createdAt={createdAt}
+          username={username}
+          views={views}
+          globalText={globalText}
+          editorState={editorState}
+        />
+      ) : (
+        <NoticePostPresenter
+          title={title}
+          createdAt={createdAt}
+          username={username}
+          views={views}
+          globalText={globalText}
+          editorState={editorState}
+        />
+      )}
+    </>
   );
 };

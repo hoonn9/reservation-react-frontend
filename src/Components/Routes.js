@@ -8,12 +8,13 @@ import JoinAgree from "../Routes/JoinAgree";
 import MyPage from "../Routes/MyPage";
 import Upload from "../Routes/Upload/Upload";
 import Board from "../Routes/Board";
-import Detail from "../Routes/Post/Detail/Detail";
+import Post from "../Routes/Post/Post";
 import Event from "../Routes/Event";
 import FullEvent from "../Routes/FullEvent/FullEvent";
 import About from "../Routes/About";
 import Reservation from "../Routes/Reservation";
 import Infomation from "../Routes/Infomation";
+import Notice from "../Routes/Notice";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
   <Switch onChange={() => toTop()}>
     <Route
@@ -27,11 +28,13 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
     <Route path="/join" component={Join} />
     <Route path="/board/:id" component={Board} />
     <Route path="/upload" component={Login} />
-    <Route path="/post/:id" component={Detail} />
+    <Route path="/post/:id" component={Post} />
+    <Route path="/notice/:id" component={Post} />
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
     <Route path="/infomation" component={Infomation} />
+    <Route path="/notice" component={Notice} />
     <Route
       path="/reservation"
       render={props => <Reservation screenSize={screenSize} />}
@@ -50,11 +53,13 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
     <Route path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />
-    <Route path="/post/:id" component={Detail} />
+    <Route path="/post/:id" component={Post} />
+    <Route path="/notice/:id" component={Post} />
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
     <Route path="/infomation" component={Infomation} />
+    <Route path="/notice" component={Notice} />
     <Route
       path="/reservation"
       render={props => <Reservation screenSize={screenSize} />}

@@ -92,7 +92,6 @@ export default ({
   content,
   files
 }) => {
-  console.log(thumbnail);
   return (
     <Wrapper>
       <TopViewWrapper>

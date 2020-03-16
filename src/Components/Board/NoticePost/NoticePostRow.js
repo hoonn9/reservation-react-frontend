@@ -1,34 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { dateConverter } from "../../Utils";
+import { dateConverter } from "../../../Utils";
 
 const Warpper = styled.tr`
   display: flex;
   width: 100%;
-  padding: 16px 0px 16px 0px;
+  padding: 32px 0px 32px 0px;
   border: ${props => props.theme.boxBorder};
 `;
 const Row = styled.td`
   text-align: center;
-  font-size: 12px;
-`;
-const NumRow = styled(Row)`
-  width: 5%;
-`;
-const TitleRow = styled(Row)`
-  width: 45%;
   font-size: 14px;
 `;
-const NameRow = styled(Row)`
-  width: 20%;
+const TitleRow = styled(Row)`
+  width: 55%;
+  font-size: 16px;
 `;
 const DateRow = styled(Row)`
-  width: 20%;
+  width: 25%;
   color: ${props => props.theme.greyColor};
 `;
 const ViewRow = styled(Row)`
-  width: 10%;
+  width: 20%;
   color: ${props => props.theme.greyColor};
 `;
 const PostLink = styled(Link)`
@@ -36,25 +30,26 @@ const PostLink = styled(Link)`
   color: ${props => props.theme.blackColor};
 `;
 
-export default ({ id, num, title, views, username, createdAt }) => {
+export default ({ post, currentPage, currentRange, boardId }) => {
+  const { id, title, views, createdAt } = post;
   return (
     <Warpper>
-      <NumRow>{num}</NumRow>
-
       <TitleRow>
         <PostLink
           to={{
-            pathname: `/post/${id}`,
+            pathname: `/notice/${id}`,
             state: {
-              id
+              id,
+              type: "notice",
+              currentPage,
+              currentRange,
+              boardId
             }
           }}
         >
           {title}
         </PostLink>
       </TitleRow>
-
-      <NameRow>{username}</NameRow>
       <DateRow>{dateConverter(createdAt)}</DateRow>
       <ViewRow>{views}</ViewRow>
     </Warpper>

@@ -7,6 +7,9 @@ export const SEE_FULL_POST = gql`
       title
       content
       views
+      board {
+        name
+      }
       user {
         username
       }
