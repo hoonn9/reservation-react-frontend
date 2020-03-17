@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import GlobalText from "../GlobalText";
-import { useMutation, useQuery } from "react-apollo-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { LOG_OUT } from "../SharedQueries";
 import DesktopHeader from "./Header/DesktopHeader";
 import MobileHeader from "./Header/MoblieHeader";
@@ -26,7 +26,7 @@ export default ({ isLoggedIn, platform }) => {
   const [userName, setUserName] = useState("");
   const mobileOnClick = () => setMoblieTrigger(!moblieTrigger);
 
-  const { data, loading, error } = useQuery(ME);
+  const { data, loading, error } = useQuery(ME, { skip: !isLoggedIn });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,15 +58,19 @@ export default ({ isLoggedIn, platform }) => {
   }, [pathname]);
 
   useEffect(() => {
-    if (!error) {
-      if (!loading) {
-        setUserName(data.me.username);
+    if (isLoggedIn) {
+      if (!error) {
+        if (!loading) {
+          setUserName(data.me.username);
+        }
+        if (error) {
+          setUserName(globalText.text_member);
+        }
       }
-      if (error) {
-        setUserName(globalText.text_member);
-      }
+    } else {
+      setUserName(globalText.text_member);
     }
-  }, [loading, error, data, globalText]);
+  }, [isLoggedIn, loading, error, data, globalText]);
 
   const categoryArray = [
     {

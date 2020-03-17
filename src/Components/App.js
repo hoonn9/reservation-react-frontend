@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { BrowserRouter as Router } from "react-router-dom";
 import Theme from "../Styles/Theme";

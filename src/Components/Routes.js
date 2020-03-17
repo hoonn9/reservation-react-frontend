@@ -15,6 +15,8 @@ import About from "../Routes/About";
 import Reservation from "../Routes/Reservation";
 import Infomation from "../Routes/Infomation";
 import Notice from "../Routes/Notice";
+import FindID from "../Routes/Help/FindID";
+import FindPW from "../Routes/Help/FindPW";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
   <Switch onChange={() => toTop()}>
     <Route
@@ -35,6 +37,8 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
     <Route path="/about" component={About} />
     <Route path="/infomation" component={Infomation} />
     <Route path="/notice" component={Notice} />
+    <Route path="/help/findid" component={FindID} />
+    <Route path="/help/findpw" component={FindPW} />
     <Route
       path="/reservation"
       render={props => <Reservation screenSize={screenSize} />}

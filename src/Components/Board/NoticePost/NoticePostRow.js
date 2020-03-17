@@ -30,7 +30,13 @@ const PostLink = styled(Link)`
   color: ${props => props.theme.blackColor};
 `;
 
-export default ({ post, currentPage, currentRange, boardId }) => {
+export default ({
+  post,
+  currentPage = 0,
+  currentRange = 0,
+  boardId,
+  onViews = true
+}) => {
   const { id, title, views, createdAt } = post;
   return (
     <Warpper>
@@ -51,7 +57,7 @@ export default ({ post, currentPage, currentRange, boardId }) => {
         </PostLink>
       </TitleRow>
       <DateRow>{dateConverter(createdAt)}</DateRow>
-      <ViewRow>{views}</ViewRow>
+      {onViews ? <ViewRow>{views}</ViewRow> : null}
     </Warpper>
   );
 };

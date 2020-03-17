@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NoticePresenter from "./NoticePresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { SEE_BOARD_COUNT } from "../../Components/Board/BoardQueries";
 import Page from "../../Components/Page";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
-
+import { getBoardState } from "../../Utils";
 export default ({ location }) => {
   const globalText = GlobalText();
 
@@ -18,6 +18,25 @@ export default ({ location }) => {
   const rangeSize = 10;
   const [currentPage, setCurrentPage] = useState(0);
   const [currentRange, setCurrentRange] = useState(0);
+
+  useEffect(() => {
+    const boardState = getBoardState(boardId);
+    if (boardState) {
+      setCurrentPage(boardState.currentPage);
+      setCurrentRange(boardState.currentRange);
+    }
+    window.addEventListener("beforeunload", e => {
+      e.preventDefault();
+      localStorage.removeItem(boardId);
+    });
+    return () => {
+      localStorage.removeItem(boardId);
+      window.removeEventListener("beforeunload", e => {
+        e.preventDefault();
+        localStorage.removeItem(boardId);
+      });
+    };
+  }, [boardId]);
 
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {

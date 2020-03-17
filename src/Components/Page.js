@@ -1,5 +1,5 @@
 import { SEE_BOARD } from "./Board/BoardQueries";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 
 export default ({ boardId, type, first, last, skip }) => {
   try {

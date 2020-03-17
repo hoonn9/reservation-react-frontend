@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import BoardPresenter from "./BoardPresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { SEE_BOARD_COUNT } from "../../Components/Board/BoardQueries";
 import Page from "../../Components/Page";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 import { useEffect } from "react";
+import { getBoardState } from "../../Utils";
 
 export default ({ location }) => {
   const {
-    state: { id: boardId, currentPage: historyCp, currentRange: historyCr }
+    state: { id: boardId }
   } = location;
   const globalText = GlobalText();
   const pageSize = 10;
@@ -19,11 +20,23 @@ export default ({ location }) => {
   const [currentRange, setCurrentRange] = useState(0);
 
   useEffect(() => {
-    if (historyCp !== undefined && historyCr !== undefined) {
-      setCurrentPage(historyCp);
-      setCurrentRange(historyCr);
+    const boardState = getBoardState(boardId);
+    if (boardState) {
+      setCurrentPage(boardState.currentPage);
+      setCurrentRange(boardState.currentRange);
     }
-  }, [historyCp, historyCr]);
+    window.addEventListener("beforeunload", e => {
+      e.preventDefault();
+      localStorage.removeItem(boardId);
+    });
+    return () => {
+      localStorage.removeItem(boardId);
+      window.removeEventListener("beforeunload", e => {
+        e.preventDefault();
+        localStorage.removeItem(boardId);
+      });
+    };
+  }, [boardId]);
 
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {

@@ -3,7 +3,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import styled from "styled-components";
 import Editor from "../../Components/Editor";
 import { UPLOAD_BOARD } from "./UploadQueries";
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import useInput from "../../Hooks/useInput";
 import Input from "../../Components/Input";
 import GlobalText from "../../GlobalText";

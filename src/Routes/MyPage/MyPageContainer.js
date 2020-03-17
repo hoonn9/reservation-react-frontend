@@ -1,6 +1,6 @@
 import React from "react";
 import MyPagePresenter from "./MyPagePresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Loader from "../../Components/Loader";
 import ErrorAlert from "../../Components/ErrorAlert";

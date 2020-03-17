@@ -1,6 +1,6 @@
 import React from "react";
 import EventPresenter from "./EventPresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { SEE_EVENT } from "./EventQueries";
 import ErrorAlert from "../../Components/ErrorAlert";
 import Loader from "../../Components/Loader";

@@ -82,7 +82,22 @@ const JoinActiveButton = styled.button`
   cursor: pointer;
 `;
 
-const PopupContent = styled.div``;
+const PopupContent = styled.div`
+  padding: 0px 16px;
+`;
+const PopupTitle = styled.div`
+  font-size: 21px;
+  font-weight: 600;
+  padding: 16px 0px;
+`;
+const PopupButtonWrapper = styled.div`
+  text-align: center;
+  padding: 32px 0px 16px 0px;
+`;
+const PopupButton = styled.button`
+  font-size: 15px;
+  padding: 8px 16px;
+`;
 
 export default ({
   globalText,
@@ -214,9 +229,15 @@ export default ({
             onClose={isSuccess ? handleSuccess : popupInit}
           >
             <PopupContent>
+              <PopupTitle>{globalText.text_alert}</PopupTitle>
               {isSuccess
                 ? globalText.text_join_success
-                : globalText.text_join_error}{" "}
+                : globalText.text_join_error}
+              <PopupButtonWrapper>
+                <PopupButton onClick={() => popupInit()}>
+                  {globalText.text_close}
+                </PopupButton>
+              </PopupButtonWrapper>
             </PopupContent>
           </Popup>
         </Wrapper>

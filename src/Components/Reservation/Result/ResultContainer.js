@@ -1,6 +1,6 @@
 import React from "react";
 import ResultPresenter from "./ResultPresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { SEARCH_TYPE } from "../../../Routes/Reservation/ReservationQueries";
 import ErrorAlert from "../../ErrorAlert";
 import Loader from "../../Loader";

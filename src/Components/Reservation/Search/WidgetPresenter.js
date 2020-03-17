@@ -11,7 +11,6 @@ const Container = styled.div`
   display: block;
   width: 100%;
   z-index: 5;
-  top: 670px;
 `;
 
 const Wrapper = styled.div`

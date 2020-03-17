@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Head from "./Head";
 import Content from "./Content";
-import { useQuery } from "react-apollo-hooks";
-import { SEE_EVENT } from "../../Routes/Event/EventQueries";
-import ErrorAlert from "../ErrorAlert";
-import GlobalText from "../../GlobalText";
+import { useQuery } from "@apollo/react-hooks";
+import { SEE_EVENT } from "../../../Routes/Event/EventQueries";
+import ErrorAlert from "../../ErrorAlert";
+import GlobalText from "../../../GlobalText";
 
 const Wrapper = styled.div`
   width: 100%;

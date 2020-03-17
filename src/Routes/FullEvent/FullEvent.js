@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FullEvent from "../../Components/FullEvent";
 import { SEE_FULL_EVENT } from "./FullEventQueries";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import ErrorAlert from "../../Components/ErrorAlert";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";

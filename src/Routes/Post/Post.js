@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import { SEE_FULL_POST } from "./PostQueries";
 import Loader from "../../Components/Loader";
 import ErrorAlert from "../../Components/ErrorAlert";
 import FullPost from "../../Components/FullPost";
 import GlobalText from "../../GlobalText";
+import { setBoardState } from "../../Utils";
 
 const Container = styled.div`
   width: 75%;
@@ -32,6 +33,7 @@ export default ({ location }) => {
   var currentRange;
   var boardId;
   var pathname;
+
   if (location.state !== undefined) {
     id = location.state.id;
     type = location.state.type;
@@ -58,6 +60,20 @@ export default ({ location }) => {
       pathname = "/notice";
     }
   }
+
+  useEffect(() => {
+    setBoardState(boardId, currentPage, currentRange);
+    window.addEventListener("beforeunload", e => {
+      e.preventDefault();
+      localStorage.removeItem(boardId);
+    });
+    return () => {
+      window.removeEventListener("beforeunload", e => {
+        e.preventDefault();
+        localStorage.removeItem(boardId);
+      });
+    };
+  }, [boardId, currentPage, currentRange]);
 
   const { data, error, loading } = useQuery(SEE_FULL_POST, {
     variables: {
@@ -86,14 +102,11 @@ export default ({ location }) => {
               to={{
                 pathname,
                 state: {
-                  id: boardId,
-                  type,
-                  currentPage,
-                  currentRange
+                  id: boardId
                 }
               }}
             >
-              <Button>목록</Button>
+              <Button>{globalText.text_list}</Button>
             </Link>
           </ButtonWrapper>
         </Container>

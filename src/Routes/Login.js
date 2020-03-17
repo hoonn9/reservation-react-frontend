@@ -7,7 +7,7 @@ import Button from "../Components/Button";
 import GlobalText from "../GlobalText";
 import { Logo } from "../Components/Icons";
 import { LOCAL_LOG_IN, LOGIN_USER } from "../SharedQueries";
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import ReactLoading from "react-loading";
 
 const LoginContainer = styled.div`
@@ -140,8 +140,8 @@ export default () => {
         </Wrapper>
         <Wrapper>
           <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
-          <LoginLink to="/">{"아이디 찾기"}</LoginLink>
-          <LoginLink to="/">{"비밀번호 찾기"}</LoginLink>
+          <LoginLink to="/help/findid">{"아이디 찾기"}</LoginLink>
+          <LoginLink to="/help/findpw">{"비밀번호 찾기"}</LoginLink>
         </Wrapper>
       </LoginWrapper>
     </LoginContainer>

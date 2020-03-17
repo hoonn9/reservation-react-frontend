@@ -74,6 +74,7 @@ const SubMenuColumn = styled.div`
   top: 0px;
   width: 20%;
   margin-top: 32px;
+  z-index: 100;
 `;
 
 const LogoWrapper = styled.div`

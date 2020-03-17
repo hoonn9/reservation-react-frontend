@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import GlobalText from "../../GlobalText";
 import JoinPresenter from "./JoinPresenter";
-import { useMutation } from "react-apollo-hooks";
-import { CREATE_ACCOUNT } from "./JoinQueries";
+import { useMutation, useLazyQuery } from "@apollo/react-hooks";
+import { CREATE_ACCOUNT, EXIST_ID, EXIST_EMAIL } from "./JoinQueries";
 
 const idRegex = /^[a-z]{1}[a-z0-9]{4,19}$/;
 const pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=-_]).*$/;
@@ -42,20 +42,48 @@ export default ({ location: { state } }) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
   const [isSuccess, setIsSuccess] = useState("");
   const [btnActive, setBtnActive] = useState(true);
-  const idBlur = () =>
-    !idRegex.test(userId.value)
-      ? setMsgId(globalText.text_id_error)
-      : setMsgId("");
 
+  const [idExist] = useLazyQuery(EXIST_ID, {
+    onCompleted: data =>
+      data.existUserId ? setMsgId(globalText.text_id_exist) : setMsgId("")
+  });
+
+  const [emailExist] = useLazyQuery(EXIST_EMAIL, {
+    onCompleted: data =>
+      data.existUserEmail
+        ? setMsgEmail(globalText.text_email_exist)
+        : setMsgEmail("")
+  });
+
+  const idBlur = () => {
+    if (!idRegex.test(userId.value)) {
+      setMsgId(globalText.text_id_error);
+    } else {
+      setMsgId("");
+      idExist({
+        variables: {
+          userId: userId.value
+        }
+      });
+    }
+  };
   const pwBlur = () =>
     !pwRegex.test(userPw.value)
       ? setMsgPw(globalText.text_pw_error)
       : setMsgPw("");
 
-  const emailBlur = () =>
-    !emailRegex.test(userEmail.value)
-      ? setMsgEmail(globalText.text_email_error)
-      : setMsgEmail("");
+  const emailBlur = () => {
+    if (!emailRegex.test(userEmail.value)) {
+      setMsgEmail(globalText.text_email_error);
+    } else {
+      setMsgEmail("");
+      emailExist({
+        variables: {
+          email: userEmail.value
+        }
+      });
+    }
+  };
 
   const pwCfBlur = () =>
     userPwConfirm.value !== userPw.value
@@ -117,7 +145,7 @@ export default ({ location: { state } }) => {
           const {
             data: { createAccount }
           } = await createAccountMutation();
-          console.log(createAccount);
+
           if (createAccount) {
             setIsSuccess(true);
             setPopupTrigger(true);
@@ -128,7 +156,6 @@ export default ({ location: { state } }) => {
           setIsSuccess(false);
           setBtnActive(true);
           setPopupTrigger(true);
-          console.log(e);
         } finally {
         }
       }

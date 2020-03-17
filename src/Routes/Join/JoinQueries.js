@@ -19,3 +19,15 @@ export const CREATE_ACCOUNT = gql`
     )
   }
 `;
+
+export const EXIST_ID = gql`
+  query existUserId($userId: String!) {
+    existUserId(userId: $userId)
+  }
+`;
+
+export const EXIST_EMAIL = gql`
+  query existUserEmail($email: String!) {
+    existUserEmail(email: $email)
+  }
+`;

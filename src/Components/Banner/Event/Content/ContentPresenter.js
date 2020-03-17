@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import BannerEventView from "../../BannerEventView";
+import BannerEventView from "../../../BannerEventView";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 const Container = styled.div`
