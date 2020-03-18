@@ -19,7 +19,7 @@ export default ({ screenSize }) => {
 
   //container
   const divide = 3;
-  const [wrapperWidth, setWrapperWidth] = useState(75);
+  const wrapperWidth = 75;
   const [imgWidth, setImgWidth] = useState(
     ((screenSize.width / 100) * wrapperWidth) / divide
   );

@@ -11,6 +11,7 @@ const Title = styled.div`
   font-size: 42px;
   border-bottom: 2px black solid;
   padding: 8px 0px;
+  margin-bottom: 32px;
 `;
 const PhoneWrapper = styled.div`
   display: flex;
@@ -30,53 +31,123 @@ const SendButtonWrapper = styled.div`
   text-align: center;
 `;
 const SendButton = styled.button`
-  padding: 8px 16px;
+  padding: 12px 24px;
+  margin: 0px 32px;
 `;
 const DescriptionWrapper = styled.div`
   text-align: start;
   padding: 32px 0px;
 `;
-
+const AlretText = styled.div`
+  text-align: center;
+  color: ${props => props.theme.redColor};
+  padding: 16px;
+`;
 const Description = styled.div`
   padding: 8px 0px;
   font-size: 14px;
   color: ${props => props.theme.darkGreyColor};
 `;
-export default () => {
+const Text = styled.span`
+  font-weight: 600;
+  font-size: 18px;
+  color: ${props => props.theme.blackColor};
+`;
+export default ({
+  userName,
+  userEmail,
+  secretCode,
+  requestOnClick,
+  confirmOnClick,
+  alertValue,
+  requestTrigger,
+  successState
+}) => {
   return (
     <Container>
-      <Wrapper>
-        <Title>아이디 찾기</Title>
-        <PhoneWrapper>
-          <table>
-            <PhoneTbody>
-              <PhoneTr>
-                <PhoneTh>이름</PhoneTh>
-                <PhoneTh>
-                  <PhoneInput />
-                </PhoneTh>
-              </PhoneTr>
-              <PhoneTr>
-                <PhoneTh>이메일 주소</PhoneTh>
-                <PhoneTh>
-                  <PhoneInput />
-                </PhoneTh>
-              </PhoneTr>
-            </PhoneTbody>
-          </table>
-        </PhoneWrapper>
-        <SendButtonWrapper>
-          <SendButton>인증하기</SendButton>
-        </SendButtonWrapper>
-        <DescriptionWrapper>
-          <Description>
-            {"· 가입할 때 등록한 이름과 이메일을 입력하세요."}
-          </Description>
-          <Description>
-            {"· 전송된 이메일에서 인증번호를 받아 입력하세요."}
-          </Description>
-        </DescriptionWrapper>
-      </Wrapper>
+      {successState ? (
+        <Wrapper>
+          <Title>아이디 찾기</Title>
+          <PhoneWrapper>
+            <AlretText>
+              {"찾으시는 아이디는 "}
+              <Text>{successState}</Text>
+              {" 입니다."}
+            </AlretText>
+          </PhoneWrapper>
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <Title>아이디 찾기</Title>
+          <PhoneWrapper>
+            <table>
+              <PhoneTbody>
+                <PhoneTr>
+                  <PhoneTh>이름</PhoneTh>
+                  <PhoneTh>
+                    {requestTrigger ? (
+                      <PhoneInput
+                        onChange={userName.onChange}
+                        value={userName.value}
+                        disabled
+                      />
+                    ) : (
+                      <PhoneInput
+                        onChange={userName.onChange}
+                        value={userName.value}
+                      />
+                    )}
+                  </PhoneTh>
+                </PhoneTr>
+                <PhoneTr>
+                  <PhoneTh>이메일 주소</PhoneTh>
+                  <PhoneTh>
+                    {requestTrigger ? (
+                      <PhoneInput
+                        onChange={userEmail.onChange}
+                        value={userEmail.value}
+                        disabled
+                      />
+                    ) : (
+                      <PhoneInput
+                        onChange={userEmail.onChange}
+                        value={userEmail.value}
+                      />
+                    )}
+                  </PhoneTh>
+                </PhoneTr>
+                {requestTrigger ? (
+                  <PhoneTr style={{ padding: "32px" }}>
+                    <PhoneTh>인증 코드</PhoneTh>
+                    <PhoneTh>
+                      <PhoneInput
+                        onChange={secretCode.onChange}
+                        value={secretCode.value}
+                      />
+                    </PhoneTh>
+                  </PhoneTr>
+                ) : null}
+              </PhoneTbody>
+            </table>
+          </PhoneWrapper>
+          <AlretText>{alertValue}</AlretText>
+          <SendButtonWrapper>
+            {requestTrigger ? (
+              <SendButton onClick={confirmOnClick}>인증</SendButton>
+            ) : (
+              <SendButton onClick={requestOnClick}>전송</SendButton>
+            )}
+          </SendButtonWrapper>
+          <DescriptionWrapper>
+            <Description>
+              {"· 가입할 때 등록한 이름과 이메일을 입력하세요."}
+            </Description>
+            <Description>
+              {"· 전송된 이메일에서 인증번호를 받아 입력하세요."}
+            </Description>
+          </DescriptionWrapper>
+        </Wrapper>
+      )}
     </Container>
   );
 };

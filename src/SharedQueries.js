@@ -36,3 +36,15 @@ export const SEE_POPUP = gql`
     }
   }
 `;
+
+export const REQUEST_SECRET = gql`
+  mutation requestSecret($name: String!, $email: String!) {
+    requestSecret(name: $name, email: $email)
+  }
+`;
+
+export const CONFIRM_SECRET = gql`
+  mutation confirmSecret($email: String!, $secret: String!) {
+    confirmSecret(email: $email, secret: $secret)
+  }
+`;
