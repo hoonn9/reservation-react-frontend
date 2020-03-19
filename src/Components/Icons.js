@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ReactLoading from "react-loading";
 // export const Logo = ({ size = 24 }) => (
 //   <svg
 //     xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +18,23 @@ export const Logo = ({ size = 24 }) => {
     border: 0;
   `;
   return <Image src="/logo.png" alt="Test Logo" />;
+};
+
+export const MiniLoader = () => {
+  const Wrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  return (
+    <Wrapper>
+      <ReactLoading
+        type="bubbles"
+        color="#000000"
+        height={"30px"}
+        width={"50px"}
+      />
+    </Wrapper>
+  );
 };

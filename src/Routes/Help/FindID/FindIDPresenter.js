@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { MiniLoader } from "../../../Components/Icons";
 
 const Container = styled.div``;
 
@@ -54,6 +55,7 @@ const Text = styled.span`
   color: ${props => props.theme.blackColor};
 `;
 export default ({
+  loading,
   userName,
   userEmail,
   secretCode,
@@ -130,6 +132,7 @@ export default ({
               </PhoneTbody>
             </table>
           </PhoneWrapper>
+          {loading ? <MiniLoader /> : null}
           <AlretText>{alertValue}</AlretText>
           <SendButtonWrapper>
             {requestTrigger ? (
@@ -143,7 +146,7 @@ export default ({
               {"· 가입할 때 등록한 이름과 이메일을 입력하세요."}
             </Description>
             <Description>
-              {"· 전송된 이메일에서 인증번호를 받아 입력하세요."}
+              {"· 전송된 이메일에서 인증 코드를 받아 입력하세요."}
             </Description>
           </DescriptionWrapper>
         </Wrapper>

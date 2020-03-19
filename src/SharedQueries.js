@@ -37,14 +37,26 @@ export const SEE_POPUP = gql`
   }
 `;
 
-export const REQUEST_SECRET = gql`
-  mutation requestSecret($name: String!, $email: String!) {
-    requestSecret(name: $name, email: $email)
+export const REQUEST_FIND_ID = gql`
+  mutation requestFindID($name: String!, $email: String!) {
+    requestFindID(name: $name, email: $email)
   }
 `;
 
-export const CONFIRM_SECRET = gql`
-  mutation confirmSecret($email: String!, $secret: String!) {
-    confirmSecret(email: $email, secret: $secret)
+export const CONFIRM_FIND_ID = gql`
+  mutation confirmFindID($email: String!, $secret: String!) {
+    confirmFindID(email: $email, secret: $secret)
+  }
+`;
+
+export const REQUEST_FIND_PW = gql`
+  mutation requestFindPW($userId: String!, $email: String!) {
+    requestFindPW(userId: $userId, email: $email)
+  }
+`;
+
+export const CONFIRM_FIND_PW = gql`
+  mutation confirmFindPW($email: String!, $userId: String!, $secret: String!) {
+    confirmFindPW(email: $email, userId: $userId, secret: $secret)
   }
 `;

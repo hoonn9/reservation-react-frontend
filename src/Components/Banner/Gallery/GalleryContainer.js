@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 
 export default ({ screenSize, galleryData }) => {
   const [currentItem, setCurrentItem] = useState(0);
-
+  const [dotItem, setDotItem] = useState(0);
   //container
   const divide = 1;
   const wrapperWidth = 60;
@@ -46,6 +46,8 @@ export default ({ screenSize, galleryData }) => {
         nextButtonTrigger={nextButtonTrigger}
         setNextButtonTrigger={setNextButtonTrigger}
         centerProp={centerProp}
+        dotItem={dotItem}
+        setDotItem={setDotItem}
       />
     </Wrapper>
   );

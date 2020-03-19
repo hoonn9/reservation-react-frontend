@@ -17,6 +17,8 @@ import Infomation from "../Routes/Infomation";
 import Notice from "../Routes/Notice";
 import FindID from "../Routes/Help/FindID";
 import FindPW from "../Routes/Help/FindPW";
+import MyPageAccount from "../Routes/MyPageAccount";
+import MyPageChange from "../Routes/MyPageChange";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
   <Switch onChange={() => toTop()}>
     <Route
@@ -54,7 +56,7 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
       path="/"
       render={props => <Home platform={platform} screenSize={screenSize} />}
     />
-    <Route path="/mypage" component={MyPage} />
+    <Route exact path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />
     <Route path="/post/:id" component={Post} />
@@ -80,6 +82,16 @@ const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
       ) : (
         <LoggedOutRoutes platform={platform} screenSize={screenSize} />
       )}
+    </Switch>
+  );
+};
+
+export const MypageRouter = () => {
+  return (
+    <Switch>
+      <Route path="/mypage/account" component={MyPageAccount} />} />
+      <Route path="/mypage/change" component={MyPageChange} />
+      <Redirect from="*" to="/" />
     </Switch>
   );
 };

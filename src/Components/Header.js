@@ -7,7 +7,7 @@ import DesktopHeader from "./Header/DesktopHeader";
 import MobileHeader from "./Header/MoblieHeader";
 import { gql } from "apollo-boost";
 import { getWithExpiry, setWithExpiry } from "../Utils";
-const ME = gql`
+const USERNAME = gql`
   query {
     me {
       username
@@ -26,7 +26,7 @@ export default ({ isLoggedIn, platform }) => {
   const [userName, setUserName] = useState("");
   const mobileOnClick = () => setMoblieTrigger(!moblieTrigger);
 
-  const { data, loading, error } = useQuery(ME, { skip: !isLoggedIn });
+  const { data, loading, error } = useQuery(USERNAME, { skip: !isLoggedIn });
 
   useEffect(() => {
     const handleScroll = () => {

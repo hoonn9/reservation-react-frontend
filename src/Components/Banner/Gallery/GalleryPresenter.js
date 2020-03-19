@@ -109,7 +109,9 @@ export default ({
   setPrevButtonTrigger,
   nextButtonTrigger,
   setNextButtonTrigger,
-  centerProp
+  centerProp,
+  dotItem,
+  setDotItem
 }) => {
   const currentArray = galleryData.files;
   return (
@@ -123,14 +125,13 @@ export default ({
               setPrevButtonTrigger(false);
               setTimeout(() => setPrevButtonTrigger(true), 300);
               setSlideSpeed(0.3);
+              setDotItem(currentItem - 1);
               setCurrentItem(currentItem - 1);
-              setTransValue(transValue - imgWidth);
-
               if (currentItem === 0) {
-                setCurrentItem(currentArray.length - 1);
+                setDotItem(currentArray.length - 1);
                 setTimeout(() => {
+                  setCurrentItem(currentArray.length - 1);
                   setSlideSpeed(0);
-                  setTransValue(currentArray.length * imgWidth);
                 }, 300);
               }
             }
@@ -212,14 +213,14 @@ export default ({
               setNextButtonTrigger(false);
               setTimeout(() => setNextButtonTrigger(true), 300);
               setSlideSpeed(0.3);
+              setDotItem(currentItem + 1);
               setCurrentItem(currentItem + 1);
-              setTransValue(transValue + imgWidth);
 
               if (currentItem === currentArray.length - 1) {
-                setCurrentItem(0);
+                setDotItem(0);
                 setTimeout(() => {
+                  setCurrentItem(0);
                   setSlideSpeed(0);
-                  setTransValue(imgWidth);
                 }, 300);
               }
             }
@@ -233,12 +234,13 @@ export default ({
       <DotsWrapper>
         {[...Array(currentArray.length)].map((e, i) => {
           if (i < currentArray.length) {
-            if (currentItem === i) {
+            if (dotItem === i) {
               return (
                 <DotsList key={i}>
                   <DotsActiveButton
                     onClick={() => {
                       setSlideSpeed(0.3);
+                      setDotItem(i);
                       setCurrentItem(i);
                       setTransValue(imgWidth * (i + 1));
                     }}
@@ -251,6 +253,7 @@ export default ({
                   <DotsButton
                     onClick={() => {
                       setSlideSpeed(0.3);
+                      setDotItem(i);
                       setCurrentItem(i);
                       setTransValue(imgWidth * (i + 1));
                     }}
