@@ -9,7 +9,6 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-
   margin: 0 auto;
   position: relative;
 `;
@@ -28,7 +27,7 @@ const Img = styled.img`
 const ImgWrapper = styled.div`
   display: block;
   width: 100%;
-  height: 600px;
+  height: ${props => `${props.height}px`};
   overflow: hidden;
   position: relative;
   padding-bottom: 67%;
@@ -68,11 +67,11 @@ const TextSubTitle = styled.div`
   font-weight: 500;
   padding: 16px 16px;
 `;
-export default ({ id, title, subTitle, thumbnail, trigger }) => {
+export default ({ height = 600, id, title, subTitle, thumbnail, trigger }) => {
   return (
     <Wrapper>
       <ContentWrapper>
-        <ImgWrapper>
+        <ImgWrapper height={height}>
           <Img src={thumbnail} />
 
           <ContentLink

@@ -8,7 +8,6 @@ import GalleryBanner from "../Components/Banner/Gallery";
 import { useQuery } from "@apollo/react-hooks";
 import { SEE_POPUP } from "../SharedQueries";
 import GlobalText from "../GlobalText";
-import { useState } from "react";
 import { SEE_TYPE } from "./About/AboutQueries";
 
 const Container = styled.div`
@@ -50,8 +49,9 @@ const SearchWrapper = styled.div`
   position: relative;
   width: 100%;
   height: ${props =>
-    props.platform === "desktop" ? `${props.screenSize.height}px` : "480px"};
-  top: 670px;
+    props.platform === "desktop" ? `${props.screenSize.height}px` : "auto"};
+  top: ${props => (props.platform === "desktop" ? "670px" : "0px")};
+  padding: ${props => (props.platform === "desktop" ? "0px 32px" : "0px")};
 `;
 
 const topImageArray = ["./images/Home/Top/1.jpg", "./images/Home/Top/2.jpg"];
@@ -79,18 +79,6 @@ export default ({ platform, screenSize }) => {
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";
   const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
   const galleryData = useQuery(SEE_TYPE, {});
-  const [scrollY, setSrollY] = useState(0);
-  useEffect(() => {
-    const handleScroll = () => {
-      const { pageYOffset } = window;
-      setSrollY(pageYOffset);
-    };
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <Container>
@@ -99,18 +87,29 @@ export default ({ platform, screenSize }) => {
           <TopImg src={topImageArray[0]} showing={1} />
           {platform === "desktop" ? (
             <SearchWrapper platform={platform} screenSize={screenSize}>
-              <Search type="widget" />{" "}
+              <Search platform={platform} type="widget" />{" "}
             </SearchWrapper>
           ) : null}
         </TopImgWrapper>
       </TopImgContainer>
+      {platform === "mobile" ? (
+        <SearchWrapper platform={platform} screenSize={screenSize}>
+          <Search platform={platform} type="widget" />{" "}
+        </SearchWrapper>
+      ) : null}
       {popupData.error ? null : popupData.loading ? null : (
         <Popup data={popupData.data} />
       )}
 
       {galleryData.error ? null : galleryData.loading ? null : (
-        <Wrapper style={{ backgroundColor: "transparent", marginTop: "80px" }}>
+        <Wrapper
+          style={{
+            backgroundColor: "transparent",
+            marginTop: platform === "desktop" ? "80px" : "20px"
+          }}
+        >
           <GalleryBanner
+            platform={platform}
             screenSize={screenSize}
             galleryData={galleryData.data.seeType[0]}
           />

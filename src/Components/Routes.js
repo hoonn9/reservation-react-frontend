@@ -17,10 +17,10 @@ import Infomation from "../Routes/Infomation";
 import Notice from "../Routes/Notice";
 import FindID from "../Routes/Help/FindID";
 import FindPW from "../Routes/Help/FindPW";
-import MyPageAccount from "../Routes/MyPageAccount";
-import MyPageChange from "../Routes/MyPageChange";
+import MyPageAccount from "../Routes/MyPage/Routes/MyPageAccount";
+import MyPageChange from "../Routes/MyPage/Routes/MyPageChange";
 const LoggedOutRoutes = ({ platform, screenSize }) => (
-  <Switch onChange={() => toTop()}>
+  <Switch>
     <Route
       exact
       path="/"
@@ -50,13 +50,13 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
 );
 
 const LoggedInRoutes = ({ platform, screenSize }) => (
-  <Switch onChange={() => toTop()}>
+  <Switch>
     <Route
       exact
       path="/"
       render={props => <Home platform={platform} screenSize={screenSize} />}
     />
-    <Route exact path="/mypage" component={MyPage} />
+    <Route path="/mypage" component={MyPage} />
     <Route path="/upload" component={Upload} />
     <Route path="/board" component={Board} />
     <Route path="/post/:id" component={Post} />
@@ -86,19 +86,14 @@ const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
   );
 };
 
-export const MypageRouter = () => {
+export const MypageRouter = ({ data, refetch }) => {
   return (
     <Switch>
-      <Route path="/mypage/account" component={MyPageAccount} />} />
-      <Route path="/mypage/change" component={MyPageChange} />
+      <Route exact path="/" render={props => <MyPageAccount data={data} />} />
+      <Route path="/change" render={props => <MyPageChange data={data} />} />
       <Redirect from="*" to="/" />
     </Switch>
   );
-};
-
-const toTop = () => {
-  console.log("check");
-  window.scrollTo(0, 0);
 };
 
 AppRouter.propTypes = {

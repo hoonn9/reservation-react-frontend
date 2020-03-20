@@ -80,7 +80,7 @@ export default ({ data: { me } }) => {
             <HeaderUserInfo>
               <HeaderUserInfoName>{me.username}</HeaderUserInfoName>
               <HeaderUserInfoId>({me.userId})</HeaderUserInfoId>
-              <Link to="/mypage/change">
+              <Link to="/change">
                 <ChangeButton>회원정보변경</ChangeButton>
               </Link>
               <HeaderUserInfoJoindate>

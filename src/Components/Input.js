@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Container = styled.input`
+const Wrapper = styled.div`
+  display: inline-block;
+  width: 100%;
+`;
+const Input = styled.input`
   border: 0;
   border: ${props => props.theme.boxBorder};
   border-radius: ${props => props.theme.borderRadius};
@@ -12,7 +16,14 @@ const Container = styled.input`
   padding: 0px 15px;
 `;
 
-const Input = ({
+const Alert = styled.span`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${props => props.theme.redColor};
+  padding: 0px 12px;
+`;
+
+const Container = ({
   placeholder,
   required = true,
   value,
@@ -20,19 +31,23 @@ const Input = ({
   type,
   className,
   onBlur,
-  onKeyPress
+  onKeyPress,
+  alertMsg
 }) => {
   return (
-    <Container
-      className={className}
-      placeholder={placeholder}
-      required={required}
-      value={value}
-      onChange={onChange}
-      type={type}
-      onBlur={onBlur}
-      onKeyPress={onKeyPress}
-    />
+    <Wrapper>
+      <Input
+        className={className}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        type={type}
+        onBlur={onBlur}
+        onKeyPress={onKeyPress}
+      />
+      <Alert>{alertMsg}</Alert>
+    </Wrapper>
   );
 };
 
@@ -42,7 +57,8 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
-  onblur: PropTypes.func
+  onblur: PropTypes.func,
+  alertMsg: PropTypes.string
 };
 
-export default Input;
+export default Container;

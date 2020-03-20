@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import BannerGalleryView from "../../BannerGalleryView";
+import { switchPlatform } from "../../../Utils";
 
 const Container = styled.div`
   width: 100%;
@@ -24,7 +25,10 @@ const Title = styled.h2`
   padding: 32px 0px;
   margin-left: 12.5%;
 `;
-
+const MobileTitle = styled.h2`
+  font-size: 31px;
+  padding: 16px 8px;
+`;
 const SlideWrapper = styled.div`
   width: 100%;
   margin: auto;
@@ -42,7 +46,7 @@ const ContentWrapper = styled.div`
   float: left;
   width: ${props => `${props.imgWidth}px`};
   position: relative;
-  padding-right: 24px;
+  padding-right: ${props => `${props.contentPadding}px`};
   z-index: 8;
   transition: opacity 0.3s linear;
 `;
@@ -96,6 +100,7 @@ const DotsActiveButton = styled.button`
 `;
 
 export default ({
+  platform,
   currentItem,
   setCurrentItem,
   imgWidth,
@@ -111,12 +116,19 @@ export default ({
   setNextButtonTrigger,
   centerProp,
   dotItem,
-  setDotItem
+  setDotItem,
+  contentPadding,
+  contentHeight
 }) => {
   const currentArray = galleryData.files;
   return (
     <>
-      <Title>{galleryData.typeName}</Title>
+      {switchPlatform(
+        platform,
+        <Title>ROOM</Title>,
+        <MobileTitle>ROOM</MobileTitle>
+      )}
+
       <Container wrapperWidth={wrapperWidth}>
         <PrevButton
           centerProp={centerProp}
@@ -152,6 +164,7 @@ export default ({
               <ContentWrapper
                 key={0}
                 imgWidth={imgWidth}
+                contentPadding={contentPadding}
                 style={{
                   opacity:
                     currentItem === currentArray.length - 1 ? "1.0" : "0.3",
@@ -159,6 +172,7 @@ export default ({
                 }}
               >
                 <BannerGalleryView
+                  height={contentHeight}
                   thumbnail={currentArray[currentArray.length - 1].url}
                 />
               </ContentWrapper>
@@ -168,9 +182,11 @@ export default ({
                     <ContentWrapper
                       key={i + 1}
                       imgWidth={imgWidth}
+                      contentPadding={contentPadding}
                       style={{ opacity: "1" }}
                     >
                       <BannerGalleryView
+                        height={contentHeight}
                         thumbnail={current.url}
                         title={"타이틀"}
                         subTitle={"서브타이틀"}
@@ -183,9 +199,11 @@ export default ({
                     <ContentWrapper
                       key={i + 1}
                       imgWidth={imgWidth}
+                      contentPadding={contentPadding}
                       style={{ opacity: "0.3" }}
                     >
                       <BannerGalleryView
+                        height={contentHeight}
                         thumbnail={current.url}
                         id={galleryData.id}
                         trigger={false}
@@ -197,11 +215,15 @@ export default ({
               <ContentWrapper
                 key={galleryData.length}
                 imgWidth={imgWidth}
+                contentPadding={contentPadding}
                 style={{
                   opacity: currentItem === 0 ? "1.0" : "0.3"
                 }}
               >
-                <BannerGalleryView thumbnail={currentArray[0].url} />
+                <BannerGalleryView
+                  height={contentHeight}
+                  thumbnail={currentArray[0].url}
+                />
               </ContentWrapper>
             </SlideList>
           </SlideWrapper>

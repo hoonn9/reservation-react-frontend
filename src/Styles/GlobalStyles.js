@@ -13,7 +13,7 @@ export default createGlobalStyle`
     }
     .body-content {
         min-height: 780px;
-        margin-top: 180px;
+        margin-top: 120px;
     }
     a {
         text-decoration: none;
@@ -31,5 +31,8 @@ export default createGlobalStyle`
     }
     button {
         cursor: pointer;
+    }
+    input:focus {
+        outline:none;
     }
 `;

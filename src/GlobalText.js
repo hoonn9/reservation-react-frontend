@@ -47,6 +47,8 @@ export default () => {
       text_list: "목록",
       text_alert: "알림",
       text_close: "닫기",
+      text_confirm: "확인",
+      text_change: "변경",
       text_more_info: "상품 보기",
       text_reserve_check: "예약조회",
       text_reserve_do: "예악하기",
@@ -75,7 +77,7 @@ export default () => {
       text_id_exist: "이미 사용 중이거나 탈퇴한 계정입니다.",
       text_pw_error: "8~15자의 영문 대 소문자, 숫자, 특수문자를 사용하세요. ",
       text_phone_error: "휴대폰 번호를 다시 입력하세요.",
-      text_pwcf_error: "비밀번호가 일치하지 않습니다.",
+      text_pwcf_error: "비밀번호가 서로 일치하지 않습니다.",
       text_login_pw_error: "비밀번호가 일치하지 않습니다.",
       text_login_error:
         "계정이 존재하지 않거나 입력한 정보가 일치하지 않습니다.",
@@ -105,7 +107,15 @@ export default () => {
       text_man: "남",
       text_woman: "여",
       text_use_agree: "활용 동의",
-      text_use_agree_text: "[필수] 개인정보수집 및 활용에 동의"
+      text_use_agree_text: "[필수] 개인정보수집 및 활용에 동의",
+      text_user_info: "회원 정보",
+      text_current_pw: "현재 비밀번호",
+      text_new_pw: "신규 비밀번호",
+      text_new_pw_confirm: "신규 비밀번호 확인",
+      text_pw_placeholder: "********",
+      text_not_correct: "정확한 정보를 입력해주세요.",
+      text_pw_changed: " 비밀번호가 변경되었습니다.",
+      text_pw_change_error: "비밀번호를 변경하는데 문제가 발생하였습니다."
     };
   } else if (language === "en") {
     return {

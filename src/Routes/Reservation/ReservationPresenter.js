@@ -5,7 +5,7 @@ import Search from "../../Components/Reservation/Search";
 const Container = styled.div`
   position: relative;
   padding-bottom: 150px;
-  width: 1080px;
+  width: 75%;
   margin: 0 auto;
 `;
 const Title = styled.div`
@@ -13,7 +13,7 @@ const Title = styled.div`
   font-size: 46px;
   color: #333;
   font-weight: normal;
-  padding: 32px 32px;
+  padding: 32px 0px;
 `;
 export default ({
   init,
@@ -28,8 +28,8 @@ export default ({
 }) => {
   return (
     <>
-      <Title>{globalText.text_reserve}</Title>
       <Container ref={containerRef}>
+        <Title>{globalText.text_reserve}</Title>
         <Search
           init={init}
           screenSize={screenSize}

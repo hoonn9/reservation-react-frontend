@@ -50,7 +50,7 @@ const HeaderButton = styled.button`
   display: block;
   position: absolute;
   top: 1rem;
-  right: 2rem;
+  right: 1rem;
   z-index: 1002;
   width: 2rem;
   height: 2rem;

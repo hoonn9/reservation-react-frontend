@@ -8,12 +8,14 @@ const Wrapper = styled.div`
   background-color: transparent;
 `;
 
-export default ({ screenSize, galleryData }) => {
+export default ({ platform, screenSize, galleryData }) => {
   const [currentItem, setCurrentItem] = useState(0);
   const [dotItem, setDotItem] = useState(0);
   //container
   const divide = 1;
-  const wrapperWidth = 60;
+  const wrapperWidth = platform === "desktop" ? 60 : 100;
+  const contentPadding = platform === "desktop" ? 24 : 0;
+  const contentHeight = platform === "desktop" ? 600 : 480;
   const imgWidth = ((screenSize.width / 100) * wrapperWidth) / divide;
 
   const [transValue, setTransValue] = useState(imgWidth);
@@ -31,6 +33,7 @@ export default ({ screenSize, galleryData }) => {
   return (
     <Wrapper>
       <GalleryPresenter
+        platform={platform}
         currentItem={currentItem}
         setCurrentItem={setCurrentItem}
         screenSize={screenSize}
@@ -48,6 +51,8 @@ export default ({ screenSize, galleryData }) => {
         centerProp={centerProp}
         dotItem={dotItem}
         setDotItem={setDotItem}
+        contentPadding={contentPadding}
+        contentHeight={contentHeight}
       />
     </Wrapper>
   );

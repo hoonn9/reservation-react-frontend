@@ -9,10 +9,12 @@ import Summary from "../Summary";
 import Option from "../Option";
 import Info from "../Info";
 import useCheckbox from "../../../Hooks/useCheckbox";
+import MobileWidgetPresenter from "./MobileWidgetPresenter";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 
 export default ({
+  platform,
   type,
   init,
   checkIn,
@@ -214,21 +216,39 @@ export default ({
   return (
     <>
       {type === "widget" ? (
-        <WidgetPresenter
-          startDate={startDate}
-          setStartDate={setStartDate}
-          startDay={startDay}
-          endDate={endDate}
-          endDay={endDay}
-          setEndDate={setEndDate}
-          globalText={globalText}
-          userCount={userCount}
-          setUserCount={setUserCount}
-          typeCount={typeCount}
-          setTypeCount={setTypeCount}
-          subCount={subCount}
-          setSubCount={setSubCount}
-        />
+        platform === "desktop" ? (
+          <WidgetPresenter
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startDay={startDay}
+            endDate={endDate}
+            endDay={endDay}
+            setEndDate={setEndDate}
+            globalText={globalText}
+            userCount={userCount}
+            setUserCount={setUserCount}
+            typeCount={typeCount}
+            setTypeCount={setTypeCount}
+            subCount={subCount}
+            setSubCount={setSubCount}
+          />
+        ) : (
+          <MobileWidgetPresenter
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startDay={startDay}
+            endDate={endDate}
+            endDay={endDay}
+            setEndDate={setEndDate}
+            globalText={globalText}
+            userCount={userCount}
+            setUserCount={setUserCount}
+            typeCount={typeCount}
+            setTypeCount={setTypeCount}
+            subCount={subCount}
+            setSubCount={setSubCount}
+          />
+        )
       ) : (
         <>
           <SearchPresenter

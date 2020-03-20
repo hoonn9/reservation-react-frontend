@@ -1,3 +1,6 @@
+export const switchPlatform = (platform, a, b) =>
+  platform === "desktop" ? a : b;
+
 export const getSize = () => {
   const isClient = typeof window === "object";
   return {
