@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { getUri } from "../Utils";
 
 const Wrapper = styled.div`
   max-width: 100%;
@@ -66,7 +67,7 @@ export default ({ id, type, title, subTitle, period, thumbnail }) => {
     <Wrapper>
       <ContentWrapper>
         <ImgWrapper>
-          <Img src={thumbnail} />
+          <Img src={getUri() + thumbnail} />
 
           <ContentLink
             to={{

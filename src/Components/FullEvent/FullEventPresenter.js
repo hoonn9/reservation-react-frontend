@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { getUri } from "../../Utils";
 
 const Wrapper = styled.div``;
 const TopViewWrapper = styled.div`
@@ -95,7 +96,7 @@ export default ({
   return (
     <Wrapper>
       <TopViewWrapper>
-        <TopViewImage src={"/images/Event/5.jpg"} />
+        <TopViewImage src={getUri() + thumbnail} />
         <TopViewDetailWrapper>
           <TopViewDescWrapper>
             <TopViewDescLeft>

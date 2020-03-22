@@ -97,3 +97,8 @@ export const getBoardState = type => {
   const item = JSON.parse(itemStr);
   return item;
 };
+
+export const getUri = () =>
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000"
+    : "https://hxxns-reservation-react.herokuapp.com/";

@@ -5,6 +5,7 @@ import ImageGallery from "react-image-gallery";
 import Popup from "reactjs-popup";
 import "../image-gallery.css";
 import CloseIcon from "@material-ui/icons/Close";
+import { getUri } from "../../../Utils";
 const Wrapper = styled.div`
   width: 100%;
 `;
@@ -197,7 +198,7 @@ export default ({
               setGalleryToggle(true);
             }}
           >
-            <Thumbnail src={`./images/About/${type.id}/1.jpg`} />
+            <Thumbnail src={getUri() + `/images/About/${type.id}/1.jpg`} />
           </ThumbnailWrapper>
           <InfoWrapper>
             <InfoCenter>
