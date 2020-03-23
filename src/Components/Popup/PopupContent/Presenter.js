@@ -5,9 +5,13 @@ const Inner = styled.div`
   margin: 0px 16px;
   visibility: ${props => (props.state ? "visible" : "hidden")};
 `;
+const MobileInner = styled.div`
+  position: absolute;
+  margin: 85px 16px;
+  visibility: ${props => (props.state ? "visible" : "hidden")};
+`;
 const PopupWrapper = styled.div`
   width: 350px;
-
   background: ${props => props.theme.whiteColor};
 `;
 const Title = styled.div`
@@ -25,6 +29,10 @@ const Img = styled.img`
   width: 100%;
   height: auto;
   max-height: 600px;
+`;
+const MobileImg = styled.img`
+  width: 100%;
+  height: 420px;
 `;
 const BottomWrapper = styled.div`
   width: 100%;
@@ -60,36 +68,81 @@ const DelButton = styled.button`
   margin: 8px 8px;
   background-color: transparent;
 `;
-export default ({ popup, cb, setCb, state, setState, closePopupNotToday }) => {
+export default ({
+  platform,
+  popup,
+  cb,
+  setCb,
+  state,
+  setState,
+  closePopupNotToday,
+  closeCounter
+}) => {
   return (
-    <Inner state={state}>
-      <PopupWrapper>
-        <Title>{popup.title}</Title>
-        <Img src={popup.url} />
-        <Content>{popup.content}</Content>
-      </PopupWrapper>
-      <BottomWrapper>
-        <BottomTextWrapper>
-          <BottomText>오늘 그만 보기</BottomText>
-          <CheckBox
-            type="checkbox"
-            onChange={e => {
-              setCb(e.target.checked);
-            }}
-          />
-        </BottomTextWrapper>
+    <>
+      {platform === "desktop" ? (
+        <Inner state={state}>
+          <PopupWrapper>
+            <Title>{popup.title}</Title>
+            <Img src={popup.url} />
+            <Content>{popup.content}</Content>
+          </PopupWrapper>
+          <BottomWrapper>
+            <BottomTextWrapper>
+              <BottomText>오늘 그만 보기</BottomText>
+              <CheckBox
+                type="checkbox"
+                onChange={e => {
+                  setCb(e.target.checked);
+                }}
+              />
+            </BottomTextWrapper>
 
-        <DelButton
-          onClick={() => {
-            setState(false);
-            if (cb) {
-              closePopupNotToday(popup.id);
-            }
-          }}
-        >
-          <CloseIcon />
-        </DelButton>
-      </BottomWrapper>
-    </Inner>
+            <DelButton
+              onClick={() => {
+                setState(false);
+                closeCounter();
+                if (cb) {
+                  closePopupNotToday(popup.id);
+                }
+              }}
+            >
+              <CloseIcon />
+            </DelButton>
+          </BottomWrapper>
+        </Inner>
+      ) : (
+        <MobileInner state={state}>
+          <PopupWrapper>
+            <Title>{popup.title}</Title>
+            <MobileImg src={popup.url} />
+            <Content>{popup.content}</Content>
+          </PopupWrapper>
+          <BottomWrapper>
+            <BottomTextWrapper>
+              <BottomText>오늘 그만 보기</BottomText>
+              <CheckBox
+                type="checkbox"
+                onChange={e => {
+                  setCb(e.target.checked);
+                }}
+              />
+            </BottomTextWrapper>
+
+            <DelButton
+              onClick={() => {
+                setState(false);
+                closeCounter();
+                if (cb) {
+                  closePopupNotToday(popup.id);
+                }
+              }}
+            >
+              <CloseIcon />
+            </DelButton>
+          </BottomWrapper>
+        </MobileInner>
+      )}
+    </>
   );
 };

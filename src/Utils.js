@@ -100,5 +100,5 @@ export const getBoardState = type => {
 
 export const getUri = () =>
   process.env.NODE_ENV === "development"
-    ? "http://localhost:4000"
+    ? "http://localhost:4000/"
     : "https://hxxns-reservation-react.herokuapp.com/";

@@ -54,8 +54,7 @@ const SearchWrapper = styled.div`
   top: ${props => (props.platform === "desktop" ? "670px" : "0px")};
   padding: ${props => (props.platform === "desktop" ? "0px 32px" : "0px")};
 `;
-console.log(getUri());
-const topImageArray = [getUri() + "/images/Home/Top/1.jpg"];
+const topImageArray = [getUri() + "images/Home/Top/1.jpg"];
 
 export default ({ platform, screenSize }) => {
   // const [currentItem, setCurrentItem] = useState(0);
@@ -99,7 +98,7 @@ export default ({ platform, screenSize }) => {
         </SearchWrapper>
       ) : null}
       {popupData.error ? null : popupData.loading ? null : (
-        <Popup data={popupData.data} />
+        <Popup data={popupData.data} platform={platform} />
       )}
 
       {galleryData.error ? null : galleryData.loading ? null : (
@@ -118,11 +117,15 @@ export default ({ platform, screenSize }) => {
       )}
 
       <Wrapper>
-        <EventBanner screenSize={screenSize} />
+        <EventBanner screenSize={screenSize} platform={platform} />
       </Wrapper>
 
       <Wrapper>
-        <NoticeBanner globalText={globalText} noticeId={noticeId} />
+        <NoticeBanner
+          globalText={globalText}
+          noticeId={noticeId}
+          platform={platform}
+        />
       </Wrapper>
     </Container>
   );

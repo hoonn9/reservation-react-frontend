@@ -76,7 +76,7 @@ export default () => {
         <Router basename="/">
           <>
             <Header isLoggedIn={isLoggedIn} platform={platform} />
-            <Wrapper>
+            <Wrapper className="body-main">
               <Routes
                 isLoggedIn={isLoggedIn}
                 platform={platform}

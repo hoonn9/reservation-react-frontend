@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ImageGallery from "react-image-gallery";
 import Popup from "reactjs-popup";
-import "../image-gallery.css";
 import CloseIcon from "@material-ui/icons/Close";
 import { getUri } from "../../../Utils";
+import TouchSlideView from "../../TouchSlideView";
+
 const Wrapper = styled.div`
   width: 100%;
 `;
@@ -17,7 +17,7 @@ const ContentWrapper = styled.div`
   clear: both;
 `;
 const GalleryWrapper = styled.div`
-  width: auto;
+  width: 720px;
   height: 100%;
   background-color: transparent;
 `;
@@ -146,7 +146,6 @@ const SelectButton = styled.button`
   color: ${props => props.theme.whiteColor};
   cursor: pointer;
 `;
-
 export default ({
   type,
   globalText,
@@ -155,14 +154,9 @@ export default ({
   setSelectType,
   setSelectSubType,
   galleryToggle,
-  setGalleryToggle
+  setGalleryToggle,
+  slideViewArray
 }) => {
-  var images = [];
-
-  type.files.forEach(e => {
-    images.push({ original: e.url });
-  });
-
   return (
     <>
       <StyledPopup
@@ -183,12 +177,7 @@ export default ({
               />
             </GalleryButton>
           </GalleryButtonWrapper>
-          <ImageGallery
-            items={images}
-            showThumbnails={false}
-            showBullets={true}
-            showPlayButton={false}
-          />
+          <TouchSlideView data={slideViewArray} type="popup" />
         </GalleryWrapper>
       </StyledPopup>
       <Wrapper>
@@ -198,7 +187,7 @@ export default ({
               setGalleryToggle(true);
             }}
           >
-            <Thumbnail src={getUri() + `/images/About/${type.id}/1.jpg`} />
+            <Thumbnail src={getUri() + `images/About/${type.id}/1.jpg`} />
           </ThumbnailWrapper>
           <InfoWrapper>
             <InfoCenter>

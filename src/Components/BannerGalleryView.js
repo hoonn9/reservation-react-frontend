@@ -73,7 +73,7 @@ export default ({ height = 600, id, title, subTitle, thumbnail, trigger }) => {
     <Wrapper>
       <ContentWrapper>
         <ImgWrapper height={height}>
-          <Img src={getUri() + thumbnail} />
+          <Img src={thumbnail} />
 
           <ContentLink
             to={{

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import BannerGalleryView from "../../BannerGalleryView";
-import { switchPlatform } from "../../../Utils";
 
 const Container = styled.div`
   width: 100%;
@@ -100,7 +99,7 @@ const DotsActiveButton = styled.button`
 `;
 
 export default ({
-  platform,
+  id,
   currentItem,
   setCurrentItem,
   imgWidth,
@@ -109,7 +108,7 @@ export default ({
   setTransValue,
   slideSpeed,
   setSlideSpeed,
-  galleryData,
+  viewArray,
   prevButtonTrigger,
   setPrevButtonTrigger,
   nextButtonTrigger,
@@ -120,15 +119,8 @@ export default ({
   contentPadding,
   contentHeight
 }) => {
-  const currentArray = galleryData.files;
   return (
     <>
-      {switchPlatform(
-        platform,
-        <Title>ROOM</Title>,
-        <MobileTitle>ROOM</MobileTitle>
-      )}
-
       <Container wrapperWidth={wrapperWidth}>
         <PrevButton
           centerProp={centerProp}
@@ -140,9 +132,9 @@ export default ({
               setDotItem(currentItem - 1);
               setCurrentItem(currentItem - 1);
               if (currentItem === 0) {
-                setDotItem(currentArray.length - 1);
+                setDotItem(viewArray.length - 1);
                 setTimeout(() => {
-                  setCurrentItem(currentArray.length - 1);
+                  setCurrentItem(viewArray.length - 1);
                   setSlideSpeed(0);
                 }, 300);
               }
@@ -156,7 +148,7 @@ export default ({
         <Wrapper wrapperWidth={wrapperWidth}>
           <SlideWrapper>
             <SlideList
-              width={(currentArray.length + 2) * imgWidth}
+              width={(viewArray.length + 2) * imgWidth}
               transValue={transValue}
               slideSpeed={slideSpeed}
               centerProp={centerProp}
@@ -166,17 +158,17 @@ export default ({
                 imgWidth={imgWidth}
                 contentPadding={contentPadding}
                 style={{
-                  opacity:
-                    currentItem === currentArray.length - 1 ? "1.0" : "0.3",
+                  opacity: currentItem === viewArray.length - 1 ? "1.0" : "0.3",
                   marginLeft: centerProp
                 }}
               >
                 <BannerGalleryView
+                  id={id}
                   height={contentHeight}
-                  thumbnail={currentArray[currentArray.length - 1].url}
+                  thumbnail={viewArray[viewArray.length - 1].url}
                 />
               </ContentWrapper>
-              {currentArray.map((current, i) => {
+              {viewArray.map((current, i) => {
                 if (currentItem === i) {
                   return (
                     <ContentWrapper
@@ -186,10 +178,11 @@ export default ({
                       style={{ opacity: "1" }}
                     >
                       <BannerGalleryView
+                        id={id}
                         height={contentHeight}
                         thumbnail={current.url}
-                        title={"타이틀"}
-                        subTitle={"서브타이틀"}
+                        title={current.title}
+                        subTitle={current.subTitle}
                         trigger={true}
                       />
                     </ContentWrapper>
@@ -205,7 +198,7 @@ export default ({
                       <BannerGalleryView
                         height={contentHeight}
                         thumbnail={current.url}
-                        id={galleryData.id}
+                        id={id}
                         trigger={false}
                       />
                     </ContentWrapper>
@@ -213,7 +206,7 @@ export default ({
                 }
               })}
               <ContentWrapper
-                key={galleryData.length}
+                key={viewArray.length}
                 imgWidth={imgWidth}
                 contentPadding={contentPadding}
                 style={{
@@ -221,8 +214,9 @@ export default ({
                 }}
               >
                 <BannerGalleryView
+                  id={id}
                   height={contentHeight}
-                  thumbnail={currentArray[0].url}
+                  thumbnail={viewArray[0].url}
                 />
               </ContentWrapper>
             </SlideList>
@@ -238,7 +232,7 @@ export default ({
               setDotItem(currentItem + 1);
               setCurrentItem(currentItem + 1);
 
-              if (currentItem === currentArray.length - 1) {
+              if (currentItem === viewArray.length - 1) {
                 setDotItem(0);
                 setTimeout(() => {
                   setCurrentItem(0);
@@ -254,8 +248,8 @@ export default ({
         </NextButton>
       </Container>
       <DotsWrapper>
-        {[...Array(currentArray.length)].map((e, i) => {
-          if (i < currentArray.length) {
+        {[...Array(viewArray.length)].map((e, i) => {
+          if (i < viewArray.length) {
             if (dotItem === i) {
               return (
                 <DotsList key={i}>

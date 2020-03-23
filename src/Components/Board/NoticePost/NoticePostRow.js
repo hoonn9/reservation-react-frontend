@@ -18,7 +18,7 @@ const TitleRow = styled(Row)`
   font-size: 16px;
 `;
 const DateRow = styled(Row)`
-  width: 25%;
+  width: ${props => `${props.width}%`};
   color: ${props => props.theme.greyColor};
 `;
 const ViewRow = styled(Row)`
@@ -56,8 +56,14 @@ export default ({
           {title}
         </PostLink>
       </TitleRow>
-      <DateRow>{dateConverter(createdAt)}</DateRow>
-      {onViews ? <ViewRow>{views}</ViewRow> : null}
+      {onViews ? (
+        <>
+          <DateRow width={25}>{dateConverter(createdAt)}</DateRow>
+          <ViewRow>{views}</ViewRow>
+        </>
+      ) : (
+        <DateRow width={45}>{dateConverter(createdAt)}</DateRow>
+      )}
     </Warpper>
   );
 };

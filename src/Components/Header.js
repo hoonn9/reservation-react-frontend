@@ -24,7 +24,16 @@ export default ({ isLoggedIn, platform }) => {
   const [moblieTrigger, setMoblieTrigger] = useState(false);
 
   const [userName, setUserName] = useState("");
-  const mobileOnClick = () => setMoblieTrigger(!moblieTrigger);
+  const mobileOnClick = () => {
+    if (!moblieTrigger) {
+      let body = document.querySelector("body");
+      body.style.overflow = "hidden";
+    } else {
+      let body = document.querySelector("body");
+      body.style.overflow = "visible";
+    }
+    setMoblieTrigger(!moblieTrigger);
+  };
 
   const { data, loading, error } = useQuery(USERNAME, { skip: !isLoggedIn });
 

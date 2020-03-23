@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import ContentPresenter from "./ContentPresenter";
+import TouchSlideView from "../../../TouchSlideView";
+import { getUri } from "../../../../Utils";
+
 export default ({
+  platform,
   screenSize,
   currentItem,
   wrapperWidth,
@@ -19,14 +23,28 @@ export default ({
     return e.eventType === currentItem;
   });
 
-  return (
-    <ContentPresenter
-      divide={divide}
-      imgWidth={imgWidth}
-      currentArray={currentArray}
-      wrapperWidth={wrapperWidth}
-      transValue={transValue}
-      setTransValue={setTransValue}
-    />
-  );
+  if (platform === "desktop") {
+    return (
+      <ContentPresenter
+        divide={divide}
+        imgWidth={imgWidth}
+        currentArray={currentArray}
+        wrapperWidth={wrapperWidth}
+        transValue={transValue}
+        setTransValue={setTransValue}
+      />
+    );
+  } else {
+    const viewArray = [];
+    currentArray.forEach(e => {
+      viewArray.push({
+        id: e.id,
+        title: e.title,
+        subTitle: e.subTitle,
+        url: getUri() + e.thumbnail
+      });
+    });
+
+    return <TouchSlideView data={viewArray} type="banner" />;
+  }
 };

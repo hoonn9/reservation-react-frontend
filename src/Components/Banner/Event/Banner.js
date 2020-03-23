@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export default ({ screenSize }) => {
+export default ({ screenSize, platform }) => {
   const globalText = GlobalText();
   const [currentItem, setCurrentItem] = useState(0);
   const { data, loading, error } = useQuery(SEE_EVENT, { variables: {} });
@@ -38,6 +38,7 @@ export default ({ screenSize }) => {
       ) : (
         <Wrapper>
           <Head
+            platform={platform}
             globalText={globalText}
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
@@ -45,6 +46,7 @@ export default ({ screenSize }) => {
             resetWrapper={resetWrapper}
           />
           <Content
+            platform={platform}
             currentItem={currentItem}
             data={data}
             screenSize={screenSize}
