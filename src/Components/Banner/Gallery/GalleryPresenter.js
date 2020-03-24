@@ -19,15 +19,6 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Title = styled.h2`
-  font-size: 42px;
-  padding: 32px 0px;
-  margin-left: 12.5%;
-`;
-const MobileTitle = styled.h2`
-  font-size: 31px;
-  padding: 16px 8px;
-`;
 const SlideWrapper = styled.div`
   width: 100%;
   margin: auto;

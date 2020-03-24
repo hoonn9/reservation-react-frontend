@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   background-color: transparent;
 `;
 
-const WidgetWrpper = styled.div`
+const WidgetWrapper = styled.div`
   background: ${props => props.theme.whiteColor};
   border: solid 1px ${props => props.theme.superLiteGreyColor};
   width: 100%;
@@ -97,7 +97,7 @@ export default ({
   return (
     <Container>
       <Wrapper>
-        <WidgetWrpper>
+        <WidgetWrapper>
           <Title></Title>
 
           <DateWrapper>
@@ -184,7 +184,7 @@ export default ({
               </SearchButton>
             </Link>
           </ButtonWrapper>
-        </WidgetWrpper>
+        </WidgetWrapper>
       </Wrapper>
     </Container>
   );

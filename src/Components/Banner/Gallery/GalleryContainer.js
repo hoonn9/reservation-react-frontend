@@ -3,22 +3,34 @@ import styled from "styled-components";
 import GalleryPresenter from "./GalleryPresenter";
 import { switchPlatform, getUri } from "../../../Utils";
 import TouchSlideView from "../../TouchSlideView";
-
+import AddIcon from "@material-ui/icons/Add";
+import { Link } from "react-router-dom";
 const Title = styled.h2`
+  display: inline-block;
+  vertical-align: middle;
   font-size: 42px;
   padding: 32px 0px;
   margin-left: 12.5%;
+  margin-right: 8px;
 `;
 const MobileTitle = styled.h2`
+  display: inline-block;
+  vertical-align: middle;
   font-size: 31px;
   padding: 16px 0px;
   margin-left: 5%;
+  margin-right: 8px;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: transparent;
+`;
+
+const SubButton = styled.div`
+  display: inline-block;
+  vertical-align: middle;
 `;
 
 export default ({ platform, screenSize, galleryData }) => {
@@ -41,6 +53,7 @@ export default ({ platform, screenSize, galleryData }) => {
 
   const viewArray = [];
   const uri = getUri();
+  console.log(galleryData);
   galleryData.files.forEach((e, i) => {
     viewArray.push({
       url: uri + e.url,
@@ -57,8 +70,34 @@ export default ({ platform, screenSize, galleryData }) => {
     <Wrapper>
       {switchPlatform(
         platform,
-        <Title>ROOM</Title>,
-        <MobileTitle>ROOM</MobileTitle>
+        <>
+          <Title>ROOM</Title>
+          <Link to={`/about/${galleryData.id}`}>
+            <SubButton>
+              <AddIcon
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  verticalAlign: "middle"
+                }}
+              />
+            </SubButton>
+          </Link>
+        </>,
+        <>
+          <MobileTitle>ROOM</MobileTitle>
+          <Link to={`/about/${galleryData.id}`}>
+            <SubButton>
+              <AddIcon
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  verticalAlign: "middle"
+                }}
+              />
+            </SubButton>
+          </Link>
+        </>
       )}
       {platform === "desktop" ? (
         <GalleryPresenter

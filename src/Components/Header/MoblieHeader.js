@@ -9,7 +9,7 @@ const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 3000;
   width: 100%;
   height: 64px;
   background: #fff;
@@ -251,15 +251,24 @@ export default ({
                 )}
               </WelcomeWrapper>
               <MenuTopWrapper>
-                <JoinLink to="/join" onClick={() => mobileOnClick()}>
-                  {globalText.text_join}
-                </JoinLink>
+                {isLoggedIn ? (
+                  <JoinLink to="/mypage" onClick={() => mobileOnClick()}>
+                    {globalText.text_mypage}
+                  </JoinLink>
+                ) : (
+                  <JoinLink to="/join" onClick={() => mobileOnClick()}>
+                    {globalText.text_join}
+                  </JoinLink>
+                )}
               </MenuTopWrapper>
               <MenuBottomWrapper>
                 <MenuBottomFLink to="/" onClick={() => mobileOnClick()}>
                   {globalText.text_reserve_check}
                 </MenuBottomFLink>
-                <MenuBottomSLink to="/" onClick={() => mobileOnClick()}>
+                <MenuBottomSLink
+                  to="/reservation"
+                  onClick={() => mobileOnClick()}
+                >
                   {globalText.text_reserve_do}
                 </MenuBottomSLink>
               </MenuBottomWrapper>
@@ -285,7 +294,7 @@ export default ({
             </GnbWrapper>
           </NavWrapper>
           <CloseButton onClick={mobileOnClick}>
-            <CloseIcon />
+            <CloseIcon style={{ color: "#FFF" }} />
           </CloseButton>
         </NavContainer>
       </HeaderWrapper>

@@ -43,7 +43,9 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
     <Route path="/help/findpw" component={FindPW} />
     <Route
       path="/reservation"
-      render={props => <Reservation screenSize={screenSize} />}
+      render={props => (
+        <Reservation platform={platform} screenSize={screenSize} />
+      )}
     />
     <Redirect from="*" to="/" />
   </Switch>

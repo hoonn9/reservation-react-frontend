@@ -64,6 +64,16 @@ export default ({ isLoggedIn, platform }) => {
     if (log) {
       setWithExpiry("log", log, 1800000);
     }
+
+    if (platform === "desktop") {
+      let body = document.querySelector(".body-content");
+      body.style.width = "75%";
+      body.style.margin = "120px auto 0px";
+    } else {
+      let body = document.querySelector(".body-content");
+      body.style.width = "100%";
+      body.style.margin = "64px auto 0px";
+    }
   }, [pathname]);
 
   useEffect(() => {

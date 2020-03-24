@@ -84,9 +84,11 @@ export default ({ data, type = "banner" }) => {
         infiniteLoop={true}
         showThumbs={false}
         showArrows={false}
+        showStatus={false}
         emulateTouch
         selectedItem={galleryItem}
         onChange={galleryOnChange}
+        swipeScrollTolerance={100}
       >
         {data.map((e, i) => {
           return (

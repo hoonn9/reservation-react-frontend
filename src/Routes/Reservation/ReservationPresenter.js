@@ -5,7 +5,7 @@ import Search from "../../Components/Reservation/Search";
 const Container = styled.div`
   position: relative;
   padding-bottom: 150px;
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
 `;
 const Title = styled.div`

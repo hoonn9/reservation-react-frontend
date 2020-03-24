@@ -249,9 +249,86 @@ export default ({
             setSubCount={setSubCount}
           />
         )
-      ) : (
+      ) : platform === "desktop" ? (
         <>
           <SearchPresenter
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startDay={startDay}
+            endDate={endDate}
+            endDay={endDay}
+            setEndDate={setEndDate}
+            globalText={globalText}
+            userCount={userCount}
+            setUserCount={setUserCount}
+            typeCount={typeCount}
+            setTypeCount={setTypeCount}
+            subCount={subCount}
+            setSubCount={setSubCount}
+            searchOnClick={searchOnClick}
+            selectType={selectType}
+            containerRef={containerRef}
+            reset={reset}
+          />
+          <Result
+            count={resultCount}
+            checkIn={resultCheckIn}
+            checkOut={resultCheckOut}
+            initState={initState}
+            setInitState={setInitState}
+            globalText={globalText}
+            setSelectType={setSelectType}
+            setSelectSubType={setSelectSubType}
+            resultToggle={resultToggle}
+          />
+          <Summary
+            smToggle={smToggle}
+            startDate={startDate}
+            endDate={endDate}
+            typeCount={typeCount}
+            subCount={subCount}
+            userCount={userCount}
+            selectType={selectType}
+            selectSubType={selectSubType}
+            smDisplay={smDisplay}
+            totalPrice={totalPrice}
+            successToggle={successToggle}
+          />
+          <Option
+            globalText={globalText}
+            optionRef={optionRef}
+            optionToggle={optionToggle}
+            optionNextOnClick={optionNextOnClick}
+            setCheckInTime={setCheckInTime}
+            setCheckOutTime={setCheckOutTime}
+            setOptionRequest={setOptionRequest}
+          />
+          <Info
+            globalText={globalText}
+            infoRef={infoRef}
+            infoToggle={infoToggle}
+            agreeChecked={agreeChecked}
+            setReserveUserName={setReserveUserName}
+            setReserveUserSex={setReserveUserSex}
+            setReserveUserPhone={setReserveUserPhone}
+            setReserveUserEmail={setReserveUserEmail}
+            setGuestUserName={setGuestUserName}
+            setGuestUserSex={setGuestUserSex}
+            setGuestUserPhone={setGuestUserPhone}
+            setGuestUserEmail={setGuestUserEmail}
+            reserveUserPhoneError={reserveUserPhoneError}
+            reserveUserEmailError={reserveUserEmailError}
+            guestUserPhoneError={guestUserPhoneError}
+            guestUserEmailError={guestUserEmailError}
+            setReserveUserPhoneError={setReserveUserPhoneError}
+            setReserveUserEmailError={setReserveUserEmailError}
+            setGuestUserPhoneError={setGuestUserPhoneError}
+            setGuestUserEmailError={setGuestUserEmailError}
+          />
+        </>
+      ) : (
+        <>
+          <WidgetPresenter
             startDate={startDate}
             setStartDate={setStartDate}
             startDay={startDay}

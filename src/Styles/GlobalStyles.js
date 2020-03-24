@@ -13,7 +13,6 @@ export default createGlobalStyle`
     }
     .body-content {
         min-height: 780px;
-        margin-top: 120px;
     }
     a {
         text-decoration: none;

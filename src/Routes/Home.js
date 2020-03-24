@@ -13,7 +13,8 @@ import { getUri } from "../Utils";
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
+  width: 100% !important;
+  margin: 0 !important;
 `;
 const Wrapper = styled.div`
   display: block;
@@ -81,7 +82,7 @@ export default ({ platform, screenSize }) => {
   const galleryData = useQuery(SEE_TYPE, {});
 
   return (
-    <Container>
+    <Container className="body-content">
       <TopImgContainer platform={platform} screenSize={screenSize}>
         <TopImgWrapper platform={platform} screenSize={screenSize}>
           <TopImg src={topImageArray[0]} showing={1} />
