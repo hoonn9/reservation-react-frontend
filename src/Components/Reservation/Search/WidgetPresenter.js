@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import DatePicker, { registerLocale } from "react-datepicker";
 import { Link } from "react-router-dom";
-import ko from "date-fns/locale/ko";
-import "../datePicker.css";
+import { CustomStartInput, CustomEndInput } from "../../DatePicker";
 import NumberPicker from "../../NumberPicker";
 
 const Container = styled.div`
@@ -69,16 +67,22 @@ const SearchButton = styled.button`
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
 `;
-
-const CustomDatePicker = styled(DatePicker)`
-  color: ${props => props.theme.blackColor};
-  background-color: transparent;
-  border: 0;
-  width: 90%;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
-  padding: 6px 6px;
+const InputWrapper = styled.div`
+  width: 60%;
+`;
+const StartInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+const EndInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 export default ({
@@ -96,7 +100,6 @@ export default ({
   subCount,
   setSubCount
 }) => {
-  registerLocale("ko", ko);
   return (
     <Container>
       <Wrapper>
@@ -106,30 +109,27 @@ export default ({
           <DateWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_in}</SubTitle>
-              <CustomDatePicker
-                selected={startDate}
-                onChange={date => setStartDate(date)}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                dateFormat={`MM월 dd일 (${startDay})`}
-                placeholderText="Click to select a date"
-                locale="ko"
-              />
+
+              <InputWrapper>
+                <CustomStartInput
+                  startDate={startDate}
+                  endDate={endDate}
+                  setStartDate={setStartDate}
+                  startDay={startDay}
+                />
+              </InputWrapper>
             </PickerWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_out}</SubTitle>
-              <CustomDatePicker
-                selected={endDate}
-                onChange={date => setEndDate(date)}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-                minDate={startDate}
-                dateFormat={`MM월 dd일 (${endDay})`}
-                placeholderText="Click to select a date"
-                locale="ko"
-              />
+
+              <InputWrapper>
+                <CustomEndInput
+                  startDate={startDate}
+                  endDate={endDate}
+                  setEndDate={setEndDate}
+                  endDay={endDay}
+                />
+              </InputWrapper>
             </PickerWrapper>
           </DateWrapper>
           <CountWrapper>

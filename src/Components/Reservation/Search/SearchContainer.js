@@ -10,6 +10,7 @@ import Option from "../Option";
 import Info from "../Info";
 import useCheckbox from "../../../Hooks/useCheckbox";
 import MobileWidgetPresenter from "./MobileWidgetPresenter";
+import MobileSearchPresenter from "./MobileSearchPresenter";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 
@@ -212,7 +213,6 @@ export default ({
     console.log(checkOutTime);
     console.log(optionRequest);
   };
-
   return (
     <>
       {type === "widget" ? (
@@ -271,6 +271,7 @@ export default ({
             reset={reset}
           />
           <Result
+            platform={platform}
             count={resultCount}
             checkIn={resultCheckIn}
             checkOut={resultCheckOut}
@@ -282,6 +283,7 @@ export default ({
             resultToggle={resultToggle}
           />
           <Summary
+            platform={platform}
             smToggle={smToggle}
             startDate={startDate}
             endDate={endDate}
@@ -295,6 +297,7 @@ export default ({
             successToggle={successToggle}
           />
           <Option
+            platform={platform}
             globalText={globalText}
             optionRef={optionRef}
             optionToggle={optionToggle}
@@ -304,6 +307,7 @@ export default ({
             setOptionRequest={setOptionRequest}
           />
           <Info
+            platform={platform}
             globalText={globalText}
             infoRef={infoRef}
             infoToggle={infoToggle}
@@ -328,7 +332,7 @@ export default ({
         </>
       ) : (
         <>
-          <WidgetPresenter
+          <MobileSearchPresenter
             startDate={startDate}
             setStartDate={setStartDate}
             startDay={startDay}
@@ -348,6 +352,7 @@ export default ({
             reset={reset}
           />
           <Result
+            platform={platform}
             count={resultCount}
             checkIn={resultCheckIn}
             checkOut={resultCheckOut}
@@ -359,6 +364,7 @@ export default ({
             resultToggle={resultToggle}
           />
           <Summary
+            platform={platform}
             smToggle={smToggle}
             startDate={startDate}
             endDate={endDate}
@@ -372,6 +378,7 @@ export default ({
             successToggle={successToggle}
           />
           <Option
+            platform={platform}
             globalText={globalText}
             optionRef={optionRef}
             optionToggle={optionToggle}
@@ -381,6 +388,7 @@ export default ({
             setOptionRequest={setOptionRequest}
           />
           <Info
+            platform={platform}
             globalText={globalText}
             infoRef={infoRef}
             infoToggle={infoToggle}

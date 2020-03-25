@@ -12,13 +12,17 @@ import ReactLoading from "react-loading";
 
 const LoginContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: ${props => `${props.screenSize.height - 120}px`};
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const LoginWrapper = styled.div`
-  width: 33%;
+  width: 50%;
+  display: block;
+`;
+const MobileLoginWrapper = styled.div`
+  width: 100%;
   display: block;
 `;
 const LoginInput = styled(Input)`
@@ -27,8 +31,20 @@ const LoginInput = styled(Input)`
   height: 50px;
   margin-bottom: 12px;
 `;
+const MobileLoginInput = styled(Input)`
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  height: 48px;
+`;
 
 const LoginButton = styled(Button)`
+  display: block;
+`;
+
+const MobileLoginButton = styled.div`
+  width: 90%;
+  margin: 0 auto;
   display: block;
 `;
 
@@ -37,6 +53,13 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
+`;
+
+const MobileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
 `;
 
 const LoginLink = styled(Link)`
@@ -52,7 +75,7 @@ const Text = styled.div`
   margin-bottom: 8px;
 `;
 
-export default () => {
+export default ({ platform, screenSize }) => {
   const globalText = GlobalText();
   const history = useHistory();
   const userId = useInput("");
@@ -101,49 +124,102 @@ export default () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginWrapper>
-        <Wrapper>
-          <Logo size={50} />
-        </Wrapper>
+    <div className="body-content">
+      {platform === "desktop" ? (
+        <LoginContainer screenSize={screenSize}>
+          <LoginWrapper>
+            <Wrapper>
+              <Logo size={50} />
+            </Wrapper>
 
-        <LoginInput
-          onChange={userId.onChange}
-          value={userId.value}
-          placeholder={globalText.text_id}
-        />
-        <LoginInput
-          onChange={userPw.onChange}
-          value={userPw.value}
-          placeholder={globalText.text_pw}
-          type="password"
-          onKeyPress={onKeyPress}
-        />
-        <Text>{msg}</Text>
-        {loading ? (
-          <LoginButton text={globalText.text_login} disabled />
-        ) : (
-          <LoginButton text={globalText.text_login} onClick={handelLogin} />
-        )}
-
-        <Wrapper>
-          {loading ? (
-            <ReactLoading
-              type="bubbles"
-              color="#000000"
-              height={"30px"}
-              width={"50px"}
+            <LoginInput
+              onChange={userId.onChange}
+              value={userId.value}
+              placeholder={globalText.text_id}
             />
-          ) : (
-            <div></div>
-          )}
-        </Wrapper>
-        <Wrapper>
-          <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
-          <LoginLink to="/help/findid">{"아이디 찾기"}</LoginLink>
-          <LoginLink to="/help/findpw">{"비밀번호 찾기"}</LoginLink>
-        </Wrapper>
-      </LoginWrapper>
-    </LoginContainer>
+            <LoginInput
+              onChange={userPw.onChange}
+              value={userPw.value}
+              placeholder={globalText.text_pw}
+              type="password"
+              onKeyPress={onKeyPress}
+            />
+            <Text>{msg}</Text>
+            {loading ? (
+              <LoginButton text={globalText.text_login} disabled />
+            ) : (
+              <LoginButton text={globalText.text_login} onClick={handelLogin} />
+            )}
+
+            <Wrapper>
+              {loading ? (
+                <ReactLoading
+                  type="bubbles"
+                  color="#000000"
+                  height={"30px"}
+                  width={"50px"}
+                />
+              ) : (
+                <div></div>
+              )}
+            </Wrapper>
+            <Wrapper>
+              <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
+              <LoginLink to="/help/findid">{"아이디 찾기"}</LoginLink>
+              <LoginLink to="/help/findpw">{"비밀번호 찾기"}</LoginLink>
+            </Wrapper>
+          </LoginWrapper>
+        </LoginContainer>
+      ) : (
+        <LoginContainer screenSize={screenSize}>
+          <MobileLoginWrapper>
+            <MobileWrapper>
+              <Logo size={50} />
+            </MobileWrapper>
+
+            <MobileLoginInput
+              onChange={userId.onChange}
+              value={userId.value}
+              placeholder={globalText.text_id}
+            />
+            <MobileLoginInput
+              onChange={userPw.onChange}
+              value={userPw.value}
+              placeholder={globalText.text_pw}
+              type="password"
+              onKeyPress={onKeyPress}
+            />
+            <Text>{msg}</Text>
+            {loading ? (
+              <MobileLoginButton>
+                <Button text={globalText.text_login} disabled />
+              </MobileLoginButton>
+            ) : (
+              <MobileLoginButton>
+                <Button text={globalText.text_login} onClick={handelLogin} />
+              </MobileLoginButton>
+            )}
+
+            <MobileWrapper>
+              {loading ? (
+                <ReactLoading
+                  type="bubbles"
+                  color="#000000"
+                  height={"30px"}
+                  width={"50px"}
+                />
+              ) : (
+                <div></div>
+              )}
+            </MobileWrapper>
+            <MobileWrapper>
+              <LoginLink to="/joinagree">{globalText.text_join}</LoginLink>
+              <LoginLink to="/help/findid">{"아이디 찾기"}</LoginLink>
+              <LoginLink to="/help/findpw">{"비밀번호 찾기"}</LoginLink>
+            </MobileWrapper>
+          </MobileLoginWrapper>
+        </LoginContainer>
+      )}
+    </div>
   );
 };

@@ -1,9 +1,16 @@
 import React from "react";
 import ResultViewPresenter from "./ResultViewPresenter";
+import MobileResultViewPresenter from "./MobileResultViewPresenter";
 import { useState } from "react";
 import { getUri } from "../../../Utils";
 
-export default ({ type, globalText, setSelectType, setSelectSubType }) => {
+export default ({
+  platform,
+  type,
+  globalText,
+  setSelectType,
+  setSelectSubType
+}) => {
   const [toggle, setToggle] = useState(false);
   const [galleryToggle, setGalleryToggle] = useState(false);
   const slideViewArray = [];
@@ -16,16 +23,32 @@ export default ({ type, globalText, setSelectType, setSelectSubType }) => {
 
   const moreOnClick = () => setToggle(!toggle);
   return (
-    <ResultViewPresenter
-      type={type}
-      globalText={globalText}
-      toggle={toggle}
-      moreOnClick={moreOnClick}
-      setSelectType={setSelectType}
-      setSelectSubType={setSelectSubType}
-      galleryToggle={galleryToggle}
-      setGalleryToggle={setGalleryToggle}
-      slideViewArray={slideViewArray}
-    />
+    <>
+      {platform === "desktop" ? (
+        <ResultViewPresenter
+          type={type}
+          globalText={globalText}
+          toggle={toggle}
+          moreOnClick={moreOnClick}
+          setSelectType={setSelectType}
+          setSelectSubType={setSelectSubType}
+          galleryToggle={galleryToggle}
+          setGalleryToggle={setGalleryToggle}
+          slideViewArray={slideViewArray}
+        />
+      ) : (
+        <MobileResultViewPresenter
+          type={type}
+          globalText={globalText}
+          toggle={toggle}
+          moreOnClick={moreOnClick}
+          setSelectType={setSelectType}
+          setSelectSubType={setSelectSubType}
+          galleryToggle={galleryToggle}
+          setGalleryToggle={setGalleryToggle}
+          slideViewArray={slideViewArray}
+        />
+      )}
+    </>
   );
 };

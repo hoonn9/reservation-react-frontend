@@ -67,13 +67,18 @@ export default ({ isLoggedIn, platform }) => {
 
     if (platform === "desktop") {
       let body = document.querySelector(".body-content");
-      body.style.width = "75%";
-      body.style.margin = "120px auto 0px";
+      if (body) {
+        body.style.width = "75%";
+        body.style.margin = "120px auto 0px";
+      }
     } else {
       let body = document.querySelector(".body-content");
-      body.style.width = "100%";
-      body.style.margin = "64px auto 0px";
+      if (body) {
+        body.style.width = "100%";
+        body.style.margin = "64px auto 0px";
+      }
     }
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {

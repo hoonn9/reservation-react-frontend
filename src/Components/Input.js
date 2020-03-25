@@ -13,7 +13,7 @@ const Input = styled.input`
   background-color: ${props => props.theme.bgColor};
   height: 35px;
   font-size: 12px;
-  padding: 0px 15px;
+  padding: 0px 16px;
 `;
 
 const Alert = styled.span`
@@ -51,7 +51,7 @@ const Container = ({
   );
 };
 
-Input.propTypes = {
+Container.propTypes = {
   placeholder: PropTypes.string.isRequired,
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,

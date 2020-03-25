@@ -199,11 +199,7 @@ export default ({
                       if (pathname === "/") setHoverState(false);
                     }}
                   >
-                    <HeaderMainLink
-                      key={i}
-                      to={category.to}
-                      onClick={() => window.scrollTo(0, 0)}
-                    >
+                    <HeaderMainLink key={i} to={category.to}>
                       <MainMenuText hide={hide} hoverState={hoverState}>
                         {category.text}
                       </MainMenuText>

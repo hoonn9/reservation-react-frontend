@@ -8,35 +8,42 @@ const Wrapper = styled.div`
 const OptionBlockWrapper = styled.table`
   width: 100%;
   margin: 0 auto;
+  table-layout: fixed;
 `;
-const OptionBlockBody = styled.tbody``;
+const OptionBlockBody = styled.tbody`
+  width: 100%;
+`;
 const OptionBlock = styled.tr`
   position: relative;
+  width: 100%;
   border-top: solid 1px ${props => props.theme.superLiteGreyColor};
   border-bottom: solid 1px ${props => props.theme.superLiteGreyColor};
 `;
 const OptionName = styled.th`
   position: relative;
+  width: 25%;
   background-color: ${props => props.theme.superLiteGreyColor};
-  padding: 24px 16px;
-  max-width: 58px;
-  text-align: start;
+  padding: 16px 8px;
+  text-align: center;
 `;
-const OptionNameText = styled.label``;
+const OptionNameText = styled.label`
+  width: 100%;
+  font-size: 14px;
+`;
 const OptionContent = styled.td`
   position: relative;
+  width: 25%;
   padding: 0px 8px;
   vertical-align: middle;
   word-wrap: break-word;
 `;
 const OptionInput = styled.input`
-  padding: 16px 8px;
+  padding: 12px 8px;
   width: 100%;
 `;
 const OptionSelect = styled.select`
   width: 100%;
-  height: 48px;
-  padding: 16px 8px;
+  padding: 12px 8px;
 `;
 const OptionOption = styled.option``;
 const NextButtonWrapper = styled.div`
@@ -46,7 +53,7 @@ const NextButtonWrapper = styled.div`
 `;
 const NextButton = styled.button`
   margin: 0 auto;
-  padding: 12px 24px;
+  padding: 12px 16px;
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
   cursor: pointer;
@@ -64,9 +71,7 @@ export default ({
         <OptionBlockBody>
           <OptionBlock>
             <OptionName>
-              <OptionNameText>
-                {globalText.text_option_expect_check_in}
-              </OptionNameText>
+              <OptionNameText>{globalText.text_check_in}</OptionNameText>
             </OptionName>
             <OptionContent>
               <OptionSelect
@@ -83,9 +88,7 @@ export default ({
               </OptionSelect>
             </OptionContent>
             <OptionName>
-              <OptionNameText>
-                {globalText.text_option_expect_check_out}
-              </OptionNameText>
+              <OptionNameText>{globalText.text_check_out}</OptionNameText>
             </OptionName>
             <OptionContent>
               <OptionSelect

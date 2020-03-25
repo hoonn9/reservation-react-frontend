@@ -6,12 +6,18 @@ const Inner = styled.div`
   visibility: ${props => (props.state ? "visible" : "hidden")};
 `;
 const MobileInner = styled.div`
+  width: 100%;
   position: absolute;
-  margin: 85px 16px;
+  margin: 85px 0px;
+  padding: 0px 5%;
   visibility: ${props => (props.state ? "visible" : "hidden")};
 `;
 const PopupWrapper = styled.div`
   width: 350px;
+  background: ${props => props.theme.whiteColor};
+`;
+const MobilePopupWrapper = styled.div`
+  width: 100%;
   background: ${props => props.theme.whiteColor};
 `;
 const Title = styled.div`
@@ -32,7 +38,7 @@ const Img = styled.img`
 `;
 const MobileImg = styled.img`
   width: 100%;
-  height: 420px;
+  height: 350px;
 `;
 const BottomWrapper = styled.div`
   width: 100%;
@@ -113,11 +119,11 @@ export default ({
         </Inner>
       ) : (
         <MobileInner state={state}>
-          <PopupWrapper>
+          <MobilePopupWrapper>
             <Title>{popup.title}</Title>
             <MobileImg src={popup.url} />
             <Content>{popup.content}</Content>
-          </PopupWrapper>
+          </MobilePopupWrapper>
           <BottomWrapper>
             <BottomTextWrapper>
               <BottomText>오늘 그만 보기</BottomText>

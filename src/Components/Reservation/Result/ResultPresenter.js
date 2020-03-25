@@ -24,18 +24,20 @@ const NotResultText = styled.div`
   padding: 16px;
 `;
 export default ({
-  searchType,
-  setSelectType,
+  platform,
+  data,
   globalText,
+  setSelectType,
   setSelectSubType
 }) => {
   return (
     <Container>
       <Wrapper>
-        {searchType ? (
-          searchType.map((type, i) => {
+        {data ? (
+          data.searchType.map((type, i) => {
             return type.id ? (
               <ResultView
+                platform={platform}
                 type={type}
                 globalText={globalText}
                 key={i}
@@ -46,7 +48,7 @@ export default ({
           })
         ) : (
           <NotResultWrapper>
-            <NotResultText>검색 결과 없음</NotResultText>
+            <NotResultText>{globalText.text_no_result}</NotResultText>
           </NotResultWrapper>
         )}
       </Wrapper>

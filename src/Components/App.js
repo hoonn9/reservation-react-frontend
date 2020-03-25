@@ -57,15 +57,27 @@ export default () => {
     data: { isLoggedIn }
   } = useQuery(QUERY);
 
-  const [platform, setPlatform] = useState();
+  const [platform, setPlatform] = useState("desktop");
 
   const screenSize = useWindowSize();
 
   useEffect(() => {
     if (screenSize.width <= 760) {
       setPlatform("mobile");
+      let body = document.querySelector(".body-content");
+      if (body) {
+        body.style.width = "100%";
+        body.style.margin = "64px auto 0px";
+        body.style.minHeight = `${screenSize.height}px`;
+      }
     } else {
       setPlatform("desktop");
+      let body = document.querySelector(".body-content");
+      if (body) {
+        body.style.width = "75%";
+        body.style.margin = "120px auto 0px";
+        body.style.minHeight = `${screenSize.height}px`;
+      }
     }
   }, [screenSize]);
 

@@ -17,7 +17,7 @@ const ContentWrapper = styled.div`
   clear: both;
 `;
 const GalleryWrapper = styled.div`
-  width: 720px;
+  width: 100%;
   height: 100%;
   background-color: transparent;
 `;
@@ -26,6 +26,8 @@ const GalleryButtonWrapper = styled.div`
 `;
 const StyledPopup = styled(Popup)`
   &-content {
+    padding: 0 !important;
+    width: 100% !important;
     background-color: transparent !important;
     border: 0 !important;
   }
@@ -39,10 +41,9 @@ const GalleryButton = styled.button`
 
 const ThumbnailWrapper = styled.div`
   position: relative;
-  float: left;
-  width: 30%;
+  width: 100%;
   height: 100%;
-  padding: 16px 0px;
+  padding: 0px;
   overflow: hidden;
   cursor: pointer;
 `;
@@ -58,8 +59,8 @@ const InfoWrapper = styled.div`
   align-items: center;
   top: 0;
   right: 0;
-  width: 70%;
-  height: 100%;
+  width: 100%;
+  height: 35%;
   padding: 32px;
 `;
 const InfoCenter = styled.div`
@@ -67,16 +68,16 @@ const InfoCenter = styled.div`
 `;
 const NameText = styled.div`
   display: block;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
-  padding: 16px 0;
+  padding: 8px 0;
 `;
 const PriceText = styled.div`
   display: block;
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 500;
   color: ${props => props.theme.blueColor};
-  padding: 16px 0;
+  padding: 8px 0;
 `;
 const MoreButtonWrapper = styled.div`
   position: absolute;
@@ -97,36 +98,35 @@ const MoreWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 32px 0px;
   background-color: ${props => props.theme.superLiteGreyColor};
 `;
 
 const MoreInfoWrapper = styled.div`
   position: relative;
   float: left;
-  width: 80%;
+  width: 100%;
   height: 100%;
   padding: 32px;
-  border: solid 1px ${props => props.theme.blackColor};
+  border-top: solid 0.5px ${props => props.theme.liteGreyColor};
 `;
 const MoreNameText = styled.div`
   display: block;
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 500;
-  padding: 16px 0;
+  padding: 8px 0;
 `;
 const MoreDecText = styled.div`
   display: block;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  padding: 16px 0;
+  padding: 8px 0;
 `;
 const MorePriceText = styled.div`
   display: block;
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 500;
   color: ${props => props.theme.blueColor};
-  padding: 16px 0;
+  padding: 8px 0;
 `;
 const SelectButtonWrapper = styled.div`
   position: absolute;

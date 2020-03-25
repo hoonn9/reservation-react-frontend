@@ -2,70 +2,94 @@ import React from "react";
 import styled from "styled-components";
 import { CustomStartInput, CustomEndInput } from "../../DatePicker";
 import NumberPicker from "../../NumberPicker";
+import SyncAltIcon from "@material-ui/icons/SyncAlt";
+
 const Container = styled.div`
   position: relative;
   display: block;
   width: 100%;
+  z-index: 5;
 `;
 
 const Wrapper = styled.div`
   background-color: transparent;
 `;
 
-const WidgetWrapper = styled.div`
-  background: ${props => props.theme.whiteColor};
-  border: solid 1px ${props => props.theme.superLiteGreyColor};
+const WidgetWrpper = styled.div`
+  background: ${props => props.theme.liteWhiteColor};
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   width: 100%;
   padding: 16px;
 `;
 
 const Title = styled.h2`
-  font-size: 32px;
+  font-size: 31px;
   font-weight: 500;
   line-height: 1.25;
   padding: 8px 0px;
+  color: ${props => props.theme.blackColor};
 `;
 
 const SubTitle = styled.h1`
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
   color: ${props => props.theme.blackColor};
   line-height: 1.25;
-  padding: 8px 0px;
+  padding: 4px 0px;
 `;
 
 const DateWrapper = styled.div``;
 const PickerWrapper = styled.div`
   display: inline-block;
-  width: 50%;
+  width: 100%;
+  &:last-child {
+    text-align: end;
+  }
 `;
-
+const IconWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+`;
 const CountWrapper = styled.div`
-  padding: 16px 0px;
+  padding: 8px 0px;
 `;
 const CountPickerWrapper = styled.div`
   display: inline-block;
-  width: 33.3333%;
+  width: 33%;
 `;
 const CountSubTitle = styled.h1`
-  font-size: 16px;
+  font-size: 14px;
   color: ${props => props.theme.blackColor};
   line-height: 1.25;
-  padding: 8px 0px;
+  padding: 4px 0px;
   text-align: center;
 `;
 const ButtonWrapper = styled.div`
-  text-align: center;
-  padding-top: 16px;
+  text-align: right;
+  padding-top: 8px;
 `;
 const SearchButton = styled.button`
   position: relative;
-  padding: 12px 24px;
+  padding: 12px 16px;
   background-color: ${props => props.theme.redColor};
   color: ${props => props.theme.whiteColor};
-  cursor: pointer;
 `;
 const InputWrapper = styled.div`
-  width: 80%;
+  width: 40%;
+`;
+const StartInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+const EndInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 export default ({
   startDate,
@@ -87,33 +111,39 @@ export default ({
   return (
     <Container>
       <Wrapper>
-        <WidgetWrapper>
-          <Title></Title>
-
+        <WidgetWrpper>
           <DateWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_in}</SubTitle>
-              <InputWrapper>
-                <CustomStartInput
-                  startDate={startDate}
-                  endDate={endDate}
-                  setStartDate={setStartDate}
-                  startDay={startDay}
-                  reset={reset}
-                />
-              </InputWrapper>
+              <StartInputWrapper>
+                <InputWrapper>
+                  <CustomStartInput
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    startDay={startDay}
+                    reset={reset}
+                  />
+                </InputWrapper>
+              </StartInputWrapper>
             </PickerWrapper>
+            <IconWrapper>
+              <SyncAltIcon style={{ width: "24px", height: "24px" }} />
+            </IconWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_out}</SubTitle>
-              <InputWrapper>
-                <CustomEndInput
-                  startDate={startDate}
-                  endDate={endDate}
-                  setEndDate={setEndDate}
-                  endDay={endDay}
-                  reset={reset}
-                />
-              </InputWrapper>
+              <EndInputWrapper>
+                <InputWrapper>
+                  <CustomEndInput
+                    startDate={startDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    endDay={endDay}
+                    reset={reset}
+                    textAlign="end"
+                  />
+                </InputWrapper>
+              </EndInputWrapper>
             </PickerWrapper>
           </DateWrapper>
           <CountWrapper>
@@ -133,7 +163,7 @@ export default ({
                 value={userCount}
                 setValue={setUserCount}
                 min={1}
-                max={typeCount * 2}
+                max={4}
               />
             </CountPickerWrapper>
             <CountPickerWrapper>
@@ -152,7 +182,7 @@ export default ({
               {globalText.text_search}
             </SearchButton>
           </ButtonWrapper>
-        </WidgetWrapper>
+        </WidgetWrpper>
       </Wrapper>
     </Container>
   );

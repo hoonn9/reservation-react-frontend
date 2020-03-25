@@ -27,7 +27,10 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
       render={props => <Home platform={platform} screenSize={screenSize} />}
     />
     <Route path="/mypage" component={Login} />
-    <Route path="/login" component={Login} />
+    <Route
+      path="/login"
+      render={props => <Login platform={platform} screenSize={screenSize} />}
+    />
     <Route path="/joinagree" component={JoinAgree} />
     <Route path="/join" component={Join} />
     <Route path="/board/:id" component={Board} />

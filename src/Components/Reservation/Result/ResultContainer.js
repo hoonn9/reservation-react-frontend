@@ -5,6 +5,7 @@ import { SEARCH_TYPE } from "../../../Routes/Reservation/ReservationQueries";
 import ErrorAlert from "../../ErrorAlert";
 import Loader from "../../Loader";
 export default ({
+  platform,
   count,
   checkIn,
   checkOut,
@@ -32,20 +33,13 @@ export default ({
       ) : (
         <>
           {resultToggle ? (
-            data ? (
-              <ResultPresenter
-                searchType={data.searchType}
-                globalText={globalText}
-                setSelectType={setSelectType}
-                setSelectSubType={setSelectSubType}
-              />
-            ) : (
-              <ResultPresenter
-                globalText={globalText}
-                setSelectType={setSelectType}
-                setSelectSubType={setSelectSubType}
-              />
-            )
+            <ResultPresenter
+              platform={platform}
+              data={data}
+              globalText={globalText}
+              setSelectType={setSelectType}
+              setSelectSubType={setSelectSubType}
+            />
           ) : null}
         </>
       )}

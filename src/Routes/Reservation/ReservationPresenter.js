@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Search from "../../Components/Reservation/Search";
+import Title from "../../Components/Title";
 
 const Container = styled.div`
   position: relative;
@@ -8,14 +9,8 @@ const Container = styled.div`
   width: 100%;
   margin: 0 auto;
 `;
-const Title = styled.div`
-  display: inline-block;
-  font-size: 46px;
-  color: #333;
-  font-weight: normal;
-  padding: 32px 0px;
-`;
 export default ({
+  platform,
   init,
   screenSize,
   checkOut,
@@ -29,8 +24,9 @@ export default ({
   return (
     <>
       <Container ref={containerRef}>
-        <Title>{globalText.text_reserve}</Title>
+        <Title platform={platform} text={globalText.text_reserve} />
         <Search
+          platform={platform}
           init={init}
           screenSize={screenSize}
           checkIn={checkIn}

@@ -122,7 +122,7 @@ export default () => {
     }
   };
   return (
-    <Container>
+    <Container className="body-content">
       <Wrapper>
         <LogoWrapper>
           <Logo size={50} />

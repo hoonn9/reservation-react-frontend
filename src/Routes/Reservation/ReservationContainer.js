@@ -23,7 +23,6 @@ export default ({ platform, screenSize }) => {
       setInit(false);
     }
   }, [location.state]);
-
   return (
     <div className="body-content">
       <ReservationPresenter

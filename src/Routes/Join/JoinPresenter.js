@@ -14,7 +14,7 @@ const Container = styled.div`
   margin-top: 120px;
 `;
 const Wrapper = styled.div`
-  width: 33%;
+  width: 50%;
   display: block;
 `;
 const JoinInput = styled(Input)`
@@ -129,7 +129,7 @@ export default ({
 }) => {
   return (
     <>
-      <Container>
+      <Container className="body-content">
         <Wrapper>
           <LogoWrapper>
             <Logo size={50} />

@@ -1,62 +1,79 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
 const InfoFieldSet = styled.fieldset`
+  position: relative;
   width: 100%;
   margin: 0 auto;
-  padding: 36px 0px;
+  padding: 16px 0px;
 `;
 const InfoLegend = styled.legend`
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 500;
-  padding: 16px 0px;
+  padding: 16px 8px;
   display: block;
   width: 100%;
   margin-bottom: 8px;
   border-bottom: solid 1px ${props => props.theme.darkGreyColor};
 `;
 const Wrapper = styled.div`
+  position: relative;
   width: 100%;
   margin: 0 auto;
 `;
 const InfoBlockWrapper = styled.table`
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+`;
+const InfoBlockBody = styled.tbody`
   width: 100%;
 `;
-const InfoBlockBody = styled.tbody``;
 const InfoBlock = styled.tr`
   position: relative;
+  width: 100%;
   border-top: solid 1px ${props => props.theme.superLiteGreyColor};
   border-bottom: solid 1px ${props => props.theme.superLiteGreyColor};
 `;
-const InfoName = styled.th`
+const InfoName = styled.td`
   position: relative;
   background-color: ${props => props.theme.superLiteGreyColor};
-  padding: 24px 16px;
-  min-width: 58px;
-  max-width: 58px;
-  text-align: start;
+  width: 25%;
+  padding: 16px 0px;
+  text-align: center;
 `;
-const InfoNameText = styled.label``;
+const InfoNameText = styled.label`
+  width: 100%;
+  font-size: 14px;
+`;
 const InfoContent = styled.td`
   position: relative;
+  width: 75%;
   padding: 0px 8px;
   vertical-align: middle;
   word-wrap: break-word;
 `;
 const InfoInput = styled.input`
-  padding: 16px 8px;
+  width: 70%;
+  padding: 12px 8px;
   vertical-align: middle;
   margin: 0px 16px 0px 0px;
 `;
 const InfoSelect = styled.select`
+  width: 20%;
   vertical-align: middle;
-  height: 48px;
-  width: 72px;
+  padding: 12px 0px;
 `;
 const InfoOption = styled.option``;
-const InfoAgree = styled.input``;
+const InfoAgree = styled.input`
+  margin-left: 8px;
+`;
 const InvaildAlert = styled.div`
   padding: 8px;
   font-size: 14px;
@@ -119,7 +136,6 @@ export default ({
                 <InfoContent>
                   <InfoInput
                     placeholder={globalText.text_join_phone_placeholder}
-                    style={{ width: "320px" }}
                     onChange={e => setReserveUserPhone(e.target.value)}
                     onBlur={e =>
                       validBlur(
@@ -130,7 +146,9 @@ export default ({
                       )
                     }
                   />
-                  <InvaildAlert>{reserveUserPhoneError}</InvaildAlert>
+                  {reserveUserPhoneError !== "" ? (
+                    <InvaildAlert>{reserveUserPhoneError}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
@@ -142,7 +160,6 @@ export default ({
                     placeholder={
                       globalText.text_email + " " + globalText.text_address
                     }
-                    style={{ width: "320px" }}
                     onChange={e => setReserveUserEmail(e.target.value)}
                     onBlur={e =>
                       validBlur(
@@ -153,7 +170,9 @@ export default ({
                       )
                     }
                   />
-                  <InvaildAlert>{reserveUserEmailError}</InvaildAlert>
+                  {reserveUserEmailError !== "" ? (
+                    <InvaildAlert>{reserveUserEmailError}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
             </InfoBlockBody>
@@ -188,7 +207,6 @@ export default ({
                 <InfoContent>
                   <InfoInput
                     placeholder={globalText.text_join_phone_placeholder}
-                    style={{ width: "320px" }}
                     onChange={e => setGuestUserPhone(e.target.value)}
                     onBlur={e =>
                       validBlur(
@@ -199,7 +217,9 @@ export default ({
                       )
                     }
                   />
-                  <InvaildAlert>{guestUserPhoneError}</InvaildAlert>
+                  {guestUserPhoneError !== "" ? (
+                    <InvaildAlert>{guestUserPhoneError}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
@@ -211,7 +231,6 @@ export default ({
                     placeholder={
                       globalText.text_email + " " + globalText.text_address
                     }
-                    style={{ width: "320px" }}
                     onChange={e => setGuestUserEmail(e.target.value)}
                     onBlur={e =>
                       validBlur(
@@ -222,7 +241,9 @@ export default ({
                       )
                     }
                   />
-                  <InvaildAlert>{guestUserEmailError}</InvaildAlert>
+                  {guestUserEmailError !== "" ? (
+                    <InvaildAlert>{guestUserEmailError}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
             </InfoBlockBody>

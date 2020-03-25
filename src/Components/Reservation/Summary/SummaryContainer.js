@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SummaryPresenter from "./SummaryPresenter";
+import MobileSummaryPresenter from "./MobileSummaryPresenter";
 
 export default ({
+  platform,
   smToggle,
   startDate,
   endDate,
@@ -14,19 +16,41 @@ export default ({
   totalPrice,
   successToggle
 }) => {
+  const [mobileTrigger, setMobileTrigger] = useState(false);
   return (
-    <SummaryPresenter
-      smToggle={smToggle}
-      startDate={startDate}
-      endDate={endDate}
-      typeCount={typeCount}
-      subCount={subCount}
-      userCount={userCount}
-      selectType={selectType}
-      selectSubType={selectSubType}
-      smDisplay={smDisplay}
-      totalPrice={totalPrice}
-      successToggle={successToggle}
-    />
+    <>
+      {selectType ? (
+        platform === "desktop" ? (
+          <SummaryPresenter
+            smToggle={smToggle}
+            startDate={startDate}
+            endDate={endDate}
+            typeCount={typeCount}
+            subCount={subCount}
+            userCount={userCount}
+            selectType={selectType}
+            selectSubType={selectSubType}
+            smDisplay={smDisplay}
+            totalPrice={totalPrice}
+            successToggle={successToggle}
+          />
+        ) : (
+          <MobileSummaryPresenter
+            startDate={startDate}
+            endDate={endDate}
+            typeCount={typeCount}
+            subCount={subCount}
+            userCount={userCount}
+            selectType={selectType}
+            selectSubType={selectSubType}
+            smDisplay={smDisplay}
+            totalPrice={totalPrice}
+            successToggle={successToggle}
+            mobileTrigger={mobileTrigger}
+            setMobileTrigger={setMobileTrigger}
+          />
+        )
+      ) : null}
+    </>
   );
 };
