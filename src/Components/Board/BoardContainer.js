@@ -3,6 +3,7 @@ import FreePostPresenter from "./FreePostPresenter";
 import NoticePostPresenter from "./NoticePostPresenter";
 
 export default ({
+  platform,
   type,
   data,
   rangeSize,
@@ -19,6 +20,7 @@ export default ({
     <>
       {type === "free" ? (
         <FreePostPresenter
+          platform={platform}
           data={data}
           rangeSize={rangeSize}
           setCurrentPage={setCurrentPage}
@@ -32,6 +34,7 @@ export default ({
         />
       ) : (
         <NoticePostPresenter
+          platform={platform}
           data={data}
           rangeSize={rangeSize}
           setCurrentPage={setCurrentPage}

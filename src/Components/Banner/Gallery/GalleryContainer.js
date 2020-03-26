@@ -53,9 +53,11 @@ export default ({ platform, screenSize, galleryData }) => {
 
   const viewArray = [];
   const uri = getUri();
-  console.log(galleryData);
+
   galleryData.files.forEach((e, i) => {
     viewArray.push({
+      to: `/about/${e.id}`,
+      id: e.id,
       url: uri + e.url,
       title: "Title " + i,
       subTitle: "SubTitle " + i

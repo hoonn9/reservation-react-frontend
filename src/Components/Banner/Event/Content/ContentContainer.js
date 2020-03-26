@@ -38,6 +38,7 @@ export default ({
     const viewArray = [];
     currentArray.forEach(e => {
       viewArray.push({
+        to: `/event/${e.id}`,
         id: e.id,
         title: e.title,
         subTitle: e.subTitle,

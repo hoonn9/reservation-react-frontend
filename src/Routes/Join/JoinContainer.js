@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import useInput from "../../Hooks/useInput";
 import GlobalText from "../../GlobalText";
 import JoinPresenter from "./JoinPresenter";
@@ -13,29 +13,29 @@ const phoneRegex = /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/;
 const phoneRegex2 = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 const phoneConvertRegex = /^[0-9]{11}$/;
 
-export default ({ location: { state } }) => {
+export default ({ platform }) => {
   const globalText = GlobalText();
   let history = useHistory();
+  let location = useLocation;
   // let isAgree = null;
-
   // try {
-  //   isAgree = state.isAgree;
+  //   isAgree = location.state.isAgree;
   // } catch (e) {
   //   history.push("/");
   // }
 
   const [isDone, setIsDone] = useState(false);
 
-  const userId = useInput("asdef");
+  const userId = useInput("");
   const [msgId, setMsgId] = useState("");
-  const userPw = useInput("asdf_1234");
+  const userPw = useInput("");
   const [msgPw, setMsgPw] = useState("");
-  const userPwConfirm = useInput("asdf_1234");
+  const userPwConfirm = useInput("");
   const [msgPwcf, setMsgPwcf] = useState("");
-  const userName = useInput("테스트");
-  const userEmail = useInput("asd@naver.com");
+  const userName = useInput("");
+  const userEmail = useInput("");
   const [msgEmail, setMsgEmail] = useState("");
-  const userPhone = useInput("010-0000-0000");
+  const userPhone = useInput("");
   const [msgPhone, setMsgPhone] = useState("");
   const userAddress = useInput("");
 
@@ -208,33 +208,36 @@ export default ({ location: { state } }) => {
   });
 
   return (
-    <JoinPresenter
-      globalText={globalText}
-      userId={userId}
-      idBlur={idBlur}
-      userPw={userPw}
-      pwBlur={pwBlur}
-      userPwConfirm={userPwConfirm}
-      pwCfBlur={pwCfBlur}
-      userName={userName}
-      userEmail={userEmail}
-      emailBlur={emailBlur}
-      userPhone={userPhone}
-      phoneBlur={phoneBlur}
-      userAddress={userAddress}
-      handleCancel={handleCancel}
-      handleSignUp={handleSignUp}
-      msgId={msgId}
-      msgPw={msgPw}
-      msgPwcf={msgPwcf}
-      msgPhone={msgPhone}
-      msgEmail={msgEmail}
-      isDone={isDone}
-      isSuccess={isSuccess}
-      popupTrigger={popupTrigger}
-      popupInit={popupInit}
-      handleSuccess={handleSuccess}
-      btnActive={btnActive}
-    ></JoinPresenter>
+    <div className="body-content">
+      <JoinPresenter
+        platform={platform}
+        globalText={globalText}
+        userId={userId}
+        idBlur={idBlur}
+        userPw={userPw}
+        pwBlur={pwBlur}
+        userPwConfirm={userPwConfirm}
+        pwCfBlur={pwCfBlur}
+        userName={userName}
+        userEmail={userEmail}
+        emailBlur={emailBlur}
+        userPhone={userPhone}
+        phoneBlur={phoneBlur}
+        userAddress={userAddress}
+        handleCancel={handleCancel}
+        handleSignUp={handleSignUp}
+        msgId={msgId}
+        msgPw={msgPw}
+        msgPwcf={msgPwcf}
+        msgPhone={msgPhone}
+        msgEmail={msgEmail}
+        isDone={isDone}
+        isSuccess={isSuccess}
+        popupTrigger={popupTrigger}
+        popupInit={popupInit}
+        handleSuccess={handleSuccess}
+        btnActive={btnActive}
+      />
+    </div>
   );
 };

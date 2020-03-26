@@ -6,6 +6,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
+import MobileNoticePostRow from "./NoticePost/MobileNoticePostRow";
 const Warpper = styled.div`
   position: relative;
   width: 100%;
@@ -71,6 +72,7 @@ const FirstButton = styled(Button)``;
 const LastButton = styled(Button)``;
 
 export default ({
+  platform,
   data,
   rangeSize,
   setCurrentPage,
@@ -87,22 +89,31 @@ export default ({
   );
   return (
     <Warpper>
-      <Title></Title>
       <TableWarpper>
         <Table>
           <TableBody>
-            <NoticePostHeader />
+            {platform === "desktop" ? <NoticePostHeader /> : null}
           </TableBody>
           <TableBody>
-            {data.seeBoard.map(post => (
-              <NoticePostRow
-                key={post.id}
-                post={post}
-                currentPage={currentPage}
-                currentRange={currentRange}
-                boardId={boardId}
-              />
-            ))}
+            {data.seeBoard.map(post => {
+              return platform === "desktop" ? (
+                <NoticePostRow
+                  key={post.id}
+                  post={post}
+                  currentPage={currentPage}
+                  currentRange={currentRange}
+                  boardId={boardId}
+                />
+              ) : (
+                <MobileNoticePostRow
+                  key={post.id}
+                  post={post}
+                  currentPage={currentPage}
+                  currentRange={currentRange}
+                  boardId={boardId}
+                />
+              );
+            })}
           </TableBody>
         </Table>
       </TableWarpper>

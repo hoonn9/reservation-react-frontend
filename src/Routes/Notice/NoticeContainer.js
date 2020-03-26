@@ -7,12 +7,17 @@ import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 import { getBoardState } from "../../Utils";
-export default ({ location }) => {
+import { useLocation, useHistory } from "react-router-dom";
+export default ({ platform }) => {
   const globalText = GlobalText();
-
-  const {
-    state: { id: boardId }
-  } = location;
+  let location = useLocation();
+  let history = useHistory();
+  let boardId = null;
+  try {
+    boardId = location.state.id;
+  } catch (error) {
+    history.push("/");
+  }
 
   const pageSize = 10;
   const rangeSize = 10;
@@ -60,6 +65,7 @@ export default ({ location }) => {
         <Loader />
       ) : (
         <NoticePresenter
+          platform={platform}
           globalText={globalText}
           data={pageQuery.data}
           rangeSize={rangeSize}

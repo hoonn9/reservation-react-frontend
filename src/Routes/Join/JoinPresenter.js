@@ -11,17 +11,16 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 120px;
 `;
 const Wrapper = styled.div`
-  width: 50%;
+  width: ${props => (props.platform === "desktop" ? "50%" : "75%")};
   display: block;
 `;
 const JoinInput = styled(Input)`
   display: block;
   width: 100%;
   height: 50px;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 `;
 
 const LogoWrapper = styled.div`
@@ -42,7 +41,7 @@ const Text = styled.div`
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 8px;
-  margin-top: 24px;
+  margin-top: 18px;
 `;
 
 const Msg = styled.div`
@@ -100,6 +99,7 @@ const PopupButton = styled.button`
 `;
 
 export default ({
+  platform,
   globalText,
   userId,
   idBlur,
@@ -129,8 +129,8 @@ export default ({
 }) => {
   return (
     <>
-      <Container className="body-content">
-        <Wrapper>
+      <Container>
+        <Wrapper platform={platform}>
           <LogoWrapper>
             <Logo size={50} />
           </LogoWrapper>

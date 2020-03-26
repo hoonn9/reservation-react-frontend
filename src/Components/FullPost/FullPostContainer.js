@@ -3,7 +3,7 @@ import FreePostPresenter from "./FreePostPresenter";
 import NoticePostPresenter from "./NoticePostPresenter";
 import GlobalText from "../../GlobalText";
 import { EditorState, convertFromRaw } from "draft-js";
-export default ({ data: { seeFullPost }, type }) => {
+export default ({ platform, data: { seeFullPost }, type }) => {
   const {
     title,
     content,
@@ -27,6 +27,7 @@ export default ({ data: { seeFullPost }, type }) => {
     <>
       {type === "free" ? (
         <FreePostPresenter
+          platform={platform}
           title={title}
           createdAt={createdAt}
           username={username}
@@ -36,6 +37,7 @@ export default ({ data: { seeFullPost }, type }) => {
         />
       ) : (
         <NoticePostPresenter
+          platform={platform}
           title={title}
           createdAt={createdAt}
           username={username}

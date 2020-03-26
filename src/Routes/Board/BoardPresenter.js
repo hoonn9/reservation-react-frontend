@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import Board from "../../Components/Board";
+import Title from "../../Components/Title";
 
 const Container = styled.div`
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
-`;
-const Title = styled.h2`
-  font-size: 42px;
 `;
 
 export default ({
+  platform,
   data,
   rangeSize,
   setCurrentPage,
@@ -24,8 +23,9 @@ export default ({
 }) => {
   return (
     <Container>
-      <Title>{globalText.text_free_board}</Title>
+      <Title platform={platform} text={globalText.text_free_board} />
       <Board
+        platform={platform}
         type="free"
         data={data}
         rangeSize={rangeSize}

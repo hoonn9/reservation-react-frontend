@@ -5,6 +5,8 @@ import { Carousel } from "react-responsive-carousel";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -81,26 +83,27 @@ export default ({ data, type = "banner" }) => {
     <ContentWrapper>
       <PrevButton onClick={galleryPrevOnClick} />
       <Carousel
-        infiniteLoop={true}
         showThumbs={false}
         showArrows={false}
         showStatus={false}
         emulateTouch
         selectedItem={galleryItem}
         onChange={galleryOnChange}
-        swipeScrollTolerance={100}
+        swipeScrollTolerance={10}
       >
         {data.map((e, i) => {
           return (
             <ImageWrapper key={i}>
               <Image src={e.url} />
               {type === "banner" ? (
-                <TextWrapper>
-                  <dl style={{ width: "100%" }}>
-                    <Title>{e.title}</Title>
-                    <SubTitle>{e.subTitle}</SubTitle>
-                  </dl>
-                </TextWrapper>
+                <Link to={e.to}>
+                  <TextWrapper>
+                    <dl style={{ width: "100%" }}>
+                      <Title>{e.title}</Title>
+                      <SubTitle>{e.subTitle}</SubTitle>
+                    </dl>
+                  </TextWrapper>
+                </Link>
               ) : null}
             </ImageWrapper>
           );

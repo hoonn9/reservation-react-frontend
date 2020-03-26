@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SEE_FULL_POST } from "./PostQueries";
 import Loader from "../../Components/Loader";
 import ErrorAlert from "../../Components/ErrorAlert";
 import FullPost from "../../Components/FullPost";
 import GlobalText from "../../GlobalText";
 import { setBoardState } from "../../Utils";
+import Title from "../../Components/Title";
 
 const Container = styled.div`
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
-`;
-const Title = styled.h2`
-  font-size: 42px;
-  margin-bottom: 32px;
 `;
 const ButtonWrapper = styled.div`
   text-align: end;
@@ -26,7 +23,10 @@ const Button = styled.button`
   font-size: 16px;
 `;
 
-export default ({ location }) => {
+export default ({ platform }) => {
+  let location = useLocation();
+  console.log(location);
+  console.log("체크");
   var id;
   var type;
   var currentPage;
@@ -91,12 +91,15 @@ export default ({ location }) => {
         <Loader />
       ) : (
         <Container>
-          <Title>
-            {type === "free"
-              ? globalText.text_free_board
-              : globalText.text_notice}
-          </Title>
-          <FullPost data={data} type={type} />
+          <Title
+            platform={platform}
+            text={
+              type === "free"
+                ? globalText.text_free_board
+                : globalText.text_notice
+            }
+          />
+          <FullPost platform={platform} data={data} type={type} />
           <ButtonWrapper>
             <Link
               to={{

@@ -6,7 +6,7 @@ import GlobalText from "../GlobalText";
 import { Logo } from "../Components/Icons";
 import Checkbox from "../Components/Checkbox";
 const Container = styled.div`
-  width: 500px;
+  width: ${props => (props.platform === "desktop" ? "50%" : "100%")};
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -38,6 +38,11 @@ const AgreeLink = styled(Link)`
   position: absolute;
   right: 0;
   top: 0;
+`;
+const MobileAgreeWrapper = styled.div`
+  text-align: end;
+  font-size: 11px;
+  color: ${props => props.theme.darkGreyColor};
 `;
 
 const CheckboxWrapper = styled.div`
@@ -89,7 +94,7 @@ const AgreeActiveButton = styled.button`
   cursor: pointer;
 `;
 
-export default () => {
+export default ({ platform }) => {
   const globalText = GlobalText();
 
   const allCheck = useCheckbox(false);
@@ -122,62 +127,129 @@ export default () => {
     }
   };
   return (
-    <Container className="body-content">
-      <Wrapper>
-        <LogoWrapper>
-          <Logo size={50} />
-        </LogoWrapper>
-        <Title>{globalText.text_join_title}</Title>
-        <SubTitle>{globalText.text_join_subTitle}</SubTitle>
-        <AgreeCheckbox
-          name="allCheck"
-          onClick={checkOnClick}
-          checked={allCheck.checked}
-          text={globalText.text_join_all_agree}
-        />
-        <CheckboxWrapper>
-          <AgreeCheckbox
-            name="check1"
-            checked={check1.checked}
-            onClick={checkOnClick}
-            text={globalText.text_join_1_agree}
-          />
-          <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
-        </CheckboxWrapper>
-        <CheckboxWrapper>
-          <AgreeCheckbox
-            name="check2"
-            checked={check2.checked}
-            onClick={checkOnClick}
-            text={globalText.text_join_2_agree}
-          />
-          <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
-        </CheckboxWrapper>
+    <div className="body-content">
+      {platform === "desktop" ? (
+        <Container platform={platform}>
+          <Wrapper>
+            <LogoWrapper>
+              <Logo size={50} />
+            </LogoWrapper>
+            <Title>{globalText.text_join_title}</Title>
+            <SubTitle>{globalText.text_join_subTitle}</SubTitle>
+            <AgreeCheckbox
+              name="allCheck"
+              onClick={checkOnClick}
+              checked={allCheck.checked}
+              text={globalText.text_join_all_agree}
+            />
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check1"
+                checked={check1.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_1_agree}
+              />
+              <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
+            </CheckboxWrapper>
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check2"
+                checked={check2.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_2_agree}
+              />
+              <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
+            </CheckboxWrapper>
 
-        <CheckboxWrapper>
-          <AgreeCheckbox
-            name="check3"
-            checked={check3.checked}
-            onClick={checkOnClick}
-            text={globalText.text_join_3_agree}
-          />
-          <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
-        </CheckboxWrapper>
-        {check1.checked && check2.checked ? (
-          <Link
-            to={{
-              pathname: "/join",
-              state: {
-                isAgree: check3.checked
-              }
-            }}
-          >
-            <AgreeActiveButton>{globalText.text_agree}</AgreeActiveButton>
-          </Link>
-        ) : (
-          <AgreeButton>{globalText.text_agree}</AgreeButton>
-        )}
-      </Wrapper>
-    </Container>
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check3"
+                checked={check3.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_3_agree}
+              />
+              <AgreeLink to="/">{globalText.text_join_detail}</AgreeLink>
+            </CheckboxWrapper>
+            {check1.checked && check2.checked ? (
+              <Link
+                to={{
+                  pathname: "/join",
+                  state: {
+                    isAgree: check3.checked
+                  }
+                }}
+              >
+                <AgreeActiveButton>{globalText.text_agree}</AgreeActiveButton>
+              </Link>
+            ) : (
+              <AgreeButton>{globalText.text_agree}</AgreeButton>
+            )}
+          </Wrapper>
+        </Container>
+      ) : (
+        <Container platform={platform}>
+          <Wrapper>
+            <LogoWrapper>
+              <Logo size={50} />
+            </LogoWrapper>
+            <Title>{globalText.text_join_title}</Title>
+            <SubTitle>{globalText.text_join_subTitle}</SubTitle>
+            <AgreeCheckbox
+              name="allCheck"
+              onClick={checkOnClick}
+              checked={allCheck.checked}
+              text={globalText.text_join_all_agree}
+            />
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check1"
+                checked={check1.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_1_agree}
+              />
+            </CheckboxWrapper>
+            <MobileAgreeWrapper>
+              <Link to="/">{globalText.text_join_detail}</Link>
+            </MobileAgreeWrapper>
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check2"
+                checked={check2.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_2_agree}
+              />
+            </CheckboxWrapper>
+            <MobileAgreeWrapper>
+              <Link to="/">{globalText.text_join_detail}</Link>
+            </MobileAgreeWrapper>
+            <CheckboxWrapper>
+              <AgreeCheckbox
+                name="check3"
+                checked={check3.checked}
+                onClick={checkOnClick}
+                text={globalText.text_join_3_agree}
+              />
+            </CheckboxWrapper>
+            <MobileAgreeWrapper>
+              <Link to="/">{globalText.text_join_detail}</Link>
+            </MobileAgreeWrapper>
+            {check1.checked && check2.checked ? (
+              <Link
+                to={{
+                  pathname: "/join",
+                  state: {
+                    isAgree: check3.checked
+                  }
+                }}
+              >
+                <AgreeActiveButton>{globalText.text_agree}</AgreeActiveButton>
+              </Link>
+            ) : (
+              <AgreeButton>{globalText.text_agree}</AgreeButton>
+            )}
+          </Wrapper>
+        </Container>
+      )}
+    </div>
   );
 };

@@ -26,24 +26,43 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
       path="/"
       render={props => <Home platform={platform} screenSize={screenSize} />}
     />
-    <Route path="/mypage" component={Login} />
+    <Route
+      path="/mypage"
+      render={props => <Login platform={platform} screenSize={screenSize} />}
+    />
     <Route
       path="/login"
       render={props => <Login platform={platform} screenSize={screenSize} />}
     />
-    <Route path="/joinagree" component={JoinAgree} />
-    <Route path="/join" component={Join} />
-    <Route path="/board/:id" component={Board} />
-    <Route path="/upload" component={Login} />
-    <Route path="/post/:id" component={Post} />
-    <Route path="/notice/:id" component={Post} />
+    <Route
+      path="/joinagree"
+      render={props => <JoinAgree platform={platform} />}
+    />
+    <Route path="/join" render={props => <Join platform={platform} />} />
+    <Route path="/board/:id" render={props => <Board platform={platform} />} />
+    <Route
+      path="/upload"
+      render={props => <Login platform={platform} screenSize={screenSize} />}
+    />
+    <Route path="/post/:id" render={props => <Post platform={platform} />} />
+    <Route
+      exact
+      path="/notice"
+      render={props => <Notice platform={platform} />}
+    />
+    <Route path="/notice/:id" render={props => <Post platform={platform} />} />
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
     <Route path="/infomation" component={Infomation} />
-    <Route path="/notice" component={Notice} />
-    <Route path="/help/findid" component={FindID} />
-    <Route path="/help/findpw" component={FindPW} />
+    <Route
+      path="/help/findid"
+      render={props => <FindID platform={platform} />}
+    />
+    <Route
+      path="/help/findpw"
+      render={props => <FindPW platform={platform} />}
+    />
     <Route
       path="/reservation"
       render={props => (
@@ -61,19 +80,31 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
       path="/"
       render={props => <Home platform={platform} screenSize={screenSize} />}
     />
-    <Route path="/mypage" component={MyPage} />
-    <Route path="/upload" component={Upload} />
-    <Route path="/board" component={Board} />
-    <Route path="/post/:id" component={Post} />
-    <Route path="/notice/:id" component={Post} />
+    <Route
+      path="/mypage"
+      render={props => <MyPage platform={platform} screenSize={screenSize} />}
+    />
+    <Route
+      path="/upload"
+      render={props => <Upload platform={platform} screenSize={screenSize} />}
+    />
+    <Route path="/board/:id" render={props => <Board platform={platform} />} />
+    <Route path="/post/:id" render={props => <Post platform={platform} />} />
+    <Route
+      exact
+      path="/notice"
+      render={props => <Notice platform={platform} />}
+    />
+    <Route path="/notice/:id" render={props => <Post platform={platform} />} />
     <Route exact path="/event" component={Event} />
     <Route path="/event/:id" component={FullEvent} />
     <Route path="/about" component={About} />
     <Route path="/infomation" component={Infomation} />
-    <Route path="/notice" component={Notice} />
     <Route
       path="/reservation"
-      render={props => <Reservation screenSize={screenSize} />}
+      render={props => (
+        <Reservation platform={platform} screenSize={screenSize} />
+      )}
     />
     <Redirect from="*" to="/" />
   </Switch>
@@ -91,11 +122,18 @@ const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
   );
 };
 
-export const MypageRouter = ({ data, refetch }) => {
+export const MyPageRouter = ({ data, refetch, platform }) => {
   return (
     <Switch>
-      <Route exact path="/" render={props => <MyPageAccount data={data} />} />
-      <Route path="/change" render={props => <MyPageChange data={data} />} />
+      <Route
+        exact
+        path="/"
+        render={props => <MyPageAccount platform={platform} data={data} />}
+      />
+      <Route
+        path="/change"
+        render={props => <MyPageChange platform={platform} data={data} />}
+      />
       <Redirect from="*" to="/" />
     </Switch>
   );

@@ -4,7 +4,7 @@ import useInput from "../../../Hooks/useInput";
 import { useMutation } from "@apollo/react-hooks";
 import { REQUEST_FIND_ID, CONFIRM_FIND_ID } from "../../../SharedQueries";
 
-export default () => {
+export default ({ platform, screenSize }) => {
   const userName = useInput("");
   const userEmail = useInput("");
   const secretCode = useInput("");
@@ -65,6 +65,7 @@ export default () => {
   return (
     <div className="body-content">
       <FindIDPresenter
+        platform={platform}
         loading={loading}
         userName={userName}
         userEmail={userEmail}

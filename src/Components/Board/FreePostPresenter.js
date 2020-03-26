@@ -7,6 +7,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
+import MobileFreePostRow from "./FreePost/MobileFreePostRow";
 const Warpper = styled.div`
   position: relative;
   width: 100%;
@@ -30,7 +31,6 @@ const TabWrapper = styled.div`
 `;
 const TabButton = styled.div`
   display: inline-block;
-  border: ${props => props.theme.boxBorder};
   width: 32px;
   height: 32px;
   margin-left: 4px;
@@ -45,7 +45,6 @@ const TabButton = styled.div`
 
 const CurrentTabButton = styled.div`
   display: inline-block;
-  border: ${props => props.theme.boxBorder};
   width: 32px;
   height: 32px;
   margin-left: 4px;
@@ -64,13 +63,23 @@ const WriteButton = styled.button`
   text-decoration: none;
   background-color: ${props => props.theme.greyColor};
   color: ${props => props.theme.blackColor};
-  margin-right: 32px;
+  margin-top: 16px;
+  padding: 8px 16px;
 `;
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: lighter;
-  margin-bottom: 32px;
+const MobileWriteButtonWrapper = styled.div`
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: end;
+  padding: 16px 8px 8px 0px;
 `;
+const MobileWriteButton = styled.button`
+  text-decoration: none;
+  background-color: ${props => props.theme.greyColor};
+  color: ${props => props.theme.blackColor};
+  padding: 4px 8px;
+`;
+
 const Button = styled.button`
   background-color: transparent;
 `;
@@ -80,6 +89,7 @@ const FirstButton = styled(Button)``;
 const LastButton = styled(Button)``;
 
 export default ({
+  platform,
   data,
   rangeSize,
   setCurrentPage,
@@ -96,27 +106,37 @@ export default ({
   );
   return (
     <Warpper>
-      <Title></Title>
       <TableWarpper>
         <Table>
           <TableBody>
-            <FreePostHeader />
+            {platform === "desktop" ? <FreePostHeader /> : null}
           </TableBody>
           <TableBody>
-            {data.seeBoard.map((post, index) => (
-              <FreePostRow
-                key={post.id}
-                post={post}
-                index={listCount - pageSize * currentPage - index}
-                currentPage={currentPage}
-                currentRange={currentRange}
-                boardId={boardId}
-              />
-            ))}
+            {data.seeBoard.map((post, index) => {
+              return platform === "desktop" ? (
+                <FreePostRow
+                  key={post.id}
+                  post={post}
+                  index={listCount - pageSize * currentPage - index}
+                  currentPage={currentPage}
+                  currentRange={currentRange}
+                  boardId={boardId}
+                />
+              ) : (
+                <MobileFreePostRow
+                  key={post.id}
+                  post={post}
+                  index={listCount - pageSize * currentPage - index}
+                  currentPage={currentPage}
+                  currentRange={currentRange}
+                  boardId={boardId}
+                />
+              );
+            })}
           </TableBody>
         </Table>
       </TableWarpper>
-      <TabWrapper>
+      {platform === "desktop" ? (
         <Link
           to={{
             pathname: "/upload",
@@ -127,10 +147,24 @@ export default ({
         >
           <WriteButton>{globalText.text_write}</WriteButton>
         </Link>
+      ) : (
+        <MobileWriteButtonWrapper>
+          <Link
+            to={{
+              pathname: "/upload",
+              state: {
+                id: boardId
+              }
+            }}
+          >
+            <MobileWriteButton>{globalText.text_write}</MobileWriteButton>
+          </Link>
+        </MobileWriteButtonWrapper>
+      )}
+      <TabWrapper>
         {currentRange === 0 ? (
           <FirstButton disabled>
-            {" "}
-            <SkipPreviousIcon />{" "}
+            <SkipPreviousIcon />
           </FirstButton>
         ) : (
           <FirstButton

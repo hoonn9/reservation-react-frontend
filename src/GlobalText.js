@@ -116,7 +116,9 @@ export default () => {
       text_not_correct: "정확한 정보를 입력해주세요.",
       text_pw_changed: " 비밀번호가 변경되었습니다.",
       text_pw_change_error: "비밀번호를 변경하는데 문제가 발생하였습니다.",
-      text_no_result: "결과 없음"
+      text_no_result: "결과 없음",
+      text_user_info_change: "회원정보변경",
+      text_user_createdAt: "가입일"
     };
   } else if (language === "en") {
     return {

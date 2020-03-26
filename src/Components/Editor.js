@@ -4,15 +4,25 @@ import { Editor } from "react-draft-wysiwyg";
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";
 
-const Wrapper = styled.div``;
-const EditorWrapper = styled.div`
+const Wrapper = styled.div`
+  position: relative;
   display: block;
   width: 100%;
-  height: 80%;
   border: ${props => props.theme.boxBorder};
 `;
-
-export default ({ editorState, setEditorState, imageArray }) => {
+const editorStyle = {
+  padding: "0px 32px",
+  borderRadius: "2px",
+  height: "480px",
+  width: "100%"
+};
+const mobileEditorStyle = {
+  padding: "0px 16px",
+  borderRadius: "2px",
+  height: "300px",
+  width: "100%"
+};
+export default ({ platform, editorState, setEditorState, imageArray }) => {
   const uploadCallback = file => {
     const formData = new FormData();
     formData.append("file", file);
@@ -35,28 +45,28 @@ export default ({ editorState, setEditorState, imageArray }) => {
     });
   };
 
+  console.log(platform);
   return (
     <Wrapper>
-      <EditorWrapper>
-        <Editor
-          wrapperClassName="wrapper-class"
-          editorClassName="editor-class"
-          toolbarClassName="toolbar-class"
-          toolbar={{
-            image: {
-              urlEnabled: true,
-              uploadEnabled: true,
-              uploadCallback: uploadCallback,
-              previewImage: true
-            }
-          }}
-          editorState={editorState}
-          onEditorStateChange={editorState => setEditorState(editorState)}
-          localization={{
-            locale: "ko"
-          }}
-        />
-      </EditorWrapper>
+      <Editor
+        wrapperClassName="wrapper-class"
+        editorClassName="editor-class"
+        toolbarClassName="toolbar-class"
+        toolbar={{
+          image: {
+            urlEnabled: true,
+            uploadEnabled: true,
+            uploadCallback: uploadCallback,
+            previewImage: true
+          }
+        }}
+        editorStyle={platform === "mobile" ? mobileEditorStyle : editorStyle}
+        editorState={editorState}
+        onEditorStateChange={editorState => setEditorState(editorState)}
+        localization={{
+          locale: "ko"
+        }}
+      />
     </Wrapper>
   );
 };

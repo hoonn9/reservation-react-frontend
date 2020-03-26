@@ -256,7 +256,7 @@ export default ({
                     {globalText.text_mypage}
                   </JoinLink>
                 ) : (
-                  <JoinLink to="/join" onClick={() => mobileOnClick()}>
+                  <JoinLink to="/joinagree" onClick={() => mobileOnClick()}>
                     {globalText.text_join}
                   </JoinLink>
                 )}

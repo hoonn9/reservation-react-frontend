@@ -46,7 +46,7 @@ const Container = ({
         onBlur={onBlur}
         onKeyPress={onKeyPress}
       />
-      <Alert>{alertMsg}</Alert>
+      {alertMsg ? <Alert>{alertMsg}</Alert> : null}
     </Wrapper>
   );
 };

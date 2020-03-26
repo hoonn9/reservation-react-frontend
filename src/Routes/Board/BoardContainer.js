@@ -8,8 +8,10 @@ import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 import { useEffect } from "react";
 import { getBoardState } from "../../Utils";
+import { useLocation } from "react-router-dom";
 
-export default ({ location }) => {
+export default ({ platform }) => {
+  let location = useLocation();
   const {
     state: { id: boardId }
   } = location;
@@ -62,6 +64,7 @@ export default ({ location }) => {
       ) : (
         <>
           <BoardPresenter
+            platform={platform}
             data={pageQuery.data}
             rangeSize={rangeSize}
             listCount={countQuery.data.seeBoardCount}

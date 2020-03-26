@@ -18,6 +18,9 @@ export default createGlobalStyle`
         text-decoration: none;
         color: ${props => props.theme.blackColor};
     }
+    a:active {
+        color: transparent;
+    }
     button {
         text-transform: none;
         border: 0;
@@ -30,6 +33,9 @@ export default createGlobalStyle`
     }
     button {
         cursor: pointer;
+    }
+    button:focus {
+        outline: none;
     }
     input:focus {
         outline:none;

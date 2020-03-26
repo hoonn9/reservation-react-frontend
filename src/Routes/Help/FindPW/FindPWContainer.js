@@ -4,7 +4,7 @@ import useInput from "../../../Hooks/useInput";
 import { useMutation } from "@apollo/react-hooks";
 import { REQUEST_FIND_PW, CONFIRM_FIND_PW } from "../../../SharedQueries";
 
-export default () => {
+export default ({ platform, screenSize }) => {
   const userId = useInput("");
   const userEmail = useInput("");
   const secretCode = useInput("");
@@ -76,6 +76,7 @@ export default () => {
   return (
     <div className="body-content">
       <FindPWPresenter
+        platform={platform}
         loading={loading}
         userId={userId}
         userEmail={userEmail}

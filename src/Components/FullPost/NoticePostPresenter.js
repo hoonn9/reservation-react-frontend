@@ -13,11 +13,20 @@ const TitleWrapper = styled.div`
   border-top: 2px solid #999;
   border-bottom: 1px solid #c7c7c7;
 `;
+const MobileTitleWrapper = styled.div`
+  background-color: ${props => props.theme.superLiteGreyColor};
+  padding: 24px 16px;
+  border-top: 2px solid #999;
+  border-bottom: 1px solid #c7c7c7;
+`;
 const Title = styled.div`
   font-size: 24px;
   font-weight: 600;
 `;
-
+const MobileTitle = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`;
 const SubWrapper = styled.div`
   position: relative;
   height: 50px;
@@ -29,7 +38,11 @@ const SubLeftWrapper = styled.div`
   left: 32px;
   padding-top: 12px;
 `;
-
+const MobileSubLeftWrapper = styled.div`
+  position: absolute;
+  left: 16px;
+  padding-top: 12px;
+`;
 const DateText = styled.div`
   font-size: 16px;
   padding: 4px 0px;
@@ -39,37 +52,76 @@ const SubRightWrapper = styled.div`
   right: 32px;
   padding-top: 12px;
 `;
+const MobileSubRightWrapper = styled.div`
+  position: absolute;
+  right: 16px;
+  padding-top: 12px;
+`;
 const ViewText = styled.div`
   font-size: 14px;
   padding: 4px 0px;
 `;
 
 const ContentWrapper = styled.div`
-  padding: 8px 32px;
+  padding: 8px 0px;
   min-height: 480px;
   border-bottom: 1px solid #c7c7c7;
 `;
-export default ({ title, createdAt, views, globalText, editorState }) => {
+export default ({
+  platform,
+  title,
+  createdAt,
+  views,
+  globalText,
+  editorState
+}) => {
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <Title>{title}</Title>
-      </TitleWrapper>
-      <SubWrapper>
-        <SubLeftWrapper>
-          <DateText>
-            {globalText.text_board_header_date} : {dateConverter(createdAt)}
-          </DateText>
-        </SubLeftWrapper>
-        <SubRightWrapper>
-          <ViewText>
-            {globalText.text_board_header_views} : {views + 1}
-          </ViewText>
-        </SubRightWrapper>
-      </SubWrapper>
-      <ContentWrapper>
-        <ReadEditor editorState={editorState} />
-      </ContentWrapper>
-    </Wrapper>
+    <>
+      {platform === "desktop" ? (
+        <Wrapper>
+          <TitleWrapper>
+            <Title>{title}</Title>
+          </TitleWrapper>
+
+          <SubWrapper>
+            <SubLeftWrapper>
+              <DateText>
+                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+              </DateText>
+            </SubLeftWrapper>
+            <SubRightWrapper>
+              <ViewText>
+                {globalText.text_board_header_views} : {views + 1}
+              </ViewText>
+            </SubRightWrapper>
+          </SubWrapper>
+          <ContentWrapper>
+            <ReadEditor platform={platform} editorState={editorState} />
+          </ContentWrapper>
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <MobileTitleWrapper>
+            <MobileTitle>{title}</MobileTitle>
+          </MobileTitleWrapper>
+
+          <SubWrapper>
+            <MobileSubLeftWrapper>
+              <DateText>
+                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+              </DateText>
+            </MobileSubLeftWrapper>
+            <MobileSubRightWrapper>
+              <ViewText>
+                {globalText.text_board_header_views} : {views + 1}
+              </ViewText>
+            </MobileSubRightWrapper>
+          </SubWrapper>
+          <ContentWrapper>
+            <ReadEditor platform={platform} editorState={editorState} />
+          </ContentWrapper>
+        </Wrapper>
+      )}
+    </>
   );
 };

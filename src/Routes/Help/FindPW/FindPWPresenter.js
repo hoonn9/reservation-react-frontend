@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { MiniLoader } from "../../../Components/Icons";
-
-const Container = styled.div``;
+import Title from "../../../Components/Title";
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: 210px;
+`;
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
-`;
-const Title = styled.div`
-  font-size: 42px;
-  border-bottom: 2px black solid;
-  padding: 8px 0px;
-  margin-bottom: 32px;
 `;
 const PhoneWrapper = styled.div`
   display: flex;
@@ -55,6 +54,7 @@ const Text = styled.span`
   color: ${props => props.theme.blackColor};
 `;
 export default ({
+  platform,
   loading,
   userId,
   userEmail,
@@ -69,7 +69,7 @@ export default ({
     <Container>
       {successState ? (
         <Wrapper>
-          <Title>비밀번호 찾기</Title>
+          <Title platform={platform} text="비밀번호 찾기" />
           <PhoneWrapper>
             <AlretText>
               {"임시 발급된 비밀번호는 "}
@@ -84,7 +84,7 @@ export default ({
         </Wrapper>
       ) : (
         <Wrapper>
-          <Title>비밀번호 찾기</Title>
+          <Title platform={platform} text="비밀번호 찾기" />
           <PhoneWrapper>
             <table>
               <PhoneTbody>

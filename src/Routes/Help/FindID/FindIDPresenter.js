@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { MiniLoader } from "../../../Components/Icons";
+import Title from "../../../Components/Title";
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: 210px;
+`;
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
-`;
-const Title = styled.div`
-  font-size: 42px;
-  border-bottom: 2px black solid;
-  padding: 8px 0px;
-  margin-bottom: 32px;
 `;
 const PhoneWrapper = styled.div`
   display: flex;
@@ -55,6 +55,7 @@ const Text = styled.span`
   color: ${props => props.theme.blackColor};
 `;
 export default ({
+  platform,
   loading,
   userName,
   userEmail,
@@ -69,7 +70,7 @@ export default ({
     <Container>
       {successState ? (
         <Wrapper>
-          <Title>아이디 찾기</Title>
+          <Title platform={platform} text="아이디 찾기" />
           <PhoneWrapper>
             <AlretText>
               {"찾으시는 아이디는 "}
@@ -80,7 +81,7 @@ export default ({
         </Wrapper>
       ) : (
         <Wrapper>
-          <Title>아이디 찾기</Title>
+          <Title platform={platform} text="아이디 찾기" />
           <PhoneWrapper>
             <table>
               <PhoneTbody>
