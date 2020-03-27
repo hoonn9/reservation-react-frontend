@@ -16,7 +16,7 @@ const addMarker = (map, link) => {
   });
 };
 
-export default () => {
+export default ({ platform }) => {
   const globalText = GlobalText();
   const link = {
     coords: { lat: 37.5326, lng: 127.0246122 }, // required: latitude & longitude at which to display the marker
@@ -38,7 +38,11 @@ export default () => {
   useEffect(() => {}, []);
   return (
     <div className="body-content">
-      <InfomationPresenter MemoMap={MemoMap} globalText={globalText} />
+      <InfomationPresenter
+        platform={platform}
+        MemoMap={MemoMap}
+        globalText={globalText}
+      />
     </div>
   );
 };

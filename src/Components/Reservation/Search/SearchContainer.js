@@ -92,7 +92,12 @@ export default ({
       setSmDisplay(true);
       setSmToggle(true);
       setOptionToggle(true);
-      optionRef.current.focus();
+      if (optionRef.current) {
+        window.scrollTo({
+          behavior: "smooth",
+          top: optionRef.current.offsetTop
+        });
+      }
       setTotalPrice(selectType.price + selectSubType.price);
     }
   }, [selectType, selectSubType]);
@@ -209,6 +214,12 @@ export default ({
 
   const optionNextOnClick = () => {
     setInfoToggle(true);
+    if (infoRef.current) {
+      window.scrollTo({
+        behavior: "smooth",
+        top: infoRef.current.offsetTop
+      });
+    }
     console.log(checkInTime);
     console.log(checkOutTime);
     console.log(optionRequest);

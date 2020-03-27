@@ -6,7 +6,8 @@ import { useQuery } from "@apollo/react-hooks";
 import ErrorAlert from "../../Components/ErrorAlert";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
-
+import { useLocation } from "react-router-dom";
+import Title from "../../Components/Title";
 const Container = styled.div`
   position: relative;
   padding: 0;
@@ -14,16 +15,10 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Title = styled.div`
-  display: inline-block;
-  font-size: 46px;
-  color: #333;
-  font-weight: normal;
-`;
-
-export default ({ location, history }) => {
+export default ({ platform }) => {
   const globalText = GlobalText();
   var id;
+  let location = useLocation();
   if (location.state !== undefined) {
     id = location.state.id;
   } else {
@@ -37,13 +32,13 @@ export default ({ location, history }) => {
   return (
     <div className="body-content">
       <Container>
-        <Title>{globalText.text_event}</Title>
+        <Title platform={platform} text={globalText.text_event} />
         {error ? (
           <ErrorAlert />
         ) : loading ? (
           <Loader />
         ) : (
-          <FullEvent data={data} />
+          <FullEvent platform={platform} data={data} />
         )}
       </Container>
     </div>

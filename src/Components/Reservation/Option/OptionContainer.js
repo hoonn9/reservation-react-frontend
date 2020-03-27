@@ -15,7 +15,7 @@ export default ({
 }) => {
   return (
     <>
-      <input
+      <span
         ref={optionRef}
         style={{ width: "0px", height: "0px", border: "none" }}
       />

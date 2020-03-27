@@ -1,7 +1,8 @@
 import React from "react";
 import FullEventPresenter from "./FullEventPresenter";
+import MobileFullEventPresenter from "./MobileFullEventPresenter";
 
-export default ({ data }) => {
+export default ({ platform, data }) => {
   const {
     eventType,
     thumbnail,
@@ -12,14 +13,28 @@ export default ({ data }) => {
     files
   } = data.seeFullEvent;
   return (
-    <FullEventPresenter
-      eventType={eventType}
-      thumbnail={thumbnail}
-      title={title}
-      period={period}
-      subTitle={subTitle}
-      content={content}
-      files={files}
-    />
+    <>
+      {platform === "desktop" ? (
+        <FullEventPresenter
+          eventType={eventType}
+          thumbnail={thumbnail}
+          title={title}
+          period={period}
+          subTitle={subTitle}
+          content={content}
+          files={files}
+        />
+      ) : (
+        <MobileFullEventPresenter
+          eventType={eventType}
+          thumbnail={thumbnail}
+          title={title}
+          period={period}
+          subTitle={subTitle}
+          content={content}
+          files={files}
+        />
+      )}
+    </>
   );
 };

@@ -51,10 +51,20 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
       render={props => <Notice platform={platform} />}
     />
     <Route path="/notice/:id" render={props => <Post platform={platform} />} />
-    <Route exact path="/event" component={Event} />
-    <Route path="/event/:id" component={FullEvent} />
+    <Route
+      exact
+      path="/event"
+      render={props => <Event platform={platform} />}
+    />
+    <Route
+      path="/event/:id"
+      render={props => <FullEvent platform={platform} />}
+    />
     <Route path="/about" component={About} />
-    <Route path="/infomation" component={Infomation} />
+    <Route
+      path="/infomation"
+      render={props => <Infomation platform={platform} />}
+    />
     <Route
       path="/help/findid"
       render={props => <FindID platform={platform} />}
@@ -96,10 +106,20 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
       render={props => <Notice platform={platform} />}
     />
     <Route path="/notice/:id" render={props => <Post platform={platform} />} />
-    <Route exact path="/event" component={Event} />
-    <Route path="/event/:id" component={FullEvent} />
+    <Route
+      exact
+      path="/event"
+      render={props => <Event platform={platform} />}
+    />
+    <Route
+      path="/event/:id"
+      render={props => <FullEvent platform={platform} />}
+    />
     <Route path="/about" component={About} />
-    <Route path="/infomation" component={Infomation} />
+    <Route
+      path="/infomation"
+      render={props => <Infomation platform={platform} />}
+    />
     <Route
       path="/reservation"
       render={props => (

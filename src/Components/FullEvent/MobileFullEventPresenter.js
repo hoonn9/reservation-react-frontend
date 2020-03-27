@@ -8,78 +8,74 @@ const TopViewWrapper = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 15px;
+  overflow: hidden;
 `;
 
 const TopViewImage = styled.img`
   background-size: cover;
   position: relative;
   display: block;
-  width: 100%;
-  height: 560px;
+  width: auto;
+  height: 480px;
 `;
 
 const TopViewDetailWrapper = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
+  color: ${props => props.theme.whiteColor};
 `;
 const TopViewDescWrapper = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
-  padding: 0 30px;
-  height: 190px;
+  height: 150px;
 `;
 
 const TopViewDescLeft = styled.div`
   float: left;
-  width: 70%;
+  width: 100%;
 `;
 
 const TopViewDescLeftInner = styled.div`
-  width: 75%;
-  display: table-cell;
+  width: 100%;
   vertical-align: middle;
-  height: 190px;
+  padding: 32px 8px;
 `;
 
 const TopViewDescRight = styled.div`
   float: right;
   text-align: right;
-  width: 30%;
+  width: 100%;
 `;
 
 const TopViewDescRightInner = styled.div`
-  width: 25%;
-  display: table-cell;
-  vertical-align: middle;
-  height: 190px;
+  width: 100%;
+  padding: 16px 8px;
+  text-align: end;
 `;
 
 const TopViewType = styled.div`
   float: none;
   display: inline-block;
-  background: rgba(0, 0, 0, 0.5);
-  height: 44px;
+  background: rgba(0, 0, 0, 0.7);
+  height: 32px;
   font-size: 13px;
   text-align: center;
-  padding: 15px 15px 13px;
-  color: #fff;
+  padding: 8px 16px;
   font-weight: 700;
 `;
 
 const TopViewTitle = styled.h2`
-  font-size: 32px;
-  color: #fff;
+  font-size: 21px;
   font-weight: 700;
   margin-top: 10px;
 `;
 
 const TopViewPeriod = styled.p`
-  font-size: 22px;
-  color: #fff;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.6em;
 `;

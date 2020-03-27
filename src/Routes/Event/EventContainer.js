@@ -6,7 +6,7 @@ import ErrorAlert from "../../Components/ErrorAlert";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 
-export default () => {
+export default ({ platform }) => {
   const globalText = GlobalText();
   const { data, loading, error } = useQuery(SEE_EVENT, {
     variables: {}
@@ -18,7 +18,11 @@ export default () => {
       ) : loading ? (
         <Loader />
       ) : (
-        <EventPresenter data={data} globalText={globalText} />
+        <EventPresenter
+          platform={platform}
+          data={data}
+          globalText={globalText}
+        />
       )}
     </div>
   );

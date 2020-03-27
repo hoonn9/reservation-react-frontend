@@ -34,7 +34,7 @@ export default ({
   };
   return (
     <>
-      <input
+      <span
         ref={infoRef}
         style={{ width: "0px", height: "0px", border: "none" }}
       />

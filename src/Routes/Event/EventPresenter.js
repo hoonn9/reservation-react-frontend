@@ -1,27 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import TableView from "../../Components/TableView";
+import Title from "../../Components/Title";
 const Container = styled.div`
   position: relative;
   padding: 0;
   max-width: 1280px;
   margin: 0 auto;
 `;
-
-const Title = styled.div`
-  display: inline-block;
-  font-size: 46px;
-  color: #333;
-  font-weight: normal;
-`;
 const CountWrapper = styled.div`
   display: block;
-  margin-top: 30px;
+  padding: 0px 8px;
 `;
 
 const CountText = styled.div`
   display: inline-block;
   font-size: 20px;
+  color: #333;
+`;
+const MobileCountText = styled.div`
+  display: inline-block;
+  font-size: 18px;
   color: #333;
 `;
 
@@ -31,16 +30,35 @@ const CountNumText = styled.div`
   color: #da291c;
   font-weight: 700;
 `;
+const MobileCountNumText = styled.div`
+  display: inline-block;
+  font-size: 18px;
+  color: #da291c;
+  font-weight: 700;
+`;
 
-export default ({ data, globalText }) => {
+export default ({ platform, data, globalText }) => {
   return (
     <Container>
-      <Title>{globalText.text_event}</Title>
-      <CountWrapper>
-        <CountNumText>{data.seeEvent.length}</CountNumText>
-        <CountText>{globalText.text_count}</CountText>
-      </CountWrapper>
-      <TableView divide={3} view="event" data={data} />
+      <Title platform={platform} text={globalText.text_event} />
+
+      {platform === "desktop" ? (
+        <>
+          <CountWrapper>
+            <CountNumText>{data.seeEvent.length}</CountNumText>
+            <CountText>{globalText.text_count}</CountText>
+          </CountWrapper>
+          <TableView divide={3} view="event" data={data} />
+        </>
+      ) : (
+        <>
+          <CountWrapper>
+            <MobileCountNumText>{data.seeEvent.length}</MobileCountNumText>
+            <MobileCountText>{globalText.text_count}</MobileCountText>
+          </CountWrapper>
+          <TableView divide={1} view="event" data={data} />
+        </>
+      )}
     </Container>
   );
 };
