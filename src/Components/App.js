@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
@@ -9,6 +9,7 @@ import GlobalStyles from "../Styles/GlobalStyles";
 import Header from "./Header";
 import Routes from "./Routes";
 import Footer from "./Footer";
+import GlobalText from "../GlobalText";
 
 const QUERY = gql`
   {
@@ -29,7 +30,7 @@ const useWindowSize = () => {
     height: isClient ? window.innerHeight : undefined
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getSize = () => {
       return {
         width: isClient ? window.innerWidth : undefined,
@@ -37,13 +38,13 @@ const useWindowSize = () => {
       };
     };
 
-    if (!isClient) {
-      return false;
-    }
-
     const handleResize = () => {
       setWindowSize(getSize());
     };
+
+    if (!isClient) {
+      return false;
+    }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -52,16 +53,10 @@ const useWindowSize = () => {
   return windowSize;
 };
 
-export default () => {
-  const {
-    data: { isLoggedIn }
-  } = useQuery(QUERY);
-
+const usePlatform = screenSize => {
   const [platform, setPlatform] = useState("desktop");
 
-  const screenSize = useWindowSize();
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (screenSize.width <= 760) {
       setPlatform("mobile");
       let body = document.querySelector(".body-content");
@@ -81,13 +76,30 @@ export default () => {
     }
   }, [screenSize]);
 
+  return platform;
+};
+
+export default () => {
+  const globalText = GlobalText();
+
+  const {
+    data: { isLoggedIn }
+  } = useQuery(QUERY);
+
+  const screenSize = useWindowSize();
+  const platform = usePlatform(screenSize);
+
   return (
     <ThemeProvider theme={Theme}>
       <>
         <GlobalStyles />
         <Router basename="/">
           <>
-            <Header isLoggedIn={isLoggedIn} platform={platform} />
+            <Header
+              isLoggedIn={isLoggedIn}
+              platform={platform}
+              globalText={globalText}
+            />
             <Wrapper className="body-main">
               <Routes
                 isLoggedIn={isLoggedIn}

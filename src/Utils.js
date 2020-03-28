@@ -1,3 +1,5 @@
+import React from "react";
+
 export const switchPlatform = (platform, a, b) =>
   platform === "desktop" ? a : b;
 
@@ -102,3 +104,7 @@ export const getUri = () =>
   process.env.NODE_ENV === "development"
     ? "http://localhost:4000/"
     : "https://hxxns-reservation-react.herokuapp.com/";
+
+export const asyncRender = (query, props, Render, isLoading) => {
+  return query.error ? null : query.loading ? null : <Render {...props} />;
+};

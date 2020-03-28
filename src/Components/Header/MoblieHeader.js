@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Logo } from "../Icons";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import CloseIcon from "@material-ui/icons/Close";
+import { globalText } from "../../GlobalText";
 const Header = styled.header`
   transition: all 0.3s ease-out;
   position: fixed;
@@ -38,8 +39,6 @@ const HeaderTitleInner = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const HeaderLogoLink = styled(Link)``;
 
 const HeaderButton = styled.button`
   -webkit-appearance: button;
@@ -211,10 +210,12 @@ const CloseButton = styled.button`
   z-index: 9002;
 `;
 
+const StyledCloseIcon = styled(CloseIcon)`
+  color: ${props => props.theme.whiteColor};
+`;
+
 export default ({
   categoryArray,
-  logoutMutation,
-  globalText,
   isLoggedIn,
   moblieTrigger,
   mobileOnClick,
@@ -225,9 +226,9 @@ export default ({
       <HeaderWrapper>
         <HeaderTitle>
           <HeaderTitleInner>
-            <HeaderLogoLink to="/">
+            <Link to="/">
               <Logo />
-            </HeaderLogoLink>
+            </Link>
           </HeaderTitleInner>
         </HeaderTitle>
         <HeaderButton onClick={mobileOnClick}>
@@ -238,37 +239,34 @@ export default ({
             <MenuWrapper>
               <WelcomeWrapper>
                 {isLoggedIn ? (
-                  <Link to="/login" onClick={() => mobileOnClick()}>
+                  <Link to="/login" onClick={mobileOnClick}>
                     <WelcomeText>
                       {userName}
                       {globalText.text_welcome_login}
                     </WelcomeText>
                   </Link>
                 ) : (
-                  <Link to="/login" onClick={() => mobileOnClick()}>
+                  <Link to="/login" onClick={mobileOnClick}>
                     <WelcomeText>{globalText.text_welcome_logout}</WelcomeText>
                   </Link>
                 )}
               </WelcomeWrapper>
               <MenuTopWrapper>
                 {isLoggedIn ? (
-                  <JoinLink to="/mypage" onClick={() => mobileOnClick()}>
+                  <JoinLink to="/mypage" onClick={mobileOnClick}>
                     {globalText.text_mypage}
                   </JoinLink>
                 ) : (
-                  <JoinLink to="/joinagree" onClick={() => mobileOnClick()}>
+                  <JoinLink to="/joinagree" onClick={mobileOnClick}>
                     {globalText.text_join}
                   </JoinLink>
                 )}
               </MenuTopWrapper>
               <MenuBottomWrapper>
-                <MenuBottomFLink to="/" onClick={() => mobileOnClick()}>
+                <MenuBottomFLink to="/" onClick={mobileOnClick}>
                   {globalText.text_reserve_check}
                 </MenuBottomFLink>
-                <MenuBottomSLink
-                  to="/reservation"
-                  onClick={() => mobileOnClick()}
-                >
+                <MenuBottomSLink to="/reservation" onClick={mobileOnClick}>
                   {globalText.text_reserve_do}
                 </MenuBottomSLink>
               </MenuBottomWrapper>
@@ -278,13 +276,7 @@ export default ({
                 {categoryArray.map((category, i) => {
                   return (
                     <GnbMenuLi key={i}>
-                      <GnbLink
-                        to={category.to}
-                        onClick={() => {
-                          mobileOnClick();
-                          window.scrollTo(0, 0);
-                        }}
-                      >
+                      <GnbLink to={category.to} onClick={mobileOnClick}>
                         <GnbMenuText>{category.text}</GnbMenuText>
                       </GnbLink>
                     </GnbMenuLi>
@@ -294,7 +286,7 @@ export default ({
             </GnbWrapper>
           </NavWrapper>
           <CloseButton onClick={mobileOnClick}>
-            <CloseIcon style={{ color: "#FFF" }} />
+            <StyledCloseIcon />
           </CloseButton>
         </NavContainer>
       </HeaderWrapper>

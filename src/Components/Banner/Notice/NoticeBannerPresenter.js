@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import NoticePostRow from "../../Board/NoticePost/NoticePostRow";
+import { globalText } from "../../../GlobalText";
 const Container = styled.div``;
 const Wrapper = styled.div`
   width: ${props => `${props.wrapperWidth}%`};
@@ -40,7 +41,7 @@ const Table = styled.table`
 const TableBody = styled.tbody`
   border-top: 2px #000000 solid;
 `;
-export default ({ platform, globalText, wrapperWidth, data, noticeId }) => {
+export default ({ platform, wrapperWidth, data, noticeId }) => {
   return (
     <>
       {platform === "desktop" ? (

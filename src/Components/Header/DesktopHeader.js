@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AnimateHeight from "react-animate-height";
 import { Link } from "react-router-dom";
 import { Logo } from "../Icons";
+import { globalText } from "../../GlobalText";
 
 const Header = styled.header`
   width: 100%;
@@ -132,11 +133,11 @@ export default ({
   hide,
   pathname,
   hoverState,
-  setHoverState,
   categoryArray,
   logoutMutation,
-  globalText,
-  isLoggedIn
+  isLoggedIn,
+  MainMenuEnter,
+  MainMenuLeave
 }) => {
   return (
     <Header>
@@ -188,25 +189,19 @@ export default ({
           </LogoColumn>
           <MainMenuColumn>
             <MainMenuListWrapper>
-              {categoryArray.map((category, i) => {
-                return (
-                  <MainMenuListElement
-                    key={i}
-                    onMouseEnter={() => {
-                      if (pathname === "/") setHoverState(true);
-                    }}
-                    onMouseLeave={() => {
-                      if (pathname === "/") setHoverState(false);
-                    }}
-                  >
-                    <HeaderMainLink key={i} to={category.to}>
-                      <MainMenuText hide={hide} hoverState={hoverState}>
-                        {category.text}
-                      </MainMenuText>
-                    </HeaderMainLink>
-                  </MainMenuListElement>
-                );
-              })}
+              {categoryArray.map((category, i) => (
+                <MainMenuListElement
+                  key={i}
+                  onMouseEnter={MainMenuEnter}
+                  onMouseLeave={MainMenuLeave}
+                >
+                  <HeaderMainLink key={i} to={category.to}>
+                    <MainMenuText hide={hide} hoverState={hoverState}>
+                      {category.text}
+                    </MainMenuText>
+                  </HeaderMainLink>
+                </MainMenuListElement>
+              ))}
             </MainMenuListWrapper>
           </MainMenuColumn>
         </HeaderInner>

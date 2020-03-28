@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import loadable from "@loadable/component";
 import { useLocation } from "react-router-dom";
-import GlobalText from "../GlobalText";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { LOG_OUT } from "../SharedQueries";
 import DesktopHeader from "./Header/DesktopHeader";
 import MobileHeader from "./Header/MoblieHeader";
 import { gql } from "apollo-boost";
 import { getWithExpiry, setWithExpiry } from "../Utils";
+import { categoryArray } from "./Categories";
+import { globalText } from "../GlobalText";
+
 const USERNAME = gql`
   query {
     me {
@@ -14,16 +17,25 @@ const USERNAME = gql`
     }
   }
 `;
+//const DesktopHeader = loadable(() => import("./Header/DesktopHeader"));
+//const MobileHeader = loadable(() => import("./Header/MoblieHeader"));
 
 export default ({ isLoggedIn, platform }) => {
   let { pathname } = useLocation();
-  const globalText = GlobalText();
+
   const [logoutMutation] = useMutation(LOG_OUT);
   const [hide, setHide] = useState(false);
   const [hoverState, setHoverState] = useState(false);
   const [moblieTrigger, setMoblieTrigger] = useState(false);
-
   const [userName, setUserName] = useState("");
+
+  const MainMenuEnter = () => {
+    if (pathname === "/") setHoverState(true);
+  };
+  const MainMenuLeave = () => {
+    if (pathname === "/") setHoverState(false);
+  };
+
   const mobileOnClick = () => {
     if (!moblieTrigger) {
       let body = document.querySelector("body");
@@ -56,8 +68,6 @@ export default ({ isLoggedIn, platform }) => {
         }
       }
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
 
     //Auto logged out
     const log = getWithExpiry("log");
@@ -79,6 +89,10 @@ export default ({ isLoggedIn, platform }) => {
       }
     }
     window.scrollTo(0, 0);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
   useEffect(() => {
@@ -96,70 +110,6 @@ export default ({ isLoggedIn, platform }) => {
     }
   }, [isLoggedIn, loading, error, data, globalText]);
 
-  const categoryArray = [
-    {
-      text: globalText.text_reserve,
-      to: {
-        pathname: "/reservation",
-        state: undefined
-      }
-    },
-    {
-      text: globalText.text_infomation,
-      to: {
-        pathname: "/about",
-        state: {
-          id: ""
-        }
-      }
-    },
-    {
-      text: globalText.text_event,
-      to: {
-        pathname: "/event",
-        state: {
-          id: ""
-        }
-      }
-    },
-    {
-      text: globalText.text_free_board,
-      to: {
-        pathname: "/board/ck74d5iiz001b0734kmyiwdb7",
-        state: {
-          id: "ck74d5iiz001b0734kmyiwdb7"
-        }
-      }
-    },
-    {
-      text: globalText.text_notice,
-      to: {
-        pathname: "/notice",
-        state: {
-          id: "ck7u4vv4t00bu0797n1hkw0mg"
-        }
-      }
-    },
-    {
-      text: globalText.text_center,
-      to: {
-        pathname: "/",
-        state: {
-          id: ""
-        }
-      }
-    },
-    {
-      text: globalText.text_roadmap,
-      to: {
-        pathname: "/infomation",
-        state: {
-          id: ""
-        }
-      }
-    }
-  ];
-
   return (
     <>
       {platform === "desktop" ? (
@@ -168,17 +118,14 @@ export default ({ isLoggedIn, platform }) => {
           pathname={pathname}
           categoryArray={categoryArray}
           logoutMutation={logoutMutation}
-          globalText={globalText}
           isLoggedIn={isLoggedIn}
           hoverState={hoverState}
-          setHoverState={setHoverState}
+          MainMenuEnter={MainMenuEnter}
+          MainMenuLeave={MainMenuLeave}
         />
       ) : (
         <MobileHeader
-          hide={hide}
           categoryArray={categoryArray}
-          logoutMutation={logoutMutation}
-          globalText={globalText}
           isLoggedIn={isLoggedIn}
           moblieTrigger={moblieTrigger}
           mobileOnClick={mobileOnClick}

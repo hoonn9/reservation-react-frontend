@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import EventBanner from "../Components/Banner/Event/Banner";
 import Search from "../Components/Reservation/Search";
@@ -7,7 +7,6 @@ import NoticeBanner from "../Components/Banner/Notice";
 import GalleryBanner from "../Components/Banner/Gallery";
 import { useQuery } from "@apollo/react-hooks";
 import { SEE_POPUP } from "../SharedQueries";
-import GlobalText from "../GlobalText";
 import { SEE_TYPE } from "./About/AboutQueries";
 import { getUri } from "../Utils";
 
@@ -58,25 +57,6 @@ const SearchWrapper = styled.div`
 const topImageArray = [getUri() + "images/Home/Top/1.jpg"];
 
 export default ({ platform, screenSize }) => {
-  // const [currentItem, setCurrentItem] = useState(0);
-
-  // useEffect(() => {
-  //   var to;
-  //   const slide = () => {
-  //     const totalFiles = topImageArray.length;
-  //     if (currentItem === totalFiles - 1) {
-  //       to = setTimeout(() => setCurrentItem(0), 5000);
-  //     } else {
-  //       to = setTimeout(() => setCurrentItem(currentItem + 1), 5000);
-  //     }
-  //   };
-
-  //   slide();
-  //   return () => {
-  //     clearTimeout(to);
-  //   };
-  // }, [currentItem]);
-  const globalText = GlobalText();
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";
   const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
   const galleryData = useQuery(SEE_TYPE, {});
@@ -88,45 +68,42 @@ export default ({ platform, screenSize }) => {
           <TopImg src={topImageArray[0]} showing={1} />
           {platform === "desktop" ? (
             <SearchWrapper platform={platform} screenSize={screenSize}>
-              <Search platform={platform} type="widget" />{" "}
+              <Search platform={platform} type="widget" />
             </SearchWrapper>
           ) : null}
         </TopImgWrapper>
       </TopImgContainer>
       {platform === "mobile" ? (
         <SearchWrapper platform={platform} screenSize={screenSize}>
-          <Search platform={platform} type="widget" />{" "}
+          <Search platform={platform} type="widget" />
         </SearchWrapper>
       ) : null}
+
       {popupData.error ? null : popupData.loading ? null : (
         <Popup data={popupData.data} platform={platform} />
       )}
-
-      {galleryData.error ? null : galleryData.loading ? null : (
-        <Wrapper
-          style={{
-            backgroundColor: "transparent",
-            marginTop: platform === "desktop" ? "80px" : "20px"
-          }}
-        >
+      <Wrapper
+        style={{
+          backgroundColor: "transparent",
+          marginTop: platform === "desktop" ? "80px" : "20px"
+        }}
+      >
+        {galleryData.error || galleryData.loading ? (
+          <GalleryBanner platform={platform} screenSize={screenSize} />
+        ) : (
           <GalleryBanner
             platform={platform}
             screenSize={screenSize}
             galleryData={galleryData.data.seeType[0]}
           />
-        </Wrapper>
-      )}
-
+        )}
+      </Wrapper>
       <Wrapper>
         <EventBanner screenSize={screenSize} platform={platform} />
       </Wrapper>
 
       <Wrapper>
-        <NoticeBanner
-          globalText={globalText}
-          noticeId={noticeId}
-          platform={platform}
-        />
+        <NoticeBanner noticeId={noticeId} platform={platform} />
       </Wrapper>
     </Container>
   );

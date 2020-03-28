@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GalleryPresenter from "./GalleryPresenter";
-import { switchPlatform, getUri } from "../../../Utils";
+import PropTypes from "prop-types";
+import { getUri } from "../../../Utils";
 import TouchSlideView from "../../TouchSlideView";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -33,7 +34,7 @@ const SubButton = styled.div`
   vertical-align: middle;
 `;
 
-export default ({ platform, screenSize, galleryData }) => {
+const GalleryContainer = ({ platform, screenSize, galleryData }) => {
   const [currentItem, setCurrentItem] = useState(0);
   const [dotItem, setDotItem] = useState(0);
   //container
@@ -53,16 +54,18 @@ export default ({ platform, screenSize, galleryData }) => {
 
   const viewArray = [];
   const uri = getUri();
-
-  galleryData.files.forEach((e, i) => {
-    viewArray.push({
-      to: `/about/${e.id}`,
-      id: e.id,
-      url: uri + e.url,
-      title: "Title " + i,
-      subTitle: "SubTitle " + i
+  if (galleryData !== undefined) {
+    galleryData.files.forEach((e, i) => {
+      viewArray.push({
+        to: `/about/${e.id}`,
+        id: e.id,
+        url: uri + e.url,
+        title: "Title " + i,
+        subTitle: "SubTitle " + i
+      });
     });
-  });
+  } else {
+  }
 
   useEffect(() => {
     setTransValue(((currentItem + 1) * imgWidth) / divide);
@@ -70,8 +73,7 @@ export default ({ platform, screenSize, galleryData }) => {
 
   return (
     <Wrapper>
-      {switchPlatform(
-        platform,
+      {platform === "desktop" ? (
         <>
           <Title>ROOM</Title>
           <Link to={`/about/${galleryData.id}`}>
@@ -85,7 +87,8 @@ export default ({ platform, screenSize, galleryData }) => {
               />
             </SubButton>
           </Link>
-        </>,
+        </>
+      ) : (
         <>
           <MobileTitle>ROOM</MobileTitle>
           <Link to={`/about/${galleryData.id}`}>
@@ -130,3 +133,19 @@ export default ({ platform, screenSize, galleryData }) => {
     </Wrapper>
   );
 };
+
+GalleryContainer.defaultProps = {
+  galleryData: {
+    id: "",
+    typeName: "",
+    files: []
+  }
+};
+
+GalleryContainer.propTypes = {
+  platform: PropTypes.string.isRequired,
+  screenSize: PropTypes.object.isRequired,
+  galleryData: PropTypes.object
+};
+
+export default GalleryContainer;

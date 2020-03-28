@@ -16,11 +16,13 @@ export const resolvers = {
           isLoggedIn: true
         }
       });
+      window.location.reload(false);
       return null;
     },
     logUserOut: (_, __, { cache }) => {
       localStorage.removeItem("log");
       window.location = "/";
+      window.location.reload(false);
       return null;
     }
   }
