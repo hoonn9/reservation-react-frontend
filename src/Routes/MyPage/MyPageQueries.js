@@ -7,6 +7,7 @@ export const ME = gql`
       userId
       username
       nickname
+      bio
       email
       phoneNum
       address

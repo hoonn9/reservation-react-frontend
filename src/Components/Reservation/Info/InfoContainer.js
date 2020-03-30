@@ -31,12 +31,27 @@ export default ({
   };
   const [me] = useLazyQuery(ME, {
     onCompleted: data => {
-      console.log(data);
+      guestUserName.setValue(data.me.username);
+      guestUserSex.setValue(data.me.bio);
+      guestUserPhone.setValue(data.me.phoneNum);
+      guestUserEmail.setValue(data.me.email);
     }
   });
-  const reserveCopy = useCheckbox();
+  const reserveCopy = useCheckbox(false);
   const copyOnClick = () => {
-    reserveCopy.setChecked(!reserveCopy.checked);
+    if (reserveCopy.checked) {
+      reserveCopy.setChecked(false);
+    } else {
+      if (isLoggedIn) {
+        me();
+      } else {
+        guestUserName.setValue(reserveUserName.value);
+        guestUserSex.setValue(reserveUserSex.value);
+        guestUserPhone.setValue(reserveUserPhone.value);
+        guestUserEmail.setValue(reserveUserEmail.value);
+      }
+      reserveCopy.setChecked(true);
+    }
   };
   return (
     <>
@@ -47,6 +62,7 @@ export default ({
           {platform === "desktop" ? (
             <InfoPresenter
               isLoggedIn={isLoggedIn}
+              reserveCopy={reserveCopy}
               copyOnClick={copyOnClick}
               agreeChecked={agreeChecked}
               validBlur={validBlur}
@@ -64,6 +80,7 @@ export default ({
           ) : (
             <MobileInfoPresenter
               isLoggedIn={isLoggedIn}
+              reserveCopy={reserveCopy}
               copyOnClick={copyOnClick}
               agreeChecked={agreeChecked}
               validBlur={validBlur}

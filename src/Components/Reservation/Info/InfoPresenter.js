@@ -72,7 +72,7 @@ const InvaildAlert = styled.div`
 `;
 export default ({
   isLoggedIn,
-  me,
+  reserveCopy,
   copyOnClick,
   agreeChecked,
   reserveUserName,
@@ -108,11 +108,15 @@ export default ({
                       value={reserveUserName.value}
                     />
                     <InfoSelect
-                      defaultValue={globalText.text_man}
                       onChange={reserveUserSex.onChange}
+                      value={reserveUserSex.value}
                     >
-                      <InfoOption>{globalText.text_man}</InfoOption>
-                      <InfoOption>{globalText.text_woman}</InfoOption>
+                      <InfoOption value={globalText.text_man}>
+                        {globalText.text_man}
+                      </InfoOption>
+                      <InfoOption value={globalText.text_man}>
+                        {globalText.text_woman}
+                      </InfoOption>
                     </InfoSelect>
                   </InfoContent>
                 </InfoBlock>
@@ -175,7 +179,11 @@ export default ({
           <InfoLegendWrapper>
             <InfoLegend>{globalText.text_guest_user_info}</InfoLegend>
             <InfoCheckboxWrapper>
-              <Checkbox text="예약자와 동일" onClick={copyOnClick} />
+              <Checkbox
+                text="예약자와 동일"
+                onClick={copyOnClick}
+                checked={reserveCopy.checked}
+              />
             </InfoCheckboxWrapper>
           </InfoLegendWrapper>
           <InfoBlockWrapper>
@@ -191,11 +199,15 @@ export default ({
                     value={guestUserName.value}
                   />
                   <InfoSelect
-                    defaultValue={globalText.text_man}
+                    value={guestUserSex.value}
                     onChange={guestUserSex.onChange}
                   >
-                    <InfoOption>{globalText.text_man}</InfoOption>
-                    <InfoOption>{globalText.text_woman}</InfoOption>
+                    <InfoOption value={globalText.text_man}>
+                      {globalText.text_man}
+                    </InfoOption>
+                    <InfoOption value={globalText.text_woman}>
+                      {globalText.text_woman}
+                    </InfoOption>
                   </InfoSelect>
                 </InfoContent>
               </InfoBlock>

@@ -91,6 +91,7 @@ const InvaildAlert = styled.div`
 `;
 export default ({
   copyOnClick,
+  reserveCopy,
   isLoggedIn,
   agreeChecked,
   reserveUserName,
@@ -190,7 +191,11 @@ export default ({
           <InfoLegendWrapper>
             <InfoLegend>{globalText.text_guest_user_info}</InfoLegend>
             <InfoCheckboxWrapper>
-              <Checkbox text="예약자와 동일" onClick={copyOnClick} />
+              <Checkbox
+                text="예약자와 동일"
+                onClick={copyOnClick}
+                checked={reserveCopy.checked}
+              />
             </InfoCheckboxWrapper>
           </InfoLegendWrapper>
           <InfoBlockWrapper>
