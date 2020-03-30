@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Checkbox from "../../Checkbox";
+import { globalText } from "../../../GlobalText";
 
 const Container = styled.div``;
 
@@ -8,14 +10,20 @@ const InfoFieldSet = styled.fieldset`
   margin: 0 auto;
   padding: 36px 0px;
 `;
+const InfoLegendWrapper = styled.div`
+  display: block;
+  width: 100%;
+`;
 const InfoLegend = styled.legend`
+  width: 100%;
   font-size: 24px;
   font-weight: 500;
   padding: 16px 0px;
-  display: block;
-  width: 100%;
   margin-bottom: 8px;
   border-bottom: solid 1px ${props => props.theme.darkGreyColor};
+`;
+const InfoCheckboxWrapper = styled.div`
+  text-align: end;
 `;
 const Wrapper = styled.div`
   width: 100%;
@@ -63,26 +71,18 @@ const InvaildAlert = styled.div`
   color: ${props => props.theme.redColor};
 `;
 export default ({
-  infoToggle,
-  globalText,
+  isLoggedIn,
+  me,
+  copyOnClick,
   agreeChecked,
-  setAgreeChecked,
-  setReserveUserName,
-  setReserveUserSex,
-  setReserveUserPhone,
-  setReserveUserEmail,
-  setGuestUserName,
-  setGuestUserSex,
-  setGuestUserPhone,
-  setGuestUserEmail,
-  reserveUserPhoneError,
-  reserveUserEmailError,
-  guestUserPhoneError,
-  guestUserEmailError,
-  setReserveUserPhoneError,
-  setReserveUserEmailError,
-  setGuestUserPhoneError,
-  setGuestUserEmailError,
+  reserveUserName,
+  reserveUserSex,
+  reserveUserPhone,
+  reserveUserEmail,
+  guestUserName,
+  guestUserSex,
+  guestUserPhone,
+  guestUserEmail,
   validBlur,
   emailRegex,
   phoneRegex
@@ -90,8 +90,94 @@ export default ({
   return (
     <Container>
       <Wrapper>
+        {!isLoggedIn ? (
+          <InfoFieldSet>
+            <InfoLegendWrapper>
+              <InfoLegend>{globalText.text_reserve_user_info}</InfoLegend>
+            </InfoLegendWrapper>
+            <InfoBlockWrapper>
+              <InfoBlockBody>
+                <InfoBlock>
+                  <InfoName>
+                    <InfoNameText>{globalText.text_name}</InfoNameText>
+                  </InfoName>
+                  <InfoContent>
+                    <InfoInput
+                      placeholder={globalText.text_name}
+                      onChange={reserveUserName.onChange}
+                      value={reserveUserName.value}
+                    />
+                    <InfoSelect
+                      defaultValue={globalText.text_man}
+                      onChange={reserveUserSex.onChange}
+                    >
+                      <InfoOption>{globalText.text_man}</InfoOption>
+                      <InfoOption>{globalText.text_woman}</InfoOption>
+                    </InfoSelect>
+                  </InfoContent>
+                </InfoBlock>
+                <InfoBlock>
+                  <InfoName>
+                    <InfoNameText>{globalText.text_phone_num}</InfoNameText>
+                  </InfoName>
+                  <InfoContent>
+                    <InfoInput
+                      placeholder={globalText.text_join_phone_placeholder}
+                      style={{ width: "320px" }}
+                      onChange={reserveUserPhone.onChange}
+                      value={reserveUserPhone.value}
+                      onBlur={e =>
+                        validBlur(
+                          phoneRegex,
+                          e.target.value,
+                          globalText.text_phone_error,
+                          reserveUserPhone.setError
+                        )
+                      }
+                    />
+                    {reserveUserPhone.error !== "" ? (
+                      <InvaildAlert>{reserveUserPhone.error}</InvaildAlert>
+                    ) : null}
+                  </InfoContent>
+                </InfoBlock>
+                <InfoBlock>
+                  <InfoName>
+                    <InfoNameText>{globalText.text_email}</InfoNameText>
+                  </InfoName>
+                  <InfoContent>
+                    <InfoInput
+                      placeholder={
+                        globalText.text_email + " " + globalText.text_address
+                      }
+                      style={{ width: "320px" }}
+                      onChange={reserveUserEmail.onChange}
+                      value={reserveUserEmail.value}
+                      onBlur={e =>
+                        validBlur(
+                          emailRegex,
+                          e.target.value,
+                          globalText.text_email_error,
+                          reserveUserEmail.setError
+                        )
+                      }
+                    />
+                    {reserveUserEmail.error !== "" ? (
+                      <InvaildAlert>{reserveUserEmail.error}</InvaildAlert>
+                    ) : null}
+                  </InfoContent>
+                </InfoBlock>
+              </InfoBlockBody>
+            </InfoBlockWrapper>
+          </InfoFieldSet>
+        ) : null}
+
         <InfoFieldSet>
-          <InfoLegend>{globalText.text_reserve_user_info}</InfoLegend>
+          <InfoLegendWrapper>
+            <InfoLegend>{globalText.text_guest_user_info}</InfoLegend>
+            <InfoCheckboxWrapper>
+              <Checkbox text="예약자와 동일" onClick={copyOnClick} />
+            </InfoCheckboxWrapper>
+          </InfoLegendWrapper>
           <InfoBlockWrapper>
             <InfoBlockBody>
               <InfoBlock>
@@ -101,11 +187,12 @@ export default ({
                 <InfoContent>
                   <InfoInput
                     placeholder={globalText.text_name}
-                    onChange={e => setReserveUserName(e.target.value)}
+                    onChange={guestUserName.onChange}
+                    value={guestUserName.value}
                   />
                   <InfoSelect
                     defaultValue={globalText.text_man}
-                    onChange={e => setReserveUserSex(e.target.value)}
+                    onChange={guestUserSex.onChange}
                   >
                     <InfoOption>{globalText.text_man}</InfoOption>
                     <InfoOption>{globalText.text_woman}</InfoOption>
@@ -120,17 +207,20 @@ export default ({
                   <InfoInput
                     placeholder={globalText.text_join_phone_placeholder}
                     style={{ width: "320px" }}
-                    onChange={e => setReserveUserPhone(e.target.value)}
+                    onChange={guestUserPhone.onChange}
+                    value={guestUserPhone.value}
                     onBlur={e =>
                       validBlur(
                         phoneRegex,
                         e.target.value,
                         globalText.text_phone_error,
-                        setReserveUserPhoneError
+                        guestUserPhone.setError
                       )
                     }
                   />
-                  <InvaildAlert>{reserveUserPhoneError}</InvaildAlert>
+                  {guestUserPhone.error !== "" ? (
+                    <InvaildAlert>{guestUserPhone.error}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
               <InfoBlock>
@@ -143,86 +233,20 @@ export default ({
                       globalText.text_email + " " + globalText.text_address
                     }
                     style={{ width: "320px" }}
-                    onChange={e => setReserveUserEmail(e.target.value)}
+                    onChange={guestUserEmail.onChange}
+                    value={guestUserEmail.value}
                     onBlur={e =>
                       validBlur(
                         emailRegex,
                         e.target.value,
                         globalText.text_email_error,
-                        setReserveUserEmailError
+                        guestUserEmail.setError
                       )
                     }
                   />
-                  <InvaildAlert>{reserveUserEmailError}</InvaildAlert>
-                </InfoContent>
-              </InfoBlock>
-            </InfoBlockBody>
-          </InfoBlockWrapper>
-        </InfoFieldSet>
-        <InfoFieldSet>
-          <InfoLegend>{globalText.text_guest_user_info}</InfoLegend>
-          <InfoBlockWrapper>
-            <InfoBlockBody>
-              <InfoBlock>
-                <InfoName>
-                  <InfoNameText>{globalText.text_name}</InfoNameText>
-                </InfoName>
-                <InfoContent>
-                  <InfoInput
-                    placeholder={globalText.text_name}
-                    onChange={e => setGuestUserName(e.target.value)}
-                  />
-                  <InfoSelect
-                    defaultValue={globalText.text_man}
-                    onChange={e => setGuestUserSex(e.target.value)}
-                  >
-                    <InfoOption>{globalText.text_man}</InfoOption>
-                    <InfoOption>{globalText.text_woman}</InfoOption>
-                  </InfoSelect>
-                </InfoContent>
-              </InfoBlock>
-              <InfoBlock>
-                <InfoName>
-                  <InfoNameText>{globalText.text_phone_num}</InfoNameText>
-                </InfoName>
-                <InfoContent>
-                  <InfoInput
-                    placeholder={globalText.text_join_phone_placeholder}
-                    style={{ width: "320px" }}
-                    onChange={e => setGuestUserPhone(e.target.value)}
-                    onBlur={e =>
-                      validBlur(
-                        phoneRegex,
-                        e.target.value,
-                        globalText.text_phone_error,
-                        setGuestUserPhoneError
-                      )
-                    }
-                  />
-                  <InvaildAlert>{guestUserPhoneError}</InvaildAlert>
-                </InfoContent>
-              </InfoBlock>
-              <InfoBlock>
-                <InfoName>
-                  <InfoNameText>{globalText.text_email}</InfoNameText>
-                </InfoName>
-                <InfoContent>
-                  <InfoInput
-                    placeholder={
-                      globalText.text_email + " " + globalText.text_address
-                    }
-                    style={{ width: "320px" }}
-                    onChange={e => setGuestUserEmail(e.target.value)}
-                    onBlur={e =>
-                      validBlur(
-                        emailRegex,
-                        e.target.value,
-                        globalText.text_email_error,
-                        setGuestUserEmailError
-                      )
-                    }
-                  />
-                  <InvaildAlert>{guestUserEmailError}</InvaildAlert>
+                  {guestUserEmail.error !== "" ? (
+                    <InvaildAlert>{guestUserEmail.error}</InvaildAlert>
+                  ) : null}
                 </InfoContent>
               </InfoBlock>
             </InfoBlockBody>

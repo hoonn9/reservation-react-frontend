@@ -2,94 +2,81 @@ import React from "react";
 import InfoPresenter from "./InfoPresenter";
 import MobileInfoPresenter from "./MobileInfoPresenter";
 import Title from "../../Title";
+import { globalText } from "../../../GlobalText";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { ME } from "../../../Routes/MyPage/MyPageQueries";
+import useCheckbox from "../../../Hooks/useCheckbox";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
+const RefStyle = { width: "0px", height: "0px", border: "none" };
 export default ({
   platform,
-  globalText,
+  isLoggedIn,
   infoToggle,
   infoRef,
   agreeChecked,
-  setReserveUserName,
-  setReserveUserSex,
-  setReserveUserPhone,
-  setReserveUserEmail,
-  setGuestUserName,
-  setGuestUserSex,
-  setGuestUserPhone,
-  setGuestUserEmail,
-  reserveUserPhoneError,
-  reserveUserEmailError,
-  guestUserPhoneError,
-  guestUserEmailError,
-  setReserveUserPhoneError,
-  setReserveUserEmailError,
-  setGuestUserPhoneError,
-  setGuestUserEmailError
+  reserveUserName,
+  reserveUserSex,
+  reserveUserPhone,
+  reserveUserEmail,
+  guestUserName,
+  guestUserSex,
+  guestUserPhone,
+  guestUserEmail
 }) => {
   const validBlur = (regex, value, alert, setAlert) => {
     if (value !== "") {
       !regex.test(value) ? setAlert(alert) : setAlert("");
     }
   };
+  const [me] = useLazyQuery(ME, {
+    onCompleted: data => {
+      console.log(data);
+    }
+  });
+  const reserveCopy = useCheckbox();
+  const copyOnClick = () => {
+    reserveCopy.setChecked(!reserveCopy.checked);
+  };
   return (
     <>
-      <span
-        ref={infoRef}
-        style={{ width: "0px", height: "0px", border: "none" }}
-      />
+      <span ref={infoRef} style={RefStyle} />
       {infoToggle ? (
         <>
           <Title platform={platform} text={globalText.text_add_info} />
           {platform === "desktop" ? (
             <InfoPresenter
-              globalText={globalText}
-              infoToggle={infoToggle}
+              isLoggedIn={isLoggedIn}
+              copyOnClick={copyOnClick}
               agreeChecked={agreeChecked}
-              setReserveUserName={setReserveUserName}
-              setReserveUserSex={setReserveUserSex}
-              setReserveUserPhone={setReserveUserPhone}
-              setReserveUserEmail={setReserveUserEmail}
-              setGuestUserName={setGuestUserName}
-              setGuestUserSex={setGuestUserSex}
-              setGuestUserPhone={setGuestUserPhone}
-              setGuestUserEmail={setGuestUserEmail}
-              reserveUserPhoneError={reserveUserPhoneError}
-              reserveUserEmailError={reserveUserEmailError}
-              guestUserPhoneError={guestUserPhoneError}
-              guestUserEmailError={guestUserEmailError}
-              setReserveUserPhoneError={setReserveUserPhoneError}
-              setReserveUserEmailError={setReserveUserEmailError}
-              setGuestUserPhoneError={setGuestUserPhoneError}
-              setGuestUserEmailError={setGuestUserEmailError}
               validBlur={validBlur}
               emailRegex={emailRegex}
               phoneRegex={phoneRegex}
+              reserveUserName={reserveUserName}
+              reserveUserSex={reserveUserSex}
+              reserveUserPhone={reserveUserPhone}
+              reserveUserEmail={reserveUserEmail}
+              guestUserName={guestUserName}
+              guestUserSex={guestUserSex}
+              guestUserPhone={guestUserPhone}
+              guestUserEmail={guestUserEmail}
             />
           ) : (
             <MobileInfoPresenter
-              globalText={globalText}
-              infoToggle={infoToggle}
+              isLoggedIn={isLoggedIn}
+              copyOnClick={copyOnClick}
               agreeChecked={agreeChecked}
-              setReserveUserName={setReserveUserName}
-              setReserveUserSex={setReserveUserSex}
-              setReserveUserPhone={setReserveUserPhone}
-              setReserveUserEmail={setReserveUserEmail}
-              setGuestUserName={setGuestUserName}
-              setGuestUserSex={setGuestUserSex}
-              setGuestUserPhone={setGuestUserPhone}
-              setGuestUserEmail={setGuestUserEmail}
-              reserveUserPhoneError={reserveUserPhoneError}
-              reserveUserEmailError={reserveUserEmailError}
-              guestUserPhoneError={guestUserPhoneError}
-              guestUserEmailError={guestUserEmailError}
-              setReserveUserPhoneError={setReserveUserPhoneError}
-              setReserveUserEmailError={setReserveUserEmailError}
-              setGuestUserPhoneError={setGuestUserPhoneError}
-              setGuestUserEmailError={setGuestUserEmailError}
               validBlur={validBlur}
               emailRegex={emailRegex}
               phoneRegex={phoneRegex}
+              reserveUserName={reserveUserName}
+              reserveUserSex={reserveUserSex}
+              reserveUserPhone={reserveUserPhone}
+              reserveUserEmail={reserveUserEmail}
+              guestUserName={guestUserName}
+              guestUserSex={guestUserSex}
+              guestUserPhone={guestUserPhone}
+              guestUserEmail={guestUserEmail}
             />
           )}
         </>

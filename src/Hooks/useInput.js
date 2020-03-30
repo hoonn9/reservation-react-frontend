@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default defaultValue => {
   const [value, setValue] = useState(defaultValue);
+  const [error, setError] = useState("");
 
   const onChange = e => {
     const {
@@ -9,5 +10,5 @@ export default defaultValue => {
     } = e;
     setValue(value);
   };
-  return { value, onChange, setValue };
+  return { value, onChange, setValue, error, setError };
 };

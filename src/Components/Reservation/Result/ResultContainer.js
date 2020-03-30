@@ -10,7 +10,6 @@ export default ({
   checkIn,
   checkOut,
   initState,
-  globalText,
   setSelectType,
   setSelectSubType,
   resultToggle
@@ -36,7 +35,6 @@ export default ({
             <ResultPresenter
               platform={platform}
               data={data}
-              globalText={globalText}
               setSelectType={setSelectType}
               setSelectSubType={setSelectSubType}
             />

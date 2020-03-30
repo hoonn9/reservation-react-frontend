@@ -3,7 +3,7 @@ import ReservationPresenter from "./ReservationPresenter";
 import GlobalText from "../../GlobalText";
 import { useLocation } from "react-router-dom";
 
-export default ({ platform, screenSize }) => {
+export default ({ platform, screenSize, isLoggedIn }) => {
   const location = useLocation();
   const globalText = GlobalText();
   const [init, setInit] = useState(true);
@@ -26,6 +26,7 @@ export default ({ platform, screenSize }) => {
   return (
     <div className="body-content">
       <ReservationPresenter
+        isLoggedIn={isLoggedIn}
         platform={platform}
         init={init}
         screenSize={screenSize}

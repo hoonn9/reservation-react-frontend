@@ -42,6 +42,7 @@ export const CustomStartInput = ({
       selected={startDate}
       onChange={date => setStartDate(date)}
       selectsStart
+      minDate={new Date()}
       startDate={startDate}
       endDate={endDate}
       dateFormat={`MM월 dd일 (${startDay})`}

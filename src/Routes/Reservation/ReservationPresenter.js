@@ -10,6 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 export default ({
+  isLoggedIn,
   platform,
   init,
   screenSize,
@@ -26,6 +27,7 @@ export default ({
       <Container ref={containerRef}>
         <Title platform={platform} text={globalText.text_reserve} />
         <Search
+          isLoggedIn={isLoggedIn}
           platform={platform}
           init={init}
           screenSize={screenSize}

@@ -3,8 +3,8 @@ import loadable from "@loadable/component";
 import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { LOG_OUT } from "../SharedQueries";
-import DesktopHeader from "./Header/DesktopHeader";
-import MobileHeader from "./Header/MoblieHeader";
+//import DesktopHeader from "./Header/DesktopHeader";
+//import MobileHeader from "./Header/MoblieHeader";
 import { gql } from "apollo-boost";
 import { getWithExpiry, setWithExpiry } from "../Utils";
 import { categoryArray } from "./Categories";
@@ -17,8 +17,9 @@ const USERNAME = gql`
     }
   }
 `;
-//const DesktopHeader = loadable(() => import("./Header/DesktopHeader"));
-//const MobileHeader = loadable(() => import("./Header/MoblieHeader"));
+
+const DesktopHeader = loadable(() => import("./Header/DesktopHeader"));
+const MobileHeader = loadable(() => import("./Header/MoblieHeader"));
 
 export default ({ isLoggedIn, platform }) => {
   let { pathname } = useLocation();

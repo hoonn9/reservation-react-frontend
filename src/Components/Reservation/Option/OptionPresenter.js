@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { globalText } from "../../../GlobalText";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -52,11 +53,10 @@ const NextButton = styled.button`
   cursor: pointer;
 `;
 export default ({
-  globalText,
   optionNextOnClick,
-  setCheckInTime,
-  setCheckOutTime,
-  setOptionRequest
+  checkInOnChange,
+  checkOutOnChange,
+  optionRequest
 }) => {
   return (
     <Wrapper>
@@ -69,17 +69,14 @@ export default ({
               </OptionNameText>
             </OptionName>
             <OptionContent>
-              <OptionSelect
-                type="text"
-                onChange={e => setCheckInTime(e.target.value)}
-              >
-                <OptionOption>15:00</OptionOption>
-                <OptionOption>16:00</OptionOption>
-                <OptionOption>17:00</OptionOption>
-                <OptionOption>18:00</OptionOption>
-                <OptionOption>19:00</OptionOption>
-                <OptionOption>20:00</OptionOption>
-                <OptionOption>21:00~</OptionOption>
+              <OptionSelect type="text" onChange={checkInOnChange}>
+                <OptionOption value={15}>15:00</OptionOption>
+                <OptionOption value={16}>16:00</OptionOption>
+                <OptionOption value={17}>17:00</OptionOption>
+                <OptionOption value={18}>18:00</OptionOption>
+                <OptionOption value={19}>19:00</OptionOption>
+                <OptionOption value={20}>20:00</OptionOption>
+                <OptionOption value={21}>21:00~</OptionOption>
               </OptionSelect>
             </OptionContent>
             <OptionName>
@@ -88,15 +85,12 @@ export default ({
               </OptionNameText>
             </OptionName>
             <OptionContent>
-              <OptionSelect
-                type="text"
-                onChange={e => setCheckOutTime(e.target.value)}
-              >
-                <OptionOption>08:00</OptionOption>
-                <OptionOption>09:00</OptionOption>
-                <OptionOption>10:00</OptionOption>
-                <OptionOption>11:00</OptionOption>
-                <OptionOption>12:00</OptionOption>
+              <OptionSelect type="text" onChange={checkOutOnChange}>
+                <OptionOption value={8}>08:00</OptionOption>
+                <OptionOption value={9}>09:00</OptionOption>
+                <OptionOption value={10}>10:00</OptionOption>
+                <OptionOption value={11}>11:00</OptionOption>
+                <OptionOption value={12}>12:00</OptionOption>
               </OptionSelect>
             </OptionContent>
           </OptionBlock>
@@ -107,7 +101,8 @@ export default ({
             <OptionContent colSpan="3">
               <OptionInput
                 placeholder={globalText.text_option_request_placeholder}
-                onChange={e => setOptionRequest(e.target.value)}
+                onChange={optionRequest.onChange}
+                value={optionRequest.value}
               />
             </OptionContent>
           </OptionBlock>

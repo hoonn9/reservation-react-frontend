@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ResultView from "../ResultView";
+import { globalText } from "../../../GlobalText";
 
 const Container = styled.div`
   position: relative;
@@ -23,13 +24,7 @@ const NotResultText = styled.div`
   font-size: 18px;
   padding: 16px;
 `;
-export default ({
-  platform,
-  data,
-  globalText,
-  setSelectType,
-  setSelectSubType
-}) => {
+export default ({ platform, data, setSelectType, setSelectSubType }) => {
   return (
     <Container>
       <Wrapper>

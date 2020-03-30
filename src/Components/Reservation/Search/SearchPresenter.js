@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CustomStartInput, CustomEndInput } from "../../DatePicker";
 import NumberPicker from "../../NumberPicker";
+import { globalText } from "../../../GlobalText";
 const Container = styled.div`
   position: relative;
   display: block;
@@ -69,18 +70,14 @@ const InputWrapper = styled.div`
 `;
 export default ({
   startDate,
-  startDay,
   setStartDate,
   endDate,
-  endDay,
   setEndDate,
-  globalText,
+  startDay,
+  endDay,
   userCount,
-  setUserCount,
   typeCount,
-  setTypeCount,
   subCount,
-  setSubCount,
   searchOnClick,
   reset
 }) => {
@@ -120,8 +117,8 @@ export default ({
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_type}</CountSubTitle>
               <NumberPicker
-                value={typeCount}
-                setValue={setTypeCount}
+                value={typeCount.value}
+                setValue={typeCount.setValue}
                 min={1}
                 max={5}
                 callback={reset}
@@ -130,17 +127,17 @@ export default ({
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_adult}</CountSubTitle>
               <NumberPicker
-                value={userCount}
-                setValue={setUserCount}
+                value={userCount.value}
+                setValue={userCount.setValue}
                 min={1}
-                max={typeCount * 2}
+                max={typeCount.value * 2}
               />
             </CountPickerWrapper>
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_child}</CountSubTitle>
               <NumberPicker
-                value={subCount}
-                setValue={setSubCount}
+                value={subCount.value}
+                setValue={subCount.setValue}
                 min={0}
                 max={3}
               />

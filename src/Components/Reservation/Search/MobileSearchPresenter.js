@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CustomStartInput, CustomEndInput } from "../../DatePicker";
 import NumberPicker from "../../NumberPicker";
 import SyncAltIcon from "@material-ui/icons/SyncAlt";
+import { globalText } from "../../../GlobalText";
 
 const Container = styled.div`
   position: relative;
@@ -91,20 +92,20 @@ const EndInputWrapper = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
 `;
+const MobileIcon = styled(SyncAltIcon)`
+  width: 24px;
+  height: 24px;
+`;
 export default ({
   startDate,
-  startDay,
   setStartDate,
   endDate,
-  endDay,
   setEndDate,
-  globalText,
+  startDay,
+  endDay,
   userCount,
-  setUserCount,
   typeCount,
-  setTypeCount,
   subCount,
-  setSubCount,
   searchOnClick,
   reset
 }) => {
@@ -128,7 +129,7 @@ export default ({
               </StartInputWrapper>
             </PickerWrapper>
             <IconWrapper>
-              <SyncAltIcon style={{ width: "24px", height: "24px" }} />
+              <MobileIcon />
             </IconWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_out}</SubTitle>
@@ -150,8 +151,8 @@ export default ({
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_type}</CountSubTitle>
               <NumberPicker
-                value={typeCount}
-                setValue={setTypeCount}
+                value={typeCount.value}
+                setValue={typeCount.setValue}
                 min={1}
                 max={5}
                 callback={reset}
@@ -160,8 +161,8 @@ export default ({
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_adult}</CountSubTitle>
               <NumberPicker
-                value={userCount}
-                setValue={setUserCount}
+                value={userCount.value}
+                setValue={userCount.setValue}
                 min={1}
                 max={4}
               />
@@ -169,8 +170,8 @@ export default ({
             <CountPickerWrapper>
               <CountSubTitle>{globalText.text_child}</CountSubTitle>
               <NumberPicker
-                value={subCount}
-                setValue={setSubCount}
+                value={subCount.value}
+                setValue={subCount.setValue}
                 min={0}
                 max={3}
               />

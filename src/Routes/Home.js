@@ -56,7 +56,7 @@ const SearchWrapper = styled.div`
 `;
 const topImageArray = [getUri() + "images/Home/Top/1.jpg"];
 
-export default ({ platform, screenSize }) => {
+export default ({ platform, screenSize, isLoggedIn }) => {
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";
   const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
   const galleryData = useQuery(SEE_TYPE, {});
@@ -68,14 +68,18 @@ export default ({ platform, screenSize }) => {
           <TopImg src={topImageArray[0]} showing={1} />
           {platform === "desktop" ? (
             <SearchWrapper platform={platform} screenSize={screenSize}>
-              <Search platform={platform} type="widget" />
+              <Search
+                platform={platform}
+                type="widget"
+                isLoggedIn={isLoggedIn}
+              />
             </SearchWrapper>
           ) : null}
         </TopImgWrapper>
       </TopImgContainer>
       {platform === "mobile" ? (
         <SearchWrapper platform={platform} screenSize={screenSize}>
-          <Search platform={platform} type="widget" />
+          <Search platform={platform} type="widget" isLoggedIn={isLoggedIn} />
         </SearchWrapper>
       ) : null}
 

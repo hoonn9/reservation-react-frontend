@@ -19,12 +19,18 @@ import FindID from "../Routes/Help/FindID";
 import FindPW from "../Routes/Help/FindPW";
 import MyPageAccount from "../Routes/MyPage/Routes/MyPageAccount";
 import MyPageChange from "../Routes/MyPage/Routes/MyPageChange";
-const LoggedOutRoutes = ({ platform, screenSize }) => (
+const LoggedOutRoutes = ({ platform, screenSize, isLoggedIn }) => (
   <Switch>
     <Route
       exact
       path="/"
-      render={props => <Home platform={platform} screenSize={screenSize} />}
+      render={props => (
+        <Home
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
     />
     <Route
       path="/mypage"
@@ -76,19 +82,29 @@ const LoggedOutRoutes = ({ platform, screenSize }) => (
     <Route
       path="/reservation"
       render={props => (
-        <Reservation platform={platform} screenSize={screenSize} />
+        <Reservation
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
       )}
     />
     <Redirect from="*" to="/" />
   </Switch>
 );
 
-const LoggedInRoutes = ({ platform, screenSize }) => (
+const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
   <Switch>
     <Route
       exact
       path="/"
-      render={props => <Home platform={platform} screenSize={screenSize} />}
+      render={props => (
+        <Home
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
     />
     <Route
       path="/mypage"
@@ -123,7 +139,11 @@ const LoggedInRoutes = ({ platform, screenSize }) => (
     <Route
       path="/reservation"
       render={props => (
-        <Reservation platform={platform} screenSize={screenSize} />
+        <Reservation
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
       )}
     />
     <Redirect from="*" to="/" />
@@ -134,9 +154,17 @@ const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
   return (
     <Switch>
       {isLoggedIn ? (
-        <LoggedInRoutes platform={platform} screenSize={screenSize} />
+        <LoggedInRoutes
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
       ) : (
-        <LoggedOutRoutes platform={platform} screenSize={screenSize} />
+        <LoggedOutRoutes
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
       )}
     </Switch>
   );

@@ -143,7 +143,8 @@ export default ({
   totalPrice,
   successToggle,
   mobileTrigger,
-  setMobileTrigger
+  setMobileTrigger,
+  SuccessOnClick
 }) => {
   return (
     <>
@@ -174,7 +175,7 @@ export default ({
                   <SummaryTypeWrapper>
                     <SummaryItem>
                       <SummarySubTitle>객실 수</SummarySubTitle>
-                      <SummaryTypeCount>{typeCount}</SummaryTypeCount>
+                      <SummaryTypeCount>{typeCount.value}</SummaryTypeCount>
                     </SummaryItem>
                     <SummaryItem>
                       <SummarySubTitle>객실</SummarySubTitle>
@@ -184,8 +185,10 @@ export default ({
                   <SummaryCountWrapper>
                     <SummaryItem>
                       <SummarySubTitle>총원</SummarySubTitle>
-                      <SummaryUserCount>성인 {userCount}</SummaryUserCount>{" "}
-                      <SummaryUserCount>소아 {subCount}</SummaryUserCount>
+                      <SummaryUserCount>
+                        성인 {userCount.value}
+                      </SummaryUserCount>
+                      <SummaryUserCount>소아 {subCount.value}</SummaryUserCount>
                     </SummaryItem>
                   </SummaryCountWrapper>
                   <SummaryEtcWrapper>
@@ -236,7 +239,7 @@ export default ({
                   </SummaryItem>
                 </SummaryTimeWrapper>
                 {successToggle ? (
-                  <SummaryPriceActiveWrapper>
+                  <SummaryPriceActiveWrapper onClick={SuccessOnClick}>
                     <SummaryPrice>{totalPrice}원</SummaryPrice>
                   </SummaryPriceActiveWrapper>
                 ) : (
