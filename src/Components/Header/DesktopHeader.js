@@ -175,6 +175,11 @@ export default ({
                 {globalText.text_join}
               </SubMenuText>
             </HeaderLink>
+            <HeaderLink to="/help/checkreservation">
+              <SubMenuText hide={hide} hoverState={hoverState}>
+                {globalText.text_reserve_check}
+              </SubMenuText>
+            </HeaderLink>
           </>
         )}
       </SubMenuColumn>

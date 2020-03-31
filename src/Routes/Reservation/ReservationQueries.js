@@ -50,6 +50,36 @@ export const USER_RESERVE_TYPE = gql`
       checkOut: $checkOut
     ) {
       id
+      user {
+        id
+        username
+        bio
+        email
+        phoneNum
+      }
+      guest {
+        id
+        username
+        bio
+        email
+        phoneNum
+      }
+      type {
+        typeName
+        price
+      }
+      subType {
+        id
+        subTypeName
+        price
+        description
+      }
+      checkIn
+      checkOut
+      count
+      adult
+      child
+      needs
     }
   }
 `;
@@ -92,6 +122,44 @@ export const NO_USER_RESERVE_TYPE = gql`
       checkOut: $checkOut
     ) {
       id
+    }
+  }
+`;
+
+export const CHECK_RESERVATION = gql`
+  query checkReservation($id: String!) {
+    checkReservation(id: $id) {
+      id
+      noUser {
+        id
+        username
+        bio
+        email
+        phoneNum
+      }
+      guest {
+        id
+        username
+        bio
+        phoneNum
+        email
+      }
+      type {
+        typeName
+        price
+      }
+      subType {
+        id
+        subTypeName
+        price
+        description
+      }
+      checkIn
+      checkOut
+      count
+      adult
+      child
+      needs
     }
   }
 `;

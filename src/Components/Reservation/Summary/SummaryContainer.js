@@ -15,7 +15,8 @@ export default ({
   smDisplay,
   totalPrice,
   successToggle,
-  SuccessOnClick
+  successOnClick,
+  successLoading
 }) => {
   const [mobileTrigger, setMobileTrigger] = useState(false);
   return (
@@ -34,7 +35,8 @@ export default ({
             smDisplay={smDisplay}
             totalPrice={totalPrice}
             successToggle={successToggle}
-            SuccessOnClick={SuccessOnClick}
+            successOnClick={successOnClick}
+            successLoading={successLoading}
           />
         ) : (
           <MobileSummaryPresenter
@@ -50,7 +52,8 @@ export default ({
             successToggle={successToggle}
             mobileTrigger={mobileTrigger}
             setMobileTrigger={setMobileTrigger}
-            SuccessOnClick={SuccessOnClick}
+            successOnClick={successOnClick}
+            successLoading={successLoading}
           />
         )
       ) : null}

@@ -60,3 +60,16 @@ export const CONFIRM_FIND_PW = gql`
     confirmFindPW(email: $email, userId: $userId, secret: $secret)
   }
 `;
+
+export const CHECK_NOUSERS = gql`
+  query noUserCheck($username: String!, $email: String!) {
+    noUserCheck(username: $username, email: $email) {
+      id
+      price
+      type {
+        typeName
+      }
+      createdAt
+    }
+  }
+`;

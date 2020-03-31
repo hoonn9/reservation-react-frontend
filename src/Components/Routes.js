@@ -19,6 +19,10 @@ import FindID from "../Routes/Help/FindID";
 import FindPW from "../Routes/Help/FindPW";
 import MyPageAccount from "../Routes/MyPage/Routes/MyPageAccount";
 import MyPageChange from "../Routes/MyPage/Routes/MyPageChange";
+import NoUserCheck from "../Routes/Help/CheckReservation/NoUserCheck";
+import UserCheck from "../Routes/Help/CheckReservation/UserCheck";
+import ReservationCheck from "../Routes/ReservationCheck";
+
 const LoggedOutRoutes = ({ platform, screenSize, isLoggedIn }) => (
   <Switch>
     <Route
@@ -89,6 +93,27 @@ const LoggedOutRoutes = ({ platform, screenSize, isLoggedIn }) => (
         />
       )}
     />
+    <Route
+      path="/check/reservation"
+      render={props => (
+        <ReservationCheck
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
+    />
+    <Route
+      path="/help/checkreservation"
+      render={props => (
+        <NoUserCheck
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
+    />
+
     <Redirect from="*" to="/" />
   </Switch>
 );
@@ -137,9 +162,29 @@ const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
       render={props => <Infomation platform={platform} />}
     />
     <Route
+      path="/check/reservation"
+      render={props => (
+        <ReservationCheck
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
+    />
+    <Route
       path="/reservation"
       render={props => (
         <Reservation
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
+    />
+    <Route
+      path="/help/checkreservation"
+      render={props => (
+        <UserCheck
           platform={platform}
           screenSize={screenSize}
           isLoggedIn={isLoggedIn}

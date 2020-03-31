@@ -16,6 +16,7 @@ import {
   NO_USER_RESERVE_TYPE
 } from "../../../Routes/Reservation/ReservationQueries";
 import useInput from "../../../Hooks/useInput";
+import { useHistory } from "react-router-dom";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 
@@ -33,6 +34,7 @@ export default ({
   screenSize
 }) => {
   //Value
+  const history = useHistory();
   const [initState, setInitState] = useState(init);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -79,13 +81,13 @@ export default ({
   //Toggle
   const [smToggle, setSmToggle] = useState(false);
   const [smDisplay, setSmDisplay] = useState(false);
-  const [resultToggle, setResultToggle] = useState(true);
+  const [resultToggle, setResultToggle] = useState(false);
   const [optionToggle, setOptionToggle] = useState(false);
   const [successToggle, setSuccessToggle] = useState(false);
-
+  const [successLoading, setSuccessLoading] = useState(false);
   //Ref
   const optionRef = useRef();
-  const [infoToggle, setInfoToggle] = useState(true);
+  const [infoToggle, setInfoToggle] = useState(false);
   const infoRef = useRef();
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -127,19 +129,21 @@ export default ({
     }
   });
 
-  const dateConverter = (origin, hour, callback) => {
+  const dateConverter = (origin, addDate, hour, callback) => {
     const date = new Date(origin);
+    date.setDate(date.getDate() + addDate);
     date.setHours(hour);
     date.setMinutes(0);
     date.setSeconds(0);
     callback(date);
   };
+
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
     setEndDay(format(endDate, "E", { locale: ko }));
 
-    dateConverter(startDate, 15, checkInTime.setValue);
-    dateConverter(endDate, 8, checkOutTime.setValue);
+    dateConverter(startDate, 0, 15, checkInTime.setValue);
+    dateConverter(endDate, 0, 8, checkOutTime.setValue);
   }, [startDate, endDate]);
 
   //Summary
@@ -174,9 +178,14 @@ export default ({
         typeCount.setValue(parentTypeCount);
         userCount.setValue(parentUserCount);
         subCount.setValue(parentSubCount);
-        setResultCheckIn(checkIn);
-        setResultCheckOut(checkOut);
+        dateConverter(checkIn, 0, 0, date => {
+          setResultCheckIn(date.toISOString());
+        });
+        dateConverter(checkOut, 1, 0, date => {
+          setResultCheckOut(date.toISOString());
+        });
         setResultCount(parentTypeCount);
+        setResultToggle(true);
       }
       const handleScroll = () => {
         const { pageYOffset } = window;
@@ -253,8 +262,12 @@ export default ({
 
   const searchOnClick = () => {
     setInitState(false);
-    setResultCheckIn(startDate.toISOString());
-    setResultCheckOut(endDate.toISOString());
+    dateConverter(startDate, 0, 0, date => {
+      setResultCheckIn(date.toISOString());
+    });
+    dateConverter(endDate, 1, 0, date => {
+      setResultCheckOut(date.toISOString());
+    });
     setResultCount(typeCount.value);
     setResultToggle(true);
   };
@@ -286,24 +299,30 @@ export default ({
     }
   };
 
-  const SuccessOnClick = async () => {
+  const successOnClick = async () => {
+    setSuccessLoading(true);
     if (isLoggedIn) {
       try {
         const {
           data: { userReservation }
         } = await userReserveMutation();
         console.log(userReservation);
+        setSuccessLoading(false);
       } catch (error) {
-        console.log(error);
+        setSuccessLoading(false);
       }
     } else {
       try {
         const {
           data: { noUserReservation }
         } = await noUserReserveMutation();
-        console.log(noUserReservation);
+        setSuccessLoading(false);
+        history.push({
+          pathname: "/check/reservation",
+          state: { id: noUserReservation.id }
+        });
       } catch (error) {
-        console.log(error);
+        setSuccessLoading(false);
       }
     }
   };
@@ -373,6 +392,7 @@ export default ({
         <Result
           platform={platform}
           count={resultCount}
+          dateConverter={dateConverter}
           checkIn={resultCheckIn}
           checkOut={resultCheckOut}
           initState={initState}
@@ -394,7 +414,8 @@ export default ({
           smDisplay={smDisplay}
           totalPrice={totalPrice}
           successToggle={successToggle}
-          SuccessOnClick={SuccessOnClick}
+          successOnClick={successOnClick}
+          successLoading={successLoading}
         />
         <Option
           platform={platform}

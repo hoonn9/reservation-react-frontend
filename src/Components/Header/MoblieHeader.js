@@ -263,7 +263,10 @@ export default ({
                 )}
               </MenuTopWrapper>
               <MenuBottomWrapper>
-                <MenuBottomFLink to="/" onClick={mobileOnClick}>
+                <MenuBottomFLink
+                  to="/help/checkreservation"
+                  onClick={mobileOnClick}
+                >
                   {globalText.text_reserve_check}
                 </MenuBottomFLink>
                 <MenuBottomSLink to="/reservation" onClick={mobileOnClick}>

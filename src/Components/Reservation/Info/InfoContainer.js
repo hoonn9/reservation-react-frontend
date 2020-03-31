@@ -48,7 +48,9 @@ export default ({
         guestUserName.setValue(reserveUserName.value);
         guestUserSex.setValue(reserveUserSex.value);
         guestUserPhone.setValue(reserveUserPhone.value);
+        guestUserPhone.setError("");
         guestUserEmail.setValue(reserveUserEmail.value);
+        guestUserEmail.setError("");
       }
       reserveCopy.setChecked(true);
     }

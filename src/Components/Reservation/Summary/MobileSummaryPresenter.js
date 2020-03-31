@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { MiniLoader } from "../../Icons";
 const Container = styled.div`
   position: absolute;
   width: 100%;
@@ -106,6 +107,7 @@ const SummaryPriceWrapper = styled.div`
   align-items: center;
   display: flex;
   cursor: pointer;
+  min-height: 50px;
 `;
 
 const SummaryPriceActiveWrapper = styled.div`
@@ -114,6 +116,7 @@ const SummaryPriceActiveWrapper = styled.div`
   align-items: center;
   display: flex;
   cursor: pointer;
+  min-height: 50px;
 `;
 
 const SummaryPrice = styled.div`
@@ -144,7 +147,8 @@ export default ({
   successToggle,
   mobileTrigger,
   setMobileTrigger,
-  SuccessOnClick
+  successOnClick,
+  successLoading
 }) => {
   return (
     <>
@@ -239,9 +243,15 @@ export default ({
                   </SummaryItem>
                 </SummaryTimeWrapper>
                 {successToggle ? (
-                  <SummaryPriceActiveWrapper onClick={SuccessOnClick}>
-                    <SummaryPrice>{totalPrice}원</SummaryPrice>
-                  </SummaryPriceActiveWrapper>
+                  successLoading ? (
+                    <SummaryPriceActiveWrapper>
+                      <MiniLoader />
+                    </SummaryPriceActiveWrapper>
+                  ) : (
+                    <SummaryPriceActiveWrapper onClick={successOnClick}>
+                      <SummaryPrice>{totalPrice}원</SummaryPrice>
+                    </SummaryPriceActiveWrapper>
+                  )
                 ) : (
                   <SummaryPriceWrapper>
                     <SummaryPrice>{totalPrice}원</SummaryPrice>

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
+import { MiniLoader } from "../../Icons";
 const SummaryWrapper = styled.div`
   position: ${props => (props.smToggle ? "fixed" : "absolute")};
   z-index: 20;
@@ -92,22 +93,21 @@ const SummarySubType = styled.div`
 `;
 
 const SummaryPriceWrapper = styled.div`
+  min-height: 50px;
   background-color: ${props => props.theme.darkGreyColor};
-  justify-content: center;
-  align-items: center;
-  display: flex;
+  margin: auto 0;
   cursor: pointer;
 `;
 
 const SummaryPriceActiveWrapper = styled.div`
+  min-height: 50px;
   background-color: ${props => props.theme.redColor};
-  justify-content: center;
-  align-items: center;
-  display: flex;
+  margin: auto 0;
   cursor: pointer;
 `;
 
 const SummaryPrice = styled.div`
+  width: 100%;
   display: block;
   padding: 16px 16px;
   color: ${props => props.theme.whiteColor};
@@ -125,7 +125,8 @@ export default ({
   smDisplay,
   totalPrice,
   successToggle,
-  SuccessOnClick
+  successOnClick,
+  successLoading
 }) => {
   return (
     <>
@@ -178,9 +179,15 @@ export default ({
                 </SummaryItem>
               </SummarySubTypeWrapper>
               {successToggle ? (
-                <SummaryPriceActiveWrapper onClick={SuccessOnClick}>
-                  <SummaryPrice>{totalPrice}원</SummaryPrice>
-                </SummaryPriceActiveWrapper>
+                successLoading ? (
+                  <SummaryPriceActiveWrapper>
+                    <MiniLoader />
+                  </SummaryPriceActiveWrapper>
+                ) : (
+                  <SummaryPriceActiveWrapper onClick={successOnClick}>
+                    <SummaryPrice>{totalPrice}원</SummaryPrice>
+                  </SummaryPriceActiveWrapper>
+                )
               ) : (
                 <SummaryPriceWrapper>
                   <SummaryPrice>{totalPrice}원</SummaryPrice>

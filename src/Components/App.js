@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
@@ -30,7 +30,7 @@ const useWindowSize = () => {
     height: isClient ? window.innerHeight : undefined
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getSize = () => {
       return {
         width: isClient ? window.innerWidth : undefined,
@@ -56,7 +56,7 @@ const useWindowSize = () => {
 const usePlatform = screenSize => {
   const [platform, setPlatform] = useState("desktop");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (screenSize.width <= 760) {
       setPlatform("mobile");
       let body = document.querySelector(".body-content");
