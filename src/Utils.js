@@ -13,7 +13,12 @@ export const getSize = () => {
 
 export const dateConverter = date => {
   const convertDate = new Date(date);
-  return `${convertDate.getFullYear()}. ${convertDate.getMonth()}. ${convertDate.getDate()}`;
+  return `${convertDate.getFullYear()}년 ${convertDate.getMonth()}월 ${convertDate.getDate()}일`;
+};
+
+export const dateDetailConverter = date => {
+  const convertDate = new Date(date);
+  return `${convertDate.getFullYear()}년 ${convertDate.getMonth()}월 ${convertDate.getDate()}일 ${convertDate.getHours()}시 ${convertDate.getMinutes()}분`;
 };
 
 export const setCookie = (name, value, expiredays) => {
@@ -107,4 +112,8 @@ export const getUri = () =>
 
 export const asyncRender = (query, props, Render, isLoading) => {
   return query.error ? null : query.loading ? null : <Render {...props} />;
+};
+
+export const numberWithCommas = num => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

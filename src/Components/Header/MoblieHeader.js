@@ -264,7 +264,7 @@ export default ({
               </MenuTopWrapper>
               <MenuBottomWrapper>
                 <MenuBottomFLink
-                  to="/help/checkreservation"
+                  to="/mypage/reservations"
                   onClick={mobileOnClick}
                 >
                   {globalText.text_reserve_check}

@@ -21,3 +21,24 @@ export const CHANGE_PW = gql`
     updatePW(currentPw: $currentPw, newPw: $newPw)
   }
 `;
+
+export const CHECK_USER_RESERVATIONS = gql`
+  query {
+    userCheck {
+      id
+      checkIn
+      checkOut
+      price
+      type {
+        typeName
+        files {
+          url
+        }
+      }
+      subType {
+        subTypeName
+      }
+      createdAt
+    }
+  }
+`;

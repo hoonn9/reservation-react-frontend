@@ -61,13 +61,37 @@ export const CONFIRM_FIND_PW = gql`
   }
 `;
 
+export const REQUEST_NOUSER_SECRET = gql`
+  mutation requestNoUserSecret($name: String!, $email: String!) {
+    requestNoUserSecret(name: $name, email: $email)
+  }
+`;
+
+export const CONFIRM_NOUSER_SECRET = gql`
+  mutation confirmNoUserSecret($email: String!, $secret: String!) {
+    confirmNoUserSecret(email: $email, secret: $secret)
+  }
+`;
+
 export const CHECK_NOUSERS = gql`
-  query noUserCheck($username: String!, $email: String!) {
-    noUserCheck(username: $username, email: $email) {
+  query noUserCheck(
+    $username: String!
+    $email: String!
+    $loginSecret: String!
+  ) {
+    noUserCheck(username: $username, email: $email, loginSecret: $loginSecret) {
       id
       price
+      checkIn
+      checkOut
       type {
         typeName
+        files {
+          url
+        }
+      }
+      subType {
+        subTypeName
       }
       createdAt
     }

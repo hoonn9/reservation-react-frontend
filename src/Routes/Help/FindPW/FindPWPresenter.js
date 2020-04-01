@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { MiniLoader } from "../../../Components/Icons";
 import Title from "../../../Components/Title";
+import Button from "../../../Components/Button";
+
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -28,11 +30,8 @@ const PhoneTh = styled.th`
 `;
 const PhoneInput = styled.input``;
 const SendButtonWrapper = styled.div`
-  text-align: center;
-`;
-const SendButton = styled.button`
-  padding: 12px 24px;
-  margin: 0px 32px;
+  width: 80px;
+  margin: 0 auto;
 `;
 const DescriptionWrapper = styled.div`
   text-align: start;
@@ -140,9 +139,19 @@ export default ({
           <AlretText>{alertValue}</AlretText>
           <SendButtonWrapper>
             {requestTrigger ? (
-              <SendButton onClick={confirmOnClick}>인증</SendButton>
+              <Button
+                height={40}
+                onClick={confirmOnClick}
+                loading={loading}
+                text={"인증"}
+              />
             ) : (
-              <SendButton onClick={requestOnClick}>전송</SendButton>
+              <Button
+                height={40}
+                onClick={requestOnClick}
+                loading={loading}
+                text={"전송"}
+              />
             )}
           </SendButtonWrapper>
           <DescriptionWrapper>

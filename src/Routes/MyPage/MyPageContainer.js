@@ -9,8 +9,9 @@ import MyPagePresenter from "./MyPagePresenter";
 import MobileMyPagePresenter from "./MobileMyPagePresenter";
 import GlobalText from "../../GlobalText";
 import { LOG_OUT } from "../../SharedQueries";
+import MyPageMenu from "./MyPageMenu";
 
-export default ({ platform, screenSize }) => {
+export default ({ platform, screenSize, isLoggedIn }) => {
   const { data, loading, error, refetch } = useQuery(ME);
   const globalText = GlobalText();
   const [logoutMutation] = useMutation(LOG_OUT);
@@ -36,7 +37,14 @@ export default ({ platform, screenSize }) => {
                 logoutMutation={logoutMutation}
               />
             )}
-            <MyPageRouter data={data} refetch={refetch} platform={platform} />
+            <MyPageMenu platform={platform} />
+            <MyPageRouter
+              data={data}
+              refetch={refetch}
+              platform={platform}
+              screenSize={screenSize}
+              isLoggedIn={isLoggedIn}
+            />
           </>
         </Router>
       )}

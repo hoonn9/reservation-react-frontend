@@ -5,11 +5,13 @@ import Title from "../../../Components/Title";
 import useInput from "../../../Hooks/useInput";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import {
-  REQUEST_FIND_ID,
-  CONFIRM_FIND_ID,
+  REQUEST_NOUSER_SECRET,
+  CONFIRM_NOUSER_SECRET,
   CHECK_NOUSERS
 } from "../../../SharedQueries";
-import { Link } from "react-router-dom";
+import ReservationRow from "../../../Components/ReservationRow";
+import { getUri } from "../../../Utils";
+import Button from "../../../Components/Button";
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -26,6 +28,11 @@ const PhoneWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 16px 0px;
+  flex-direction: column;
+`;
+const RowWrapper = styled.div`
+  width: 100%;
+  border-bottom: 1px ${props => props.theme.liteGreyColor} solid;
 `;
 const PhoneTbody = styled.tbody``;
 const PhoneTr = styled.tr`
@@ -36,11 +43,8 @@ const PhoneTh = styled.th`
 `;
 const PhoneInput = styled.input``;
 const SendButtonWrapper = styled.div`
-  text-align: center;
-`;
-const SendButton = styled.button`
-  padding: 12px 24px;
-  margin: 0px 32px;
+  width: 80px;
+  margin: 0 auto;
 `;
 const DescriptionWrapper = styled.div`
   text-align: start;
@@ -69,16 +73,21 @@ export default ({ platform }) => {
   const [successState, setSuccessState] = useState(false);
   const [requestTrigger, setRequestTrigger] = useState(false);
   const [alertValue, setAlertValue] = useState("");
-  const [requestFindIdMutation] = useMutation(REQUEST_FIND_ID, {
+  const [requestMutation] = useMutation(REQUEST_NOUSER_SECRET, {
     variables: { name: userName.value, email: userEmail.value }
   });
-  const [confirmFindIdMutation] = useMutation(CONFIRM_FIND_ID, {
+  const [confirmMutation] = useMutation(CONFIRM_NOUSER_SECRET, {
     variables: { email: userEmail.value, secret: secretCode.value }
   });
   const [checkNoUsersQuery] = useLazyQuery(CHECK_NOUSERS, {
-    variables: { username: userName.value, email: userEmail.value },
+    variables: {
+      username: userName.value,
+      email: userEmail.value,
+      loginSecret: secretCode.value
+    },
     onCompleted: data => {
       setSuccessState(data);
+      setLoading(false);
       console.log(data);
     }
   });
@@ -87,9 +96,9 @@ export default ({ platform }) => {
     if (userName.value !== "" && userEmail.value !== "") {
       try {
         const {
-          data: { requestFindID }
-        } = await requestFindIdMutation();
-        if (requestFindID) {
+          data: { requestNoUserSecret }
+        } = await requestMutation();
+        if (requestNoUserSecret) {
           setRequestTrigger(true);
           setAlertValue("인증 코드가 전송되었습니다.");
         } else {
@@ -111,11 +120,10 @@ export default ({ platform }) => {
     setLoading(true);
     try {
       const {
-        data: { confirmFindID }
-      } = await confirmFindIdMutation();
-      if (confirmFindID !== "") {
+        data: { confirmNoUserSecret }
+      } = await confirmMutation();
+      if (confirmNoUserSecret) {
         checkNoUsersQuery();
-        setLoading(false);
       } else {
         setAlertValue("인증 코드가 일치하지 않습니다.");
         setLoading(false);
@@ -127,102 +135,123 @@ export default ({ platform }) => {
     }
   };
   return (
-    <Container>
-      {successState ? (
-        <Wrapper>
-          <Title platform={platform} text="비회원 예약 조회" />
-          <PhoneWrapper>
-            {successState.noUserCheck.map((e, i) => {
-              return (
-                <Link
-                  to={{
-                    pathname: "/check/reservation",
-                    state: {
-                      id: e.id
-                    }
-                  }}
-                >
-                  <AlretText>
-                    <Text>{e.id}</Text>
-                  </AlretText>
-                </Link>
-              );
-            })}
-          </PhoneWrapper>
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          <Title platform={platform} text="비회원 예약 조회" />
-          <PhoneWrapper>
-            <table>
-              <PhoneTbody>
-                <PhoneTr>
-                  <PhoneTh>이름</PhoneTh>
-                  <PhoneTh>
-                    {requestTrigger ? (
-                      <PhoneInput
-                        onChange={userName.onChange}
-                        value={userName.value}
-                        disabled
+    <div className="body-content">
+      <Container>
+        {successState ? (
+          <Wrapper>
+            <Title platform={platform} text="비회원 예약 조회" />
+            {successState.noUserCheck ? (
+              <PhoneWrapper>
+                {successState.noUserCheck.map((e, i) => {
+                  return (
+                    <RowWrapper key={i}>
+                      <ReservationRow
+                        platform={platform}
+                        id={e.id}
+                        price={e.price}
+                        typeName={e.type.typeName}
+                        thumbnail={
+                          e.type.files.length > 0
+                            ? getUri() + e.type.files[0].url
+                            : null
+                        }
+                        subTypeName={e.subType.subTypeName}
+                        createdAt={e.createdAt}
+                        checkIn={e.checkIn}
+                        checkOut={e.checkOut}
                       />
-                    ) : (
-                      <PhoneInput
-                        onChange={userName.onChange}
-                        value={userName.value}
-                      />
-                    )}
-                  </PhoneTh>
-                </PhoneTr>
-                <PhoneTr>
-                  <PhoneTh>이메일 주소</PhoneTh>
-                  <PhoneTh>
-                    {requestTrigger ? (
-                      <PhoneInput
-                        onChange={userEmail.onChange}
-                        value={userEmail.value}
-                        disabled
-                      />
-                    ) : (
-                      <PhoneInput
-                        onChange={userEmail.onChange}
-                        value={userEmail.value}
-                      />
-                    )}
-                  </PhoneTh>
-                </PhoneTr>
-                {requestTrigger ? (
-                  <PhoneTr style={{ padding: "32px" }}>
-                    <PhoneTh>인증 코드</PhoneTh>
+                    </RowWrapper>
+                  );
+                })}
+              </PhoneWrapper>
+            ) : (
+              <PhoneWrapper>예약이 존재하지 않습니다.</PhoneWrapper>
+            )}
+          </Wrapper>
+        ) : (
+          <Wrapper>
+            <Title platform={platform} text="비회원 예약 조회" />
+            <PhoneWrapper>
+              <table>
+                <PhoneTbody>
+                  <PhoneTr>
+                    <PhoneTh>이름</PhoneTh>
                     <PhoneTh>
-                      <PhoneInput
-                        onChange={secretCode.onChange}
-                        value={secretCode.value}
-                      />
+                      {requestTrigger ? (
+                        <PhoneInput
+                          onChange={userName.onChange}
+                          value={userName.value}
+                          disabled
+                        />
+                      ) : (
+                        <PhoneInput
+                          onChange={userName.onChange}
+                          value={userName.value}
+                        />
+                      )}
                     </PhoneTh>
                   </PhoneTr>
-                ) : null}
-              </PhoneTbody>
-            </table>
-          </PhoneWrapper>
-          {loading ? <MiniLoader /> : null}
-          <AlretText>{alertValue}</AlretText>
-          <SendButtonWrapper>
-            {requestTrigger ? (
-              <SendButton onClick={confirmOnClick}>인증</SendButton>
-            ) : (
-              <SendButton onClick={requestOnClick}>전송</SendButton>
-            )}
-          </SendButtonWrapper>
-          <DescriptionWrapper>
-            <Description>
-              {"· 가입할 때 등록한 이름과 이메일을 입력하세요."}
-            </Description>
-            <Description>
-              {"· 전송된 이메일에서 인증 코드를 받아 입력하세요."}
-            </Description>
-          </DescriptionWrapper>
-        </Wrapper>
-      )}
-    </Container>
+                  <PhoneTr>
+                    <PhoneTh>이메일 주소</PhoneTh>
+                    <PhoneTh>
+                      {requestTrigger ? (
+                        <PhoneInput
+                          onChange={userEmail.onChange}
+                          value={userEmail.value}
+                          disabled
+                        />
+                      ) : (
+                        <PhoneInput
+                          onChange={userEmail.onChange}
+                          value={userEmail.value}
+                        />
+                      )}
+                    </PhoneTh>
+                  </PhoneTr>
+                  {requestTrigger ? (
+                    <PhoneTr style={{ padding: "32px" }}>
+                      <PhoneTh>인증 코드</PhoneTh>
+                      <PhoneTh>
+                        <PhoneInput
+                          onChange={secretCode.onChange}
+                          value={secretCode.value}
+                        />
+                      </PhoneTh>
+                    </PhoneTr>
+                  ) : null}
+                </PhoneTbody>
+              </table>
+            </PhoneWrapper>
+            {loading ? <MiniLoader /> : null}
+            <AlretText>{alertValue}</AlretText>
+            <SendButtonWrapper>
+              {requestTrigger ? (
+                <Button
+                  height={40}
+                  onClick={confirmOnClick}
+                  loading={loading}
+                  text={"인증"}
+                />
+              ) : (
+                <Button
+                  height={40}
+                  onClick={requestOnClick}
+                  loading={loading}
+                  text={"전송"}
+                />
+              )}
+            </SendButtonWrapper>
+            <DescriptionWrapper>
+              <Description>
+                {"· 예약할 때 등록한 이름과 이메일을 입력하세요."}
+              </Description>
+              <Description>
+                {"· 전송된 이메일에서 인증 코드를 받아 입력하세요."}
+              </Description>
+            </DescriptionWrapper>
+          </Wrapper>
+        )}
+      </Container>
+    </div>
   );
 };

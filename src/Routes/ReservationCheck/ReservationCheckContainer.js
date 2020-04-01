@@ -18,7 +18,7 @@ export default () => {
   console.log(location);
 
   const { data, loading, error } = useQuery(CHECK_RESERVATION, {
-    variables: { id: reservationId }
+    variables: { reservationId }
   });
   return (
     <div className="body-content">

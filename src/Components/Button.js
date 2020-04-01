@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Container = styled.button`
   width: 100%;
-  height: 50px;
+  height: ${props => `${props.height}px`};
   border: 0;
   border-radius: ${props => props.theme.borderRadius};
   color: white;
@@ -15,9 +15,17 @@ const Container = styled.button`
   cursor: pointer;
 `;
 
-const Button = ({ text, onClick }) => (
-  <Container onClick={onClick}>{text}</Container>
-);
+const Button = ({ height = 50, text, onClick, loading = false }) => {
+  if (loading) {
+    return <Container height={height}>{text}</Container>;
+  } else {
+    return (
+      <Container height={height} onClick={onClick}>
+        {text}
+      </Container>
+    );
+  }
+};
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,

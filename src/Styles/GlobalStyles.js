@@ -19,7 +19,6 @@ export default createGlobalStyle`
         color: ${props => props.theme.blackColor};
     }
     a:active {
-        color: transparent;
     }
     button {
         text-transform: none;

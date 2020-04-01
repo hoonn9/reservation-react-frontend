@@ -127,8 +127,8 @@ export const NO_USER_RESERVE_TYPE = gql`
 `;
 
 export const CHECK_RESERVATION = gql`
-  query checkReservation($id: String!) {
-    checkReservation(id: $id) {
+  query checkReservation($reservationId: String!) {
+    checkReservation(reservationId: $reservationId) {
       id
       noUser {
         id

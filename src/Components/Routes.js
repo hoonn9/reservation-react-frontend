@@ -19,8 +19,8 @@ import FindID from "../Routes/Help/FindID";
 import FindPW from "../Routes/Help/FindPW";
 import MyPageAccount from "../Routes/MyPage/Routes/MyPageAccount";
 import MyPageChange from "../Routes/MyPage/Routes/MyPageChange";
+import MyPageReservations from "../Routes/MyPage/Routes/MyPageReservations";
 import NoUserCheck from "../Routes/Help/CheckReservation/NoUserCheck";
-import UserCheck from "../Routes/Help/CheckReservation/UserCheck";
 import ReservationCheck from "../Routes/ReservationCheck";
 
 const LoggedOutRoutes = ({ platform, screenSize, isLoggedIn }) => (
@@ -133,7 +133,13 @@ const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
     />
     <Route
       path="/mypage"
-      render={props => <MyPage platform={platform} screenSize={screenSize} />}
+      render={props => (
+        <MyPage
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
     />
     <Route
       path="/upload"
@@ -162,29 +168,9 @@ const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
       render={props => <Infomation platform={platform} />}
     />
     <Route
-      path="/check/reservation"
-      render={props => (
-        <ReservationCheck
-          platform={platform}
-          screenSize={screenSize}
-          isLoggedIn={isLoggedIn}
-        />
-      )}
-    />
-    <Route
       path="/reservation"
       render={props => (
         <Reservation
-          platform={platform}
-          screenSize={screenSize}
-          isLoggedIn={isLoggedIn}
-        />
-      )}
-    />
-    <Route
-      path="/help/checkreservation"
-      render={props => (
-        <UserCheck
           platform={platform}
           screenSize={screenSize}
           isLoggedIn={isLoggedIn}
@@ -215,7 +201,13 @@ const AppRouter = ({ isLoggedIn, platform, screenSize }) => {
   );
 };
 
-export const MyPageRouter = ({ data, refetch, platform }) => {
+export const MyPageRouter = ({
+  data,
+  refetch,
+  platform,
+  screenSize,
+  isLoggedIn
+}) => {
   return (
     <Switch>
       <Route
@@ -226,6 +218,16 @@ export const MyPageRouter = ({ data, refetch, platform }) => {
       <Route
         path="/change"
         render={props => <MyPageChange platform={platform} data={data} />}
+      />
+      <Route
+        path="/reservations"
+        render={props => <MyPageReservations platform={platform} data={data} />}
+      />
+      <Route
+        path="/check/reservation"
+        render={props => (
+          <ReservationCheck platform={platform} screenSize={screenSize} />
+        )}
       />
       <Redirect from="*" to="/" />
     </Switch>
