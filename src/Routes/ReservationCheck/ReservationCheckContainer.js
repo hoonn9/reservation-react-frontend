@@ -6,7 +6,7 @@ import { CHECK_RESERVATION } from "../Reservation/ReservationQueries";
 import ErrorAlert from "../../Components/ErrorAlert";
 import Loader from "../../Components/Loader";
 
-export default () => {
+export default ({ platform }) => {
   const history = useHistory();
   const location = useLocation();
   let reservationId = null;
@@ -27,7 +27,7 @@ export default () => {
       ) : loading ? (
         <Loader />
       ) : (
-        <ReservationCheckPresenter data={data} />
+        <ReservationCheckPresenter platform={platform} data={data} />
       )}
     </div>
   );

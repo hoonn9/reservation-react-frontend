@@ -106,6 +106,7 @@ export default () => {
       text_guest_user_info: "투숙자 정보",
       text_man: "남",
       text_woman: "여",
+      text_bio: "성별",
       text_use_agree: "활용 동의",
       text_use_agree_text: "[필수] 개인정보수집 및 활용에 동의",
       text_user_info: "회원 정보",
@@ -215,6 +216,7 @@ const getLanguage = (language = "kr") => {
       text_check_in: "체크인",
       text_check_out: "체크아웃",
       text_type: "객실",
+      text_type_info: "객실 정보",
       text_adult: "성인",
       text_child: "소아",
       text_search: "검색",
@@ -228,8 +230,10 @@ const getLanguage = (language = "kr") => {
       text_add_info: "추가 정보",
       text_reserve_user_info: "예약자 정보",
       text_guest_user_info: "투숙자 정보",
+      text_bio: "성별",
       text_man: "남",
       text_woman: "여",
+      text_price: "가격",
       text_use_agree: "활용 동의",
       text_use_agree_text: "[필수] 개인정보수집 및 활용에 동의",
       text_user_info: "회원 정보",
@@ -242,7 +246,12 @@ const getLanguage = (language = "kr") => {
       text_pw_change_error: "비밀번호를 변경하는데 문제가 발생하였습니다.",
       text_no_result: "결과 없음",
       text_user_info_change: "회원정보변경",
-      text_user_createdAt: "가입일"
+      text_user_createdAt: "가입일",
+      text_sub_type: "패키지",
+      text_info: "정보",
+      text_number: "수",
+      text_persons: "명",
+      text_count: "개"
     };
   } else if (language === "en") {
     return {

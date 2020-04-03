@@ -43,17 +43,17 @@ export default ({
   const subCount = useInput(0);
   const checkInTime = useInput("");
   const checkOutTime = useInput("");
-  const optionRequest = useInput("테스트 요청");
+  const optionRequest = useInput("");
 
-  const reserveUserName = useInput("김태훈");
-  const reserveUserSex = useInput("남");
-  const reserveUserPhone = useInput("01047059935");
-  const reserveUserEmail = useInput("xognstltl@naver.com");
+  const reserveUserName = useInput("");
+  const reserveUserSex = useInput("");
+  const reserveUserPhone = useInput("");
+  const reserveUserEmail = useInput("");
 
-  const guestUserName = useInput("김태훈");
-  const guestUserSex = useInput("남");
-  const guestUserPhone = useInput("01047059935");
-  const guestUserEmail = useInput("xognstltl@naver.com");
+  const guestUserName = useInput("");
+  const guestUserSex = useInput("");
+  const guestUserPhone = useInput("");
+  const guestUserEmail = useInput("");
 
   const agreeChecked = useCheckbox();
 
