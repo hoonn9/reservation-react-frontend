@@ -7,7 +7,7 @@ const Warpper = styled.tr`
   display: flex;
   width: 100%;
   padding: 16px 0px 16px 0px;
-  border: ${props => props.theme.boxBorder};
+  border: ${(props) => props.theme.boxBorder};
 `;
 const Row = styled.td`
   text-align: center;
@@ -25,15 +25,15 @@ const NameRow = styled(Row)`
 `;
 const DateRow = styled(Row)`
   width: 20%;
-  color: ${props => props.theme.greyColor};
+  color: ${(props) => props.theme.greyColor};
 `;
 const ViewRow = styled(Row)`
   width: 10%;
-  color: ${props => props.theme.greyColor};
+  color: ${(props) => props.theme.greyColor};
 `;
 const PostLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 export default ({ post, index: num, currentPage, currentRange, boardId }) => {
@@ -51,8 +51,8 @@ export default ({ post, index: num, currentPage, currentRange, boardId }) => {
               type: "free",
               currentPage,
               currentRange,
-              boardId
-            }
+              boardId,
+            },
           }}
         >
           {title}

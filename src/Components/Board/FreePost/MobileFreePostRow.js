@@ -12,7 +12,7 @@ const BottomWrapper = styled.tr`
   display: flex;
   width: 100%;
   padding: 8px 0px;
-  border-bottom: 1px ${props => props.theme.darkGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.darkGreyColor} solid;
 `;
 const Row = styled.td`
   text-align: center;
@@ -26,43 +26,41 @@ const TitleRow = styled(Row)`
 `;
 const NameRow = styled(Row)`
   padding: 0px 8px;
-  color: ${props => props.theme.darkGreyColor};
+  color: ${(props) => props.theme.darkGreyColor};
 `;
 const DateRow = styled(Row)`
   padding: 0px 8px;
-  color: ${props => props.theme.liteGreyColor};
+  color: ${(props) => props.theme.liteGreyColor};
 `;
 const ViewRow = styled(Row)`
   padding: 0px 8px;
-  color: ${props => props.theme.liteGreyColor};
+  color: ${(props) => props.theme.liteGreyColor};
 `;
 const PostLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 export default ({ post, index: num, currentPage, currentRange, boardId }) => {
   const { id, title, views, user, createdAt } = post;
   return (
     <>
-      <Warpper>
-        <TitleRow>
-          <PostLink
-            to={{
-              pathname: `/post/${id}`,
-              state: {
-                id,
-                type: "free",
-                currentPage,
-                currentRange,
-                boardId
-              }
-            }}
-          >
-            {title}
-          </PostLink>
-        </TitleRow>
-      </Warpper>
+      <PostLink
+        to={{
+          pathname: `/post/${id}`,
+          state: {
+            id,
+            type: "free",
+            currentPage,
+            currentRange,
+            boardId,
+          },
+        }}
+      >
+        <Warpper>
+          <TitleRow>{title}</TitleRow>
+        </Warpper>
+      </PostLink>
       <BottomWrapper>
         <NameRow>{user.username}</NameRow>
         <DateRow>{dateConverter(createdAt)}</DateRow>

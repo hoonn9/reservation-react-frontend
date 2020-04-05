@@ -8,14 +8,14 @@ const Warpper = styled.tr`
   width: 100%;
   padding: 24px 0px 24px 0px;
   &:first-child {
-    border-top: 1px ${props => props.theme.darkGreyColor} solid;
+    border-top: 1px ${(props) => props.theme.darkGreyColor} solid;
   }
 `;
 const BottomWrapper = styled.tr`
   display: flex;
   width: 100%;
   padding-bottom: 16px;
-  border-bottom: 1px ${props => props.theme.darkGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.darkGreyColor} solid;
   text-align: end;
 `;
 const Row = styled.td`
@@ -30,15 +30,15 @@ const TitleRow = styled(Row)`
 `;
 const DateRow = styled(Row)`
   padding: 0px 8px;
-  color: ${props => props.theme.liteGreyColor};
+  color: ${(props) => props.theme.liteGreyColor};
 `;
 const ViewRow = styled(Row)`
   padding: 0px 8px;
-  color: ${props => props.theme.liteGreyColor};
+  color: ${(props) => props.theme.liteGreyColor};
 `;
 const PostLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 export default ({
@@ -46,29 +46,27 @@ export default ({
   currentPage = 0,
   currentRange = 0,
   boardId,
-  onViews = true
+  onViews = true,
 }) => {
   const { id, title, views, createdAt } = post;
   return (
     <>
-      <Warpper>
-        <TitleRow>
-          <PostLink
-            to={{
-              pathname: `/notice/${id}`,
-              state: {
-                id,
-                type: "notice",
-                currentPage,
-                currentRange,
-                boardId
-              }
-            }}
-          >
-            {title}
-          </PostLink>
-        </TitleRow>
-      </Warpper>
+      <PostLink
+        to={{
+          pathname: `/notice/${id}`,
+          state: {
+            id,
+            type: "notice",
+            currentPage,
+            currentRange,
+            boardId,
+          },
+        }}
+      >
+        <Warpper>
+          <TitleRow>{title}</TitleRow>
+        </Warpper>
+      </PostLink>
       <BottomWrapper>
         <DateRow>{dateConverter(createdAt)}</DateRow>
         <ViewRow>조회 {views}</ViewRow>

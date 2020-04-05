@@ -64,7 +64,7 @@ const HeaderButton = styled.button`
 const NavContainer = styled.div`
   display: block;
   position: fixed;
-  left: ${props => (props.moblieTrigger ? "10%" : "100%")};
+  left: ${(props) => (props.moblieTrigger ? "10%" : "100%")};
   transition: left 0.2s linear;
   z-index: 9001;
   width: 90%;
@@ -196,7 +196,7 @@ const GnbLink = styled(Link)`
 const GnbMenuText = styled.div`
   width: 100%;
   font-size: 16px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 const CloseButton = styled.button`
@@ -211,7 +211,7 @@ const CloseButton = styled.button`
 `;
 
 const StyledCloseIcon = styled(CloseIcon)`
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 
 export default ({
@@ -219,7 +219,7 @@ export default ({
   isLoggedIn,
   moblieTrigger,
   mobileOnClick,
-  userName
+  userName,
 }) => {
   return (
     <Header>
@@ -263,12 +263,22 @@ export default ({
                 )}
               </MenuTopWrapper>
               <MenuBottomWrapper>
-                <MenuBottomFLink
-                  to="/mypage/reservations"
-                  onClick={mobileOnClick}
-                >
-                  {globalText.text_reserve_check}
-                </MenuBottomFLink>
+                {isLoggedIn ? (
+                  <MenuBottomFLink
+                    to="/mypage/reservations"
+                    onClick={mobileOnClick}
+                  >
+                    {globalText.text_reserve_check}
+                  </MenuBottomFLink>
+                ) : (
+                  <MenuBottomFLink
+                    to="/help/checkreservation"
+                    onClick={mobileOnClick}
+                  >
+                    {globalText.text_reserve_check}
+                  </MenuBottomFLink>
+                )}
+
                 <MenuBottomSLink to="/reservation" onClick={mobileOnClick}>
                   {globalText.text_reserve_do}
                 </MenuBottomSLink>
