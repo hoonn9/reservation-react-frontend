@@ -8,21 +8,21 @@ const Container = styled.div`
 `;
 
 const Table = styled.table`
-  width: ${props => (props.platform === "desktop" ? "75%" : "100%")};
+  width: ${(props) => (props.platform === "desktop" ? "75%" : "100%")};
   table-layout: fixed;
   margin: 0 auto;
   margin-bottom: 32px;
 `;
 const TableBody = styled.tbody`
-  border: 1px ${props => props.theme.superLiteGreyColor} solid;
-  background-color: ${props => props.theme.whiteColor};
+  border: 1px ${(props) => props.theme.superLiteGreyColor} solid;
+  background-color: ${(props) => props.theme.whiteColor};
 `;
 const TableHeader = styled.thead``;
 const TableRow = styled.tr`
-  border-bottom: 1px ${props => props.theme.superLiteGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.superLiteGreyColor} solid;
 `;
 const TableTitleLabel = styled.th`
-  font-size: ${props => (props.platform === "desktop" ? "26px" : "21px")};
+  font-size: ${(props) => (props.platform === "desktop" ? "26px" : "21px")};
   padding: 16px 0px;
   width: 50%;
   text-align: start;
@@ -48,8 +48,9 @@ export default ({
     count,
     adult,
     child,
-    needs
-  }
+    needs,
+    price,
+  },
 }) => {
   return (
     <Container>
@@ -139,6 +140,10 @@ export default ({
             <TableContent>{`₩ ${numberWithCommas(
               subType.price
             )}`}</TableContent>
+          </TableRow>
+          <TableRow>
+            <TableLabel>{globalText.text_total}</TableLabel>
+            <TableContent>{`₩ ${numberWithCommas(price)}`}</TableContent>
           </TableRow>
         </TableBody>
       </Table>

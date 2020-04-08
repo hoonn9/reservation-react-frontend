@@ -27,7 +27,12 @@ const NextButton = styled(ArrowForwardIosIcon)`
   z-index: 600;
   cursor: pointer;
 `;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 480px;
+`;
 const ImageWrapper = styled.div`
+  width: 100%;
   height: 480px;
 `;
 const Image = styled.img`
@@ -37,7 +42,7 @@ const Image = styled.img`
 const TextWrapper = styled.div`
   position: absolute;
   bottom: 0;
-  left: 0px;
+  left: 0;
   width: 100%;
   height: 120px;
   background: rgba(0, 0, 0, 0.5);
@@ -50,14 +55,14 @@ const Title = styled.dt`
   width: 100%;
   font-size: 24px;
   font-weight: 600;
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
   text-align: start;
   padding: 16px 32px;
 `;
 const SubTitle = styled.dd`
   width: 100%;
   font-size: 18px;
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
   text-align: start;
   padding: 16px 32px;
 `;
@@ -69,7 +74,7 @@ export default ({ data, type = "banner" }) => {
   const galleryNextOnClick = () => {
     setGalleryItem(galleryItem + 1);
   };
-  const galleryOnChange = index => {
+  const galleryOnChange = (index) => {
     if (galleryItem !== index) {
       setGalleryItem(index);
     }
@@ -93,8 +98,10 @@ export default ({ data, type = "banner" }) => {
       >
         {data.map((e, i) => {
           return (
-            <ImageWrapper key={i}>
-              <Image src={e.url} />
+            <Wrapper key={i}>
+              <ImageWrapper>
+                <Image src={e.url} />
+              </ImageWrapper>
               {type === "banner" ? (
                 <Link to={e.to}>
                   <TextWrapper>
@@ -105,7 +112,7 @@ export default ({ data, type = "banner" }) => {
                   </TextWrapper>
                 </Link>
               ) : null}
-            </ImageWrapper>
+            </Wrapper>
           );
         })}
       </Carousel>

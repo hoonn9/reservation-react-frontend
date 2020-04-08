@@ -17,23 +17,15 @@ const Wrapper = styled.div`
 `;
 
 const WidgetWrpper = styled.div`
-  background: ${props => props.theme.liteWhiteColor};
+  background: ${(props) => props.theme.liteWhiteColor};
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   width: 480px;
   padding: 16px;
 `;
 
-const Title = styled.h2`
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.25;
-  padding: 8px 0px;
-  color: ${props => props.theme.blackColor};
-`;
-
 const SubTitle = styled.h1`
   font-size: 16px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 8px 0px;
 `;
@@ -53,7 +45,7 @@ const CountPickerWrapper = styled.div`
 `;
 const CountSubTitle = styled.h1`
   font-size: 16px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 8px 0px;
   text-align: center;
@@ -65,8 +57,8 @@ const ButtonWrapper = styled.div`
 const SearchButton = styled.button`
   position: relative;
   padding: 12px 16px;
-  background-color: ${props => props.theme.redColor};
-  color: ${props => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.redColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 const InputWrapper = styled.div`
   width: 60%;
@@ -81,14 +73,12 @@ export default ({
   endDay,
   userCount,
   typeCount,
-  subCount
+  subCount,
 }) => {
   return (
     <Container>
       <Wrapper>
         <WidgetWrpper>
-          <Title></Title>
-
           <DateWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_in}</SubTitle>
@@ -98,6 +88,7 @@ export default ({
                   startDate={startDate}
                   endDate={endDate}
                   setStartDate={setStartDate}
+                  setEndDate={setEndDate}
                   startDay={startDay}
                 />
               </InputWrapper>
@@ -154,8 +145,8 @@ export default ({
                   checkOut: endDate.toISOString(),
                   typeCount: typeCount.value,
                   userCount: userCount.value,
-                  subCount: subCount.value
-                }
+                  subCount: subCount.value,
+                },
               }}
             >
               <SearchButton>{globalText.text_search}</SearchButton>

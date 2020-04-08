@@ -160,6 +160,7 @@ export const CHECK_RESERVATION = gql`
       adult
       child
       needs
+      price
     }
   }
 `;

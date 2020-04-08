@@ -17,24 +17,16 @@ const Wrapper = styled.div`
 `;
 
 const WidgetWrpper = styled.div`
-  background: ${props => props.theme.liteWhiteColor};
+  background: ${(props) => props.theme.liteWhiteColor};
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   width: 100%;
   padding: 16px;
 `;
 
-const Title = styled.h2`
-  font-size: 31px;
-  font-weight: 500;
-  line-height: 1.25;
-  padding: 8px 0px;
-  color: ${props => props.theme.blackColor};
-`;
-
 const SubTitle = styled.h1`
   font-size: 14px;
   font-weight: 500;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 4px 0px;
 `;
@@ -60,7 +52,7 @@ const CountPickerWrapper = styled.div`
 `;
 const CountSubTitle = styled.h1`
   font-size: 14px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 4px 0px;
   text-align: center;
@@ -72,8 +64,8 @@ const ButtonWrapper = styled.div`
 const SearchButton = styled.button`
   position: relative;
   padding: 12px 16px;
-  background-color: ${props => props.theme.redColor};
-  color: ${props => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.redColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 const InputWrapper = styled.div`
   width: 40%;
@@ -107,7 +99,7 @@ export default ({
   typeCount,
   subCount,
   searchOnClick,
-  reset
+  reset,
 }) => {
   return (
     <Container>
@@ -122,6 +114,7 @@ export default ({
                     startDate={startDate}
                     endDate={endDate}
                     setStartDate={setStartDate}
+                    setEndDate={setEndDate}
                     startDay={startDay}
                     reset={reset}
                   />

@@ -119,7 +119,7 @@ export default () => {
       text_pw_change_error: "비밀번호를 변경하는데 문제가 발생하였습니다.",
       text_no_result: "결과 없음",
       text_user_info_change: "회원정보변경",
-      text_user_createdAt: "가입일"
+      text_user_createdAt: "가입일",
     };
   } else if (language === "en") {
     return {
@@ -128,7 +128,7 @@ export default () => {
       text_mypage: "MYPAGE",
       text_id: "ID",
       text_pw: "PASSWORD",
-      text_join_all_agree: "전체 동의"
+      text_join_all_agree: "전체 동의",
     };
   }
 };
@@ -166,7 +166,8 @@ const getLanguage = (language = "kr") => {
       text_address: "주소",
       text_phone_num: "휴대폰번호",
       text_name: "이름",
-      text_username: "닉네임",
+      text_username: "실명",
+      text_nickname: "닉네임",
       text_cancel: "취소",
       text_write: "글쓰기",
       text_list: "목록",
@@ -197,11 +198,15 @@ const getLanguage = (language = "kr") => {
       text_agree: "동의",
       text_email_error: "이메일 주소를 다시 확인해주세요.",
       text_email_exist: "이미 사용 중인 이메일 입니다.",
+      text_nickname_error:
+        "한글, 영문 대 소문자, 숫자, '-' '_' 로 16자 이내로만 가능합니다.",
+      text_nickname_exist: "이미 사용 중인 닉네임 입니다.",
       text_id_error:
         "5~20자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.",
       text_id_exist: "이미 사용 중이거나 탈퇴한 계정입니다.",
       text_pw_error: "8~15자의 영문 대 소문자, 숫자, 특수문자를 사용하세요. ",
-      text_phone_error: "휴대폰 번호를 다시 입력하세요.",
+      text_phone_error:
+        "휴대폰 번호를 다시 입력하세요. ( '-' 를 제외하고 입력하세요. )",
       text_pwcf_error: "비밀번호가 서로 일치하지 않습니다.",
       text_login_pw_error: "비밀번호가 일치하지 않습니다.",
       text_login_error:
@@ -251,7 +256,7 @@ const getLanguage = (language = "kr") => {
       text_info: "정보",
       text_number: "수",
       text_persons: "명",
-      text_count: "개"
+      text_total: "총합",
     };
   } else if (language === "en") {
     return {
@@ -260,7 +265,7 @@ const getLanguage = (language = "kr") => {
       text_mypage: "MYPAGE",
       text_id: "ID",
       text_pw: "PASSWORD",
-      text_join_all_agree: "전체 동의"
+      text_join_all_agree: "전체 동의",
     };
   }
 };

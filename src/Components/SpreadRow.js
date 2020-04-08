@@ -7,7 +7,7 @@ import { useState } from "react";
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  border: 1px ${(props) => props.theme.liteGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.liteGreyColor} solid;
 `;
 const TitleWrapper = styled.div`
   position: relative;

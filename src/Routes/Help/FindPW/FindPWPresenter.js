@@ -27,8 +27,11 @@ const PhoneTr = styled.tr`
 `;
 const PhoneTh = styled.th`
   padding: 8px;
+  text-align: start;
 `;
-const PhoneInput = styled.input``;
+const PhoneInput = styled.input`
+  padding: 8px;
+`;
 const SendButtonWrapper = styled.div`
   width: 80px;
   margin: 0 auto;
@@ -39,18 +42,18 @@ const DescriptionWrapper = styled.div`
 `;
 const AlretText = styled.div`
   text-align: center;
-  color: ${props => props.theme.redColor};
+  color: ${(props) => props.theme.redColor};
   padding: 16px;
 `;
 const Description = styled.div`
   padding: 8px 0px;
   font-size: 14px;
-  color: ${props => props.theme.darkGreyColor};
+  color: ${(props) => props.theme.darkGreyColor};
 `;
 const Text = styled.span`
   font-weight: 600;
   font-size: 18px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 export default ({
   platform,
@@ -62,7 +65,7 @@ export default ({
   confirmOnClick,
   alertValue,
   requestTrigger,
-  successState
+  successState,
 }) => {
   return (
     <Container>

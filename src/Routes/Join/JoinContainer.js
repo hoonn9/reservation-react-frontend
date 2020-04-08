@@ -1,38 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import useInput from "../../Hooks/useInput";
-import GlobalText from "../../GlobalText";
+import { globalText } from "../../GlobalText";
 import JoinPresenter from "./JoinPresenter";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
-import { CREATE_ACCOUNT, EXIST_ID, EXIST_EMAIL } from "./JoinQueries";
+import {
+  CREATE_ACCOUNT,
+  EXIST_ID,
+  EXIST_EMAIL,
+  EXIST_NICKNAME,
+} from "./JoinQueries";
 
 const idRegex = /^[a-z]{1}[a-z0-9]{4,19}$/;
 const pwRegex = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=-_]).*$/;
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const phoneRegex = /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/;
-const phoneRegex2 = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
-const phoneConvertRegex = /^[0-9]{11}$/;
+//const phoneRegex = /^[0-9]{3}[-]+[0-9]{4}[-]+[0-9]{4}$/;
+const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
+//const phoneConvertRegex = /^[0-9]{11}$/;
+const nicknameRegex = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-z0-9_-]{3,16}$/;
 
 export default ({ platform }) => {
-  const globalText = GlobalText();
   let history = useHistory();
-  let location = useLocation;
-  // let isAgree = null;
-  // try {
-  //   isAgree = location.state.isAgree;
-  // } catch (e) {
-  //   history.push("/");
-  // }
+  let location = useLocation();
+  let isAgree = null;
+  try {
+    isAgree = location.state.isAgree;
+  } catch (e) {
+    history.push("/");
+  }
 
   const [isDone, setIsDone] = useState(false);
 
   const userId = useInput("");
   const [msgId, setMsgId] = useState("");
-  const userPw = useInput("");
+  const userPw = useInput("$");
   const [msgPw, setMsgPw] = useState("");
   const userPwConfirm = useInput("");
   const [msgPwcf, setMsgPwcf] = useState("");
   const userName = useInput("");
+  const userNickName = useInput("");
+  const [msgNickName, setMsgNickName] = useState("");
   const userEmail = useInput("");
   const [msgEmail, setMsgEmail] = useState("");
   const userPhone = useInput("");
@@ -44,15 +51,22 @@ export default ({ platform }) => {
   const [btnActive, setBtnActive] = useState(true);
 
   const [idExist] = useLazyQuery(EXIST_ID, {
-    onCompleted: data =>
-      data.existUserId ? setMsgId(globalText.text_id_exist) : setMsgId("")
+    onCompleted: (data) =>
+      data.existUserId ? setMsgId(globalText.text_id_exist) : setMsgId(""),
   });
 
   const [emailExist] = useLazyQuery(EXIST_EMAIL, {
-    onCompleted: data =>
+    onCompleted: (data) =>
       data.existUserEmail
         ? setMsgEmail(globalText.text_email_exist)
-        : setMsgEmail("")
+        : setMsgEmail(""),
+  });
+
+  const [nickNameExist] = useLazyQuery(EXIST_NICKNAME, {
+    onCompleted: (data) =>
+      data.existUserNickName
+        ? setMsgNickName(globalText.text_nickname_exist)
+        : setMsgNickName(""),
   });
 
   const idBlur = () => {
@@ -62,8 +76,8 @@ export default ({ platform }) => {
       setMsgId("");
       idExist({
         variables: {
-          userId: userId.value
-        }
+          userId: userId.value,
+        },
       });
     }
   };
@@ -79,8 +93,21 @@ export default ({ platform }) => {
       setMsgEmail("");
       emailExist({
         variables: {
-          email: userEmail.value
-        }
+          email: userEmail.value,
+        },
+      });
+    }
+  };
+
+  const nicknameBlur = () => {
+    if (!nicknameRegex.test(userNickName.value)) {
+      setMsgNickName(globalText.text_nickname_error);
+    } else {
+      setMsgNickName("");
+      nickNameExist({
+        variables: {
+          nickname: userNickName.value,
+        },
       });
     }
   };
@@ -91,19 +118,7 @@ export default ({ platform }) => {
       : setMsgPwcf("");
 
   const phoneBlur = () => {
-    if (phoneConvertRegex.test(userPhone.value)) {
-      userPhone.setValue(
-        userPhone.value.substr(0, 3) +
-          "-" +
-          userPhone.value.substr(3, 4) +
-          "-" +
-          userPhone.value.substr(7, 4)
-      );
-    }
-    if (
-      !phoneRegex.test(userPhone.value) &&
-      !phoneRegex2.test(userPhone.value)
-    ) {
+    if (!phoneRegex.test(userPhone.value)) {
       setMsgPhone(globalText.text_phone_error);
     } else {
       setMsgPhone("");
@@ -116,6 +131,7 @@ export default ({ platform }) => {
     const { value: name } = userName;
     const { value: email } = userEmail;
     const { value: phone } = userPhone;
+    const { value: nickname } = userNickName;
     //const { value: address } = userAddress;
 
     if (
@@ -124,7 +140,8 @@ export default ({ platform }) => {
       pwcf === "" ||
       name === "" ||
       email === "" ||
-      phone === ""
+      phone === "" ||
+      nickname === ""
     ) {
       return false;
     } else {
@@ -132,9 +149,9 @@ export default ({ platform }) => {
         !idRegex.test(userId.value) ||
         !pwRegex.test(userPw.value) ||
         !emailRegex.test(userEmail.value) ||
+        !nicknameRegex.test(nickname) ||
         userPwConfirm.value !== userPw.value ||
-        (!phoneRegex.test(userPhone.value) &&
-          !phoneRegex2.test(userPhone.value))
+        !phoneRegex.test(userPhone.value)
       ) {
         setIsDone(false);
         return false;
@@ -143,7 +160,7 @@ export default ({ platform }) => {
         setIsDone(true);
         try {
           const {
-            data: { createAccount }
+            data: { createAccount },
           } = await createAccountMutation();
 
           if (createAccount) {
@@ -174,37 +191,32 @@ export default ({ platform }) => {
     setPopupTrigger(false);
   };
 
-  const [isOnline, setIsOnline] = useState(true);
-
   useEffect(() => {
-    if (isOnline) {
-      if (
-        !idRegex.test(userId.value) ||
-        !pwRegex.test(userPw.value) ||
-        !emailRegex.test(userEmail.value) ||
-        userPwConfirm.value !== userPw.value ||
-        (!phoneRegex.test(userPhone.value) &&
-          !phoneRegex2.test(userPhone.value))
-      ) {
-        setIsDone(false);
-      } else {
-        setIsDone(true);
-      }
+    if (
+      !idRegex.test(userId.value) ||
+      !pwRegex.test(userPw.value) ||
+      !emailRegex.test(userEmail.value) ||
+      !nicknameRegex.test(userNickName.value) ||
+      userPwConfirm.value !== userPw.value ||
+      !phoneRegex.test(userPhone.value)
+    ) {
+      setIsDone(false);
+    } else {
+      setIsDone(true);
     }
-    return () => {
-      setIsOnline(false);
-    };
-  }, [userId, userPw, userEmail, userPwConfirm, userPhone, isOnline]);
+  }, [userId, userPw, userEmail, userPwConfirm, userPhone, userNickName]);
 
   const [createAccountMutation] = useMutation(CREATE_ACCOUNT, {
     variables: {
       userId: userId.value,
       password: userPw.value,
       username: userName.value,
+      nickname: userNickName.value,
       email: userEmail.value,
       phoneNum: userPhone.value,
-      address: userAddress.value
-    }
+      address: userAddress.value,
+      isAgree: isAgree,
+    },
   });
 
   return (
@@ -223,6 +235,8 @@ export default ({ platform }) => {
         emailBlur={emailBlur}
         userPhone={userPhone}
         phoneBlur={phoneBlur}
+        userNickName={userNickName}
+        nicknameBlur={nicknameBlur}
         userAddress={userAddress}
         handleCancel={handleCancel}
         handleSignUp={handleSignUp}
@@ -231,6 +245,7 @@ export default ({ platform }) => {
         msgPwcf={msgPwcf}
         msgPhone={msgPhone}
         msgEmail={msgEmail}
+        msgNickName={msgNickName}
         isDone={isDone}
         isSuccess={isSuccess}
         popupTrigger={popupTrigger}

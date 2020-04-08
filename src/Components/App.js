@@ -27,14 +27,14 @@ const useWindowSize = () => {
 
   const [windowSize, setWindowSize] = useState({
     width: isClient ? window.innerWidth : undefined,
-    height: isClient ? window.innerHeight : undefined
+    height: isClient ? window.innerHeight : undefined,
   });
 
   useEffect(() => {
     const getSize = () => {
       return {
         width: isClient ? window.innerWidth : undefined,
-        height: isClient ? window.innerHeight : undefined
+        height: isClient ? window.innerHeight : undefined,
       };
     };
 
@@ -53,7 +53,7 @@ const useWindowSize = () => {
   return windowSize;
 };
 
-const usePlatform = screenSize => {
+const usePlatform = (screenSize) => {
   const [platform, setPlatform] = useState("desktop");
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default () => {
   const globalText = GlobalText();
 
   const {
-    data: { isLoggedIn }
+    data: { isLoggedIn },
   } = useQuery(QUERY);
 
   const screenSize = useWindowSize();

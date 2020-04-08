@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Popup from "reactjs-popup";
 import CloseIcon from "@material-ui/icons/Close";
-import { getUri } from "../../../Utils";
+import { getUri, numberWithCommas } from "../../../Utils";
 import TouchSlideView from "../../TouchSlideView";
 
 const Wrapper = styled.div`
@@ -75,7 +75,7 @@ const PriceText = styled.div`
   display: block;
   font-size: 21px;
   font-weight: 500;
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
   padding: 16px 0;
 `;
 const MoreButtonWrapper = styled.div`
@@ -98,7 +98,7 @@ const MoreWrapper = styled.div`
   justify-content: center;
   width: 100%;
   padding: 32px 0px;
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
 `;
 
 const MoreInfoWrapper = styled.div`
@@ -107,7 +107,7 @@ const MoreInfoWrapper = styled.div`
   width: 80%;
   height: 100%;
   padding: 32px;
-  border: solid 1px ${props => props.theme.blackColor};
+  border: solid 1px ${(props) => props.theme.blackColor};
 `;
 const MoreNameText = styled.div`
   display: block;
@@ -125,7 +125,7 @@ const MorePriceText = styled.div`
   display: block;
   font-size: 21px;
   font-weight: 500;
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
   padding: 16px 0;
 `;
 const SelectButtonWrapper = styled.div`
@@ -142,8 +142,8 @@ const SelectButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   padding: 8px 16px;
-  background-color: ${props => props.theme.redColor};
-  color: ${props => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.redColor};
+  color: ${(props) => props.theme.whiteColor};
   cursor: pointer;
 `;
 export default ({
@@ -155,7 +155,7 @@ export default ({
   setSelectSubType,
   galleryToggle,
   setGalleryToggle,
-  slideViewArray
+  slideViewArray,
 }) => {
   return (
     <>
@@ -192,7 +192,7 @@ export default ({
           <InfoWrapper>
             <InfoCenter>
               <NameText>{type.typeName}</NameText>
-              <PriceText>￦ {type.price} ~</PriceText>
+              <PriceText>￦ {numberWithCommas(type.price)} ~</PriceText>
             </InfoCenter>
             <MoreButtonWrapper onClick={moreOnClick}>
               <MoreButton>{globalText.text_more_info}</MoreButton>
@@ -207,13 +207,13 @@ export default ({
               <MoreInfoWrapper>
                 <MoreNameText>Room Only</MoreNameText>
                 <MoreDecText>Basic</MoreDecText>
-                <MorePriceText>￦ {type.price}</MorePriceText>
+                <MorePriceText>￦ {numberWithCommas(type.price)}</MorePriceText>
                 <SelectButtonWrapper
                   onClick={() => {
                     setSelectType({
                       id: type.id,
                       name: type.typeName,
-                      price: type.price
+                      price: type.price,
                     });
                     setSelectSubType({ price: 0 });
                   }}
@@ -229,19 +229,19 @@ export default ({
                     <MoreNameText>{subType.subTypeName}</MoreNameText>
                     <MoreDecText>{subType.description}</MoreDecText>
                     <MorePriceText>
-                      ￦ {type.price + subType.price}
+                      ￦ {numberWithCommas(type.price + subType.price)}
                     </MorePriceText>
                     <SelectButtonWrapper
                       onClick={() => {
                         setSelectType({
                           id: type.id,
                           name: type.typeName,
-                          price: type.price
+                          price: type.price,
                         });
                         setSelectSubType({
                           id: subType.id,
                           name: subType.subTypeName,
-                          price: subType.price
+                          price: subType.price,
                         });
                       }}
                     >

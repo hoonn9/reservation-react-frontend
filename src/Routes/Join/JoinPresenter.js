@@ -4,6 +4,7 @@ import { Logo } from "../../Components/Icons";
 import Input from "../../Components/Input";
 import Popup from "reactjs-popup";
 import ReactLoading from "react-loading";
+import { globalText } from "../../GlobalText";
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Wrapper = styled.div`
-  width: ${props => (props.platform === "desktop" ? "50%" : "75%")};
+  width: ${(props) => (props.platform === "desktop" ? "50%" : "75%")};
   display: block;
 `;
 const JoinInput = styled(Input)`
@@ -60,7 +61,7 @@ const JoinButton = styled.button`
   margin-top: 48px;
   margin-left: 32px;
   margin-right: 32px;
-  background-color: ${props => props.theme.GreyColor};
+  background-color: ${(props) => props.theme.GreyColor};
   text-align: center;
   font-size: 14px;
 `;
@@ -75,7 +76,7 @@ const JoinActiveButton = styled.button`
   margin-top: 48px;
   margin-left: 32px;
   margin-right: 32px;
-  background-color: ${props => props.theme.blackColor};
+  background-color: ${(props) => props.theme.blackColor};
   text-align: center;
   font-size: 14px;
   cursor: pointer;
@@ -100,7 +101,6 @@ const PopupButton = styled.button`
 
 export default ({
   platform,
-  globalText,
   userId,
   idBlur,
   userPw,
@@ -125,7 +125,10 @@ export default ({
   popupTrigger,
   popupInit,
   handleSuccess,
-  btnActive
+  btnActive,
+  userNickName,
+  nicknameBlur,
+  msgNickName,
 }) => {
   return (
     <>
@@ -160,12 +163,20 @@ export default ({
             onBlur={pwCfBlur}
           />
           <Msg>{msgPwcf}</Msg>
-          <Text>{globalText.text_name}</Text>
+          <Text>{globalText.text_username}</Text>
           <JoinInput
             onChange={userName.onChange}
             value={userName.value}
             placeholder=""
           />
+          <Text>{globalText.text_nickname}</Text>
+          <JoinInput
+            onChange={userNickName.onChange}
+            value={userNickName.value}
+            placeholder=""
+            onBlur={nicknameBlur}
+          />
+          <Msg>{msgNickName}</Msg>
           <Text>{globalText.text_email}</Text>
           <JoinInput
             onChange={userEmail.onChange}

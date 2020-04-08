@@ -13,10 +13,12 @@ import MobileSearchPresenter from "./MobileSearchPresenter";
 import { useMutation } from "@apollo/react-hooks";
 import {
   USER_RESERVE_TYPE,
-  NO_USER_RESERVE_TYPE
+  NO_USER_RESERVE_TYPE,
 } from "../../../Routes/Reservation/ReservationQueries";
 import useInput from "../../../Hooks/useInput";
 import { useHistory } from "react-router-dom";
+import { addDate } from "../../../Utils";
+import { globalText } from "../../../GlobalText";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 
@@ -31,13 +33,13 @@ export default ({
   userCount: parentUserCount,
   subCount: parentSubCount,
   containerRef,
-  screenSize
+  screenSize,
 }) => {
   //Value
   const history = useHistory();
   const [initState, setInitState] = useState(init);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(addDate(startDate, 1));
   const userCount = useInput(1);
   const typeCount = useInput(1);
   const subCount = useInput(0);
@@ -46,12 +48,12 @@ export default ({
   const optionRequest = useInput("");
 
   const reserveUserName = useInput("");
-  const reserveUserSex = useInput("");
+  const reserveUserSex = useInput(globalText.text_man);
   const reserveUserPhone = useInput("");
   const reserveUserEmail = useInput("");
 
   const guestUserName = useInput("");
-  const guestUserSex = useInput("");
+  const guestUserSex = useInput(globalText.text_man);
   const guestUserPhone = useInput("");
   const guestUserEmail = useInput("");
 
@@ -61,12 +63,12 @@ export default ({
   const [selectType, setSelectType] = useState({
     id: "",
     name: "",
-    price: 0
+    price: 0,
   });
   const [selectSubType, setSelectSubType] = useState({
     id: "",
     name: "",
-    price: 0
+    price: 0,
   });
   //Result Value
   const [resultCount, setResultCount] = useState();
@@ -104,8 +106,8 @@ export default ({
       child: subCount.value,
       needs: optionRequest.value,
       checkIn: checkInTime.value,
-      checkOut: checkOutTime.value
-    }
+      checkOut: checkOutTime.value,
+    },
   });
 
   const [noUserReserveMutation] = useMutation(NO_USER_RESERVE_TYPE, {
@@ -125,8 +127,8 @@ export default ({
       child: subCount.value,
       needs: optionRequest.value,
       checkIn: checkInTime.value,
-      checkOut: checkOutTime.value
-    }
+      checkOut: checkOutTime.value,
+    },
   });
 
   const dateConverter = (origin, addDate, hour, callback) => {
@@ -144,7 +146,7 @@ export default ({
 
     dateConverter(startDate, 0, 15, checkInTime.setValue);
     dateConverter(endDate, 0, 8, checkOutTime.setValue);
-  }, [startDate, endDate]);
+  }, [startDate, endDate, checkInTime.setValue, checkOutTime.setValue]);
 
   //Summary
   useEffect(() => {
@@ -155,7 +157,7 @@ export default ({
       if (optionRef.current) {
         window.scrollTo({
           behavior: "smooth",
-          top: optionRef.current.offsetTop
+          top: optionRef.current.offsetTop,
         });
       }
       setTotalPrice(selectType.price + selectSubType.price);
@@ -178,10 +180,10 @@ export default ({
         typeCount.setValue(parentTypeCount);
         userCount.setValue(parentUserCount);
         subCount.setValue(parentSubCount);
-        dateConverter(checkIn, 0, 0, date => {
+        dateConverter(checkIn, 0, 0, (date) => {
           setResultCheckIn(date.toISOString());
         });
-        dateConverter(checkOut, 1, 0, date => {
+        dateConverter(checkOut, 1, 0, (date) => {
           setResultCheckOut(date.toISOString());
         });
         setResultCount(parentTypeCount);
@@ -218,7 +220,10 @@ export default ({
     parentSubCount,
     type,
     screenSize,
-    containerRef
+    containerRef,
+    typeCount,
+    userCount,
+    subCount,
   ]);
 
   useEffect(() => {
@@ -257,15 +262,15 @@ export default ({
     guestUserPhone,
     guestUserEmail,
     agreeChecked,
-    selectType
+    selectType,
   ]);
 
   const searchOnClick = () => {
     setInitState(false);
-    dateConverter(startDate, 0, 0, date => {
+    dateConverter(startDate, 0, 0, (date) => {
       setResultCheckIn(date.toISOString());
     });
-    dateConverter(endDate, 1, 0, date => {
+    dateConverter(endDate, 1, 0, (date) => {
       setResultCheckOut(date.toISOString());
     });
     setResultCount(typeCount.value);
@@ -276,12 +281,12 @@ export default ({
     setSelectType({
       id: "",
       name: "",
-      price: 0
+      price: 0,
     });
     setSelectSubType({
       id: "",
       name: "",
-      price: 0
+      price: 0,
     });
     setSmDisplay(false);
     setResultToggle(false);
@@ -294,7 +299,7 @@ export default ({
     if (infoRef.current) {
       window.scrollTo({
         behavior: "smooth",
-        top: infoRef.current.offsetTop
+        top: infoRef.current.offsetTop,
       });
     }
   };
@@ -304,7 +309,7 @@ export default ({
     if (isLoggedIn) {
       try {
         const {
-          data: { userReservation }
+          data: { userReservation },
         } = await userReserveMutation();
         console.log(userReservation);
         setSuccessLoading(false);
@@ -314,12 +319,12 @@ export default ({
     } else {
       try {
         const {
-          data: { noUserReservation }
+          data: { noUserReservation },
         } = await noUserReserveMutation();
         setSuccessLoading(false);
         history.push({
           pathname: "/check/reservation",
-          state: { id: noUserReservation.id }
+          state: { id: noUserReservation.id },
         });
       } catch (error) {
         setSuccessLoading(false);

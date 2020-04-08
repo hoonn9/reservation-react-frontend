@@ -8,6 +8,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
+  border: 1px ${(props) => props.theme.liteGreyColor} solid;
 `;
 
 export default () => {
@@ -15,7 +16,7 @@ export default () => {
     <Container>
       <Wrapper>
         {centerList.map((e, i) => {
-          return <SpreadRow title={e.title} content={e.content} />;
+          return <SpreadRow key={i} title={e.title} content={e.content} />;
         })}
       </Wrapper>
     </Container>

@@ -11,10 +11,9 @@ export default ({
   currentPage,
   pageSize,
   listCount,
-  globalText,
   boardId,
   setCurrentRange,
-  currentRange
+  currentRange,
 }) => {
   return (
     <>
@@ -27,7 +26,6 @@ export default ({
           currentPage={currentPage}
           pageSize={pageSize}
           listCount={listCount}
-          globalText={globalText}
           boardId={boardId}
           setCurrentRange={setCurrentRange}
           currentRange={currentRange}
@@ -41,7 +39,6 @@ export default ({
           currentPage={currentPage}
           pageSize={pageSize}
           listCount={listCount}
-          globalText={globalText}
           boardId={boardId}
           setCurrentRange={setCurrentRange}
           currentRange={currentRange}

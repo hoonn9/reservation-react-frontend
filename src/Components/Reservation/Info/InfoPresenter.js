@@ -20,7 +20,7 @@ const InfoLegend = styled.legend`
   font-weight: 500;
   padding: 16px 0px;
   margin-bottom: 8px;
-  border-bottom: solid 1px ${props => props.theme.darkGreyColor};
+  border-bottom: solid 1px ${(props) => props.theme.darkGreyColor};
 `;
 const InfoCheckboxWrapper = styled.div`
   text-align: end;
@@ -35,12 +35,12 @@ const InfoBlockWrapper = styled.table`
 const InfoBlockBody = styled.tbody``;
 const InfoBlock = styled.tr`
   position: relative;
-  border-top: solid 1px ${props => props.theme.superLiteGreyColor};
-  border-bottom: solid 1px ${props => props.theme.superLiteGreyColor};
+  border-top: solid 1px ${(props) => props.theme.superLiteGreyColor};
+  border-bottom: solid 1px ${(props) => props.theme.superLiteGreyColor};
 `;
 const InfoName = styled.th`
   position: relative;
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
   padding: 24px 16px;
   min-width: 58px;
   max-width: 58px;
@@ -68,7 +68,7 @@ const InfoAgree = styled.input``;
 const InvaildAlert = styled.div`
   padding: 8px;
   font-size: 14px;
-  color: ${props => props.theme.redColor};
+  color: ${(props) => props.theme.redColor};
 `;
 export default ({
   isLoggedIn,
@@ -85,7 +85,7 @@ export default ({
   guestUserEmail,
   validBlur,
   emailRegex,
-  phoneRegex
+  phoneRegex,
 }) => {
   return (
     <Container>
@@ -114,7 +114,7 @@ export default ({
                       <InfoOption value={globalText.text_man}>
                         {globalText.text_man}
                       </InfoOption>
-                      <InfoOption value={globalText.text_man}>
+                      <InfoOption value={globalText.text_woman}>
                         {globalText.text_woman}
                       </InfoOption>
                     </InfoSelect>
@@ -130,7 +130,7 @@ export default ({
                       style={{ width: "320px" }}
                       onChange={reserveUserPhone.onChange}
                       value={reserveUserPhone.value}
-                      onBlur={e =>
+                      onBlur={(e) =>
                         validBlur(
                           phoneRegex,
                           e.target.value,
@@ -156,7 +156,7 @@ export default ({
                       style={{ width: "320px" }}
                       onChange={reserveUserEmail.onChange}
                       value={reserveUserEmail.value}
-                      onBlur={e =>
+                      onBlur={(e) =>
                         validBlur(
                           emailRegex,
                           e.target.value,
@@ -221,7 +221,7 @@ export default ({
                     style={{ width: "320px" }}
                     onChange={guestUserPhone.onChange}
                     value={guestUserPhone.value}
-                    onBlur={e =>
+                    onBlur={(e) =>
                       validBlur(
                         phoneRegex,
                         e.target.value,
@@ -247,7 +247,7 @@ export default ({
                     style={{ width: "320px" }}
                     onChange={guestUserEmail.onChange}
                     value={guestUserEmail.value}
-                    onBlur={e =>
+                    onBlur={(e) =>
                       validBlur(
                         emailRegex,
                         e.target.value,

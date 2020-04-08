@@ -25,55 +25,15 @@ const MobileInfoTable = styled.table`
 const InfoBox = styled.tbody``;
 const InfoRow = styled.tr`
   width: 100%;
-  border-bottom: 1px ${props => props.theme.liteGreyColor} solid;
-`;
-const InfoRowLabel = styled.th`
-  width: 30%;
-  text-align: center;
-  vertical-align: middle;
+  border-bottom: 1px ${(props) => props.theme.liteGreyColor} solid;
 `;
 const InfoRowContent = styled.td`
   width: 100%;
 `;
-const InfoRowButton = styled.button`
-  padding: 8px 16px;
-`;
-
-const InputContainer = styled.div``;
-const InputWrapper = styled.div`
-  padding: 16px 0px;
-`;
-const MobileInputWrapper = styled.div`
-  padding: 8px 0px;
-`;
-const InputLabel = styled.label`
-  display: inline-block;
-  width: 30%;
-  font-weight: 500;
-`;
-const MobileInputLabel = styled.label`
-  display: block;
-  font-weight: 500;
-  padding: 16px 0px;
-`;
-const AlertText = styled.div`
-  font-weight: 500;
-  color: ${props => props.theme.redColor};
-  text-align: end;
-`;
-const InputInner = styled.div`
-  position: relative;
-  display: inline-block;
-  width: 70%;
-`;
-const MobileInputInner = styled.div`
-  position: relative;
-  display: block;
-`;
 
 export default ({ platform }) => {
   const { data, loading, error } = useQuery(CHECK_USER_RESERVATIONS, {
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
   return (
     <>

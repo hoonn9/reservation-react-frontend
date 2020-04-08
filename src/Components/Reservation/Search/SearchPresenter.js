@@ -14,22 +14,15 @@ const Wrapper = styled.div`
 `;
 
 const WidgetWrapper = styled.div`
-  background: ${props => props.theme.whiteColor};
-  border: solid 1px ${props => props.theme.superLiteGreyColor};
+  background: ${(props) => props.theme.whiteColor};
+  border: solid 1px ${(props) => props.theme.superLiteGreyColor};
   width: 100%;
   padding: 16px;
 `;
 
-const Title = styled.h2`
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.25;
-  padding: 8px 0px;
-`;
-
 const SubTitle = styled.h1`
   font-size: 16px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 8px 0px;
 `;
@@ -49,7 +42,7 @@ const CountPickerWrapper = styled.div`
 `;
 const CountSubTitle = styled.h1`
   font-size: 16px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
   line-height: 1.25;
   padding: 8px 0px;
   text-align: center;
@@ -61,8 +54,8 @@ const ButtonWrapper = styled.div`
 const SearchButton = styled.button`
   position: relative;
   padding: 12px 24px;
-  background-color: ${props => props.theme.redColor};
-  color: ${props => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.redColor};
+  color: ${(props) => props.theme.whiteColor};
   cursor: pointer;
 `;
 const InputWrapper = styled.div`
@@ -79,14 +72,12 @@ export default ({
   typeCount,
   subCount,
   searchOnClick,
-  reset
+  reset,
 }) => {
   return (
     <Container>
       <Wrapper>
         <WidgetWrapper>
-          <Title></Title>
-
           <DateWrapper>
             <PickerWrapper>
               <SubTitle>{globalText.text_check_in}</SubTitle>
@@ -95,6 +86,7 @@ export default ({
                   startDate={startDate}
                   endDate={endDate}
                   setStartDate={setStartDate}
+                  setEndDate={setEndDate}
                   startDay={startDay}
                   reset={reset}
                 />

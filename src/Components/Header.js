@@ -94,7 +94,7 @@ export default ({ isLoggedIn, platform }) => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, [pathname, platform]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -109,7 +109,7 @@ export default ({ isLoggedIn, platform }) => {
     } else {
       setUserName(globalText.text_member);
     }
-  }, [isLoggedIn, loading, error, data, globalText]);
+  }, [isLoggedIn, loading, error, data]);
 
   return (
     <>

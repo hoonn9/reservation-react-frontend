@@ -7,7 +7,7 @@ import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import {
   REQUEST_NOUSER_SECRET,
   CONFIRM_NOUSER_SECRET,
-  CHECK_NOUSERS
+  CHECK_NOUSERS,
 } from "../../../SharedQueries";
 import ReservationRow from "../../../Components/ReservationRow";
 import { getUri } from "../../../Utils";
@@ -32,7 +32,7 @@ const PhoneWrapper = styled.div`
 `;
 const RowWrapper = styled.div`
   width: 100%;
-  border-bottom: 1px ${props => props.theme.liteGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.liteGreyColor} solid;
 `;
 const PhoneTbody = styled.tbody``;
 const PhoneTr = styled.tr`
@@ -40,8 +40,11 @@ const PhoneTr = styled.tr`
 `;
 const PhoneTh = styled.th`
   padding: 8px;
+  text-align: start;
 `;
-const PhoneInput = styled.input``;
+const PhoneInput = styled.input`
+  padding: 8px;
+`;
 const SendButtonWrapper = styled.div`
   width: 80px;
   margin: 0 auto;
@@ -52,18 +55,13 @@ const DescriptionWrapper = styled.div`
 `;
 const AlretText = styled.div`
   text-align: center;
-  color: ${props => props.theme.redColor};
+  color: ${(props) => props.theme.redColor};
   padding: 16px;
 `;
 const Description = styled.div`
   padding: 8px 0px;
   font-size: 14px;
-  color: ${props => props.theme.darkGreyColor};
-`;
-const Text = styled.span`
-  font-weight: 600;
-  font-size: 18px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.darkGreyColor};
 `;
 export default ({ platform }) => {
   const userName = useInput("");
@@ -74,29 +72,29 @@ export default ({ platform }) => {
   const [requestTrigger, setRequestTrigger] = useState(false);
   const [alertValue, setAlertValue] = useState("");
   const [requestMutation] = useMutation(REQUEST_NOUSER_SECRET, {
-    variables: { name: userName.value, email: userEmail.value }
+    variables: { name: userName.value, email: userEmail.value },
   });
   const [confirmMutation] = useMutation(CONFIRM_NOUSER_SECRET, {
-    variables: { email: userEmail.value, secret: secretCode.value }
+    variables: { email: userEmail.value, secret: secretCode.value },
   });
   const [checkNoUsersQuery] = useLazyQuery(CHECK_NOUSERS, {
     variables: {
       username: userName.value,
       email: userEmail.value,
-      loginSecret: secretCode.value
+      loginSecret: secretCode.value,
     },
-    onCompleted: data => {
+    onCompleted: (data) => {
       setSuccessState(data);
       setLoading(false);
       console.log(data);
-    }
+    },
   });
   const requestOnClick = async () => {
     setLoading(true);
     if (userName.value !== "" && userEmail.value !== "") {
       try {
         const {
-          data: { requestNoUserSecret }
+          data: { requestNoUserSecret },
         } = await requestMutation();
         if (requestNoUserSecret) {
           setRequestTrigger(true);
@@ -120,7 +118,7 @@ export default ({ platform }) => {
     setLoading(true);
     try {
       const {
-        data: { confirmNoUserSecret }
+        data: { confirmNoUserSecret },
       } = await confirmMutation();
       if (confirmNoUserSecret) {
         checkNoUsersQuery();

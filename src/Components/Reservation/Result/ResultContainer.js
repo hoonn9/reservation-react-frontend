@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ResultPresenter from "./ResultPresenter";
 import { useQuery } from "@apollo/react-hooks";
 import { SEARCH_TYPE } from "../../../Routes/Reservation/ReservationQueries";
@@ -13,16 +13,16 @@ export default ({
   initState,
   setSelectType,
   setSelectSubType,
-  resultToggle
+  resultToggle,
 }) => {
   const { data, loading, error } = useQuery(SEARCH_TYPE, {
     variables: {
       count,
       checkIn,
-      checkOut
+      checkOut,
     },
     fetchPolicy: "network-only",
-    skip: initState
+    skip: initState,
   });
 
   return (

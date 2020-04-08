@@ -30,7 +30,7 @@ const TabWrapper = styled.div`
 `;
 const TabButton = styled.div`
   display: inline-block;
-  border: ${props => props.theme.boxBorder};
+  border: ${(props) => props.theme.boxBorder};
   width: 32px;
   height: 32px;
   margin-left: 4px;
@@ -45,7 +45,7 @@ const TabButton = styled.div`
 
 const CurrentTabButton = styled.div`
   display: inline-block;
-  border: ${props => props.theme.boxBorder};
+  border: ${(props) => props.theme.boxBorder};
   width: 32px;
   height: 32px;
   margin-left: 4px;
@@ -56,12 +56,6 @@ const CurrentTabButton = styled.div`
   line-height: 32px;
   vertical-align: middle;
   cursor: pointer;
-`;
-
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: lighter;
-  margin-bottom: 32px;
 `;
 const Button = styled.button`
   background-color: transparent;
@@ -79,10 +73,9 @@ export default ({
   currentPage,
   pageSize,
   listCount,
-  globalText,
   boardId,
   setCurrentRange,
-  currentRange
+  currentRange,
 }) => {
   const page = Math.floor(
     (listCount - currentRange * rangeSize * pageSize) / pageSize
@@ -95,7 +88,7 @@ export default ({
             {platform === "desktop" ? <NoticePostHeader /> : null}
           </TableBody>
           <TableBody>
-            {data.seeBoard.map(post => {
+            {data.seeBoard.map((post) => {
               return platform === "desktop" ? (
                 <NoticePostRow
                   key={post.id}
@@ -153,7 +146,7 @@ export default ({
         {[
           ...Array(
             page > 10 ? pageSize : page % pageSize === 0 ? page : page + 1
-          )
+          ),
         ].map((e, i) => {
           if (currentRange === 0) {
             return i === currentPage ? (

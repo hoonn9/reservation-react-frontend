@@ -8,6 +8,7 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import MobileFreePostRow from "./FreePost/MobileFreePostRow";
+import { globalText } from "../../GlobalText";
 const Warpper = styled.div`
   position: relative;
   width: 100%;
@@ -61,8 +62,8 @@ const WriteButton = styled.button`
   position: absolute;
   right: 0;
   text-decoration: none;
-  background-color: ${props => props.theme.greyColor};
-  color: ${props => props.theme.blackColor};
+  background-color: ${(props) => props.theme.greyColor};
+  color: ${(props) => props.theme.blackColor};
   margin-top: 16px;
   padding: 8px 16px;
 `;
@@ -75,8 +76,8 @@ const MobileWriteButtonWrapper = styled.div`
 `;
 const MobileWriteButton = styled.button`
   text-decoration: none;
-  background-color: ${props => props.theme.greyColor};
-  color: ${props => props.theme.blackColor};
+  background-color: ${(props) => props.theme.greyColor};
+  color: ${(props) => props.theme.blackColor};
   padding: 4px 8px;
 `;
 
@@ -96,10 +97,9 @@ export default ({
   currentPage,
   pageSize,
   listCount,
-  globalText,
   boardId,
   setCurrentRange,
-  currentRange
+  currentRange,
 }) => {
   const page = Math.floor(
     (listCount - currentRange * rangeSize * pageSize) / pageSize
@@ -141,8 +141,8 @@ export default ({
           to={{
             pathname: "/upload",
             state: {
-              id: boardId
-            }
+              id: boardId,
+            },
           }}
         >
           <WriteButton>{globalText.text_write}</WriteButton>
@@ -153,8 +153,8 @@ export default ({
             to={{
               pathname: "/upload",
               state: {
-                id: boardId
-              }
+                id: boardId,
+              },
             }}
           >
             <MobileWriteButton>{globalText.text_write}</MobileWriteButton>
@@ -196,7 +196,7 @@ export default ({
         {[
           ...Array(
             page > 10 ? pageSize : page % pageSize === 0 ? page : page + 1
-          )
+          ),
         ].map((e, i) => {
           if (currentRange === 0) {
             return i === currentPage ? (

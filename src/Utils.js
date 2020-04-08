@@ -7,18 +7,28 @@ export const getSize = () => {
   const isClient = typeof window === "object";
   return {
     width: isClient ? window.innerWidth : undefined,
-    height: isClient ? window.innerHeight : undefined
+    height: isClient ? window.innerHeight : undefined,
   };
 };
 
-export const dateConverter = date => {
+export const dateConverter = (date) => {
   const convertDate = new Date(date);
-  return `${convertDate.getFullYear()}년 ${convertDate.getMonth()}월 ${convertDate.getDate()}일`;
+  return `${convertDate.getFullYear()}년 ${
+    convertDate.getMonth() + 1
+  }월 ${convertDate.getDate()}일`;
 };
 
-export const dateDetailConverter = date => {
+export const dateDetailConverter = (date) => {
   const convertDate = new Date(date);
-  return `${convertDate.getFullYear()}년 ${convertDate.getMonth()}월 ${convertDate.getDate()}일 ${convertDate.getHours()}시 ${convertDate.getMinutes()}분`;
+  return `${convertDate.getFullYear()}년 ${
+    convertDate.getMonth() + 1
+  }월 ${convertDate.getDate()}일 ${convertDate.getHours()}시 ${convertDate.getMinutes()}분`;
+};
+
+export const addDate = (date, num) => {
+  const convertDate = new Date(date);
+  convertDate.setDate(convertDate.getDate() + num);
+  return convertDate;
 };
 
 export const setCookie = (name, value, expiredays) => {
@@ -35,7 +45,7 @@ export const setCookie = (name, value, expiredays) => {
     ";";
 };
 
-export const getCookie = name => {
+export const getCookie = (name) => {
   const cName = name + "=";
 
   var x = 0;
@@ -65,12 +75,12 @@ export const setWithExpiry = (key, value, ttl) => {
 
   const item = {
     value: value,
-    expiry: now.getTime() + ttl
+    expiry: now.getTime() + ttl,
   };
   localStorage.setItem(key, JSON.stringify(item));
 };
 
-export const getWithExpiry = key => {
+export const getWithExpiry = (key) => {
   const itemStr = localStorage.getItem(key);
 
   if (!itemStr) {
@@ -90,12 +100,12 @@ export const getWithExpiry = key => {
 export const setBoardState = (type, currentPage, currentRange) => {
   const item = {
     currentPage,
-    currentRange
+    currentRange,
   };
   localStorage.setItem(type, JSON.stringify(item));
 };
 
-export const getBoardState = type => {
+export const getBoardState = (type) => {
   const itemStr = localStorage.getItem(type);
 
   if (!itemStr) {
@@ -114,6 +124,6 @@ export const asyncRender = (query, props, Render, isLoading) => {
   return query.error ? null : query.loading ? null : <Render {...props} />;
 };
 
-export const numberWithCommas = num => {
+export const numberWithCommas = (num) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

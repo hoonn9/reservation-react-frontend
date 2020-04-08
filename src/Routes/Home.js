@@ -20,39 +20,38 @@ const Wrapper = styled.div`
 `;
 const TopImgContainer = styled.div`
   width: 100%;
-  height: ${props =>
+  height: ${(props) =>
     props.platform === "desktop" ? `${props.screenSize.height}px` : "480px"};
   background-color: black;
+  overflow: hidden;
 `;
 const TopImgWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: ${props =>
-    props.platform === "desktop" ? `${props.screenSize.height}px` : "480px"};
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 `;
 const TopImg = styled.img`
-  max-width: 100%;
-  width: 100%;
+  width: ${(props) => (props.platform === "desktop" ? "100%" : "auto")};
   height: 100%;
   position: absolute;
   top: 0;
-  background-image: url(${props => props.src});
+  background-image: url(${(props) => props.src});
   background-size: contain;
   background-position: center;
-  opacity: ${props => (props.showing ? 1 : 0)};
+  opacity: ${(props) => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
 
 const SearchWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: ${props =>
+  height: ${(props) =>
     props.platform === "desktop" ? `${props.screenSize.height}px` : "auto"};
-  top: ${props => (props.platform === "desktop" ? "670px" : "0px")};
-  padding: ${props => (props.platform === "desktop" ? "0px 32px" : "0px")};
+  top: ${(props) => (props.platform === "desktop" ? "670px" : "0px")};
+  padding: ${(props) => (props.platform === "desktop" ? "0px 32px" : "0px")};
 `;
 const topImageArray = [getUri() + "images/Home/Top/1.jpg"];
 
@@ -65,7 +64,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
     <Container className="body-content">
       <TopImgContainer platform={platform} screenSize={screenSize}>
         <TopImgWrapper platform={platform} screenSize={screenSize}>
-          <TopImg src={topImageArray[0]} showing={1} />
+          <TopImg platform={platform} src={topImageArray[0]} showing={1} />
           {platform === "desktop" ? (
             <SearchWrapper platform={platform} screenSize={screenSize}>
               <Search
@@ -89,7 +88,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
       <Wrapper
         style={{
           backgroundColor: "transparent",
-          marginTop: platform === "desktop" ? "80px" : "20px"
+          marginTop: platform === "desktop" ? "80px" : "20px",
         }}
       >
         {galleryData.error || galleryData.loading ? (

@@ -8,15 +8,15 @@ const client = new ApolloClient({
       : "https://hxxns-reservation-react.herokuapp.com/",
   clientState: {
     defaults,
-    resolvers
+    resolvers,
   },
   headers: {
     Authorization: `Bearer ${
       localStorage.getItem("log")
         ? JSON.parse(localStorage.getItem("log")).value
         : ""
-    }`
-  }
+    }`,
+  },
 });
 
 export default client;
