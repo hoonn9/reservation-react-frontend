@@ -7,16 +7,15 @@ import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 import { getBoardState } from "../../Utils";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 export default ({ platform }) => {
   const globalText = GlobalText();
   let location = useLocation();
-  let history = useHistory();
   let boardId = null;
-  try {
+  if (location.state !== undefined) {
     boardId = location.state.id;
-  } catch (error) {
-    history.push("/");
+  } else {
+    boardId = "ck7u4vv4t00bu0797n1hkw0mg";
   }
 
   const pageSize = 10;
@@ -30,13 +29,13 @@ export default ({ platform }) => {
       setCurrentPage(boardState.currentPage);
       setCurrentRange(boardState.currentRange);
     }
-    window.addEventListener("beforeunload", e => {
+    window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       localStorage.removeItem(boardId);
     });
     return () => {
       localStorage.removeItem(boardId);
-      window.removeEventListener("beforeunload", e => {
+      window.removeEventListener("beforeunload", (e) => {
         e.preventDefault();
         localStorage.removeItem(boardId);
       });
@@ -46,15 +45,15 @@ export default ({ platform }) => {
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
-      type: "notice"
-    }
+      type: "notice",
+    },
   });
 
   const pageQuery = Page({
     boardId,
     type: "notice",
     first: pageSize,
-    skip: currentPage * pageSize
+    skip: currentPage * pageSize,
   });
 
   return (

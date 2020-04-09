@@ -3,18 +3,21 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { dateConverter } from "../../../Utils";
 
-const Warpper = styled.tr`
+const Warpper = styled.tr``;
+const TopWarpper = styled.td`
   display: flex;
   width: 100%;
-  padding: 16px 0px 16px 0px;
+  padding: 16px 0px;
+  line-height: 16px;
 `;
-const BottomWrapper = styled.tr`
+const BottomWrapper = styled.td`
   display: flex;
   width: 100%;
   padding: 8px 0px;
   border-bottom: 1px ${(props) => props.theme.darkGreyColor} solid;
 `;
-const Row = styled.td`
+const Row = styled.div`
+  position: relative;
   text-align: center;
   font-size: 12px;
 `;
@@ -39,33 +42,37 @@ const ViewRow = styled(Row)`
 const PostLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => props.theme.blackColor};
+  width: 100%;
+  height: 100%;
 `;
 
 export default ({ post, index: num, currentPage, currentRange, boardId }) => {
   const { id, title, views, user, createdAt } = post;
   return (
     <>
-      <PostLink
-        to={{
-          pathname: `/post/${id}`,
-          state: {
-            id,
-            type: "free",
-            currentPage,
-            currentRange,
-            boardId,
-          },
-        }}
-      >
-        <Warpper>
-          <TitleRow>{title}</TitleRow>
-        </Warpper>
-      </PostLink>
-      <BottomWrapper>
-        <NameRow>{user.username}</NameRow>
-        <DateRow>{dateConverter(createdAt)}</DateRow>
-        <ViewRow>조회 {views}</ViewRow>
-      </BottomWrapper>
+      <Warpper>
+        <TopWarpper>
+          <PostLink
+            to={{
+              pathname: `/post/${id}`,
+              state: {
+                id,
+                type: "free",
+                currentPage,
+                currentRange,
+                boardId,
+              },
+            }}
+          >
+            <TitleRow>{title}</TitleRow>
+          </PostLink>
+        </TopWarpper>
+        <BottomWrapper>
+          <NameRow>{user.username}</NameRow>
+          <DateRow>{dateConverter(createdAt)}</DateRow>
+          <ViewRow>조회 {views}</ViewRow>
+        </BottomWrapper>
+      </Warpper>
     </>
   );
 };

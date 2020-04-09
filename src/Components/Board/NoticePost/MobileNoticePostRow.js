@@ -3,22 +3,25 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { dateConverter } from "../../../Utils";
 
-const Warpper = styled.tr`
+const Wrapper = styled.tr`
+  border-top: 1px ${(props) => props.theme.darkGreyColor} solid;
+  border-bottom: 1px ${(props) => props.theme.darkGreyColor} solid;
+`;
+
+const TopWarpper = styled.td`
   display: flex;
   width: 100%;
-  padding: 24px 0px 24px 0px;
-  &:first-child {
-    border-top: 1px ${(props) => props.theme.darkGreyColor} solid;
-  }
+  padding: 24px 0px;
+  line-height: 24px;
 `;
-const BottomWrapper = styled.tr`
+const BottomWrapper = styled.td`
   display: flex;
   width: 100%;
   padding-bottom: 16px;
-  border-bottom: 1px ${(props) => props.theme.darkGreyColor} solid;
   text-align: end;
 `;
-const Row = styled.td`
+const Row = styled.div`
+  position: relative;
   text-align: center;
   font-size: 14px;
 `;
@@ -39,6 +42,8 @@ const ViewRow = styled(Row)`
 const PostLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => props.theme.blackColor};
+  width: 100%;
+  height: 100%;
 `;
 
 export default ({
@@ -51,26 +56,28 @@ export default ({
   const { id, title, views, createdAt } = post;
   return (
     <>
-      <PostLink
-        to={{
-          pathname: `/notice/${id}`,
-          state: {
-            id,
-            type: "notice",
-            currentPage,
-            currentRange,
-            boardId,
-          },
-        }}
-      >
-        <Warpper>
-          <TitleRow>{title}</TitleRow>
-        </Warpper>
-      </PostLink>
-      <BottomWrapper>
-        <DateRow>{dateConverter(createdAt)}</DateRow>
-        <ViewRow>조회 {views}</ViewRow>
-      </BottomWrapper>
+      <Wrapper>
+        <TopWarpper>
+          <PostLink
+            to={{
+              pathname: `/notice/${id}`,
+              state: {
+                id,
+                type: "notice",
+                currentPage,
+                currentRange,
+                boardId,
+              },
+            }}
+          >
+            <TitleRow>{title}</TitleRow>
+          </PostLink>
+        </TopWarpper>
+        <BottomWrapper>
+          <DateRow>{dateConverter(createdAt)}</DateRow>
+          <ViewRow>조회 {views}</ViewRow>
+        </BottomWrapper>
+      </Wrapper>
     </>
   );
 };

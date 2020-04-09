@@ -7,7 +7,8 @@ const Warpper = styled.tr`
   display: flex;
   width: 100%;
   padding: 32px 0px 32px 0px;
-  border: ${props => props.theme.boxBorder};
+  border: ${(props) => props.theme.boxBorder};
+  border-top: 0;
 `;
 const Row = styled.td`
   text-align: center;
@@ -18,16 +19,16 @@ const TitleRow = styled(Row)`
   font-size: 16px;
 `;
 const DateRow = styled(Row)`
-  width: ${props => `${props.width}%`};
-  color: ${props => props.theme.greyColor};
+  width: ${(props) => `${props.width}%`};
+  color: ${(props) => props.theme.greyColor};
 `;
 const ViewRow = styled(Row)`
   width: 20%;
-  color: ${props => props.theme.greyColor};
+  color: ${(props) => props.theme.greyColor};
 `;
 const PostLink = styled(Link)`
   text-decoration: none;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 export default ({
@@ -35,7 +36,7 @@ export default ({
   currentPage = 0,
   currentRange = 0,
   boardId,
-  onViews = true
+  onViews = true,
 }) => {
   const { id, title, views, createdAt } = post;
   return (
@@ -49,8 +50,8 @@ export default ({
               type: "notice",
               currentPage,
               currentRange,
-              boardId
-            }
+              boardId,
+            },
           }}
         >
           {title}

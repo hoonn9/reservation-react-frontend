@@ -200,6 +200,16 @@ const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
       )}
     />
     <Route
+      path="/check/reservation"
+      render={(props) => (
+        <ReservationCheck
+          platform={platform}
+          screenSize={screenSize}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
+    />
+    <Route
       path="/center"
       render={(props) => (
         <Center

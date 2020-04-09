@@ -86,7 +86,6 @@ export default ({ platform }) => {
     onCompleted: (data) => {
       setSuccessState(data);
       setLoading(false);
-      console.log(data);
     },
   });
   const requestOnClick = async () => {

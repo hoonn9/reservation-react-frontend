@@ -7,7 +7,8 @@ const Warpper = styled.tr`
   display: flex;
   width: 100%;
   padding: 16px 0px 16px 0px;
-  border: ${(props) => props.theme.boxBorder};
+  border: 1px ${(props) => props.theme.liteGreyColor} solid;
+  border-top: 0;
 `;
 const Row = styled.td`
   text-align: center;

@@ -15,10 +15,9 @@ export default ({ platform }) => {
   } catch (error) {
     history.push("/");
   }
-  console.log(location);
 
   const { data, loading, error } = useQuery(CHECK_RESERVATION, {
-    variables: { reservationId }
+    variables: { reservationId },
   });
   return (
     <div className="body-content">

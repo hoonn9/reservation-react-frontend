@@ -10,7 +10,8 @@ import Info from "../Info";
 import useCheckbox from "../../../Hooks/useCheckbox";
 import MobileWidgetPresenter from "./MobileWidgetPresenter";
 import MobileSearchPresenter from "./MobileSearchPresenter";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useLazyQuery } from "@apollo/react-hooks";
+import { ME } from "../../../Routes/MyPage/MyPageQueries";
 import {
   USER_RESERVE_TYPE,
   NO_USER_RESERVE_TYPE,
@@ -93,6 +94,16 @@ export default ({
   const infoRef = useRef();
   const [totalPrice, setTotalPrice] = useState(0);
 
+  //login init
+  const [me] = useLazyQuery(ME, {
+    onCompleted: (data) => {
+      reserveUserName.setValue(data.me.username);
+      reserveUserSex.setValue(data.me.bio);
+      reserveUserPhone.setValue(data.me.phoneNum);
+      reserveUserEmail.setValue(data.me.email);
+    },
+  });
+
   const [userReserveMutation] = useMutation(USER_RESERVE_TYPE, {
     variables: {
       typeId: selectType.id,
@@ -139,6 +150,12 @@ export default ({
     date.setSeconds(0);
     callback(date);
   };
+  // 예약자 값 초기화 Query
+  useEffect(() => {
+    if (isLoggedIn) {
+      me();
+    }
+  }, [isLoggedIn, me]);
 
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
@@ -311,8 +328,11 @@ export default ({
         const {
           data: { userReservation },
         } = await userReserveMutation();
-        console.log(userReservation);
         setSuccessLoading(false);
+        history.push({
+          pathname: "/check/reservation",
+          state: { id: userReservation.id },
+        });
       } catch (error) {
         setSuccessLoading(false);
       }

@@ -9,13 +9,12 @@ export default ({ boardId, type, first, last, skip }) => {
         type: type,
         first: first,
         last: last,
-        skip: skip
+        skip: skip,
       },
-      fetchPolicy: "cache-and-network"
+      fetchPolicy: "cache-and-network",
     });
     return page;
   } catch (e) {
-    console.log(e);
     return false;
   }
 };

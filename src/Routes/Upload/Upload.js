@@ -13,7 +13,7 @@ import { useHistory, useLocation } from "react-router-dom";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  margin-top: ${props => (props.platform === "mobile" ? "32px" : "120px")};
+  margin-top: ${(props) => (props.platform === "mobile" ? "32px" : "120px")};
   padding: 5%;
   min-height: 480px;
 `;
@@ -49,7 +49,7 @@ const Button = styled.button`
 export default ({ platform }) => {
   let location = useLocation();
   const {
-    state: { id: boardId }
+    state: { id: boardId },
   } = location;
   const globalText = GlobalText();
   const uploadTitle = useInput("");
@@ -58,7 +58,7 @@ export default ({ platform }) => {
   const [uploadMutation] = useMutation(UPLOAD_BOARD);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const handleLeavePage = e => {
+  const handleLeavePage = (e) => {
     e.preventDefault();
     e.returnValue("정말 벗어나시겠습니까?");
     return "정말 벗어나시겠습니까?";
@@ -80,15 +80,14 @@ export default ({ platform }) => {
           type: "free",
           title: uploadTitle.value,
           content: postJson,
-          files: [...imageArray]
-        }
+          files: [...imageArray],
+        },
       });
       history.push({
         pathname: `/board/${boardId}`,
-        state: { id: boardId }
+        state: { id: boardId },
       });
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };

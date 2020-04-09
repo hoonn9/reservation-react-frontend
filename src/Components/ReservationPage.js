@@ -39,6 +39,7 @@ const TableContent = styled.td`
 export default ({
   platform,
   data: {
+    user,
     noUser,
     guest,
     type,
@@ -62,24 +63,45 @@ export default ({
             </TableTitleLabel>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableLabel>{globalText.text_name}</TableLabel>
-            <TableContent>{noUser.username}</TableContent>
-          </TableRow>
-          <TableRow>
-            <TableLabel>{globalText.text_bio}</TableLabel>
-            <TableContent>{noUser.bio}</TableContent>
-          </TableRow>
-          <TableRow>
-            <TableLabel>{globalText.text_phone_num}</TableLabel>
-            <TableContent>{noUser.phoneNum}</TableContent>
-          </TableRow>
-          <TableRow>
-            <TableLabel>{globalText.text_email}</TableLabel>
-            <TableContent>{noUser.email}</TableContent>
-          </TableRow>
-        </TableBody>
+        {user ? (
+          <TableBody>
+            <TableRow>
+              <TableLabel>{globalText.text_name}</TableLabel>
+              <TableContent>{user.username}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_bio}</TableLabel>
+              <TableContent>{user.bio}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_phone_num}</TableLabel>
+              <TableContent>{user.phoneNum}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_email}</TableLabel>
+              <TableContent>{user.email}</TableContent>
+            </TableRow>
+          </TableBody>
+        ) : (
+          <TableBody>
+            <TableRow>
+              <TableLabel>{globalText.text_name}</TableLabel>
+              <TableContent>{noUser.username}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_bio}</TableLabel>
+              <TableContent>{noUser.bio}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_phone_num}</TableLabel>
+              <TableContent>{noUser.phoneNum}</TableContent>
+            </TableRow>
+            <TableRow>
+              <TableLabel>{globalText.text_email}</TableLabel>
+              <TableContent>{noUser.email}</TableContent>
+            </TableRow>
+          </TableBody>
+        )}
       </Table>
       <Table platform={platform}>
         <TableHeader>

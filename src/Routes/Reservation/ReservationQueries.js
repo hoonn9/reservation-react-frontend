@@ -130,6 +130,13 @@ export const CHECK_RESERVATION = gql`
   query checkReservation($reservationId: String!) {
     checkReservation(reservationId: $reservationId) {
       id
+      user {
+        id
+        username
+        bio
+        email
+        phoneNum
+      }
       noUser {
         id
         username
@@ -145,6 +152,7 @@ export const CHECK_RESERVATION = gql`
         email
       }
       type {
+        id
         typeName
         price
       }

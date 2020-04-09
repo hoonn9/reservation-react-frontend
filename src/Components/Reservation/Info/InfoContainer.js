@@ -3,8 +3,6 @@ import InfoPresenter from "./InfoPresenter";
 import MobileInfoPresenter from "./MobileInfoPresenter";
 import Title from "../../Title";
 import { globalText } from "../../../GlobalText";
-import { useLazyQuery } from "@apollo/react-hooks";
-import { ME } from "../../../Routes/MyPage/MyPageQueries";
 import useCheckbox from "../../../Hooks/useCheckbox";
 const emailRegex = /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
@@ -22,36 +20,24 @@ export default ({
   guestUserName,
   guestUserSex,
   guestUserPhone,
-  guestUserEmail
+  guestUserEmail,
 }) => {
   const validBlur = (regex, value, alert, setAlert) => {
     if (value !== "") {
       !regex.test(value) ? setAlert(alert) : setAlert("");
     }
   };
-  const [me] = useLazyQuery(ME, {
-    onCompleted: data => {
-      guestUserName.setValue(data.me.username);
-      guestUserSex.setValue(data.me.bio);
-      guestUserPhone.setValue(data.me.phoneNum);
-      guestUserEmail.setValue(data.me.email);
-    }
-  });
   const reserveCopy = useCheckbox(false);
   const copyOnClick = () => {
     if (reserveCopy.checked) {
       reserveCopy.setChecked(false);
     } else {
-      if (isLoggedIn) {
-        me();
-      } else {
-        guestUserName.setValue(reserveUserName.value);
-        guestUserSex.setValue(reserveUserSex.value);
-        guestUserPhone.setValue(reserveUserPhone.value);
-        guestUserPhone.setError("");
-        guestUserEmail.setValue(reserveUserEmail.value);
-        guestUserEmail.setError("");
-      }
+      guestUserName.setValue(reserveUserName.value);
+      guestUserSex.setValue(reserveUserSex.value);
+      guestUserPhone.setValue(reserveUserPhone.value);
+      guestUserPhone.setError("");
+      guestUserEmail.setValue(reserveUserEmail.value);
+      guestUserEmail.setError("");
       reserveCopy.setChecked(true);
     }
   };

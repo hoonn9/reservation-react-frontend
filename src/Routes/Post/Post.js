@@ -25,8 +25,6 @@ const Button = styled.button`
 
 export default ({ platform }) => {
   let location = useLocation();
-  console.log(location);
-  console.log("체크");
   var id;
   var type;
   var currentPage;
@@ -63,12 +61,12 @@ export default ({ platform }) => {
 
   useEffect(() => {
     setBoardState(boardId, currentPage, currentRange);
-    window.addEventListener("beforeunload", e => {
+    window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       localStorage.removeItem(boardId);
     });
     return () => {
-      window.removeEventListener("beforeunload", e => {
+      window.removeEventListener("beforeunload", (e) => {
         e.preventDefault();
         localStorage.removeItem(boardId);
       });
@@ -77,9 +75,9 @@ export default ({ platform }) => {
 
   const { data, error, loading } = useQuery(SEE_FULL_POST, {
     variables: {
-      id
+      id,
     },
-    fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
   const globalText = GlobalText();
 
@@ -105,8 +103,8 @@ export default ({ platform }) => {
               to={{
                 pathname,
                 state: {
-                  id: boardId
-                }
+                  id: boardId,
+                },
               }}
             >
               <Button>{globalText.text_list}</Button>

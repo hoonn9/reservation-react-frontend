@@ -12,9 +12,13 @@ import { useLocation } from "react-router-dom";
 
 export default ({ platform }) => {
   let location = useLocation();
-  const {
-    state: { id: boardId }
-  } = location;
+  let boardId = null;
+  if (location.state !== undefined) {
+    boardId = location.state.id;
+  } else {
+    const { pathname } = location;
+    boardId = pathname.split("/board/")[1];
+  }
   const globalText = GlobalText();
   const pageSize = 10;
   const rangeSize = 10;
@@ -27,13 +31,13 @@ export default ({ platform }) => {
       setCurrentPage(boardState.currentPage);
       setCurrentRange(boardState.currentRange);
     }
-    window.addEventListener("beforeunload", e => {
+    window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       localStorage.removeItem(boardId);
     });
     return () => {
       localStorage.removeItem(boardId);
-      window.removeEventListener("beforeunload", e => {
+      window.removeEventListener("beforeunload", (e) => {
         e.preventDefault();
         localStorage.removeItem(boardId);
       });
@@ -43,16 +47,16 @@ export default ({ platform }) => {
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
-      type: "free"
+      type: "free",
     },
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   });
 
   const pageQuery = Page({
     boardId,
     type: "free",
     first: pageSize,
-    skip: currentPage * pageSize
+    skip: currentPage * pageSize,
   });
 
   return (

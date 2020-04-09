@@ -30,12 +30,15 @@ export const CHECK_USER_RESERVATIONS = gql`
       checkOut
       price
       type {
+        id
         typeName
         files {
+          id
           url
         }
       }
       subType {
+        id
         subTypeName
       }
       createdAt

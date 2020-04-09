@@ -24,7 +24,12 @@ const Table = styled.table`
   width: 100%;
   height: 100%;
 `;
-const TableBody = styled.tbody``;
+const TableBody = styled.tbody`
+  border-top: ${(props) =>
+    props.platform === "desktop"
+      ? "0"
+      : `1px ${props.theme.darkGreyColor} solid`};
+`;
 const TabWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -108,10 +113,10 @@ export default ({
     <Warpper>
       <TableWarpper>
         <Table>
-          <TableBody>
+          <TableBody platform={platform}>
             {platform === "desktop" ? <FreePostHeader /> : null}
           </TableBody>
-          <TableBody>
+          <TableBody platform={platform}>
             {data.seeBoard.map((post, index) => {
               return platform === "desktop" ? (
                 <FreePostRow
