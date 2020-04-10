@@ -117,8 +117,8 @@ export const getBoardState = (type) => {
 
 export const getUri = () =>
   process.env.NODE_ENV === "development"
-    ? "http://localhost:4000/"
-    : "https://hxxns-reservation-react.herokuapp.com/";
+    ? process.env.REACT_APP_DEV_URL
+    : process.env.REACT_APP_PROD_URL;
 
 export const asyncRender = (query, props, Render, isLoading) => {
   return query.error ? null : query.loading ? null : <Render {...props} />;

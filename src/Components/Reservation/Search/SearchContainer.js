@@ -97,6 +97,7 @@ export default ({
   //login init
   const [me] = useLazyQuery(ME, {
     onCompleted: (data) => {
+      console.log(data);
       reserveUserName.setValue(data.me.username);
       reserveUserSex.setValue(data.me.bio);
       reserveUserPhone.setValue(data.me.phoneNum);
@@ -152,10 +153,10 @@ export default ({
   };
   // 예약자 값 초기화 Query
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && type !== "widget") {
       me();
     }
-  }, [isLoggedIn, me]);
+  }, [type, isLoggedIn, me]);
 
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));

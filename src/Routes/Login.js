@@ -12,7 +12,7 @@ import ReactLoading from "react-loading";
 
 const LoginContainer = styled.div`
   width: 100%;
-  min-height: ${props => `${props.screenSize.height - 120}px`};
+  min-height: ${(props) => `${props.screenSize.height - 120}px`};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@ const LoginLink = styled(Link)`
   text-decoration: none;
   margin: 16px 16px 0px 0px;
   font-size: 14px;
-  color: ${props => props.theme.blackColor};
+  color: ${(props) => props.theme.blackColor};
 `;
 
 const Text = styled.div`
@@ -85,12 +85,12 @@ export default ({ platform, screenSize }) => {
   const [loginUserMutation] = useMutation(LOGIN_USER, {
     variables: {
       userId: userId.value,
-      password: userPw.value
-    }
+      password: userPw.value,
+    },
   });
   const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
 
-  const onKeyPress = async event => {
+  const onKeyPress = async (event) => {
     const { which } = event;
     if (which === 13) {
       event.preventDefault();
@@ -102,7 +102,7 @@ export default ({ platform, screenSize }) => {
     try {
       setLoading(true);
       const {
-        data: { loginUser: token }
+        data: { loginUser: token },
       } = await loginUserMutation();
 
       if (token === "false") {
@@ -192,7 +192,11 @@ export default ({ platform, screenSize }) => {
             <Text>{msg}</Text>
             {loading ? (
               <MobileLoginButton>
-                <Button text={globalText.text_login} disabled />
+                <Button
+                  text={globalText.text_login}
+                  disabled
+                  onClick={() => null}
+                />
               </MobileLoginButton>
             ) : (
               <MobileLoginButton>

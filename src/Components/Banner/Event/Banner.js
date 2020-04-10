@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Head from "./Head";
 import Content from "./Content";
@@ -29,6 +29,16 @@ export default ({ screenSize, platform }) => {
     setTransValue(0);
   };
 
+  // useEffect(() => {
+  //   if (!loading && !error) {
+  //     console.log(data.seeEvent);
+  //     data.seeEvent.forEach((e) => {
+  //       const img = new Image();
+  //       img.src = e.thumbnail;
+  //       console.log(img);
+  //     });
+  //   }
+  // }, [loading, error]);
   return (
     <>
       {error ? (

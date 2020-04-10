@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Img from "react-image";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -35,7 +36,7 @@ const ImageWrapper = styled.div`
   width: 100%;
   height: 480px;
 `;
-const Image = styled.img`
+const Image = styled(Img)`
   width: auto;
   height: 100%;
 `;

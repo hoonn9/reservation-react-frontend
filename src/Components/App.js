@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import Theme from "../Styles/Theme";
 import GlobalStyles from "../Styles/GlobalStyles";
 import Header from "./Header";
@@ -29,7 +29,7 @@ const useWindowSize = () => {
     width: isClient ? window.innerWidth : undefined,
     height: isClient ? window.innerHeight : undefined,
   });
-
+  console.log(process.env.NODE_ENV, process.env.REACT_DEV_URL);
   useEffect(() => {
     const getSize = () => {
       return {
