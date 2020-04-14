@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Popup from "reactjs-popup";
 import CloseIcon from "@material-ui/icons/Close";
-import { getUri, numberWithCommas } from "../../../Utils";
+import { numberWithCommas } from "../../../Utils";
 import TouchSlideView from "../../TouchSlideView";
 
 const Wrapper = styled.div`
@@ -187,7 +187,11 @@ export default ({
               setGalleryToggle(true);
             }}
           >
-            <Thumbnail src={getUri() + `images/About/${type.id}/1.jpg`} />
+            <Thumbnail
+              src={
+                process.env.REACT_APP_S3_URL + `about/about_${type.id}_1.jpg`
+              }
+            />
           </ThumbnailWrapper>
           <InfoWrapper>
             <InfoCenter>

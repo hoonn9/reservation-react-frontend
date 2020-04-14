@@ -8,7 +8,6 @@ import GalleryBanner from "../Components/Banner/Gallery";
 import { useQuery } from "@apollo/react-hooks";
 import { SEE_POPUP } from "../SharedQueries";
 import { SEE_TYPE } from "./About/AboutQueries";
-import { getUri } from "../Utils";
 
 const Container = styled.div`
   position: relative;
@@ -53,7 +52,7 @@ const SearchWrapper = styled.div`
   top: ${(props) => (props.platform === "desktop" ? "670px" : "0px")};
   padding: ${(props) => (props.platform === "desktop" ? "0px 32px" : "0px")};
 `;
-const topImageArray = [getUri() + "images/Home/Top/1.jpg"];
+const topImageArray = [process.env.REACT_APP_S3_URL + "home/home_1.jpg"];
 
 export default ({ platform, screenSize, isLoggedIn }) => {
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";

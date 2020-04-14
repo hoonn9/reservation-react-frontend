@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { getUri } from "../Utils";
 
 const Wrapper = styled.div`
   max-width: 100%;
@@ -56,11 +55,11 @@ export default ({ id, type, title, subTitle, period, thumbnail }) => {
             to={{
               pathname: `/event/${id}`,
               state: {
-                id
-              }
+                id,
+              },
             }}
           >
-            <Img src={getUri() + thumbnail} />
+            <Img src={thumbnail} />
           </ContentLink>
         </ImgWrapper>
         <TextWrapper>

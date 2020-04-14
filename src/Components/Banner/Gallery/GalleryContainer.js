@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GalleryPresenter from "./GalleryPresenter";
 import PropTypes from "prop-types";
-import { getUri } from "../../../Utils";
 import TouchSlideView from "../../TouchSlideView";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -53,15 +52,14 @@ const GalleryContainer = ({ platform, screenSize, galleryData }) => {
   const centerProp = (screenSize.width - imgWidth) / 2;
 
   const viewArray = [];
-  const uri = getUri();
   if (galleryData !== undefined) {
     galleryData.files.forEach((e, i) => {
       viewArray.push({
         to: `/about/${e.id}`,
         id: e.id,
-        url: uri + e.url,
+        url: e.url,
         title: "Title " + i,
-        subTitle: "SubTitle " + i
+        subTitle: "SubTitle " + i,
       });
     });
   } else {
@@ -82,7 +80,7 @@ const GalleryContainer = ({ platform, screenSize, galleryData }) => {
                 style={{
                   width: "36px",
                   height: "36px",
-                  verticalAlign: "middle"
+                  verticalAlign: "middle",
                 }}
               />
             </SubButton>
@@ -97,7 +95,7 @@ const GalleryContainer = ({ platform, screenSize, galleryData }) => {
                 style={{
                   width: "24px",
                   height: "24px",
-                  verticalAlign: "middle"
+                  verticalAlign: "middle",
                 }}
               />
             </SubButton>
@@ -138,14 +136,14 @@ GalleryContainer.defaultProps = {
   galleryData: {
     id: "",
     typeName: "",
-    files: []
-  }
+    files: [],
+  },
 };
 
 GalleryContainer.propTypes = {
   platform: PropTypes.string.isRequired,
   screenSize: PropTypes.object.isRequired,
-  galleryData: PropTypes.object
+  galleryData: PropTypes.object,
 };
 
 export default GalleryContainer;

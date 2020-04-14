@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { getUri } from "../Utils";
 
 const Wrapper = styled.div`
   max-width: 100%;
@@ -50,13 +49,13 @@ const TextWrapper = styled.div`
 `;
 
 const TextTitle = styled.dt`
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
   text-align: center;
   font-size: 16px;
   font-weight: 600;
 `;
 const TextSubTitle = styled.dd`
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -67,14 +66,14 @@ export default ({ id, type, title, subTitle, period, thumbnail }) => {
     <Wrapper>
       <ContentWrapper>
         <ImgWrapper>
-          <Img src={getUri() + thumbnail} />
+          <Img src={thumbnail} />
 
           <ContentLink
             to={{
               pathname: `/event/${id}`,
               state: {
-                id
-              }
+                id,
+              },
             }}
           >
             <TextWrapper>

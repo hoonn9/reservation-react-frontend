@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { getUri } from "../../Utils";
 
 const Wrapper = styled.div``;
 const TopViewWrapper = styled.div`
@@ -25,7 +24,7 @@ const TopViewDetailWrapper = styled.div`
   position: absolute;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  color: ${props => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 const TopViewDescWrapper = styled.div`
   position: relative;
@@ -87,12 +86,12 @@ export default ({
   period,
   subTitle,
   content,
-  files
+  files,
 }) => {
   return (
     <Wrapper>
       <TopViewWrapper>
-        <TopViewImage src={getUri() + thumbnail} />
+        <TopViewImage src={thumbnail} />
         <TopViewDetailWrapper>
           <TopViewDescWrapper>
             <TopViewDescLeft>

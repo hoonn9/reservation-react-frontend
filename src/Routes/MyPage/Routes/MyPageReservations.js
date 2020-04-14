@@ -5,7 +5,6 @@ import { CHECK_USER_RESERVATIONS } from "../MyPageQueries";
 import { globalText } from "../../../GlobalText";
 import Title from "../../../Components/Title";
 import ReservationRow from "../../../Components/ReservationRow";
-import { getUri } from "../../../Utils";
 import ErrorAlert from "../../../Components/ErrorAlert";
 import Loader from "../../../Components/Loader";
 const Container = styled.div``;
@@ -59,7 +58,7 @@ export default ({ platform }) => {
                             typeName={e.type.typeName}
                             thumbnail={
                               e.type.files.length > 0
-                                ? getUri() + e.type.files[0].url
+                                ? e.type.files[0].url
                                 : null
                             }
                             subTypeName={e.subType.subTypeName}
@@ -87,7 +86,7 @@ export default ({ platform }) => {
                             typeName={e.type.typeName}
                             thumbnail={
                               e.type.files.length > 0
-                                ? getUri() + e.type.files[0].url
+                                ? e.type.files[0].url
                                 : null
                             }
                             subTypeName={e.subType.subTypeName}

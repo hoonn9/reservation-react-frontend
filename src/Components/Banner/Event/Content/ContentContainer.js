@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ContentPresenter from "./ContentPresenter";
 import TouchSlideView from "../../../TouchSlideView";
-import { getUri } from "../../../../Utils";
 
 export default ({
   platform,
@@ -13,13 +12,13 @@ export default ({
   transValue,
   setTransValue,
   divide,
-  data: { seeEvent }
+  data: { seeEvent },
 }) => {
   useEffect(() => {
     setImgWidth(((screenSize.width / 100) * wrapperWidth) / divide);
   }, [screenSize, wrapperWidth, divide, setImgWidth]);
 
-  const currentArray = seeEvent.filter(e => {
+  const currentArray = seeEvent.filter((e) => {
     return e.eventType === currentItem;
   });
 
@@ -36,13 +35,13 @@ export default ({
     );
   } else {
     const viewArray = [];
-    currentArray.forEach(e => {
+    currentArray.forEach((e) => {
       viewArray.push({
         to: `/event/${e.id}`,
         id: e.id,
         title: e.title,
         subTitle: e.subTitle,
-        url: getUri() + e.thumbnail
+        url: e.thumbnail,
       });
     });
 

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { getUri } from "../../Utils";
 
 const Wrapper = styled.div``;
 const TopViewWrapper = styled.div`
@@ -91,12 +90,12 @@ export default ({
   period,
   subTitle,
   content,
-  files
+  files,
 }) => {
   return (
     <Wrapper>
       <TopViewWrapper>
-        <TopViewImage src={getUri() + thumbnail} />
+        <TopViewImage src={thumbnail} />
         <TopViewDetailWrapper>
           <TopViewDescWrapper>
             <TopViewDescLeft>

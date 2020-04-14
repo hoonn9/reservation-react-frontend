@@ -10,7 +10,6 @@ import {
   CHECK_NOUSERS,
 } from "../../../SharedQueries";
 import ReservationRow from "../../../Components/ReservationRow";
-import { getUri } from "../../../Utils";
 import Button from "../../../Components/Button";
 const Container = styled.div`
   position: relative;
@@ -148,9 +147,7 @@ export default ({ platform }) => {
                         price={e.price}
                         typeName={e.type.typeName}
                         thumbnail={
-                          e.type.files.length > 0
-                            ? getUri() + e.type.files[0].url
-                            : null
+                          e.type.files.length > 0 ? e.type.files[0].url : null
                         }
                         subTypeName={e.subType.subTypeName}
                         createdAt={e.createdAt}

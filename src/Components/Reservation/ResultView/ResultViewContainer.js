@@ -2,14 +2,13 @@ import React from "react";
 import ResultViewPresenter from "./ResultViewPresenter";
 import MobileResultViewPresenter from "./MobileResultViewPresenter";
 import { useState } from "react";
-import { getUri } from "../../../Utils";
 
 export default ({
   platform,
   type,
   globalText,
   setSelectType,
-  setSelectSubType
+  setSelectSubType,
 }) => {
   const [toggle, setToggle] = useState(false);
   const [galleryToggle, setGalleryToggle] = useState(false);
@@ -17,7 +16,7 @@ export default ({
 
   type.files.forEach((e, i) => {
     slideViewArray.push({
-      url: getUri() + e.url
+      url: e.url,
     });
   });
 
