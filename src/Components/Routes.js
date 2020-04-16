@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "../Routes/Home";
+import Home from "../Routes/Home/Home";
 import Login from "../Routes/Login";
 import Join from "../Routes/Join";
 import JoinAgree from "../Routes/JoinAgree";

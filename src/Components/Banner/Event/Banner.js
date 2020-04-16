@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Head from "./Head";
 import Content from "./Content";
-import { useQuery } from "@apollo/react-hooks";
-import { SEE_EVENT } from "../../../Routes/Event/EventQueries";
-import ErrorAlert from "../../ErrorAlert";
 import GlobalText from "../../../GlobalText";
 
 const Wrapper = styled.div`
@@ -12,10 +9,9 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export default ({ screenSize, platform }) => {
+export default ({ screenSize, platform, eventData }) => {
   const globalText = GlobalText();
   const [currentItem, setCurrentItem] = useState(0);
-  const { data, loading, error } = useQuery(SEE_EVENT, { variables: {} });
 
   //container
   const divide = 3;
@@ -41,24 +37,20 @@ export default ({ screenSize, platform }) => {
   // }, [loading, error]);
   return (
     <>
-      {error ? (
-        <ErrorAlert />
-      ) : loading ? (
-        <div />
-      ) : (
+      {eventData ? (
         <Wrapper>
           <Head
             platform={platform}
             globalText={globalText}
             currentItem={currentItem}
             setCurrentItem={setCurrentItem}
-            data={data}
+            data={eventData}
             resetWrapper={resetWrapper}
           />
           <Content
             platform={platform}
             currentItem={currentItem}
-            data={data}
+            data={eventData}
             screenSize={screenSize}
             wrapperWidth={wrapperWidth}
             divide={divide}
@@ -68,7 +60,7 @@ export default ({ screenSize, platform }) => {
             setTransValue={setTransValue}
           />
         </Wrapper>
-      )}
+      ) : null}
     </>
   );
 };

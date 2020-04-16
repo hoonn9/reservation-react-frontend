@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import EventBanner from "../Components/Banner/Event/Banner";
-import Search from "../Components/Reservation/Search";
-import Popup from "../Components/Popup/Popup";
-import NoticeBanner from "../Components/Banner/Notice";
-import GalleryBanner from "../Components/Banner/Gallery";
+import EventBanner from "../../Components/Banner/Event/Banner";
+import Widget from "../../Components/Reservation/Widget";
+import Popup from "../../Components/Popup/Popup";
+import NoticeBanner from "../../Components/Banner/Notice";
+import GalleryBanner from "../../Components/Banner/Gallery";
 import { useQuery } from "@apollo/react-hooks";
-import { SEE_POPUP } from "../SharedQueries";
-import { SEE_TYPE } from "./About/AboutQueries";
+import { SEE_POPUP } from "../../SharedQueries";
+import { SEE_TYPE } from "../About/AboutQueries";
+import { SEE_EVENT } from "../Event/EventQueries";
+import Page from "../../Components/Page";
 
 const Container = styled.div`
   position: relative;
@@ -58,6 +60,14 @@ export default ({ platform, screenSize, isLoggedIn }) => {
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";
   const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
   const galleryData = useQuery(SEE_TYPE, {});
+  const eventData = useQuery(SEE_EVENT, { variables: {} });
+  // 홈 공지사항 Row Count
+  const viewCount = 3;
+  const pageQuery = Page({
+    boardId: noticeId,
+    type: "notice",
+    first: viewCount,
+  });
 
   return (
     <Container className="body-content">
@@ -66,7 +76,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
           <TopImg platform={platform} src={topImageArray[0]} showing={1} />
           {platform === "desktop" ? (
             <SearchWrapper platform={platform} screenSize={screenSize}>
-              <Search
+              <Widget
                 platform={platform}
                 type="widget"
                 isLoggedIn={isLoggedIn}
@@ -77,7 +87,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
       </TopImgContainer>
       {platform === "mobile" ? (
         <SearchWrapper platform={platform} screenSize={screenSize}>
-          <Search platform={platform} type="widget" isLoggedIn={isLoggedIn} />
+          <Widget platform={platform} type="widget" isLoggedIn={isLoggedIn} />
         </SearchWrapper>
       ) : null}
 
@@ -101,11 +111,27 @@ export default ({ platform, screenSize, isLoggedIn }) => {
         )}
       </Wrapper>
       <Wrapper>
-        <EventBanner screenSize={screenSize} platform={platform} />
+        {eventData.error || eventData.loading ? (
+          <EventBanner screenSize={screenSize} platform={platform} />
+        ) : (
+          <EventBanner
+            screenSize={screenSize}
+            platform={platform}
+            eventData={eventData.data}
+          />
+        )}
       </Wrapper>
 
       <Wrapper>
-        <NoticeBanner noticeId={noticeId} platform={platform} />
+        {pageQuery.error || pageQuery.loading ? (
+          <NoticeBanner noticeId={noticeId} platform={platform} />
+        ) : (
+          <NoticeBanner
+            noticeId={noticeId}
+            platform={platform}
+            pageData={pageQuery.data}
+          />
+        )}
       </Wrapper>
     </Container>
   );

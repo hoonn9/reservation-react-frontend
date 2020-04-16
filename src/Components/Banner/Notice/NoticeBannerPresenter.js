@@ -6,7 +6,7 @@ import NoticePostRow from "../../Board/NoticePost/NoticePostRow";
 import { globalText } from "../../../GlobalText";
 const Container = styled.div``;
 const Wrapper = styled.div`
-  width: ${props => `${props.wrapperWidth}%`};
+  width: ${(props) => `${props.wrapperWidth}%`};
   margin: 0 auto;
 `;
 const HeadWrapper = styled.div`
@@ -53,8 +53,8 @@ export default ({ platform, wrapperWidth, data, noticeId }) => {
                 to={{
                   pathname: "/notice",
                   state: {
-                    id: noticeId
-                  }
+                    id: noticeId,
+                  },
                 }}
               >
                 <SubButton>
@@ -62,7 +62,7 @@ export default ({ platform, wrapperWidth, data, noticeId }) => {
                     style={{
                       width: "36px",
                       height: "36px",
-                      verticalAlign: "middle"
+                      verticalAlign: "middle",
                     }}
                   />
                 </SubButton>
@@ -93,8 +93,8 @@ export default ({ platform, wrapperWidth, data, noticeId }) => {
                 to={{
                   pathname: "/notice",
                   state: {
-                    id: noticeId
-                  }
+                    id: noticeId,
+                  },
                 }}
               >
                 <SubButton>
@@ -102,7 +102,7 @@ export default ({ platform, wrapperWidth, data, noticeId }) => {
                     style={{
                       width: "24px",
                       height: "24px",
-                      verticalAlign: "middle"
+                      verticalAlign: "middle",
                     }}
                   />
                 </SubButton>

@@ -1,25 +1,19 @@
 import React from "react";
-import Page from "../../Page";
 import NoticeBannerPresenter from "./NoticeBannerPresenter";
 
-export default ({ noticeId, platform }) => {
-  const viewCount = 3;
+export default ({ noticeId, platform, pageData }) => {
   const wrapperWidth = 75;
-  const pageQuery = Page({
-    boardId: noticeId,
-    type: "notice",
-    first: viewCount
-  });
+
   return (
     <>
-      {pageQuery.error ? null : pageQuery.loading ? null : (
+      {pageData ? (
         <NoticeBannerPresenter
           platform={platform}
-          data={pageQuery.data}
+          data={pageData}
           wrapperWidth={wrapperWidth}
           noticeId={noticeId}
         />
-      )}
+      ) : null}
     </>
   );
 };

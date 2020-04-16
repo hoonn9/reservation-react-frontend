@@ -20,7 +20,7 @@ export default ({
   userCount,
   subCount,
   globalText,
-  containerRef
+  containerRef,
 }) => {
   return (
     <>

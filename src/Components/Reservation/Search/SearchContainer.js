@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import SearchPresenter from "./SearchPresenter";
-import WidgetPresenter from "./WidgetPresenter";
 import Result from "../Result";
 import Summary from "../Summary";
 import Option from "../Option";
 import Info from "../Info";
 import useCheckbox from "../../../Hooks/useCheckbox";
-import MobileWidgetPresenter from "./MobileWidgetPresenter";
 import MobileSearchPresenter from "./MobileSearchPresenter";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { ME } from "../../../Routes/MyPage/MyPageQueries";
@@ -26,7 +24,6 @@ const phoneRegex = /^[0-9]{3}[0-9]{4}[0-9]{4}$/;
 export default ({
   isLoggedIn,
   platform,
-  type,
   init,
   checkIn,
   checkOut,
@@ -97,7 +94,6 @@ export default ({
   //login init
   const [me] = useLazyQuery(ME, {
     onCompleted: (data) => {
-      console.log(data);
       reserveUserName.setValue(data.me.username);
       reserveUserSex.setValue(data.me.bio);
       reserveUserPhone.setValue(data.me.phoneNum);
@@ -153,10 +149,10 @@ export default ({
   };
   // 예약자 값 초기화 Query
   useEffect(() => {
-    if (isLoggedIn && type !== "widget") {
+    if (isLoggedIn) {
       me();
     }
-  }, [type, isLoggedIn, me]);
+  }, [isLoggedIn, me]);
 
   useEffect(() => {
     setStartDay(format(startDate, "E", { locale: ko }));
@@ -184,51 +180,49 @@ export default ({
 
   //페이지 진입 초기화
   useEffect(() => {
-    if (type !== "widget") {
-      if (
-        checkIn !== undefined &&
-        checkOut !== undefined &&
-        parentTypeCount !== undefined &&
-        parentUserCount !== undefined &&
-        parentSubCount !== undefined
-      ) {
-        setStartDate(new Date(checkIn));
-        setEndDate(new Date(checkOut));
-        setInitState(false);
-        typeCount.setValue(parentTypeCount);
-        userCount.setValue(parentUserCount);
-        subCount.setValue(parentSubCount);
-        dateConverter(checkIn, 0, 0, (date) => {
-          setResultCheckIn(date.toISOString());
-        });
-        dateConverter(checkOut, 1, 0, (date) => {
-          setResultCheckOut(date.toISOString());
-        });
-        setResultCount(parentTypeCount);
-        setResultToggle(true);
-      }
-      const handleScroll = () => {
-        const { pageYOffset } = window;
-        // console.log(pageYOffset);
-        // console.log(containerRef.current.offsetHeight);
-        // console.log(screenSize.height);
-        if (containerRef.current.offsetHeight !== null) {
-          if (
-            containerRef.current.offsetHeight - pageYOffset >
-            screenSize.height - 200
-          ) {
-            setSmToggle(true);
-          } else {
-            setSmToggle(false);
-          }
-        }
-      };
-      handleScroll();
-      window.addEventListener("scroll", handleScroll);
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
+    if (
+      checkIn !== undefined &&
+      checkOut !== undefined &&
+      parentTypeCount !== undefined &&
+      parentUserCount !== undefined &&
+      parentSubCount !== undefined
+    ) {
+      setStartDate(new Date(checkIn));
+      setEndDate(new Date(checkOut));
+      setInitState(false);
+      typeCount.setValue(parentTypeCount);
+      userCount.setValue(parentUserCount);
+      subCount.setValue(parentSubCount);
+      dateConverter(checkIn, 0, 0, (date) => {
+        setResultCheckIn(date.toISOString());
+      });
+      dateConverter(checkOut, 1, 0, (date) => {
+        setResultCheckOut(date.toISOString());
+      });
+      setResultCount(parentTypeCount);
+      setResultToggle(true);
     }
+    const handleScroll = () => {
+      const { pageYOffset } = window;
+      // console.log(pageYOffset);
+      // console.log(containerRef.current.offsetHeight);
+      // console.log(screenSize.height);
+      if (containerRef.current.offsetHeight !== null) {
+        if (
+          containerRef.current.offsetHeight - pageYOffset >
+          screenSize.height - 200
+        ) {
+          setSmToggle(true);
+        } else {
+          setSmToggle(false);
+        }
+      }
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [
     init,
     checkIn,
@@ -236,12 +230,8 @@ export default ({
     parentTypeCount,
     parentUserCount,
     parentSubCount,
-    type,
     screenSize,
     containerRef,
-    typeCount,
-    userCount,
-    subCount,
   ]);
 
   useEffect(() => {
@@ -353,123 +343,95 @@ export default ({
     }
   };
 
-  if (type === "widget") {
-    return platform === "desktop" ? (
-      <WidgetPresenter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDay={startDay}
-        endDay={endDay}
-        userCount={userCount}
-        typeCount={typeCount}
-        subCount={subCount}
-      />
-    ) : (
-      <MobileWidgetPresenter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDay={startDay}
-        endDay={endDay}
-        userCount={userCount}
-        typeCount={typeCount}
-        subCount={subCount}
-      />
-    );
-  } else {
-    return (
-      <>
-        {platform === "desktop" ? (
-          <SearchPresenter
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            startDay={startDay}
-            endDay={endDay}
-            userCount={userCount}
-            typeCount={typeCount}
-            subCount={subCount}
-            searchOnClick={searchOnClick}
-            selectType={selectType}
-            containerRef={containerRef}
-            reset={reset}
-          />
-        ) : (
-          <MobileSearchPresenter
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            startDay={startDay}
-            endDay={endDay}
-            userCount={userCount}
-            typeCount={typeCount}
-            subCount={subCount}
-            searchOnClick={searchOnClick}
-            selectType={selectType}
-            containerRef={containerRef}
-            reset={reset}
-          />
-        )}
-        <Result
-          platform={platform}
-          count={resultCount}
-          dateConverter={dateConverter}
-          checkIn={resultCheckIn}
-          checkOut={resultCheckOut}
-          initState={initState}
-          setInitState={setInitState}
-          setSelectType={setSelectType}
-          setSelectSubType={setSelectSubType}
-          resultToggle={resultToggle}
-        />
-        <Summary
-          platform={platform}
-          smToggle={smToggle}
+  return (
+    <>
+      {platform === "desktop" ? (
+        <SearchPresenter
           startDate={startDate}
+          setStartDate={setStartDate}
           endDate={endDate}
+          setEndDate={setEndDate}
+          startDay={startDay}
+          endDay={endDay}
+          userCount={userCount}
           typeCount={typeCount}
           subCount={subCount}
-          userCount={userCount}
+          searchOnClick={searchOnClick}
           selectType={selectType}
-          selectSubType={selectSubType}
-          smDisplay={smDisplay}
-          totalPrice={totalPrice}
-          successToggle={successToggle}
-          successOnClick={successOnClick}
-          successLoading={successLoading}
+          containerRef={containerRef}
+          reset={reset}
         />
-        <Option
-          platform={platform}
+      ) : (
+        <MobileSearchPresenter
           startDate={startDate}
+          setStartDate={setStartDate}
           endDate={endDate}
-          optionRef={optionRef}
-          optionToggle={optionToggle}
-          optionNextOnClick={optionNextOnClick}
-          setCheckInTime={checkInTime.setValue}
-          setCheckOutTime={checkOutTime.setValue}
-          optionRequest={optionRequest}
+          setEndDate={setEndDate}
+          startDay={startDay}
+          endDay={endDay}
+          userCount={userCount}
+          typeCount={typeCount}
+          subCount={subCount}
+          searchOnClick={searchOnClick}
+          selectType={selectType}
+          containerRef={containerRef}
+          reset={reset}
         />
-        <Info
-          platform={platform}
-          isLoggedIn={isLoggedIn}
-          infoRef={infoRef}
-          infoToggle={infoToggle}
-          agreeChecked={agreeChecked}
-          reserveUserName={reserveUserName}
-          reserveUserSex={reserveUserSex}
-          reserveUserPhone={reserveUserPhone}
-          reserveUserEmail={reserveUserEmail}
-          guestUserName={guestUserName}
-          guestUserSex={guestUserSex}
-          guestUserPhone={guestUserPhone}
-          guestUserEmail={guestUserEmail}
-        />
-      </>
-    );
-  }
+      )}
+      <Result
+        platform={platform}
+        count={resultCount}
+        dateConverter={dateConverter}
+        checkIn={resultCheckIn}
+        checkOut={resultCheckOut}
+        initState={initState}
+        setInitState={setInitState}
+        setSelectType={setSelectType}
+        setSelectSubType={setSelectSubType}
+        resultToggle={resultToggle}
+      />
+      <Summary
+        platform={platform}
+        smToggle={smToggle}
+        startDate={startDate}
+        endDate={endDate}
+        typeCount={typeCount}
+        subCount={subCount}
+        userCount={userCount}
+        selectType={selectType}
+        selectSubType={selectSubType}
+        smDisplay={smDisplay}
+        totalPrice={totalPrice}
+        successToggle={successToggle}
+        successOnClick={successOnClick}
+        successLoading={successLoading}
+      />
+      <Option
+        platform={platform}
+        startDate={startDate}
+        endDate={endDate}
+        optionRef={optionRef}
+        optionToggle={optionToggle}
+        optionNextOnClick={optionNextOnClick}
+        setCheckInTime={checkInTime.setValue}
+        setCheckOutTime={checkOutTime.setValue}
+        optionRequest={optionRequest}
+      />
+      <Info
+        platform={platform}
+        isLoggedIn={isLoggedIn}
+        infoRef={infoRef}
+        infoToggle={infoToggle}
+        agreeChecked={agreeChecked}
+        reserveUserName={reserveUserName}
+        reserveUserSex={reserveUserSex}
+        reserveUserPhone={reserveUserPhone}
+        reserveUserEmail={reserveUserEmail}
+        guestUserName={guestUserName}
+        guestUserSex={guestUserSex}
+        guestUserPhone={guestUserPhone}
+        guestUserEmail={guestUserEmail}
+      />
+    </>
+  );
 };
