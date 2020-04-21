@@ -74,7 +74,7 @@ const PriceText = styled.div`
   display: inline-block;
   font-size: 21px;
   font-weight: 500;
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
 `;
 const MobileTitleText = styled.div`
   display: inline-block;
@@ -91,18 +91,18 @@ const MobilePriceText = styled.div`
   display: inline-block;
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.blueColor};
+  color: ${(props) => props.theme.blueColor};
 `;
 export default ({
   platform,
   id,
   price,
-  typeName,
+  roomName,
   thumbnail,
-  subTypeName,
+  packName,
   createdAt,
   checkIn,
-  checkOut
+  checkOut,
 }) => {
   return (
     <>
@@ -111,8 +111,8 @@ export default ({
           to={{
             pathname: "/check/reservation",
             state: {
-              id
-            }
+              id,
+            },
           }}
         >
           <Wrapper>
@@ -123,11 +123,11 @@ export default ({
               <ContentWrapper>
                 <TextWrapper>
                   <TitleText>객실 : </TitleText>
-                  <ContentText>{typeName}</ContentText>
+                  <ContentText>{roomName}</ContentText>
                 </TextWrapper>
                 <TextWrapper>
                   <TitleText>패키지 : </TitleText>
-                  <ContentText>{subTypeName}</ContentText>
+                  <ContentText>{packName}</ContentText>
                 </TextWrapper>
                 <TextWrapper>
                   <TitleText> 예약일 : </TitleText>
@@ -154,8 +154,8 @@ export default ({
           to={{
             pathname: "/check/reservation",
             state: {
-              id
-            }
+              id,
+            },
           }}
         >
           <MobileWrapper>
@@ -166,11 +166,11 @@ export default ({
               <ContentWrapper>
                 <TextWrapper>
                   <MobileTitleText>객실 : </MobileTitleText>
-                  <MobileContentText>{typeName}</MobileContentText>
+                  <MobileContentText>{roomName}</MobileContentText>
                 </TextWrapper>
                 <TextWrapper>
                   <MobileTitleText>패키지 : </MobileTitleText>
-                  <MobileContentText>{subTypeName}</MobileContentText>
+                  <MobileContentText>{packName}</MobileContentText>
                 </TextWrapper>
                 <TextWrapper>
                   <MobileTitleText> 예약일 : </MobileTitleText>

@@ -45,13 +45,13 @@ export default ({ platform }) => {
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
-      type: "notice",
+      postType: "notice",
     },
   });
 
   const pageQuery = Page({
     boardId,
-    type: "notice",
+    postType: "notice",
     first: pageSize,
     skip: currentPage * pageSize,
   });

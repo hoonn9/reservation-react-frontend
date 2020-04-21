@@ -3,14 +3,14 @@ import { gql } from "apollo-boost";
 export const UPLOAD_BOARD = gql`
   mutation upload(
     $boardId: String
-    $type: String!
+    $postType: String!
     $title: String!
     $content: String!
     $files: [String!]!
   ) {
     upload(
       boardId: $boardId
-      type: $type
+      postType: $postType
       title: $title
       content: $content
       files: $files

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default ({
   platform,
-  type,
+  room,
   globalText,
   setSelectType,
   setSelectSubType,
@@ -14,7 +14,7 @@ export default ({
   const [galleryToggle, setGalleryToggle] = useState(false);
   const slideViewArray = [];
 
-  type.files.forEach((e, i) => {
+  room.files.forEach((e, i) => {
     slideViewArray.push({
       url: e.url,
     });
@@ -25,7 +25,7 @@ export default ({
     <>
       {platform === "desktop" ? (
         <ResultViewPresenter
-          type={type}
+          room={room}
           globalText={globalText}
           toggle={toggle}
           moreOnClick={moreOnClick}
@@ -37,7 +37,7 @@ export default ({
         />
       ) : (
         <MobileResultViewPresenter
-          type={type}
+          room={room}
           globalText={globalText}
           toggle={toggle}
           moreOnClick={moreOnClick}

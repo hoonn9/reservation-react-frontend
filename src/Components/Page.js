@@ -1,12 +1,12 @@
 import { SEE_BOARD } from "./Board/BoardQueries";
 import { useQuery } from "@apollo/react-hooks";
 
-export default ({ boardId, type, first, last, skip }) => {
+export default ({ boardId, postType, first, last, skip }) => {
   try {
     const page = useQuery(SEE_BOARD, {
       variables: {
         boardId,
-        type: type,
+        postType,
         first: first,
         last: last,
         skip: skip,

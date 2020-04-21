@@ -29,11 +29,11 @@ export default ({ platform, data, setSelectType, setSelectSubType }) => {
     <Container>
       <Wrapper>
         {data ? (
-          data.searchType.map((type, i) => {
-            return type.id ? (
+          data.searchRoom.map((room, i) => {
+            return room.id ? (
               <ResultView
                 platform={platform}
-                type={type}
+                room={room}
                 globalText={globalText}
                 key={i}
                 setSelectType={setSelectType}

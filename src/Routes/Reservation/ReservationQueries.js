@@ -1,29 +1,29 @@
 import { gql } from "apollo-boost";
 
-export const SEARCH_TYPE = gql`
-  query searchType($count: Int!, $checkIn: String!, $checkOut: String!) {
-    searchType(count: $count, checkIn: $checkIn, checkOut: $checkOut) {
+export const SEARCH_ROOM = gql`
+  query searchRoom($count: Int!, $checkIn: String!, $checkOut: String!) {
+    searchRoom(count: $count, checkIn: $checkIn, checkOut: $checkOut) {
       id
-      typeName
+      name
       files {
         url
       }
       price
-      typeCount
-      subTypes {
+      count
+      packs {
         id
         price
-        subTypeName
+        name
         description
       }
     }
   }
 `;
 
-export const USER_RESERVE_TYPE = gql`
+export const USER_RESERVE_ROOM = gql`
   mutation userReservation(
-    $typeId: String!
-    $subTypeId: String!
+    $roomId: String!
+    $packId: String!
     $guestUserName: String!
     $guestUserSex: String!
     $guestUserPhone: String!
@@ -36,8 +36,8 @@ export const USER_RESERVE_TYPE = gql`
     $checkOut: String!
   ) {
     userReservation(
-      typeId: $typeId
-      subTypeId: $subTypeId
+      roomId: $roomId
+      packId: $packId
       guestUserName: $guestUserName
       guestUserSex: $guestUserSex
       guestUserPhone: $guestUserPhone
@@ -64,13 +64,13 @@ export const USER_RESERVE_TYPE = gql`
         email
         phoneNum
       }
-      type {
-        typeName
+      room {
+        name
         price
       }
-      subType {
+      pack {
         id
-        subTypeName
+        name
         price
         description
       }
@@ -84,10 +84,10 @@ export const USER_RESERVE_TYPE = gql`
   }
 `;
 
-export const NO_USER_RESERVE_TYPE = gql`
+export const NO_USER_RESERVE_ROOM = gql`
   mutation noUserReservation(
-    $typeId: String!
-    $subTypeId: String!
+    $roomId: String!
+    $packId: String!
     $reserveUserName: String!
     $reserveUserSex: String!
     $reserveUserPhone: String!
@@ -104,8 +104,8 @@ export const NO_USER_RESERVE_TYPE = gql`
     $checkOut: String!
   ) {
     noUserReservation(
-      typeId: $typeId
-      subTypeId: $subTypeId
+      roomId: $roomId
+      packId: $packId
       reserveUserName: $reserveUserName
       reserveUserSex: $reserveUserSex
       reserveUserPhone: $reserveUserPhone
@@ -151,14 +151,14 @@ export const CHECK_RESERVATION = gql`
         phoneNum
         email
       }
-      type {
+      room {
         id
-        typeName
+        name
         price
       }
-      subType {
+      pack {
         id
-        subTypeName
+        name
         price
         description
       }

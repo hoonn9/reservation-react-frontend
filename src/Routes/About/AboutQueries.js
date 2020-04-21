@@ -1,10 +1,10 @@
 import { gql } from "apollo-boost";
 
-export const SEE_TYPE = gql`
+export const SEE_ROOM = gql`
   query {
-    seeType {
+    seeRoom {
       id
-      typeName
+      name
       files {
         url
       }

@@ -11,8 +11,8 @@ import MobileSearchPresenter from "./MobileSearchPresenter";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { ME } from "../../../Routes/MyPage/MyPageQueries";
 import {
-  USER_RESERVE_TYPE,
-  NO_USER_RESERVE_TYPE,
+  USER_RESERVE_ROOM,
+  NO_USER_RESERVE_ROOM,
 } from "../../../Routes/Reservation/ReservationQueries";
 import useInput from "../../../Hooks/useInput";
 import { useHistory } from "react-router-dom";
@@ -101,10 +101,10 @@ export default ({
     },
   });
 
-  const [userReserveMutation] = useMutation(USER_RESERVE_TYPE, {
+  const [userReserveMutation] = useMutation(USER_RESERVE_ROOM, {
     variables: {
-      typeId: selectType.id,
-      subTypeId: selectSubType.id,
+      roomId: selectType.id,
+      packId: selectSubType.id,
       guestUserName: guestUserName.value,
       guestUserSex: guestUserSex.value,
       guestUserPhone: guestUserPhone.value,
@@ -118,10 +118,10 @@ export default ({
     },
   });
 
-  const [noUserReserveMutation] = useMutation(NO_USER_RESERVE_TYPE, {
+  const [noUserReserveMutation] = useMutation(NO_USER_RESERVE_ROOM, {
     variables: {
-      typeId: selectType.id,
-      subTypeId: selectSubType.id,
+      roomId: selectType.id,
+      packId: selectSubType.id,
       reserveUserName: reserveUserName.value,
       reserveUserSex: reserveUserSex.value,
       reserveUserPhone: reserveUserPhone.value,

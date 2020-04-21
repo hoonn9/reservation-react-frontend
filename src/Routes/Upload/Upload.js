@@ -77,7 +77,7 @@ export default ({ platform }) => {
       await uploadMutation({
         variables: {
           boardId,
-          type: "free",
+          postType: "free",
           title: uploadTitle.value,
           content: postJson,
           files: [...imageArray],

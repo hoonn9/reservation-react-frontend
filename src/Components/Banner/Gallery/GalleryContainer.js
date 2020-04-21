@@ -135,7 +135,7 @@ const GalleryContainer = ({ platform, screenSize, galleryData }) => {
 GalleryContainer.defaultProps = {
   galleryData: {
     id: "",
-    typeName: "",
+    name: "",
     files: [],
   },
 };

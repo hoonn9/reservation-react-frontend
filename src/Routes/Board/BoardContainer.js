@@ -47,14 +47,14 @@ export default ({ platform }) => {
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
-      type: "free",
+      postType: "free",
     },
     fetchPolicy: "cache-and-network",
   });
 
   const pageQuery = Page({
     boardId,
-    type: "free",
+    postType: "free",
     first: pageSize,
     skip: currentPage * pageSize,
   });

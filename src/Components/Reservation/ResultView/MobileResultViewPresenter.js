@@ -147,7 +147,7 @@ const SelectButton = styled.button`
   cursor: pointer;
 `;
 export default ({
-  type,
+  room,
   globalText,
   moreOnClick,
   toggle,
@@ -189,14 +189,14 @@ export default ({
           >
             <Thumbnail
               src={
-                process.env.REACT_APP_S3_URL + `about/about_${type.id}_1.jpg`
+                process.env.REACT_APP_S3_URL + `about/about_${room.id}_1.jpg`
               }
             />
           </ThumbnailWrapper>
           <InfoWrapper>
             <InfoCenter>
-              <NameText>{type.typeName}</NameText>
-              <PriceText>￦ {numberWithCommas(type.price)} ~</PriceText>
+              <NameText>{room.name}</NameText>
+              <PriceText>￦ {numberWithCommas(room.price)} ~</PriceText>
             </InfoCenter>
             <MoreButtonWrapper onClick={moreOnClick}>
               <MoreButton>{globalText.text_more_info}</MoreButton>
@@ -211,13 +211,13 @@ export default ({
               <MoreInfoWrapper>
                 <MoreNameText>Room Only</MoreNameText>
                 <MoreDecText>Basic</MoreDecText>
-                <MorePriceText>￦ {numberWithCommas(type.price)}</MorePriceText>
+                <MorePriceText>￦ {numberWithCommas(room.price)}</MorePriceText>
                 <SelectButtonWrapper
                   onClick={() => {
                     setSelectType({
-                      id: type.id,
-                      name: type.typeName,
-                      price: type.price,
+                      id: room.id,
+                      name: room.name,
+                      price: room.price,
                     });
                     setSelectSubType({ price: 0 });
                   }}
@@ -226,26 +226,26 @@ export default ({
                 </SelectButtonWrapper>
               </MoreInfoWrapper>
             </MoreWrapper>
-            {type.subTypes.map((subType, i) => {
+            {room.packs.map((pack, i) => {
               return (
                 <MoreWrapper key={i}>
                   <MoreInfoWrapper>
-                    <MoreNameText>{subType.subTypeName}</MoreNameText>
-                    <MoreDecText>{subType.description}</MoreDecText>
+                    <MoreNameText>{pack.name}</MoreNameText>
+                    <MoreDecText>{pack.description}</MoreDecText>
                     <MorePriceText>
-                      ￦ {numberWithCommas(type.price + subType.price)}
+                      ￦ {numberWithCommas(room.price + pack.price)}
                     </MorePriceText>
                     <SelectButtonWrapper
                       onClick={() => {
                         setSelectType({
-                          id: type.id,
-                          name: type.typeName,
-                          price: type.price,
+                          id: room.id,
+                          name: room.name,
+                          price: room.price,
                         });
                         setSelectSubType({
-                          id: subType.id,
-                          name: subType.subTypeName,
-                          price: subType.price,
+                          id: pack.id,
+                          name: pack.name,
+                          price: pack.price,
                         });
                       }}
                     >

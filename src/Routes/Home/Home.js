@@ -7,7 +7,7 @@ import NoticeBanner from "../../Components/Banner/Notice";
 import GalleryBanner from "../../Components/Banner/Gallery";
 import { useQuery } from "@apollo/react-hooks";
 import { SEE_POPUP } from "../../SharedQueries";
-import { SEE_TYPE } from "../About/AboutQueries";
+import { SEE_ROOM } from "../About/AboutQueries";
 import { SEE_EVENT } from "../Event/EventQueries";
 import Page from "../../Components/Page";
 
@@ -59,13 +59,13 @@ const topImageArray = [process.env.REACT_APP_S3_URL + "home/home_1.jpg"];
 export default ({ platform, screenSize, isLoggedIn }) => {
   const noticeId = "ck7u4vv4t00bu0797n1hkw0mg";
   const popupData = useQuery(SEE_POPUP, { fetchPolicy: "network-only" });
-  const galleryData = useQuery(SEE_TYPE, {});
+  const galleryData = useQuery(SEE_ROOM, {});
   const eventData = useQuery(SEE_EVENT, { variables: {} });
   // 홈 공지사항 Row Count
   const viewCount = 3;
   const pageQuery = Page({
     boardId: noticeId,
-    type: "notice",
+    postType: "notice",
     first: viewCount,
   });
 
@@ -106,7 +106,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
           <GalleryBanner
             platform={platform}
             screenSize={screenSize}
-            galleryData={galleryData.data.seeType[0]}
+            galleryData={galleryData.data.seeRoom[0]}
           />
         )}
       </Wrapper>

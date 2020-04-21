@@ -29,17 +29,17 @@ export const CHECK_USER_RESERVATIONS = gql`
       checkIn
       checkOut
       price
-      type {
+      room {
         id
-        typeName
+        name
         files {
           id
           url
         }
       }
-      subType {
+      pack {
         id
-        subTypeName
+        name
       }
       createdAt
     }

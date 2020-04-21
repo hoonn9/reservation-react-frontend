@@ -42,8 +42,8 @@ export default ({
     user,
     noUser,
     guest,
-    type,
-    subType,
+    room,
+    pack,
     checkIn,
     checkOut,
     count,
@@ -134,34 +134,32 @@ export default ({
         <TableHeader>
           <TableRow>
             <TableTitleLabel platform={platform} colSpan="2">
-              {globalText.text_type_info}
+              {globalText.text_room_info}
             </TableTitleLabel>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableLabel>{globalText.text_type}</TableLabel>
-            <TableContent>{type.typeName}</TableContent>
+            <TableLabel>{globalText.text_room}</TableLabel>
+            <TableContent>{room.name}</TableContent>
           </TableRow>
           <TableRow>
             <TableLabel>
-              {`${globalText.text_type} ${globalText.text_price}`}
+              {`${globalText.text_room} ${globalText.text_price}`}
             </TableLabel>
-            <TableContent>{`₩ ${numberWithCommas(type.price)}`}</TableContent>
+            <TableContent>{`₩ ${numberWithCommas(room.price)}`}</TableContent>
           </TableRow>
           <TableRow>
-            <TableLabel>{globalText.text_sub_type}</TableLabel>
-            <TableContent>{subType.subTypeName}</TableContent>
+            <TableLabel>{globalText.text_pack}</TableLabel>
+            <TableContent>{pack.name}</TableContent>
           </TableRow>
           <TableRow>
-            <TableLabel>{`${globalText.text_sub_type} ${globalText.text_info}`}</TableLabel>
-            <TableContent>{subType.description}</TableContent>
+            <TableLabel>{`${globalText.text_pack} ${globalText.text_info}`}</TableLabel>
+            <TableContent>{pack.description}</TableContent>
           </TableRow>
           <TableRow>
-            <TableLabel>{`${globalText.text_sub_type} ${globalText.text_price}`}</TableLabel>
-            <TableContent>{`₩ ${numberWithCommas(
-              subType.price
-            )}`}</TableContent>
+            <TableLabel>{`${globalText.text_pack} ${globalText.text_price}`}</TableLabel>
+            <TableContent>{`₩ ${numberWithCommas(pack.price)}`}</TableContent>
           </TableRow>
           <TableRow>
             <TableLabel>{globalText.text_total}</TableLabel>
@@ -187,7 +185,7 @@ export default ({
             <TableContent>{dateDetailConverter(checkOut)}</TableContent>
           </TableRow>
           <TableRow>
-            <TableLabel>{`${globalText.text_type} ${globalText.text_number}`}</TableLabel>
+            <TableLabel>{`${globalText.text_room} ${globalText.text_number}`}</TableLabel>
             <TableContent>{`${count}${globalText.text_count}`}</TableContent>
           </TableRow>
           <TableRow>

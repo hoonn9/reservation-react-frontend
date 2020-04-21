@@ -3,14 +3,14 @@ import { gql } from "apollo-boost";
 export const SEE_BOARD = gql`
   query seeBoard(
     $boardId: String!
-    $type: String!
+    $postType: String!
     $first: Int
     $last: Int
     $skip: Int
   ) {
     seeBoard(
       boardId: $boardId
-      type: $type
+      postType: $postType
       first: $first
       last: $last
       skip: $skip
@@ -27,7 +27,7 @@ export const SEE_BOARD = gql`
 `;
 
 export const SEE_BOARD_COUNT = gql`
-  query seeBoardCount($boardId: String!, $type: String!) {
-    seeBoardCount(boardId: $boardId, type: $type)
+  query seeBoardCount($boardId: String!, $postType: String!) {
+    seeBoardCount(boardId: $boardId, postType: $postType)
   }
 `;

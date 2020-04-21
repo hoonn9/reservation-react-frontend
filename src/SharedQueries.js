@@ -84,14 +84,14 @@ export const CHECK_NOUSERS = gql`
       price
       checkIn
       checkOut
-      type {
-        typeName
+      room {
+        name
         files {
           url
         }
       }
-      subType {
-        subTypeName
+      pack {
+        name
       }
       createdAt
     }

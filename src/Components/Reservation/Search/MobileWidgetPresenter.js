@@ -136,7 +136,7 @@ export default ({
           </DateWrapper>
           <CountWrapper>
             <CountPickerWrapper>
-              <CountSubTitle>{globalText.text_type}</CountSubTitle>
+              <CountSubTitle>{globalText.text_room}</CountSubTitle>
               <NumberPicker
                 value={typeCount.value}
                 setValue={typeCount.setValue}

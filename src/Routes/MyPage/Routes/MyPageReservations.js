@@ -55,13 +55,13 @@ export default ({ platform }) => {
                             platform={platform}
                             id={e.id}
                             price={e.price}
-                            typeName={e.type.typeName}
+                            roomName={e.room.name}
                             thumbnail={
-                              e.type.files.length > 0
-                                ? e.type.files[0].url
+                              e.room.files.length > 0
+                                ? e.room.files[0].url
                                 : null
                             }
-                            subTypeName={e.subType.subTypeName}
+                            packName={e.pack.name}
                             createdAt={e.createdAt}
                             checkIn={e.checkIn}
                             checkOut={e.checkOut}
@@ -83,13 +83,13 @@ export default ({ platform }) => {
                             platform={platform}
                             id={e.id}
                             price={e.price}
-                            typeName={e.type.typeName}
+                            roomName={e.room.name}
                             thumbnail={
-                              e.type.files.length > 0
-                                ? e.type.files[0].url
+                              e.room.files.length > 0
+                                ? e.room.files[0].url
                                 : null
                             }
-                            subTypeName={e.subType.subTypeName}
+                            packName={e.pack.name}
                             createdAt={e.createdAt}
                             checkIn={e.checkIn}
                             checkOut={e.checkOut}

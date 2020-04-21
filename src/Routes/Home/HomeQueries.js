@@ -9,9 +9,9 @@ export const SEE_HOME = gql`
         content
         url
       }
-      seeType {
+      seeRoom {
         id
-        typeName
+        name
         files {
           url
         }
