@@ -187,11 +187,7 @@ export default ({
               setGalleryToggle(true);
             }}
           >
-            <Thumbnail
-              src={
-                process.env.REACT_APP_S3_URL + `about/about_${room.id}_1.jpg`
-              }
-            />
+            <Thumbnail src={room.files ? room.files[0].url : null} />
           </ThumbnailWrapper>
           <InfoWrapper>
             <InfoCenter>

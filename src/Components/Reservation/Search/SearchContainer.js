@@ -180,27 +180,29 @@ export default ({
 
   //페이지 진입 초기화
   useEffect(() => {
-    if (
-      checkIn !== undefined &&
-      checkOut !== undefined &&
-      parentTypeCount !== undefined &&
-      parentUserCount !== undefined &&
-      parentSubCount !== undefined
-    ) {
-      setStartDate(new Date(checkIn));
-      setEndDate(new Date(checkOut));
-      setInitState(false);
-      typeCount.setValue(parentTypeCount);
-      userCount.setValue(parentUserCount);
-      subCount.setValue(parentSubCount);
-      dateConverter(checkIn, 0, 0, (date) => {
-        setResultCheckIn(date.toISOString());
-      });
-      dateConverter(checkOut, 1, 0, (date) => {
-        setResultCheckOut(date.toISOString());
-      });
-      setResultCount(parentTypeCount);
-      setResultToggle(true);
+    if (initState) {
+      if (
+        checkIn !== undefined &&
+        checkOut !== undefined &&
+        parentTypeCount !== undefined &&
+        parentUserCount !== undefined &&
+        parentSubCount !== undefined
+      ) {
+        setStartDate(new Date(checkIn));
+        setEndDate(new Date(checkOut));
+        setInitState(false);
+        typeCount.setValue(parentTypeCount);
+        userCount.setValue(parentUserCount);
+        subCount.setValue(parentSubCount);
+        dateConverter(checkIn, 0, 0, (date) => {
+          setResultCheckIn(date.toISOString());
+        });
+        dateConverter(checkOut, 1, 0, (date) => {
+          setResultCheckOut(date.toISOString());
+        });
+        setResultCount(parentTypeCount);
+        setResultToggle(true);
+      }
     }
     const handleScroll = () => {
       const { pageYOffset } = window;
@@ -235,32 +237,35 @@ export default ({
   ]);
 
   useEffect(() => {
-    if (
-      emailRegex.test(reserveUserEmail.value) &&
-      emailRegex.test(guestUserEmail.value) &&
-      phoneRegex.test(reserveUserPhone.value) &&
-      phoneRegex.test(guestUserPhone.value)
-    ) {
+    if (infoToggle) {
       if (
-        reserveUserName.value !== "" &&
-        reserveUserSex.value !== "" &&
-        reserveUserPhone.value !== "" &&
-        reserveUserEmail.value !== "" &&
-        guestUserName.value !== "" &&
-        guestUserSex.value !== "" &&
-        guestUserPhone.value !== "" &&
-        guestUserEmail.value !== "" &&
-        agreeChecked.checked &&
-        selectType !== ""
+        emailRegex.test(reserveUserEmail.value) &&
+        emailRegex.test(guestUserEmail.value) &&
+        phoneRegex.test(reserveUserPhone.value) &&
+        phoneRegex.test(guestUserPhone.value)
       ) {
-        setSuccessToggle(true);
+        if (
+          reserveUserName.value !== "" &&
+          reserveUserSex.value !== "" &&
+          reserveUserPhone.value !== "" &&
+          reserveUserEmail.value !== "" &&
+          guestUserName.value !== "" &&
+          guestUserSex.value !== "" &&
+          guestUserPhone.value !== "" &&
+          guestUserEmail.value !== "" &&
+          agreeChecked.checked &&
+          selectType !== ""
+        ) {
+          setSuccessToggle(true);
+        } else {
+          setSuccessToggle(false);
+        }
       } else {
         setSuccessToggle(false);
       }
-    } else {
-      setSuccessToggle(false);
     }
   }, [
+    infoToggle,
     reserveUserName,
     reserveUserSex,
     reserveUserPhone,
