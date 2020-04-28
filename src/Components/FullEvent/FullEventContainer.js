@@ -1,7 +1,6 @@
 import React from "react";
 import FullEventPresenter from "./FullEventPresenter";
 import MobileFullEventPresenter from "./MobileFullEventPresenter";
-
 export default ({ platform, data }) => {
   const {
     eventType,
@@ -10,7 +9,7 @@ export default ({ platform, data }) => {
     period,
     subTitle,
     content,
-    files
+    files,
   } = data.seeFullEvent;
   return (
     <>

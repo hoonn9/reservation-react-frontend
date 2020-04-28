@@ -9,7 +9,7 @@ import FullPost from "../../Components/FullPost";
 import GlobalText from "../../GlobalText";
 import { setBoardState } from "../../Utils";
 import Title from "../../Components/Title";
-
+import Comment from "../../Components/Comment";
 const Container = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -80,7 +80,6 @@ export default ({ platform }) => {
     fetchPolicy: "network-only",
   });
   const globalText = GlobalText();
-
   return (
     <div className="body-content">
       {error ? (
@@ -110,6 +109,11 @@ export default ({ platform }) => {
               <Button>{globalText.text_list}</Button>
             </Link>
           </ButtonWrapper>
+          <Comment
+            platform={platform}
+            postId={id}
+            data={data[Object.keys(data)[0]].comments}
+          />
         </Container>
       )}
     </div>

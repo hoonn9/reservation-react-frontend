@@ -14,7 +14,7 @@ const TableWapper = styled.ul`
   display: block;
 `;
 const TableColumn = styled.li`
-  width: ${props => `${props.width}%`};
+  width: ${(props) => `${props.width}%`};
   padding: 0 1rem;
   float: left;
   margin-bottom: 40px;
@@ -27,6 +27,7 @@ export default ({ rowWidth, viewState, dataState }) => {
       <TableWapper>
         {viewState === "event" ? (
           dataState.map((event, i) => {
+            console.log(event.files);
             return (
               <TableColumn width={rowWidth} key={i}>
                 <EventView
@@ -35,7 +36,7 @@ export default ({ rowWidth, viewState, dataState }) => {
                   subTitle={event.subTitle}
                   period={event.period}
                   content={event.content}
-                  thumbnail={event.thumbnail}
+                  thumbnail={event.files.length > 0 ? event.files[0].url : null}
                 />
               </TableColumn>
             );

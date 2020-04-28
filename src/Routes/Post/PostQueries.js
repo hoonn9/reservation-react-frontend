@@ -13,6 +13,12 @@ export const SEE_FULL_POST = gql`
       user {
         username
       }
+      comments {
+        id
+        nickname
+        text
+        createdAt
+      }
       createdAt
     }
   }

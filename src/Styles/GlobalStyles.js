@@ -8,7 +8,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
     body {
-        background-color: ${props => props.theme.bgColor};
+        background-color: ${(props) => props.theme.bgColor};
         font-family: 'Noto Sans KR', sans-serif;
     }
     .body-content {
@@ -16,7 +16,7 @@ export default createGlobalStyle`
     }
     a {
         text-decoration: none;
-        color: ${props => props.theme.blackColor};
+        color: ${(props) => props.theme.blackColor};
     }
     a:active {
     }
@@ -38,5 +38,12 @@ export default createGlobalStyle`
     }
     input:focus {
         outline:none;
+    }
+    textarea {
+        overflow:hidden;
+        resize: none;
+    }
+    textarea:focus {
+        outline: none;
     }
 `;

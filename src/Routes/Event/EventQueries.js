@@ -21,7 +21,6 @@ export const SEE_EVENT = gql`
       subTitle
       period
       content
-      thumbnail
       files {
         url
       }

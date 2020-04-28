@@ -9,7 +9,7 @@ export default ({ platform, data: { seeFullPost }, type }) => {
     content,
     createdAt,
     user: { username },
-    views
+    views,
   } = seeFullPost;
   const [trigger, setTrigger] = useState(true);
   const globalText = GlobalText();
