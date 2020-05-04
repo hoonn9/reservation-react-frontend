@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import TableView from "../../Components/TableView";
 import Title from "../../Components/Title";
+import { globalText } from "../../GlobalText";
+import PageNavigator from "../../Components/PageNavigator";
 const Container = styled.div`
   position: relative;
   padding: 0;
@@ -37,7 +39,17 @@ const MobileCountNumText = styled.div`
   font-weight: 700;
 `;
 
-export default ({ platform, data, globalText }) => {
+export default ({
+  platform,
+  data,
+  currentRange,
+  setCurrentRange,
+  currentPage,
+  setCurrentPage,
+  pageSize,
+  rangeSize,
+  listCount,
+}) => {
   return (
     <Container>
       <Title platform={platform} text={globalText.text_event} />
@@ -45,7 +57,7 @@ export default ({ platform, data, globalText }) => {
       {platform === "desktop" ? (
         <>
           <CountWrapper>
-            <CountNumText>{data.seeEvent.length}</CountNumText>
+            <CountNumText>{listCount}</CountNumText>
             <CountText>{globalText.text_count}</CountText>
           </CountWrapper>
           <TableView divide={3} view="event" data={data} />
@@ -53,12 +65,22 @@ export default ({ platform, data, globalText }) => {
       ) : (
         <>
           <CountWrapper>
-            <MobileCountNumText>{data.seeEvent.length}</MobileCountNumText>
+            <MobileCountNumText>{listCount}</MobileCountNumText>
             <MobileCountText>{globalText.text_count}</MobileCountText>
           </CountWrapper>
           <TableView divide={1} view="event" data={data} />
         </>
       )}
+
+      <PageNavigator
+        currentRange={currentRange}
+        setCurrentRange={setCurrentRange}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        pageSize={pageSize}
+        rangeSize={rangeSize}
+        listCount={listCount}
+      />
     </Container>
   );
 };

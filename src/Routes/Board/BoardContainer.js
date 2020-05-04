@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BoardPresenter from "./BoardPresenter";
 import { useQuery } from "@apollo/react-hooks";
 import { SEE_BOARD_COUNT } from "../../Components/Board/BoardQueries";
-import Page from "../../Components/Page";
+import { BoardPage } from "../../Components/Page";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
@@ -52,7 +52,7 @@ export default ({ platform }) => {
     fetchPolicy: "cache-and-network",
   });
 
-  const pageQuery = Page({
+  const pageQuery = BoardPage({
     boardId,
     postType: "free",
     first: pageSize,

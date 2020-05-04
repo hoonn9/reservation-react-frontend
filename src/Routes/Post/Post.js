@@ -109,11 +109,7 @@ export default ({ platform }) => {
               <Button>{globalText.text_list}</Button>
             </Link>
           </ButtonWrapper>
-          <Comment
-            platform={platform}
-            postId={id}
-            data={data[Object.keys(data)[0]].comments}
-          />
+          <Comment platform={platform} postId={id} />
         </Container>
       )}
     </div>

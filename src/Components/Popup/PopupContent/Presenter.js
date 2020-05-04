@@ -3,22 +3,22 @@ import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
 const Inner = styled.div`
   margin: 0px 16px;
-  visibility: ${props => (props.state ? "visible" : "hidden")};
+  visibility: ${(props) => (props.state ? "visible" : "hidden")};
 `;
 const MobileInner = styled.div`
   width: 100%;
   position: absolute;
   margin: 85px 0px;
   padding: 0px 5%;
-  visibility: ${props => (props.state ? "visible" : "hidden")};
+  visibility: ${(props) => (props.state ? "visible" : "hidden")};
 `;
 const PopupWrapper = styled.div`
   width: 350px;
-  background: ${props => props.theme.whiteColor};
+  background: ${(props) => props.theme.whiteColor};
 `;
 const MobilePopupWrapper = styled.div`
   width: 100%;
-  background: ${props => props.theme.whiteColor};
+  background: ${(props) => props.theme.whiteColor};
 `;
 const Title = styled.div`
   padding: 16px;
@@ -45,7 +45,7 @@ const BottomWrapper = styled.div`
   height: 48px;
   position: relative;
   bottom: 0;
-  background: ${props => props.theme.whiteColor};
+  background: ${(props) => props.theme.whiteColor};
 `;
 const BottomTextWrapper = styled.div`
   position: absolute;
@@ -82,7 +82,7 @@ export default ({
   state,
   setState,
   closePopupNotToday,
-  closeCounter
+  closeCounter,
 }) => {
   return (
     <>
@@ -90,7 +90,7 @@ export default ({
         <Inner state={state}>
           <PopupWrapper>
             <Title>{popup.title}</Title>
-            <Img src={popup.url} />
+            <Img src={popup.files.length > 0 ? popup.files[0].url : null} />
             <Content>{popup.content}</Content>
           </PopupWrapper>
           <BottomWrapper>
@@ -98,7 +98,7 @@ export default ({
               <BottomText>오늘 그만 보기</BottomText>
               <CheckBox
                 type="checkbox"
-                onChange={e => {
+                onChange={(e) => {
                   setCb(e.target.checked);
                 }}
               />
@@ -121,7 +121,9 @@ export default ({
         <MobileInner state={state}>
           <MobilePopupWrapper>
             <Title>{popup.title}</Title>
-            <MobileImg src={popup.url} />
+            <MobileImg
+              src={popup.files.length > 0 ? popup.files[0].url : null}
+            />
             <Content>{popup.content}</Content>
           </MobilePopupWrapper>
           <BottomWrapper>
@@ -129,7 +131,7 @@ export default ({
               <BottomText>오늘 그만 보기</BottomText>
               <CheckBox
                 type="checkbox"
-                onChange={e => {
+                onChange={(e) => {
                   setCb(e.target.checked);
                 }}
               />

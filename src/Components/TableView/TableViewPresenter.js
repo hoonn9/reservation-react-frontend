@@ -27,7 +27,6 @@ export default ({ rowWidth, viewState, dataState }) => {
       <TableWapper>
         {viewState === "event" ? (
           dataState.map((event, i) => {
-            console.log(event.files);
             return (
               <TableColumn width={rowWidth} key={i}>
                 <EventView

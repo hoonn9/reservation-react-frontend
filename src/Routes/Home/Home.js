@@ -9,7 +9,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { SEE_POPUP } from "../../SharedQueries";
 import { SEE_ROOM } from "../About/AboutQueries";
 import { SEE_EVENT } from "../Event/EventQueries";
-import Page from "../../Components/Page";
+import { BoardPage } from "../../Components/Page";
 
 const Container = styled.div`
   position: relative;
@@ -63,7 +63,7 @@ export default ({ platform, screenSize, isLoggedIn }) => {
   const eventData = useQuery(SEE_EVENT, { variables: {} });
   // 홈 공지사항 Row Count
   const viewCount = 3;
-  const pageQuery = Page({
+  const pageQuery = BoardPage({
     boardId: noticeId,
     postType: "notice",
     first: viewCount,

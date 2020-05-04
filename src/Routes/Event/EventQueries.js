@@ -27,3 +27,9 @@ export const SEE_EVENT = gql`
     }
   }
 `;
+
+export const SEE_EVENT_COUNT = gql`
+  query seeEventCount($eventType: String, $period: String) {
+    seeEventCount(eventType: $eventType, period: $period)
+  }
+`;

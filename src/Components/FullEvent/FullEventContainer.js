@@ -2,21 +2,12 @@ import React from "react";
 import FullEventPresenter from "./FullEventPresenter";
 import MobileFullEventPresenter from "./MobileFullEventPresenter";
 export default ({ platform, data }) => {
-  const {
-    eventType,
-    thumbnail,
-    title,
-    period,
-    subTitle,
-    content,
-    files,
-  } = data.seeFullEvent;
+  const { eventType, title, period, subTitle, content, files } = data;
   return (
     <>
       {platform === "desktop" ? (
         <FullEventPresenter
           eventType={eventType}
-          thumbnail={thumbnail}
           title={title}
           period={period}
           subTitle={subTitle}
@@ -26,7 +17,6 @@ export default ({ platform, data }) => {
       ) : (
         <MobileFullEventPresenter
           eventType={eventType}
-          thumbnail={thumbnail}
           title={title}
           period={period}
           subTitle={subTitle}

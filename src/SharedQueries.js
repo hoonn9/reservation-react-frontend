@@ -32,7 +32,9 @@ export const SEE_POPUP = gql`
       id
       title
       content
-      url
+      files {
+        url
+      }
     }
   }
 `;

@@ -9,8 +9,7 @@ export default ({ view, divide, data }) => {
   useEffect(() => {
     if (view === "event") {
       setViewState("event");
-      const { seeEvent } = data;
-      setDataState(seeEvent);
+      setDataState(data);
     }
   }, [data, view]);
 

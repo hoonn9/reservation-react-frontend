@@ -27,7 +27,7 @@ export default ({ platform }) => {
   }
 
   const { data, loading, error } = useQuery(SEE_FULL_EVENT, {
-    variables: { id }
+    variables: { id },
   });
   return (
     <div className="body-content">
@@ -38,7 +38,7 @@ export default ({ platform }) => {
         ) : loading ? (
           <Loader />
         ) : (
-          <FullEvent platform={platform} data={data} />
+          <FullEvent platform={platform} data={data.seeFullEvent} />
         )}
       </Container>
     </div>

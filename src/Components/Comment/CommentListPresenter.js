@@ -8,17 +8,19 @@ const Wrapper = styled.div`
 export default ({ platform, data }) => {
   return (
     <Wrapper>
-      {data.map((e, i) => {
-        return (
-          <CommentRow
-            key={i}
-            platform={platform}
-            text={e.text}
-            nickname={e.nickname}
-            createdAt={e.createdAt}
-          />
-        );
-      })}
+      {data
+        ? data.map((e, i) => {
+            return (
+              <CommentRow
+                key={i}
+                platform={platform}
+                text={e.text}
+                nickname={e.nickname}
+                createdAt={e.createdAt}
+              />
+            );
+          })
+        : null}
     </Wrapper>
   );
 };

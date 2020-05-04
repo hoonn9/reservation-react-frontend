@@ -83,19 +83,11 @@ const TopViewPeriod = styled.p`
   line-height: 1.6em;
 `;
 
-export default ({
-  eventType,
-  thumbnail,
-  title,
-  period,
-  subTitle,
-  content,
-  files,
-}) => {
+export default ({ eventType, title, period, subTitle, content, files }) => {
   return (
     <Wrapper>
       <TopViewWrapper>
-        <TopViewImage src={thumbnail} />
+        <TopViewImage src={files.length > 0 ? files[0].url : null} />
         <TopViewDetailWrapper>
           <TopViewDescWrapper>
             <TopViewDescLeft>

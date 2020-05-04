@@ -5,7 +5,6 @@ export const SEE_FULL_EVENT = gql`
     seeFullEvent(id: $id) {
       id
       eventType
-      thumbnail
       title
       subTitle
       period
