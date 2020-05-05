@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { dateConverter, dateDetailConverter, numberWithCommas } from "../Utils";
+import { dateDetailConverter } from "../Utils";
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
+`;
+const MobileWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 0px 8px;
 `;
 const TopWrapper = styled.div`
   width: 100%;
@@ -42,7 +46,13 @@ export default ({ platform, nickname, text, createdAt }) => {
           <Textarea readOnly value={text} />
         </Wrapper>
       ) : (
-        <Wrapper></Wrapper>
+        <MobileWrapper>
+          <TopWrapper>
+            <NicknameWrapper>{nickname}</NicknameWrapper>
+            <DateWrapper>{dateDetailConverter(createdAt)}</DateWrapper>
+          </TopWrapper>
+          <Textarea readOnly value={text} />
+        </MobileWrapper>
       )}
     </>
   );

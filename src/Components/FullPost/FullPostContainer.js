@@ -4,13 +4,7 @@ import NoticePostPresenter from "./NoticePostPresenter";
 import GlobalText from "../../GlobalText";
 import { EditorState, convertFromRaw } from "draft-js";
 export default ({ platform, data: { seeFullPost }, type }) => {
-  const {
-    title,
-    content,
-    createdAt,
-    user: { username },
-    views,
-  } = seeFullPost;
+  const { title, content, createdAt, user, views } = seeFullPost;
   const [trigger, setTrigger] = useState(true);
   const globalText = GlobalText();
 
@@ -30,7 +24,7 @@ export default ({ platform, data: { seeFullPost }, type }) => {
           platform={platform}
           title={title}
           createdAt={createdAt}
-          username={username}
+          user={user}
           views={views}
           globalText={globalText}
           editorState={editorState}
@@ -40,7 +34,6 @@ export default ({ platform, data: { seeFullPost }, type }) => {
           platform={platform}
           title={title}
           createdAt={createdAt}
-          username={username}
           views={views}
           globalText={globalText}
           editorState={editorState}

@@ -37,6 +37,7 @@ export default ({
   currentRange = 0,
   boardId,
   onViews = true,
+  postOnClick,
 }) => {
   const { id, title, views, createdAt } = post;
   return (
@@ -53,6 +54,7 @@ export default ({
               boardId,
             },
           }}
+          onClick={postOnClick}
         >
           {title}
         </PostLink>

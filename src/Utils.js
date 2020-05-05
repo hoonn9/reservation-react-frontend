@@ -97,16 +97,12 @@ export const getWithExpiry = (key) => {
   return item.value;
 };
 
-export const setBoardState = (type, currentPage, currentRange) => {
-  const item = {
-    currentPage,
-    currentRange,
-  };
-  localStorage.setItem(type, JSON.stringify(item));
+export const setStorage = (key, item) => {
+  localStorage.setItem(key, JSON.stringify(item));
 };
 
-export const getBoardState = (type) => {
-  const itemStr = localStorage.getItem(type);
+export const getStorage = (key) => {
+  const itemStr = localStorage.getItem(key);
 
   if (!itemStr) {
     return null;

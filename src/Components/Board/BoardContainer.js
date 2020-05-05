@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FreePostPresenter from "./FreePostPresenter";
 import NoticePostPresenter from "./NoticePostPresenter";
+import { setStorage } from "../../Utils";
 
 export default ({
   platform,
@@ -15,11 +16,19 @@ export default ({
   setCurrentRange,
   currentRange,
 }) => {
+  const postOnClick = () => {
+    setStorage(`board_${type}`, {
+      boardId,
+      currentPage,
+      currentRange,
+    });
+  };
   return (
     <>
       {type === "free" ? (
         <FreePostPresenter
           platform={platform}
+          type={type}
           data={data}
           rangeSize={rangeSize}
           setCurrentPage={setCurrentPage}
@@ -29,6 +38,7 @@ export default ({
           boardId={boardId}
           setCurrentRange={setCurrentRange}
           currentRange={currentRange}
+          postOnClick={postOnClick}
         />
       ) : (
         <NoticePostPresenter
@@ -42,6 +52,7 @@ export default ({
           boardId={boardId}
           setCurrentRange={setCurrentRange}
           currentRange={currentRange}
+          postOnClick={postOnClick}
         />
       )}
     </>

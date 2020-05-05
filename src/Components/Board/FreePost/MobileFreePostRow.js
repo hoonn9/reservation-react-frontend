@@ -46,7 +46,14 @@ const PostLink = styled(Link)`
   height: 100%;
 `;
 
-export default ({ post, index: num, currentPage, currentRange, boardId }) => {
+export default ({
+  post,
+  index: num,
+  currentPage,
+  currentRange,
+  boardId,
+  postOnClick,
+}) => {
   const { id, title, views, user, createdAt } = post;
   return (
     <>
@@ -63,6 +70,7 @@ export default ({ post, index: num, currentPage, currentRange, boardId }) => {
                 boardId,
               },
             }}
+            onClick={postOnClick}
           >
             <TitleRow>{title}</TitleRow>
           </PostLink>

@@ -7,7 +7,7 @@ import Loader from "../../Components/Loader";
 import ErrorAlert from "../../Components/ErrorAlert";
 import FullPost from "../../Components/FullPost";
 import GlobalText from "../../GlobalText";
-import { setBoardState } from "../../Utils";
+import { setStorage, getStorage } from "../../Utils";
 import Title from "../../Components/Title";
 import Comment from "../../Components/Comment";
 const Container = styled.div`
@@ -20,7 +20,7 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   padding: 8px 16px;
   margin: 16px;
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 export default ({ platform }) => {
@@ -31,36 +31,35 @@ export default ({ platform }) => {
   var currentRange;
   var boardId;
   var pathname;
-
+  console.log(location);
   if (location.state !== undefined) {
     id = location.state.id;
     type = location.state.type;
     currentPage = location.state.currentPage;
     currentRange = location.state.currentRange;
     boardId = location.state.boardId;
-    if (type === "post" || type === "free") {
+    if (type === "free") {
       pathname = `/board/${boardId}`;
     } else if (type === "notice") {
       pathname = "/notice";
     }
   } else {
+    const boardState = getStorage(`board_${type}`);
+
     const { pathname: locationPathname } = location;
     id = locationPathname.split("/")[2];
     type = locationPathname.split("/")[1];
-    currentPage = 0;
-    currentRange = 0;
+    boardId = boardState.boardId;
+    currentRange = boardState.currentRange;
+    currentPage = boardState.currentPage;
 
-    if (type === "post" || type === "free") {
-      boardId = "ck74d5iiz001b0734kmyiwdb7";
+    if (type === "post") {
       pathname = `/board/${boardId}`;
     } else if (type === "notice") {
-      boardId = "ck7u4vv4t00bu0797n1hkw0mg";
       pathname = "/notice";
     }
   }
-
   useEffect(() => {
-    setBoardState(boardId, currentPage, currentRange);
     window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       localStorage.removeItem(boardId);
@@ -103,13 +102,17 @@ export default ({ platform }) => {
                 pathname,
                 state: {
                   id: boardId,
+                  currentPage,
+                  currentRange,
                 },
               }}
             >
               <Button>{globalText.text_list}</Button>
             </Link>
           </ButtonWrapper>
-          <Comment platform={platform} postId={id} />
+          {type !== "notice" ? (
+            <Comment platform={platform} postId={id} />
+          ) : null}
         </Container>
       )}
     </div>

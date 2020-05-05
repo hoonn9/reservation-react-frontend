@@ -83,7 +83,12 @@ export default ({ platform, postId, data }) => {
           listCount={currentCount}
         />
       )}
-      <CommentPresenter content={content} onClick={onClick} loading={loading} />
+      <CommentPresenter
+        platform={platform}
+        content={content}
+        onClick={onClick}
+        loading={loading}
+      />
     </>
   );
 };

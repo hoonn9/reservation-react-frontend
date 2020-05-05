@@ -4,33 +4,37 @@ import { useQuery } from "@apollo/react-hooks";
 import { SEE_BOARD_COUNT } from "../../Components/Board/BoardQueries";
 import { BoardPage } from "../../Components/Page";
 import Loader from "../../Components/Loader";
-import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
 import { useEffect } from "react";
-import { getBoardState } from "../../Utils";
-import { useLocation } from "react-router-dom";
+import { getStorage } from "../../Utils";
+import { useLocation, useHistory } from "react-router-dom";
+import { globalText } from "../../GlobalText";
 
 export default ({ platform }) => {
   let location = useLocation();
+  let history = useHistory();
   let boardId = null;
+  const type = "free";
   if (location.state !== undefined) {
     boardId = location.state.id;
-  } else {
-    const { pathname } = location;
-    boardId = pathname.split("/board/")[1];
   }
-  const globalText = GlobalText();
   const pageSize = 10;
   const rangeSize = 10;
   const [currentPage, setCurrentPage] = useState(0);
   const [currentRange, setCurrentRange] = useState(0);
 
   useEffect(() => {
-    const boardState = getBoardState(boardId);
+    const boardState = getStorage(`board_${type}`);
     if (boardState) {
+      boardId = boardState.boardId;
       setCurrentPage(boardState.currentPage);
       setCurrentRange(boardState.currentRange);
     }
+
+    if (!boardId && !boardState) {
+      history.push("/");
+    }
+
     window.addEventListener("beforeunload", (e) => {
       e.preventDefault();
       localStorage.removeItem(boardId);
@@ -47,14 +51,14 @@ export default ({ platform }) => {
   const countQuery = useQuery(SEE_BOARD_COUNT, {
     variables: {
       boardId,
-      postType: "free",
+      postType: type,
     },
     fetchPolicy: "cache-and-network",
   });
 
   const pageQuery = BoardPage({
     boardId,
-    postType: "free",
+    postType: type,
     first: pageSize,
     skip: currentPage * pageSize,
   });
@@ -69,13 +73,13 @@ export default ({ platform }) => {
         <>
           <BoardPresenter
             platform={platform}
+            type={type}
             data={pageQuery.data}
             rangeSize={rangeSize}
             listCount={countQuery.data.seeBoardCount}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             pageSize={pageSize}
-            globalText={globalText}
             boardId={boardId}
             currentRange={currentRange}
             setCurrentRange={setCurrentRange}

@@ -37,7 +37,14 @@ const PostLink = styled(Link)`
   color: ${(props) => props.theme.blackColor};
 `;
 
-export default ({ post, index: num, currentPage, currentRange, boardId }) => {
+export default ({
+  post,
+  index: num,
+  currentPage,
+  currentRange,
+  boardId,
+  postOnClick,
+}) => {
   const { id, title, views, user, createdAt } = post;
   return (
     <Warpper>
@@ -55,6 +62,7 @@ export default ({ post, index: num, currentPage, currentRange, boardId }) => {
               boardId,
             },
           }}
+          onClick={postOnClick}
         >
           {title}
         </PostLink>

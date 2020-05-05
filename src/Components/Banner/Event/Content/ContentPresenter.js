@@ -4,7 +4,7 @@ import BannerEventView from "../../../BannerEventView";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 const Container = styled.div`
-  width: ${props => `${props.wrapperWidth}%`};
+  width: ${(props) => `${props.wrapperWidth}%`};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: ${props => `100%`};
+  width: ${(props) => `100%`};
   margin: auto;
   position: relative;
 `;
@@ -25,15 +25,15 @@ const SlideWrapper = styled.div`
 `;
 
 const SlideList = styled.div`
-  width: ${props => `${props.width}px`};
-  transform: ${props => `translate3d(-${props.transValue}px, 0px, 0px)`};
+  width: ${(props) => `${props.width}px`};
+  transform: ${(props) => `translate3d(-${props.transValue}px, 0px, 0px)`};
   transition: transform 0.3s ease;
 `;
 
 const ContentWrapper = styled.div`
   display: table;
   float: left;
-  width: ${props => `${props.imgWidth}px`};
+  width: ${(props) => `${props.imgWidth}px`};
   position: relative;
   padding-right: 24px;
   z-index: 8;
@@ -77,14 +77,14 @@ const DotsButton = styled.button`
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: ${props => props.theme.liteGreyColor};
+  background-color: ${(props) => props.theme.liteGreyColor};
 `;
 
 const DotsActiveButton = styled.button`
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: ${props => props.theme.redColor};
+  background-color: ${(props) => props.theme.redColor};
 `;
 
 export default ({
@@ -93,7 +93,7 @@ export default ({
   transValue,
   setTransValue,
   divide,
-  currentArray
+  currentArray,
 }) => {
   return (
     <>
@@ -123,7 +123,9 @@ export default ({
                       type={event.eventType}
                       title={event.title}
                       subTitle={event.subTitle}
-                      thumbnail={event.thumbnail}
+                      thumbnail={
+                        event.files.length > 0 ? event.files[0].url : null
+                      }
                     />
                   </ContentWrapper>
                 );

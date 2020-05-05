@@ -9,13 +9,13 @@ const Wrapper = styled.div`
 
 const TitleWrapper = styled.div`
   display: flex;
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
   padding: 24px 32px;
   border-top: 2px solid #999;
   border-bottom: 1px solid #c7c7c7;
 `;
 const MobileTitleWrapper = styled.div`
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
   padding: 24px 16px;
   border-top: 2px solid #999;
   border-bottom: 1px solid #c7c7c7;
@@ -77,11 +77,11 @@ const ContentWrapper = styled.div`
 export default ({
   platform,
   title,
-  username,
+  user,
   createdAt,
   views,
   globalText,
-  editorState
+  editorState,
 }) => {
   return (
     <>
@@ -93,7 +93,7 @@ export default ({
           <SubWrapper>
             <SubLeftWrapper>
               <NameText>
-                {globalText.text_board_header_name} : {username}
+                {globalText.text_board_header_name} : {user.username}
               </NameText>
               <DateText>
                 {globalText.text_board_header_date} : {dateConverter(createdAt)}
@@ -117,7 +117,7 @@ export default ({
           <SubWrapper>
             <MobileSubLeftWrapper>
               <NameText>
-                {globalText.text_board_header_name} : {username}
+                {globalText.text_board_header_name} : {user.username}
               </NameText>
               <DateText>
                 {globalText.text_board_header_date} : {dateConverter(createdAt)}

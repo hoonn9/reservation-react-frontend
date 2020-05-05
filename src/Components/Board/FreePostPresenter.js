@@ -52,6 +52,7 @@ const MobileWriteButton = styled.button`
 
 export default ({
   platform,
+  type,
   data,
   rangeSize,
   setCurrentPage,
@@ -61,6 +62,7 @@ export default ({
   boardId,
   setCurrentRange,
   currentRange,
+  postOnClick,
 }) => {
   const page = Math.floor(
     (listCount - currentRange * rangeSize * pageSize) / pageSize
@@ -82,6 +84,7 @@ export default ({
                   currentPage={currentPage}
                   currentRange={currentRange}
                   boardId={boardId}
+                  postOnClick={postOnClick}
                 />
               ) : (
                 <MobileFreePostRow
@@ -91,6 +94,7 @@ export default ({
                   currentPage={currentPage}
                   currentRange={currentRange}
                   boardId={boardId}
+                  postOnClick={postOnClick}
                 />
               );
             })}
@@ -100,9 +104,10 @@ export default ({
       {platform === "desktop" ? (
         <Link
           to={{
-            pathname: "/upload",
+            pathname: `/board/upload/${boardId}`,
             state: {
               id: boardId,
+              type,
             },
           }}
         >
@@ -112,9 +117,10 @@ export default ({
         <MobileWriteButtonWrapper>
           <Link
             to={{
-              pathname: "/upload",
+              pathname: `/board/upload/${boardId}`,
               state: {
                 id: boardId,
+                type,
               },
             }}
           >
@@ -131,6 +137,7 @@ export default ({
         page={page}
         rangeSize={rangeSize}
         listCount={listCount}
+        onClick={postOnClick}
       />
     </Warpper>
   );

@@ -32,6 +32,7 @@ export default ({
   boardId,
   setCurrentRange,
   currentRange,
+  postOnClick,
 }) => {
   const page = Math.floor(
     (listCount - currentRange * rangeSize * pageSize) / pageSize
@@ -52,6 +53,7 @@ export default ({
                   currentPage={currentPage}
                   currentRange={currentRange}
                   boardId={boardId}
+                  postOnClick={postOnClick}
                 />
               ) : (
                 <MobileNoticePostRow
@@ -60,6 +62,7 @@ export default ({
                   currentPage={currentPage}
                   currentRange={currentRange}
                   boardId={boardId}
+                  postOnClick={postOnClick}
                 />
               );
             })}
@@ -75,6 +78,7 @@ export default ({
         page={page}
         rangeSize={rangeSize}
         listCount={listCount}
+        onClick={postOnClick}
       />
     </Warpper>
   );

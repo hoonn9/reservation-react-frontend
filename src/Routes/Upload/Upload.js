@@ -9,6 +9,7 @@ import Input from "../../Components/Input";
 import GlobalText from "../../GlobalText";
 import ReactLoading from "react-loading";
 import { useHistory, useLocation } from "react-router-dom";
+import { getStorage, setStorage } from "../../Utils";
 
 const Container = styled.div``;
 
@@ -48,9 +49,9 @@ const Button = styled.button`
 
 export default ({ platform }) => {
   let location = useLocation();
-  const {
-    state: { id: boardId },
-  } = location;
+  const [boardId, setBoardId] = useState("");
+  let type;
+
   const globalText = GlobalText();
   const uploadTitle = useInput("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -64,31 +65,49 @@ export default ({ platform }) => {
     return "정말 벗어나시겠습니까?";
   };
   useEffect(() => {
+    if (location.state !== undefined) {
+      setBoardId(location.state.id);
+      type = location.state.type;
+    }
+
+    const boardState = getStorage("board_free");
+    if (boardState) {
+      setBoardId(boardState.boardId);
+    }
+    console.log(boardId);
     window.addEventListener("beforeunload", handleLeavePage);
     window.onbeforeunload = handleLeavePage;
   }, []);
 
   const handlePost = async () => {
-    const postJson = JSON.stringify(
-      convertToRaw(editorState.getCurrentContent())
-    );
-    setLoading(true);
-    try {
-      await uploadMutation({
-        variables: {
+    if (uploadTitle.value !== "") {
+      const postJson = JSON.stringify(
+        convertToRaw(editorState.getCurrentContent())
+      );
+      setLoading(true);
+      try {
+        await uploadMutation({
+          variables: {
+            boardId,
+            postType: "free",
+            title: uploadTitle.value,
+            content: postJson,
+            files: [...imageArray],
+          },
+        });
+        // 첫 페이지로
+        setStorage("board_free", {
           boardId,
-          postType: "free",
-          title: uploadTitle.value,
-          content: postJson,
-          files: [...imageArray],
-        },
-      });
-      history.push({
-        pathname: `/board/${boardId}`,
-        state: { id: boardId },
-      });
-    } catch (e) {
-      setLoading(false);
+          currentPage: 0,
+          currentRange: 0,
+        });
+        history.push({
+          pathname: `/board/${boardId}`,
+          state: { id: boardId },
+        });
+      } catch (e) {
+        setLoading(false);
+      }
     }
   };
 

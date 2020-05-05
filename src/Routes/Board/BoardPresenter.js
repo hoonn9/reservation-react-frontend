@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Board from "../../Components/Board";
 import Title from "../../Components/Title";
+import { globalText } from "../../GlobalText";
 
 const Container = styled.div`
   width: 100%;
@@ -10,30 +11,29 @@ const Container = styled.div`
 
 export default ({
   platform,
+  type,
   data,
   rangeSize,
   setCurrentPage,
   currentPage,
   pageSize,
   listCount,
-  globalText,
   boardId,
   setCurrentRange,
-  currentRange
+  currentRange,
 }) => {
   return (
     <Container>
       <Title platform={platform} text={globalText.text_free_board} />
       <Board
         platform={platform}
-        type="free"
+        type={type}
         data={data}
         rangeSize={rangeSize}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         pageSize={pageSize}
         listCount={listCount}
-        globalText={globalText}
         boardId={boardId}
         setCurrentRange={setCurrentRange}
         currentRange={currentRange}

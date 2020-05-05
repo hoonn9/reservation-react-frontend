@@ -4,7 +4,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
-
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 const TabWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -52,21 +53,19 @@ export default ({
   pageSize,
   rangeSize,
   listCount,
+  onClick = () => null,
 }) => {
   const page = Math.ceil(
     (listCount - currentRange * rangeSize * pageSize) / pageSize
   );
   return (
     <TabWrapper>
-      {currentRange === 0 ? (
-        <FirstButton disabled>
-          <SkipPreviousIcon />
-        </FirstButton>
-      ) : (
+      {currentRange === 0 || listCount / pageSize > rangeSize ? null : (
         <FirstButton
           onClick={() => {
             setCurrentRange(currentRange - 1);
             setCurrentPage((currentRange - 1) * pageSize);
+            onClick();
           }}
         >
           <SkipPreviousIcon />
@@ -84,6 +83,7 @@ export default ({
             if (currentPage % rangeSize === 0) {
               setCurrentRange(currentRange - 1);
             }
+            onClick();
           }}
         >
           <ChevronLeftIcon />
@@ -98,6 +98,7 @@ export default ({
               key={currentRange * pageSize + i}
               onClick={() => {
                 setCurrentPage(currentRange * rangeSize + i);
+                onClick();
               }}
             >
               {currentRange * pageSize + i + 1}
@@ -107,6 +108,7 @@ export default ({
               key={currentRange * pageSize + i}
               onClick={() => {
                 setCurrentPage(currentRange * rangeSize + i);
+                onClick();
               }}
             >
               {currentRange * pageSize + i + 1}
@@ -118,6 +120,7 @@ export default ({
               key={currentRange * rangeSize + i}
               onClick={() => {
                 setCurrentPage(currentRange * rangeSize + i);
+                onClick();
               }}
             >
               {currentRange * rangeSize + i + 1}
@@ -127,6 +130,7 @@ export default ({
               key={currentRange * rangeSize + i}
               onClick={() => {
                 setCurrentPage(currentRange * rangeSize + i);
+                onClick();
               }}
             >
               {currentRange * rangeSize + i + 1}
@@ -145,20 +149,19 @@ export default ({
             if (currentPage % rangeSize === rangeSize - 1) {
               setCurrentRange(currentRange + 1);
             }
+            onClick();
           }}
         >
           <ChevronRightIcon />
         </NextButton>
       )}
-      {currentRange === Math.floor((listCount - 1) / (rangeSize * pageSize)) ? (
-        <LastButton disabled>
-          <SkipNextIcon />
-        </LastButton>
-      ) : (
+      {currentRange === Math.floor((listCount - 1) / (rangeSize * pageSize)) ||
+      listCount / pageSize > rangeSize ? null : (
         <LastButton
           onClick={() => {
             setCurrentRange(currentRange + 1);
             setCurrentPage((currentRange + 1) * rangeSize);
+            onClick();
           }}
         >
           <SkipNextIcon />

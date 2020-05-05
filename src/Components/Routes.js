@@ -51,12 +51,12 @@ const LoggedOutRoutes = ({ platform, screenSize, isLoggedIn }) => (
     />
     <Route path="/join" render={(props) => <Join platform={platform} />} />
     <Route
-      path="/board/:id"
-      render={(props) => <Board platform={platform} />}
+      path="/board/upload/:id"
+      render={(props) => <Login platform={platform} screenSize={screenSize} />}
     />
     <Route
-      path="/upload"
-      render={(props) => <Login platform={platform} screenSize={screenSize} />}
+      path="/board/:id"
+      render={(props) => <Board platform={platform} />}
     />
     <Route path="/post/:id" render={(props) => <Post platform={platform} />} />
     <Route
@@ -158,7 +158,7 @@ const LoggedInRoutes = ({ platform, screenSize, isLoggedIn }) => (
       )}
     />
     <Route
-      path="/upload"
+      path="/board/upload/:id"
       render={(props) => <Upload platform={platform} screenSize={screenSize} />}
     />
     <Route

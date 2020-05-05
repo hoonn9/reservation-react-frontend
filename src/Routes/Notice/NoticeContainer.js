@@ -6,7 +6,7 @@ import { BoardPage } from "../../Components/Page";
 import Loader from "../../Components/Loader";
 import GlobalText from "../../GlobalText";
 import ErrorAlert from "../../Components/ErrorAlert";
-import { getBoardState } from "../../Utils";
+import { getStorage } from "../../Utils";
 import { useLocation } from "react-router-dom";
 export default ({ platform }) => {
   const globalText = GlobalText();
@@ -24,8 +24,9 @@ export default ({ platform }) => {
   const [currentRange, setCurrentRange] = useState(0);
 
   useEffect(() => {
-    const boardState = getBoardState(boardId);
+    const boardState = getStorage("board");
     if (boardState) {
+      boardId = boardState.boardId;
       setCurrentPage(boardState.currentPage);
       setCurrentRange(boardState.currentRange);
     }

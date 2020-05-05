@@ -93,6 +93,14 @@ export default ({ isLoggedIn, platform }) => {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll);
+
+    if (pathname.indexOf("board") === -1 && pathname.indexOf("post") === -1) {
+      localStorage.removeItem("board_free");
+    }
+
+    if (pathname.indexOf("notice") === -1) {
+      localStorage.removeItem("board_notice");
+    }
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname, platform]);
 

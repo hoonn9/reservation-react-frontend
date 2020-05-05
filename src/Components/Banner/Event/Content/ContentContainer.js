@@ -41,10 +41,9 @@ export default ({
         id: e.id,
         title: e.title,
         subTitle: e.subTitle,
-        url: e.thumbnail,
+        url: e.files.length > 0 ? e.files[0].url : null,
       });
     });
-
     return <TouchSlideView data={viewArray} type="banner" />;
   }
 };
