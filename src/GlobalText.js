@@ -216,6 +216,14 @@ const getLanguage = (language = "kr") => {
       text_board_header_name: "작성자",
       text_board_header_views: "조회수",
       text_board_header_date: "작성일",
+      text_event_desc_1:
+        "1. 이벤트 응모기간 이후에는 참여 내용 수정이 불가합니다.",
+      text_event_desc_2:
+        "2. 이벤트 및 체험단 응모 데이터는 응모일 기준으로 1년동안 보관됩니다.",
+      text_event_desc_3:
+        "3. 이벤트 주제, 참여 방법에 맞지 않는 내용은 예고없이 삭제됩니다.",
+      text_event_desc_4:
+        "4. 이벤트 내용은 주관사의 사정에 따라 변경될 수 있습니다.",
       text_reservation_widget_title:
         "지구 최강의 숙소와 즐길거리를 예약하세요!",
       text_check_in: "체크인",

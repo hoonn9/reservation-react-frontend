@@ -11,7 +11,7 @@ export const SEE_FULL_POST = gql`
         name
       }
       user {
-        username
+        nickname
       }
       createdAt
     }

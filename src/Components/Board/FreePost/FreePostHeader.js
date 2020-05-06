@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GlobalText from "../../../GlobalText";
+import { globalText } from "../../../GlobalText";
 const Warpper = styled.tr`
   display: flex;
   width: 100%;
@@ -29,7 +29,6 @@ const ViewRow = styled(Row)`
   width: 10%;
 `;
 export default () => {
-  const globalText = GlobalText();
   return (
     <Warpper>
       <NumRow>{globalText.text_board_header_no}</NumRow>

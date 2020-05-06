@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { dateConverter } from "../../../Utils";
+import { dateConverter, dateSimpleConverter } from "../../../Utils";
 
 const Warpper = styled.tr`
   display: flex;
@@ -68,8 +68,8 @@ export default ({
         </PostLink>
       </TitleRow>
 
-      <NameRow>{user.username}</NameRow>
-      <DateRow>{dateConverter(createdAt)}</DateRow>
+      <NameRow>{user.nickname}</NameRow>
+      <DateRow>{dateSimpleConverter(createdAt)}</DateRow>
       <ViewRow>{views}</ViewRow>
     </Warpper>
   );

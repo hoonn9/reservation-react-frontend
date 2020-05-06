@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { dateDetailConverter } from "../Utils";
+import { dateSimpleConverter } from "../Utils";
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
@@ -41,7 +41,7 @@ export default ({ platform, nickname, text, createdAt }) => {
         <Wrapper>
           <TopWrapper>
             <NicknameWrapper>{nickname}</NicknameWrapper>
-            <DateWrapper>{dateDetailConverter(createdAt)}</DateWrapper>
+            <DateWrapper>{dateSimpleConverter(createdAt)}</DateWrapper>
           </TopWrapper>
           <Textarea readOnly value={text} />
         </Wrapper>
@@ -49,7 +49,7 @@ export default ({ platform, nickname, text, createdAt }) => {
         <MobileWrapper>
           <TopWrapper>
             <NicknameWrapper>{nickname}</NicknameWrapper>
-            <DateWrapper>{dateDetailConverter(createdAt)}</DateWrapper>
+            <DateWrapper>{dateSimpleConverter(createdAt)}</DateWrapper>
           </TopWrapper>
           <Textarea readOnly value={text} />
         </MobileWrapper>

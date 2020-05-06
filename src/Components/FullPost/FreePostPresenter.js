@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { dateConverter } from "../../Utils";
+import { dateDetailConverter } from "../../Utils";
 import ReadEditor from "../ReadEditor";
+import { globalText } from "../../GlobalText";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,15 +75,7 @@ const ContentWrapper = styled.div`
   padding: 8px 0px;
   min-height: 480px;
 `;
-export default ({
-  platform,
-  title,
-  user,
-  createdAt,
-  views,
-  globalText,
-  editorState,
-}) => {
+export default ({ platform, title, user, createdAt, views, editorState }) => {
   return (
     <>
       {platform === "desktop" ? (
@@ -93,10 +86,11 @@ export default ({
           <SubWrapper>
             <SubLeftWrapper>
               <NameText>
-                {globalText.text_board_header_name} : {user.username}
+                {globalText.text_board_header_name} : {user.nickname}
               </NameText>
               <DateText>
-                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+                {globalText.text_board_header_date} :{" "}
+                {dateDetailConverter(createdAt)}
               </DateText>
             </SubLeftWrapper>
             <SubRightWrapper>
@@ -117,10 +111,11 @@ export default ({
           <SubWrapper>
             <MobileSubLeftWrapper>
               <NameText>
-                {globalText.text_board_header_name} : {user.username}
+                {globalText.text_board_header_name} : {user.nickname}
               </NameText>
               <DateText>
-                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+                {globalText.text_board_header_date} :{" "}
+                {dateDetailConverter(createdAt)}
               </DateText>
             </MobileSubLeftWrapper>
             <MobileSubRightWrapper>

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ReadEditor from "../ReadEditor";
 
 const Wrapper = styled.div``;
 const TopViewWrapper = styled.div`
@@ -79,7 +80,16 @@ const TopViewPeriod = styled.p`
   line-height: 1.6em;
 `;
 
-export default ({ eventType, title, period, subTitle, content, files }) => {
+export default ({
+  platform,
+  eventType,
+  title,
+  period,
+  subTitle,
+  content,
+  files,
+  editorState,
+}) => {
   return (
     <Wrapper>
       <TopViewWrapper>
@@ -100,6 +110,7 @@ export default ({ eventType, title, period, subTitle, content, files }) => {
           </TopViewDescWrapper>
         </TopViewDetailWrapper>
       </TopViewWrapper>
+      <ReadEditor platform={platform} editorState={editorState} />
     </Wrapper>
   );
 };

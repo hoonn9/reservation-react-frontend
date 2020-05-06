@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Editor } from "react-draft-wysiwyg";
 import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";
+import { getUri } from "../Utils";
 
 const Wrapper = styled.div`
   position: relative;
@@ -29,7 +30,7 @@ export default ({ platform, editorState, setEditorState, imageArray }) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:4000/api/upload", formData, {
+        .post(getUri() + "api/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -57,6 +58,7 @@ export default ({ platform, editorState, setEditorState, imageArray }) => {
             uploadEnabled: true,
             uploadCallback: uploadCallback,
             previewImage: true,
+            defaultSize: { width: "100%", height: "auto" },
           },
         }}
         editorStyle={platform === "mobile" ? mobileEditorStyle : editorStyle}

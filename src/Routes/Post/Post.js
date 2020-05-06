@@ -6,7 +6,7 @@ import { SEE_FULL_POST } from "./PostQueries";
 import Loader from "../../Components/Loader";
 import ErrorAlert from "../../Components/ErrorAlert";
 import FullPost from "../../Components/FullPost";
-import GlobalText from "../../GlobalText";
+import GlobalText, { globalText } from "../../GlobalText";
 import { setStorage, getStorage } from "../../Utils";
 import Title from "../../Components/Title";
 import Comment from "../../Components/Comment";
@@ -31,13 +31,14 @@ export default ({ platform }) => {
   var currentRange;
   var boardId;
   var pathname;
-  console.log(location);
+
   if (location.state !== undefined) {
     id = location.state.id;
     type = location.state.type;
     currentPage = location.state.currentPage;
     currentRange = location.state.currentRange;
     boardId = location.state.boardId;
+
     if (type === "free") {
       pathname = `/board/${boardId}`;
     } else if (type === "notice") {
@@ -45,13 +46,15 @@ export default ({ platform }) => {
     }
   } else {
     const boardState = getStorage(`board_${type}`);
-
     const { pathname: locationPathname } = location;
     id = locationPathname.split("/")[2];
     type = locationPathname.split("/")[1];
-    boardId = boardState.boardId;
-    currentRange = boardState.currentRange;
-    currentPage = boardState.currentPage;
+
+    if (boardState) {
+      boardId = boardState.boardId;
+      currentRange = boardState.currentRange;
+      currentPage = boardState.currentPage;
+    }
 
     if (type === "post") {
       pathname = `/board/${boardId}`;
@@ -59,18 +62,6 @@ export default ({ platform }) => {
       pathname = "/notice";
     }
   }
-  useEffect(() => {
-    window.addEventListener("beforeunload", (e) => {
-      e.preventDefault();
-      localStorage.removeItem(boardId);
-    });
-    return () => {
-      window.removeEventListener("beforeunload", (e) => {
-        e.preventDefault();
-        localStorage.removeItem(boardId);
-      });
-    };
-  }, [boardId, currentPage, currentRange]);
 
   const { data, error, loading } = useQuery(SEE_FULL_POST, {
     variables: {
@@ -78,7 +69,7 @@ export default ({ platform }) => {
     },
     fetchPolicy: "network-only",
   });
-  const globalText = GlobalText();
+
   return (
     <div className="body-content">
       {error ? (

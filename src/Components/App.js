@@ -10,6 +10,7 @@ import Header from "./Header";
 import Routes from "./Routes";
 import Footer from "./Footer";
 import GlobalText from "../GlobalText";
+import { getFrontUri } from "../Utils";
 
 const QUERY = gql`
   {

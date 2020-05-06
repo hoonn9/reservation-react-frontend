@@ -18,6 +18,57 @@ export const dateConverter = (date) => {
   }월 ${convertDate.getDate()}일`;
 };
 
+export const dateSimpleConverter = (date) => {
+  const now = new Date();
+  const writeDay = new Date(date);
+  let minus;
+  let converted = "";
+
+  if (now.getFullYear() > writeDay.getFullYear()) {
+    // minus = now.getFullYear() - writeDay.getFullYear();
+    // converted = minus + "년 전";
+    converted = `${writeDay.getFullYear()}년 ${
+      writeDay.getMonth() + 1
+    }월 ${writeDay.getDate()}일 ${writeDay.getHours()}시 ${writeDay.getMinutes()}분`;
+  } else if (now.getMonth() > writeDay.getMonth()) {
+    // minus = now.getMonth() - writeDay.getMonth();
+    // converted = minus + "달 전";
+    converted = `${writeDay.getFullYear()}년 ${
+      writeDay.getMonth() + 1
+    }월 ${writeDay.getDate()}일 ${writeDay.getHours()}시 ${writeDay.getMinutes()}분`;
+  } else if (now.getDate() > writeDay.getDate()) {
+    // minus = now.getDate() - writeDay.getDate();
+    // converted = minus + "일 전";
+    converted = `${writeDay.getFullYear()}년 ${
+      writeDay.getMonth() + 1
+    }월 ${writeDay.getDate()}일 ${writeDay.getHours()}시 ${writeDay.getMinutes()}분`;
+  } else if (now.getDate() == writeDay.getDate()) {
+    const nowTime = now.getTime();
+    const writeTime = writeDay.getTime();
+    if (nowTime > writeTime) {
+      let sec = parseInt(nowTime - writeTime) / 1000;
+      let day = parseInt(sec / 60 / 60 / 24);
+      sec = sec - day * 60 * 60 * 24;
+      let hour = parseInt(sec / 60 / 60);
+      sec = sec - hour * 60 * 60;
+      let min = parseInt(sec / 60);
+      sec = parseInt(sec - min * 60);
+      if (hour > 0) {
+        converted = hour + "시간 전";
+      } else if (min > 0) {
+        converted = min + "분 전";
+      } else if (sec > 0) {
+        converted = sec + "초 전";
+      } else {
+        converted = "방금 전";
+      }
+    } else {
+      converted = "방금 전";
+    }
+  }
+  return converted;
+};
+
 export const dateDetailConverter = (date) => {
   const convertDate = new Date(date);
   return `${convertDate.getFullYear()}년 ${

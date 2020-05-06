@@ -74,7 +74,7 @@ export default ({ platform }) => {
     if (boardState) {
       setBoardId(boardState.boardId);
     }
-    console.log(boardId);
+
     window.addEventListener("beforeunload", handleLeavePage);
     window.onbeforeunload = handleLeavePage;
   }, []);
@@ -95,6 +95,7 @@ export default ({ platform }) => {
             files: [...imageArray],
           },
         });
+
         // 첫 페이지로
         setStorage("board_free", {
           boardId,

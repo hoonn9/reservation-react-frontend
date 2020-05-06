@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { dateConverter } from "../../Utils";
+import { dateDetailConverter } from "../../Utils";
 import ReadEditor from "../ReadEditor";
+import { globalText } from "../../GlobalText";
 
 const Wrapper = styled.div`
   width: 100%;
 `;
 
 const TitleWrapper = styled.div`
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
   padding: 32px 32px;
   border-top: 2px solid #999;
   border-bottom: 1px solid #c7c7c7;
 `;
 const MobileTitleWrapper = styled.div`
-  background-color: ${props => props.theme.superLiteGreyColor};
+  background-color: ${(props) => props.theme.superLiteGreyColor};
   padding: 24px 16px;
   border-top: 2px solid #999;
   border-bottom: 1px solid #c7c7c7;
@@ -67,14 +68,7 @@ const ContentWrapper = styled.div`
   min-height: 480px;
   border-bottom: 1px solid #c7c7c7;
 `;
-export default ({
-  platform,
-  title,
-  createdAt,
-  views,
-  globalText,
-  editorState
-}) => {
+export default ({ platform, title, createdAt, views, editorState }) => {
   return (
     <>
       {platform === "desktop" ? (
@@ -86,7 +80,8 @@ export default ({
           <SubWrapper>
             <SubLeftWrapper>
               <DateText>
-                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+                {globalText.text_board_header_date} :{" "}
+                {dateDetailConverter(createdAt)}
               </DateText>
             </SubLeftWrapper>
             <SubRightWrapper>
@@ -108,7 +103,8 @@ export default ({
           <SubWrapper>
             <MobileSubLeftWrapper>
               <DateText>
-                {globalText.text_board_header_date} : {dateConverter(createdAt)}
+                {globalText.text_board_header_date} :{" "}
+                {dateDetailConverter(createdAt)}
               </DateText>
             </MobileSubLeftWrapper>
             <MobileSubRightWrapper>

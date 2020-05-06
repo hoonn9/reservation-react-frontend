@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 const TabWrapper = styled.div`
@@ -60,7 +58,7 @@ export default ({
   );
   return (
     <TabWrapper>
-      {currentRange === 0 || listCount / pageSize > rangeSize ? null : (
+      {currentRange === 0 || listCount / pageSize < rangeSize ? null : (
         <FirstButton
           onClick={() => {
             setCurrentRange(currentRange - 1);
@@ -68,7 +66,7 @@ export default ({
             onClick();
           }}
         >
-          <SkipPreviousIcon />
+          <ArrowLeftIcon />
         </FirstButton>
       )}
 
@@ -156,7 +154,7 @@ export default ({
         </NextButton>
       )}
       {currentRange === Math.floor((listCount - 1) / (rangeSize * pageSize)) ||
-      listCount / pageSize > rangeSize ? null : (
+      listCount / pageSize < rangeSize ? null : (
         <LastButton
           onClick={() => {
             setCurrentRange(currentRange + 1);
@@ -164,7 +162,7 @@ export default ({
             onClick();
           }}
         >
-          <SkipNextIcon />
+          <ArrowRightIcon />
         </LastButton>
       )}
     </TabWrapper>

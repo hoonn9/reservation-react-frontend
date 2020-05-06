@@ -19,7 +19,7 @@ export const SEE_BOARD = gql`
       title
       views
       user {
-        username
+        nickname
       }
       createdAt
     }
